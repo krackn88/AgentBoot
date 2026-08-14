@@ -1,4 +1,4 @@
-"""RiskByPass API client for akamai, recaptcha, and tls_forward tasks."""
+"""RiskByPass API client for akamai, perimeterx, recaptcha, and tls_forward tasks."""
 
 from __future__ import annotations
 
@@ -86,6 +86,44 @@ class RiskByPassClient:
             payload["page_fp"] = page_fp
         return self.run_task(payload)
 
+    def perimeterx_invisible(
+        self,
+        *,
+        proxy: str,
+        target_url: str,
+        px_app_id: str | None = None,
+        init_cookies: dict[str, str] | None = None,
+    ) -> dict[str, Any]:
+        payload: dict[str, Any] = {
+            "task_type": "perimeterx_invisible",
+            "proxy": proxy,
+            "target_url": target_url,
+        }
+        if px_app_id:
+            payload["pxAppId"] = px_app_id
+        if init_cookies:
+            payload["init_cookies"] = init_cookies
+        return self.run_task(payload)
+
+    def perimeterx_hold(
+        self,
+        *,
+        proxy: str,
+        target_url: str,
+        px_app_id: str | None = None,
+        init_cookies: dict[str, str] | None = None,
+    ) -> dict[str, Any]:
+        payload: dict[str, Any] = {
+            "task_type": "perimeterx_hold",
+            "proxy": proxy,
+            "target_url": target_url,
+        }
+        if px_app_id:
+            payload["pxAppId"] = px_app_id
+        if init_cookies:
+            payload["init_cookies"] = init_cookies
+        return self.run_task(payload)
+
     def recaptcha_v3(
         self,
         *,
@@ -147,3 +185,12 @@ def merge_cookies(*cookie_dicts: dict[str, str]) -> dict[str, str]:
     for d in cookie_dicts:
         merged.update(d)
     return merged
+
+
+def apply_rb_cookies(result: dict[str, Any]) -> tuple[dict[str, str], str]:
+    """Extract cookies and UA from an RB task result."""
+    cookies = result.get("cookies_dict") or result.get("cookies") or {}
+    if isinstance(cookies, list):
+        cookies = {c["name"]: c["value"] for c in cookies if c.get("name")}
+    ua = result.get("ua") or ""
+    return cookies, ua
