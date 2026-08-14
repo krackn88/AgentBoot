@@ -1,19 +1,40 @@
-"""RiskByPass API client for akamai, perimeterx, recaptcha, and tls_forward tasks."""
+"""RiskByPass API client for akamai, recaptcha, and tls_forward tasks."""
 
 from __future__ import annotations
 
+import base64
+import json
 import time
+from dataclasses import dataclass
 from typing import Any
 
 import requests
 
 DEFAULT_BASE_URL = "https://riskbypass.com"
 DEFAULT_POLL_INTERVAL = 1.0
-DEFAULT_TIMEOUT = 120
+DEFAULT_TIMEOUT = 180
+
+# page_fp used by RB akamai demos (kohls, bloomingdales, etc.)
+DEFAULT_PAGE_FP = (
+    "42455e5a4e495c515f4541595f465355405a435f5f585f5b4e495c53464b4a45"
+    "405a435f5f585f5b4e495c53464b4a455f534650455f455f534646415f4e495c53"
+    "464b4a455f534650455f455f534646415f4e495c53464b4a455f534650455f455f"
+)
 
 
 class RiskByPassError(Exception):
     """Raised when an RB task fails or times out."""
+
+
+@dataclass
+class TlsResponse:
+    status_code: int
+    text: str
+    headers: dict[str, Any]
+    cookies: dict[str, str]
+
+    def json(self) -> Any:
+        return json.loads(self.text)
 
 
 class RiskByPassClient:
@@ -72,54 +93,15 @@ class RiskByPassClient:
         target_url: str,
         akamai_js_url: str,
         init_cookies: dict[str, str] | None = None,
-        page_fp: str | None = None,
+        page_fp: str | None = DEFAULT_PAGE_FP,
     ) -> dict[str, Any]:
         payload: dict[str, Any] = {
             "task_type": "akamai",
             "proxy": proxy,
             "target_url": target_url,
             "akamai_js_url": akamai_js_url,
+            "page_fp": page_fp or DEFAULT_PAGE_FP,
         }
-        if init_cookies:
-            payload["init_cookies"] = init_cookies
-        if page_fp:
-            payload["page_fp"] = page_fp
-        return self.run_task(payload)
-
-    def perimeterx_invisible(
-        self,
-        *,
-        proxy: str,
-        target_url: str,
-        px_app_id: str | None = None,
-        init_cookies: dict[str, str] | None = None,
-    ) -> dict[str, Any]:
-        payload: dict[str, Any] = {
-            "task_type": "perimeterx_invisible",
-            "proxy": proxy,
-            "target_url": target_url,
-        }
-        if px_app_id:
-            payload["pxAppId"] = px_app_id
-        if init_cookies:
-            payload["init_cookies"] = init_cookies
-        return self.run_task(payload)
-
-    def perimeterx_hold(
-        self,
-        *,
-        proxy: str,
-        target_url: str,
-        px_app_id: str | None = None,
-        init_cookies: dict[str, str] | None = None,
-    ) -> dict[str, Any]:
-        payload: dict[str, Any] = {
-            "task_type": "perimeterx_hold",
-            "proxy": proxy,
-            "target_url": target_url,
-        }
-        if px_app_id:
-            payload["pxAppId"] = px_app_id
         if init_cookies:
             payload["init_cookies"] = init_cookies
         return self.run_task(payload)
@@ -152,25 +134,83 @@ class RiskByPassClient:
         self,
         *,
         proxy: str,
-        target_url: str,
+        url: str,
         method: str,
         headers: dict[str, str],
         cookies: dict[str, str],
-        ua: str,
         body: str | None = None,
-    ) -> dict[str, Any]:
+        timeout: int = 60,
+    ) -> TlsResponse:
         payload: dict[str, Any] = {
             "task_type": "tls_forward",
             "proxy": proxy,
-            "target_url": target_url,
-            "target_method": method.upper(),
-            "target_headers": headers,
-            "cookies": cookies,
-            "ua": ua,
+            "url": url,
+            "method": method.upper(),
+            "headers": headers,
+            "cookies_dict": cookies,
+            "timeout": timeout,
         }
         if body is not None:
-            payload["target_body"] = body
-        return self.run_task(payload)
+            payload["body_base64"] = base64.b64encode(body.encode()).decode()
+        ua = headers.get("User-Agent") or headers.get("user-agent")
+        if ua:
+            payload["user_agent"] = ua
+        result = self.run_task(payload)
+        return parse_tls_result(result)
+
+    def tls_get(
+        self,
+        url: str,
+        *,
+        proxy: str,
+        headers: dict[str, str],
+        cookies: dict[str, str],
+        timeout: int = 60,
+    ) -> TlsResponse:
+        return self.tls_forward(
+            proxy=proxy,
+            url=url,
+            method="GET",
+            headers=headers,
+            cookies=cookies,
+            timeout=timeout,
+        )
+
+    def tls_post(
+        self,
+        url: str,
+        *,
+        proxy: str,
+        headers: dict[str, str],
+        cookies: dict[str, str],
+        body: dict[str, Any] | str,
+        timeout: int = 60,
+    ) -> TlsResponse:
+        payload = body if isinstance(body, str) else json.dumps(body)
+        return self.tls_forward(
+            proxy=proxy,
+            url=url,
+            method="POST",
+            headers=headers,
+            cookies=cookies,
+            body=payload,
+            timeout=timeout,
+        )
+
+
+def parse_tls_result(result: dict[str, Any]) -> TlsResponse:
+    text = result.get("text") or ""
+    if not text and result.get("body_base64"):
+        text = base64.b64decode(result["body_base64"]).decode("utf-8", "replace")
+    cookies = result.get("cookies") or result.get("cookies_dict") or {}
+    if isinstance(cookies, list):
+        cookies = {c["name"]: c["value"] for c in cookies if c.get("name")}
+    return TlsResponse(
+        status_code=int(result.get("status_code") or 0),
+        text=text,
+        headers=result.get("headers") or {},
+        cookies=cookies,
+    )
 
 
 def abck_trust_segment(cookies: dict[str, str]) -> str:

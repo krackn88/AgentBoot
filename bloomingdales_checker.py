@@ -378,19 +378,23 @@ class BloomingdalesChecker:
             }
             if dfp:
                 headers["X-Macys-DeviceFingerprint"] = dfp
-            result = self.rb.tls_forward(
-                proxy=self.proxy,
-                target_url=url,
-                method=method,
-                headers=headers,
-                cookies=self.cookies,
-                ua=self.ua,
-                body=json.dumps(body) if method == "POST" else None,
-            )
-            status = result.get("status_code")
-            raw = ""
-            if result.get("body_base64"):
-                raw = base64.b64decode(result["body_base64"]).decode("utf-8", "replace")
+            if method.upper() == "POST":
+                resp = self.rb.tls_post(
+                    url,
+                    proxy=self.proxy,
+                    headers=headers,
+                    cookies=self.cookies,
+                    body=body,
+                )
+            else:
+                resp = self.rb.tls_get(
+                    url,
+                    proxy=self.proxy,
+                    headers=headers,
+                    cookies=self.cookies,
+                )
+            status = resp.status_code
+            raw = resp.text
             if status == 200 and raw.startswith("{"):
                 return self._parse_signin_response(name, json.loads(raw), status)
             return CheckResult(

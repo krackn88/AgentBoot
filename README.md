@@ -17,15 +17,16 @@ Shared environment:
 
 ---
 
-## Michaels.com (easier target)
+## Michaels.com
 
 Checks sign-in and **Michaels Rewards** balance via `memberLookUp`.
+
+Uses the official RB pattern: **akamai (with page_fp) + tls_forward for all API calls**.
 
 | Variable | Description |
 |---|---|
 | `MICHAELS_EMAIL` | Test account email |
 | `MICHAELS_PASSWORD` | Test account password |
-| `MICHAELS_PX_APP_ID` | (optional) PerimeterX app id if RB needs it |
 
 ```bash
 export RB_TOKEN="your_token"
@@ -38,21 +39,18 @@ python michaels_checker.py --json
 
 ### Checks performed
 
-1. **signin_page** — GET `/signin`
-2. **rb_perimeterx** — RB `perimeterx_invisible` / `perimeterx_hold` for `_px*` cookies
-3. **rb_akamai** — optional RB `akamai` if Akamai scripts are present
-4. **sign_in** — POST `/api/usr/user/sign-in-secure`
-5. **loyalty_id** — GET `/api/rewards/loyalty/findLoyaltyIdByUserId`
-6. **rewards_member_lookup** — POST `/api/rewards/direct/loyalty/memberLookUp` (points, vouchers, offers)
+1. **signin_page** — GET `/signin` via curl_cffi (init cookies + scrape akamai JS URL)
+2. **rb_akamai** — RB `akamai` with `page_fp`; requires `_abck` segment `0`
+3. **sign_in** — RB `tls_forward` POST `/api/usr/user/sign-in-secure`
+4. **loyalty_id** — RB `tls_forward` GET `/api/rewards/loyalty/findLoyaltyIdByUserId`
+5. **rewards_member_lookup** — RB `tls_forward` POST `/api/rewards/direct/loyalty/memberLookUp`
 
 ### RB task types used
 
 | Task | Purpose |
 |---|---|
-| `perimeterx_invisible` | Primary bot bypass (`_px3`, `_pxvid`) |
-| `perimeterx_hold` | Fallback for press-and-hold challenge |
-| `akamai` | Secondary CDN `_abck` if needed |
-| `tls_forward` | POST/GET fallback on 403 |
+| `akamai` | Trusted `_abck` sensor cookies (always includes `page_fp`) |
+| `tls_forward` | All authenticated API calls (sign-in, loyalty, rewards) |
 
 ---
 
@@ -90,5 +88,5 @@ python bloomingdales_checker.py --profile desktop --json
 ## Notes
 
 - Do not commit tokens, proxy credentials, or passwords.
-- Michaels uses PerimeterX + Akamai; residential proxies work best.
-- Bloomingdale's desktop POST APIs require trusted Akamai (`_abck` segment `0`).
+- Michaels is Akamai-only on most proxies (no PerimeterX). API POSTs require trusted `_abck` segment `0`.
+- RB `tls_forward` uses fields `url`, `method`, `body_base64`, `cookies_dict` (not `target_url`/`target_method`).
