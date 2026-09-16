@@ -60,13 +60,20 @@ function renderResellerAdminOverview() {
       const active = r.active
         ? '<span class="reseller-pill ok">active</span>'
         : '<span class="reseller-pill bad">off</span>';
+      const ratePct = (Number(r.pricing_percentage) * 100).toFixed(1);
       return `
         <div class="reseller-admin-card">
           <div class="reseller-admin-card-top">
             <strong>${escapeHtml(r.name)}</strong> ${active}
           </div>
-          <div class="muted">TG ${r.telegram_user_id} · ${escapeHtml(r.pricing_label)}</div>
+          <div class="muted">TG ${r.telegram_user_id}</div>
           <div class="credit-line">$${Number(r.credit_balance).toFixed(2)} credit</div>
+          <div class="reseller-rate-edit">
+            <label for="reseller-rate-${r.id}">Rate %</label>
+            <input id="reseller-rate-${r.id}" type="number" step="0.1" min="0.1" class="reseller-rate-input" data-reseller-id="${r.id}" value="${ratePct}">
+            <button type="button" class="reseller-rate-save" data-save-rate="${r.id}">Save</button>
+          </div>
+          <p class="reseller-rate-msg muted" data-rate-msg="${r.id}"></p>
         </div>`;
     })
     .join("") || "<p class='muted'>No resellers configured.</p>";
@@ -97,6 +104,37 @@ function renderResellerAdminOverview() {
       <div class="reseller-orders-list">${orderRows}</div>
     </div>
   `;
+
+  resellerAdminOverviewEl.querySelectorAll("[data-save-rate]").forEach((btn) => {
+    btn.addEventListener("click", () => saveResellerRate(btn.dataset.saveRate));
+  });
+}
+
+async function saveResellerRate(resellerId) {
+  const id = String(resellerId);
+  const input = resellerAdminOverviewEl?.querySelector(`input[data-reseller-id="${id}"]`);
+  const msg = resellerAdminOverviewEl?.querySelector(`[data-rate-msg="${id}"]`);
+  if (!input) return;
+  const pct = Number(input.value);
+  if (!pct || pct <= 0) {
+    if (msg) msg.textContent = "Enter a valid rate %";
+    return;
+  }
+  if (msg) msg.textContent = "Saving…";
+  try {
+    const res = await fetch(apiUrl(`/api/reseller/admin/resellers/${id}`), {
+      method: "PUT",
+      headers: { ...apiHeaders(), "Content-Type": "application/json" },
+      body: JSON.stringify({ pricing_percentage: pct }),
+    });
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || "Failed to save rate");
+    resellerAdminOverview = data.admin_overview || resellerAdminOverview;
+    if (msg) msg.textContent = `Saved at ${pct}%`;
+    renderResellerAdminOverview();
+  } catch (err) {
+    if (msg) msg.textContent = err.message || "Could not save rate";
+  }
 }
 
 function renderResellerAccount() {

@@ -10,6 +10,7 @@
           <td>$${Number(r.credit_balance).toFixed(2)}</td>
           <td>${r.active ? '<span class="ok">yes</span>' : '<span class="bad">no</span>'}</td>
           <td class="actions">
+            <button onclick="editResellerRate(${r.id}, ${(Number(r.pricing_percentage) * 100).toFixed(1)})">Set rate</button>
             <button onclick="editResellerCredit(${r.id}, ${Number(r.credit_balance).toFixed(2)})">Set credit</button>
             <button onclick="toggleReseller(${r.id}, ${r.active ? 'false' : 'true'})">${r.active ? 'Deactivate' : 'Activate'}</button>
           </td>
@@ -35,6 +36,18 @@
         ? `Added ${body.name}`
         : (data.error || "Failed");
       if (data.ok) loadResellers();
+    }
+
+    async function editResellerRate(id, current) {
+      const val = prompt("New pricing rate (% of face value)", String(current));
+      if (val === null) return;
+      const res = await adminFetch(`/api/admin/resellers/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pricing_percentage: Number(val) }),
+      });
+      const data = await res.json();
+      if (data.ok) loadResellers(); else alert(data.error || "Failed");
     }
 
     async function editResellerCredit(id, current) {
