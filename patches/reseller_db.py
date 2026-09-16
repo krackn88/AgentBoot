@@ -151,6 +151,46 @@ def update_reseller(reseller_id: int, **fields: Any) -> dict[str, Any] | None:
     return dict(row) if row else None
 
 
+def list_reseller_orders(
+    telegram_user_id: int | None = None,
+    *,
+    limit: int = 100,
+) -> list[dict[str, Any]]:
+    with _connect() as conn:
+        if telegram_user_id is not None:
+            rows = conn.execute(
+                """
+                SELECT
+                    o.*,
+                    r.name AS reseller_name,
+                    r.pricing_percentage AS reseller_pricing
+                FROM orders o
+                LEFT JOIN resellers r ON r.telegram_user_id = o.telegram_user_id
+                WHERE o.payment_status = 'reseller_credit'
+                  AND o.telegram_user_id = ?
+                ORDER BY o.id DESC
+                LIMIT ?
+                """,
+                (int(telegram_user_id), limit),
+            ).fetchall()
+        else:
+            rows = conn.execute(
+                """
+                SELECT
+                    o.*,
+                    r.name AS reseller_name,
+                    r.pricing_percentage AS reseller_pricing
+                FROM orders o
+                LEFT JOIN resellers r ON r.telegram_user_id = o.telegram_user_id
+                WHERE o.payment_status = 'reseller_credit'
+                ORDER BY o.id DESC
+                LIMIT ?
+                """,
+                (limit,),
+            ).fetchall()
+    return [dict(r) for r in rows]
+
+
 def refund_reseller_credit(reseller_id: int, amount: float, *, order_id: int | None = None) -> None:
     amt = round(float(amount), 2)
     if amt <= 0:

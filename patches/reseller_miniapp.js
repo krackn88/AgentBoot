@@ -1,6 +1,8 @@
 
 // --- Reseller tab (appended) ---
 let resellerProfile = null;
+let resellerIsAdmin = false;
+let resellerAdminOverview = null;
 let resellerBrands = [];
 let resellerCurrentBrand = null;
 let resellerCurrentTiers = [];
@@ -9,6 +11,8 @@ let resellerGrabbing = false;
 const resellerView = document.getElementById("reseller-view");
 const navReseller = document.getElementById("nav-reseller");
 const resellerAccount = document.getElementById("reseller-account");
+const resellerAdminOverviewEl = document.getElementById("reseller-admin-overview");
+const resellerGrabSection = document.getElementById("reseller-grab-section");
 const resellerBrandsEl = document.getElementById("reseller-brands");
 const resellerGrabPanel = document.getElementById("reseller-grab-panel");
 const resellerTierSelect = document.getElementById("reseller-tier-select");
@@ -16,6 +20,8 @@ const resellerQtySelect = document.getElementById("reseller-qty-select");
 const resellerTierSummary = document.getElementById("reseller-tier-summary");
 const resellerGrabBtn = document.getElementById("reseller-grab-btn");
 const resellerGrabMsg = document.getElementById("reseller-grab-msg");
+const resellerHeaderTitle = document.getElementById("reseller-header-title");
+const resellerHeaderSub = document.getElementById("reseller-header-sub");
 
 function resellerRate() {
   return Number(resellerProfile?.pricing_percentage) || 0;
@@ -27,8 +33,80 @@ function resellerChargeFor(tier, qty) {
   return Math.round(face * resellerRate() * q * 100) / 100;
 }
 
+function fmtResellerTime(ts) {
+  if (!ts) return "—";
+  return new Date(Number(ts) * 1000).toLocaleString();
+}
+
+function updateResellerNavVisibility() {
+  if (!navReseller) return;
+  navReseller.classList.toggle("hidden", !resellerProfile && !resellerIsAdmin);
+  const label = navReseller.querySelector("span");
+  if (label) label.textContent = resellerIsAdmin && !resellerProfile ? "Resellers" : "Reseller";
+}
+
+function renderResellerAdminOverview() {
+  if (!resellerAdminOverviewEl) return;
+  const overview = resellerAdminOverview;
+  if (!resellerIsAdmin || !overview) {
+    resellerAdminOverviewEl.classList.add("hidden");
+    return;
+  }
+  resellerAdminOverviewEl.classList.remove("hidden");
+  const resellers = overview.resellers || [];
+  const orders = overview.orders || [];
+  const resellerRows = resellers
+    .map((r) => {
+      const active = r.active
+        ? '<span class="reseller-pill ok">active</span>'
+        : '<span class="reseller-pill bad">off</span>';
+      return `
+        <div class="reseller-admin-card">
+          <div class="reseller-admin-card-top">
+            <strong>${escapeHtml(r.name)}</strong> ${active}
+          </div>
+          <div class="muted">TG ${r.telegram_user_id} · ${escapeHtml(r.pricing_label)}</div>
+          <div class="credit-line">$${Number(r.credit_balance).toFixed(2)} credit</div>
+        </div>`;
+    })
+    .join("") || "<p class='muted'>No resellers configured.</p>";
+
+  const orderRows = orders.length
+    ? orders
+        .map((o) => {
+          const who = o.reseller_name || o.telegram_first_name || `TG ${o.telegram_user_id}`;
+          const qty = Number(o.quantity || 1);
+          const product = `${escapeHtml(o.brand)} $${Number(o.denomination).toFixed(2)}${qty > 1 ? ` × ${qty}` : ""}`;
+          return `
+            <div class="reseller-order-row">
+              <div><strong>#${o.id}</strong> · ${escapeHtml(who)}</div>
+              <div>${product}</div>
+              <div class="muted">$${Number(o.price).toFixed(2)} · ${escapeHtml(o.status || "")} · ${fmtResellerTime(o.created_at)}</div>
+            </div>`;
+        })
+        .join("")
+    : "<p class='muted'>No reseller orders yet.</p>";
+
+  resellerAdminOverviewEl.innerHTML = `
+    <div class="reseller-admin-section">
+      <h3>All resellers</h3>
+      <div class="reseller-admin-grid">${resellerRows}</div>
+    </div>
+    <div class="reseller-admin-section">
+      <h3>Reseller orders</h3>
+      <div class="reseller-orders-list">${orderRows}</div>
+    </div>
+  `;
+}
+
 function renderResellerAccount() {
-  if (!resellerAccount || !resellerProfile) return;
+  if (!resellerAccount) return;
+  if (!resellerProfile) {
+    resellerAccount.classList.add("hidden");
+    resellerAccount.innerHTML = "";
+    return;
+  }
+  resellerAccount.classList.remove("hidden");
   const pct = (resellerRate() * 100).toFixed(1);
   const credit = Number(resellerProfile.credit_balance || 0).toFixed(2);
   resellerAccount.innerHTML = `
@@ -44,18 +122,14 @@ function renderResellerBrands() {
     return;
   }
   resellerBrandsEl.innerHTML = resellerBrands
-    .map((b) => {
-      const art = escapeHtml(cardArtUrl(b));
-      const discount = escapeHtml(b.discount_label || "");
-      return `
+    .map((b) => `
         <button type="button" class="store-card" data-reseller-brand="${escapeHtml(b.brand)}">
-          <div class="store-card-art"><img src="${art}" alt="${escapeHtml(b.brand)}"></div>
+          <div class="store-card-art"><img src="${escapeHtml(cardArtUrl(b))}" alt="${escapeHtml(b.brand)}"></div>
           <div class="store-card-body">
             <div class="store-card-title">${escapeHtml(b.brand)}</div>
             <div class="store-card-meta">${b.stock || 0} in stock · ${b.tier_count || 0} tiers</div>
           </div>
-        </button>`;
-    })
+        </button>`)
     .join("");
 
   resellerBrandsEl.querySelectorAll("[data-reseller-brand]").forEach((btn) => {
@@ -113,15 +187,35 @@ function updateResellerSummary() {
   resellerGrabBtn.disabled = !ok || resellerGrabbing;
 }
 
+function updateResellerLayout() {
+  if (resellerHeaderTitle) {
+    resellerHeaderTitle.textContent = resellerIsAdmin && !resellerProfile
+      ? "Reseller admin"
+      : resellerIsAdmin
+        ? "Reseller admin & grabs"
+        : "Reseller grabs";
+  }
+  if (resellerHeaderSub) {
+    resellerHeaderSub.textContent = resellerIsAdmin
+      ? "View all reseller credit and orders below"
+      : "All brands · Cracker Barrel / Five Below / Firehouse capped at $50";
+  }
+  renderResellerAdminOverview();
+  if (resellerGrabSection) {
+    resellerGrabSection.classList.toggle("hidden", !resellerProfile);
+  }
+}
+
 async function loadResellerProfile() {
   try {
     const res = await fetch(apiUrl("/api/reseller/me"), { headers: apiHeaders() });
     if (!res.ok) return;
     const data = await res.json();
     resellerProfile = data.reseller || null;
-    if (navReseller) {
-      navReseller.classList.toggle("hidden", !resellerProfile);
-    }
+    resellerIsAdmin = Boolean(data.is_admin);
+    resellerAdminOverview = data.admin_overview || null;
+    updateResellerNavVisibility();
+    updateResellerLayout();
   } catch {
     // non-fatal
   }
@@ -143,11 +237,28 @@ async function loadResellerCatalog() {
   }
 }
 
+async function refreshResellerAdminOverview() {
+  if (!resellerIsAdmin) return;
+  try {
+    const res = await fetch(apiUrl("/api/reseller/me"), { headers: apiHeaders() });
+    const data = await res.json();
+    if (!data.ok) return;
+    resellerAdminOverview = data.admin_overview || null;
+    resellerProfile = data.reseller || resellerProfile;
+    resellerIsAdmin = Boolean(data.is_admin);
+    renderResellerAdminOverview();
+    renderResellerAccount();
+    updateResellerLayout();
+  } catch {
+    // non-fatal
+  }
+}
+
 function closeResellerGrabPanel() {
   resellerGrabPanel?.classList.add("hidden");
   resellerBrandsEl?.classList.remove("hidden");
   resellerCurrentBrand = null;
-  resellerGrabMsg.textContent = "";
+  if (resellerGrabMsg) resellerGrabMsg.textContent = "";
 }
 
 function showResellerView() {
@@ -156,6 +267,8 @@ function showResellerView() {
   stepNav?.classList.add("hidden");
   setNav("reseller");
   closeResellerGrabPanel();
+  updateResellerLayout();
+  refreshResellerAdminOverview();
   loadResellerCatalog();
 }
 
@@ -183,6 +296,7 @@ async function grabResellerHit() {
     updateResellerSummary();
     resellerGrabMsg.textContent = `Order #${data.order.id} — delivering to your chat now.`;
     await loadResellerCatalog();
+    await refreshResellerAdminOverview();
     openResellerBrand(resellerCurrentBrand.brand);
   } catch (err) {
     resellerGrabMsg.textContent = err.message || "Grab failed";
@@ -201,14 +315,12 @@ resellerTierSelect?.addEventListener("change", () => {
 resellerQtySelect?.addEventListener("change", updateResellerSummary);
 resellerGrabBtn?.addEventListener("click", grabResellerHit);
 
-const _origSetNav = typeof setNav === "function" ? null : null;
 document.querySelectorAll(".nav-item").forEach((btn) => {
   if (btn.dataset.nav === "reseller") {
     btn.addEventListener("click", () => showResellerView());
   }
 });
 
-// Ensure reseller panel hides when switching to shop/orders/help
 const _hideAllViewsOrig = hideAllViews;
 hideAllViews = function () {
   _hideAllViewsOrig();

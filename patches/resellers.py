@@ -77,19 +77,57 @@ def list_catalog_for_reseller() -> list[dict[str, Any]]:
     return brands
 
 
-def reseller_me_payload(reseller: dict[str, Any]) -> dict[str, Any]:
-    pct = float(reseller["pricing_percentage"])
+def serialize_reseller_row(row: dict[str, Any]) -> dict[str, Any]:
+    pct = float(row["pricing_percentage"])
     return {
-        "id": int(reseller["id"]),
-        "name": reseller["name"],
-        "telegram_user_id": int(reseller["telegram_user_id"]),
+        "id": int(row["id"]),
+        "name": row["name"],
+        "telegram_user_id": int(row["telegram_user_id"]),
         "pricing_percentage": pct,
         "pricing_label": f"{pct * 100:.1f}%",
-        "credit_balance": round(float(reseller["credit_balance"]), 2),
-        "credit_limit": round(float(reseller.get("credit_limit") or 0), 2),
-        "capped_brands": sorted(RESELLER_CAPPED_BRANDS),
-        "capped_max_face_value": RESELLER_CAPPED_MAX_FACE_VALUE,
+        "credit_balance": round(float(row["credit_balance"]), 2),
+        "credit_limit": round(float(row.get("credit_limit") or 0), 2),
+        "active": bool(int(row.get("active") or 0)),
+        "created_at": row.get("created_at"),
+        "notes": row.get("notes") or "",
     }
+
+
+def serialize_reseller_order(row: dict[str, Any]) -> dict[str, Any]:
+    qty = int(row.get("quantity") or 1)
+    return {
+        "id": int(row["id"]),
+        "brand": row["brand"],
+        "denomination": float(row["denomination"]),
+        "price": float(row["price"]),
+        "quantity": qty,
+        "status": row["status"],
+        "payment_status": row.get("payment_status"),
+        "created_at": row.get("created_at"),
+        "paid_at": row.get("paid_at"),
+        "delivered_at": row.get("delivered_at"),
+        "telegram_user_id": int(row["telegram_user_id"]),
+        "telegram_username": row.get("telegram_username"),
+        "telegram_first_name": row.get("telegram_first_name"),
+        "reseller_name": row.get("reseller_name") or "",
+    }
+
+
+def admin_overview(*, order_limit: int = 100) -> dict[str, Any]:
+    return {
+        "resellers": [serialize_reseller_row(r) for r in db.list_resellers()],
+        "orders": [
+            serialize_reseller_order(o)
+            for o in db.list_reseller_orders(limit=order_limit)
+        ],
+    }
+
+
+def reseller_me_payload(reseller: dict[str, Any]) -> dict[str, Any]:
+    payload = serialize_reseller_row(reseller)
+    payload["capped_brands"] = sorted(RESELLER_CAPPED_BRANDS)
+    payload["capped_max_face_value"] = RESELLER_CAPPED_MAX_FACE_VALUE
+    return payload
 
 
 def grab_hit(
