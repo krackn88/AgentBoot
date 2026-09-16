@@ -1,4 +1,4 @@
-"""Reseller credit grabs for allowed brands at custom pricing."""
+"""Reseller credit grabs at custom pricing."""
 
 from __future__ import annotations
 
@@ -10,22 +10,33 @@ import payment_jobs
 from catalog_tiers import nearest_tier
 from config import MAX_ORDER_QUANTITY
 
-RESELLER_ALLOWED_BRANDS = frozenset(
+# These brands are capped at $50 face for reseller grabs; all other brands have no cap.
+RESELLER_CAPPED_BRANDS = frozenset(
     {
         "Cracker Barrel",
         "Five Below",
         "Firehouse Subs",
     }
 )
-RESELLER_MAX_FACE_VALUE = 50.0
+RESELLER_CAPPED_MAX_FACE_VALUE = 50.0
 
 
-def is_allowed_brand(brand: str) -> bool:
-    return brand in RESELLER_ALLOWED_BRANDS
+def brand_has_face_cap(brand: str) -> bool:
+    return brand in RESELLER_CAPPED_BRANDS
 
 
-def is_allowed_tier(tier: float) -> bool:
-    return nearest_tier(tier) <= RESELLER_MAX_FACE_VALUE
+def max_face_for_brand(brand: str) -> float | None:
+    if brand_has_face_cap(brand):
+        return RESELLER_CAPPED_MAX_FACE_VALUE
+    return None
+
+
+def is_allowed_tier(brand: str, tier: float) -> bool:
+    face = nearest_tier(tier)
+    cap = max_face_for_brand(brand)
+    if cap is not None and face > cap:
+        return False
+    return face > 0
 
 
 def reseller_charge(face_value: float, quantity: int, pricing_percentage: float) -> float:
@@ -45,12 +56,11 @@ def list_catalog_for_reseller() -> list[dict[str, Any]]:
     brands = []
     for brand_info in db.list_brands():
         brand = brand_info["brand"]
-        if brand not in RESELLER_ALLOWED_BRANDS:
-            continue
+        cap = max_face_for_brand(brand)
         tiers = []
         for tier in db.list_brand_tiers(brand):
             face = float(tier["tier"])
-            if face > RESELLER_MAX_FACE_VALUE:
+            if cap is not None and face > cap:
                 continue
             tiers.append(tier)
         if not tiers:
@@ -61,6 +71,7 @@ def list_catalog_for_reseller() -> list[dict[str, Any]]:
                 "tiers": tiers,
                 "tier_count": len(tiers),
                 "stock": sum(int(t.get("stock") or 0) for t in tiers),
+                "max_face_value": cap,
             }
         )
     return brands
@@ -76,8 +87,8 @@ def reseller_me_payload(reseller: dict[str, Any]) -> dict[str, Any]:
         "pricing_label": f"{pct * 100:.1f}%",
         "credit_balance": round(float(reseller["credit_balance"]), 2),
         "credit_limit": round(float(reseller.get("credit_limit") or 0), 2),
-        "allowed_brands": sorted(RESELLER_ALLOWED_BRANDS),
-        "max_face_value": RESELLER_MAX_FACE_VALUE,
+        "capped_brands": sorted(RESELLER_CAPPED_BRANDS),
+        "capped_max_face_value": RESELLER_CAPPED_MAX_FACE_VALUE,
     }
 
 
@@ -92,11 +103,15 @@ def grab_hit(
     telegram_first_name: str | None,
 ) -> dict[str, Any]:
     brand = str(brand or "").strip()
-    if not is_allowed_brand(brand):
-        raise ValueError("Brand not available for resellers")
+    if not brand:
+        raise ValueError("Brand required")
+
     target_tier = nearest_tier(float(tier or 0))
-    if target_tier <= 0 or not is_allowed_tier(target_tier):
-        raise ValueError(f"Resellers can only grab hits up to ${RESELLER_MAX_FACE_VALUE:.0f}")
+    if not is_allowed_tier(brand, target_tier):
+        cap = max_face_for_brand(brand)
+        if cap is not None:
+            raise ValueError(f"{brand} reseller grabs are capped at ${cap:.0f} face value")
+        raise ValueError("Invalid tier selection")
 
     qty = max(1, min(MAX_ORDER_QUANTITY, int(quantity or 1)))
     pricing_pct = float(reseller["pricing_percentage"])

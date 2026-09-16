@@ -33,7 +33,7 @@ function renderResellerAccount() {
   const credit = Number(resellerProfile.credit_balance || 0).toFixed(2);
   resellerAccount.innerHTML = `
     <p class="credit-line">$${credit} credit</p>
-    <p class="muted">${escapeHtml(resellerProfile.name || "Reseller")} · ${pct}% of face · max $50 hits</p>
+    <p class="muted">${escapeHtml(resellerProfile.name || "Reseller")} · ${pct}% of face · Cracker Barrel / Five Below / Firehouse capped at $50</p>
   `;
 }
 

@@ -293,7 +293,7 @@ def admin_update_reseller(reseller_id: int):
                 '    <section id="reseller-view" class="hidden reseller-panel">\n'
                 '      <div class="reseller-header">\n'
                 '        <h2>Reseller grabs</h2>\n'
-                '        <p class="muted">Cracker Barrel · Five Below · Firehouse Subs · up to $50 face</p>\n'
+                '        <p class="muted">All brands · Cracker Barrel / Five Below / Firehouse capped at $50</p>\n'
                 '      </div>\n'
                 '      <div id="reseller-account" class="reseller-account"></div>\n'
                 '      <div id="reseller-brands" class="brand-grid"></div>\n'
@@ -389,7 +389,7 @@ def admin_update_reseller(reseller_id: int):
             (
                 '    <section>\n      <div class="grid">\n        <input id="brand" placeholder="Brand (e.g. Five Below)">',
                 '    <section>\n      <h2>Resellers</h2>\n'
-                '      <p class="muted">Resellers grab hits on credit at a custom % of face value. Allowed brands: Cracker Barrel, Five Below, Firehouse Subs — max $50 face.</p>\n'
+                '      <p class="muted">Resellers grab from all brands on credit at a custom % of face value. Cracker Barrel, Five Below, and Firehouse Subs are capped at $50 face.</p>\n'
                 '      <div class="grid">\n'
                 '        <input id="reseller-name" placeholder="Name">\n'
                 '        <input id="reseller-telegram-id" placeholder="Telegram user ID">\n'
