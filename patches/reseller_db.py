@@ -174,10 +174,13 @@ def reserve_reseller_items_by_tier(
     quantity: int = 1,
 ) -> dict[str, Any] | None:
     from config import MAX_ORDER_QUANTITY
+    from resellers import is_allowed_tier
 
     quantity = max(1, min(MAX_ORDER_QUANTITY, int(quantity)))
     now = time.time()
     target_tier = nearest_tier(tier)
+    if not is_allowed_tier(brand, target_tier):
+        return None
     unit_charge = round(target_tier * float(pricing_percentage), 2)
     total_charge = round(unit_charge * quantity, 2)
 
