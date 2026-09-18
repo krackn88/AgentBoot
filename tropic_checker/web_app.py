@@ -240,8 +240,12 @@ def api_start():
                 state.combos.remove(combo)
         _save_hits()
         _save_combos()
-        state.publish({"type": "hit", "hit": hit})
-        state.publish({"type": "stats", "stats": state.snapshot()["stats"]})
+        snapshot = state.snapshot()
+        state.publish({
+            "type": "hit",
+            "hit": hit,
+            "stats": snapshot["stats"],
+        })
 
     def on_fail(result: AccountResult) -> None:
         combo = (result.email, result.password)
@@ -272,13 +276,8 @@ def api_start():
         try:
             state.engine.run()
         finally:
-            was_stopped = bool(state.engine and state.engine.is_stopped())
             state.running = False
             _save_combos()
-            if was_stopped:
-                state.add_log("Stopped")
-            else:
-                state.add_log("Run complete")
             state.publish({"type": "done"})
 
     state.worker = threading.Thread(target=run, daemon=True)
@@ -306,7 +305,6 @@ def api_stop():
         state.engine.stop()
     with state.lock:
         state.running = False
-    state.add_log("Stop requested")
     state.publish({"type": "stopped"})
     return jsonify({"stopped": True})
 
