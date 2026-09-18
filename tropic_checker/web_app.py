@@ -15,6 +15,7 @@ from flask import Flask, Response, jsonify, render_template, request, send_from_
 
 from .api import AccountResult, parse_combo_line
 from .engine import CheckerEngine, CheckerStats
+from .smoke import run_smoke_checks
 from . import storage
 
 WEB_DIR = Path(__file__).resolve().parent / "web"
@@ -283,6 +284,18 @@ def api_start():
     state.worker = threading.Thread(target=run, daemon=True)
     state.worker.start()
     return jsonify({"started": True, "total": len(combos_snapshot)})
+
+
+@app.post("/api/smoke")
+def api_smoke():
+    results, all_ok = run_smoke_checks(skip_web=True)
+    payload = [
+        {"name": c.name, "status": c.status, "detail": c.detail}
+        for c in results
+    ]
+    for check in results:
+        state.add_log(f"SMOKE [{check.status.upper()}] {check.name}: {check.detail}")
+    return jsonify({"ok": all_ok, "results": payload})
 
 
 @app.post("/api/stop")

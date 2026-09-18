@@ -154,6 +154,26 @@ document.getElementById('stopBtn').onclick = async () => {
   }
 };
 
+document.getElementById('smokeBtn').onclick = async () => {
+  const btn = document.getElementById('smokeBtn');
+  btn.disabled = true;
+  appendLog('Running smoke test...');
+  try {
+    const res = await api('/api/smoke', { method: 'POST' });
+    const failed = res.results.filter((r) => r.status === 'fail');
+    if (res.ok) {
+      appendLog('Smoke test passed.');
+    } else {
+      appendLog(`Smoke test failed (${failed.length} check(s)).`);
+      alert('Smoke test failed — see activity log');
+    }
+  } catch (e) {
+    alert(e.message);
+  } finally {
+    btn.disabled = false;
+  }
+};
+
 document.getElementById('clearHits').onclick = async () => {
   if (confirm('Clear all hits?')) {
     await api('/api/hits', { method: 'DELETE' });
