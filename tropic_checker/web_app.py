@@ -116,6 +116,7 @@ def _result_to_hit(result: AccountResult) -> dict[str, Any]:
             {
                 "nickname": card.get("nickName") or card.get("nickname"),
                 "balance": card.get("balance"),
+                "card_number": card.get("card_number_decrypted"),
                 "is_default": bool(card.get("isDefault")),
                 "card_id": card.get("cardId") or card.get("card_id"),
             }

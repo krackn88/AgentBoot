@@ -70,9 +70,13 @@ function hitCardHtml(hit) {
   const rewards = (hit.rewards || []).map((r) => `↳ ${escapeHtml(r.name || '')}`).join('<br>');
   const giftCards = (hit.gift_card_details || []).map((gc) => {
     const nick = gc.nickname ? escapeHtml(gc.nickname) : 'Gift Card';
+    const num = gc.card_number ? escapeHtml(String(gc.card_number)) : '';
     const bal = gc.balance != null ? `$${escapeHtml(String(gc.balance))}` : '';
     const def = gc.is_default ? ' (default)' : '';
-    return `💳 ${nick}${bal ? `: ${bal}` : ''}${def}`;
+    const parts = [nick];
+    if (num) parts.push(num);
+    if (bal) parts.push(bal);
+    return `💳 ${parts.join(' • ')}${def}`;
   }).join('<br>');
   return `
     <article class="hit-card" data-id="${escapeHtml(hit.id)}">

