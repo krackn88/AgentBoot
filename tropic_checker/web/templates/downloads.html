@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tropic Checker Downloads</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <style>
+    .downloads { max-width: 760px; margin: 40px auto; padding: 0 20px; }
+    .downloads h1 { color: #c45a00; margin-bottom: 8px; }
+    .downloads .card {
+      background: #fff8f0;
+      border: 1px solid #f0d8b8;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 16px 0;
+    }
+    .downloads a.dl {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 10px 16px;
+      background: #2d9f6f;
+      color: #111;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .downloads a.dl:hover { background: #7ed957; }
+    .downloads code { background: #fff; padding: 2px 6px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="downloads">
+    <h1>🌴 Tropic Time Checker — Desktop Downloads</h1>
+    <p>Standalone desktop app. No Python install required. Data saves to <code>~/.tropic-checker/</code></p>
+
+    {% for item in files %}
+    <div class="card">
+      <h2>{{ item.title }}</h2>
+      <p>{{ item.description }}</p>
+      <p><strong>Size:</strong> {{ item.size }} &nbsp; <strong>Updated:</strong> {{ item.updated }}</p>
+      <a class="dl" href="{{ item.url }}">Download {{ item.name }}</a>
+    </div>
+    {% endfor %}
+
+    {% if not files %}
+    <div class="card">
+      <p>No desktop builds uploaded yet. Check back soon.</p>
+    </div>
+    {% endif %}
+
+    <div class="card">
+      <h2>Run</h2>
+      <p><strong>Linux:</strong> <code>chmod +x TropicChecker && ./TropicChecker</code></p>
+      <p><strong>Windows:</strong> double-click <code>TropicChecker.exe</code></p>
+      <p>Optional Telegram alerts: set <code>TELEGRAM_BOT_TOKEN</code> and <code>TELEGRAM_CHAT_ID</code> env vars before launch.</p>
+    </div>
+
+    <p><a href="/">← Back to web checker</a></p>
+  </div>
+</body>
+</html>

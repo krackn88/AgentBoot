@@ -3,5 +3,9 @@ __pycache__/
 *.egg-info/
 .venv/
 venv/
+.build-venv/
+.winbuild-venv/
+dist/
+build/desktop/
 .env
 .DS_Store

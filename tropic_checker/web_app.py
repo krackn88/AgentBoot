@@ -11,7 +11,9 @@ import uuid
 from pathlib import Path
 from typing import Any
 
-from flask import Flask, Response, jsonify, render_template, request, send_from_directory
+from datetime import datetime
+
+from flask import Flask, Response, abort, jsonify, render_template, request, send_from_directory
 
 from .api import AccountResult, parse_combo_line
 from .engine import CheckerEngine, CheckerStats
@@ -28,6 +30,7 @@ from . import storage
 
 WEB_DIR = Path(__file__).resolve().parent / "web"
 DATA_ROOT = Path(os.environ.get("TROPIC_DATA_DIR", storage.APP_DIR))
+DOWNLOADS_DIR = Path(os.environ.get("TROPIC_DOWNLOADS_DIR", DATA_ROOT.parent / "downloads"))
 
 app = Flask(
     __name__,
@@ -221,11 +224,46 @@ def _save_proxies() -> None:
     storage.save_proxies(path, state.proxies)
 
 
+def _download_catalog() -> list[dict[str, str]]:
+    catalog = [
+        {
+            "filename": "TropicChecker-linux-x86_64.tar.gz",
+            "title": "Linux (x86_64)",
+            "description": "Single-file standalone app for Ubuntu/Debian/Fedora x86_64.",
+        },
+        {
+            "filename": "TropicChecker-windows-x64.zip",
+            "title": "Windows (x64)",
+            "description": "Portable standalone zip — extract and run TropicChecker.bat. No Python install needed.",
+        },
+        {
+            "filename": "TropicChecker.exe",
+            "title": "Windows EXE (optional)",
+            "description": "Single-file Windows executable when available.",
+        },
+    ]
+    items: list[dict[str, str]] = []
+    for entry in catalog:
+        path = DOWNLOADS_DIR / entry["filename"]
+        if not path.is_file():
+            continue
+        stat = path.stat()
+        items.append({
+            "name": entry["filename"],
+            "title": entry["title"],
+            "description": entry["description"],
+            "url": f"/downloads/{entry['filename']}",
+            "size": f"{stat.st_size / (1024 * 1024):.1f} MB",
+            "updated": datetime.fromtimestamp(stat.st_mtime).strftime("%Y-%m-%d %H:%M UTC"),
+        })
+    return items
+
+
 @app.before_request
 def check_auth():
-    if request.endpoint in ("static", "index", "health"):
+    if request.endpoint in ("static", "index", "health", "downloads_page", "download_file"):
         return None
-    if request.path.startswith("/static"):
+    if request.path.startswith("/static") or request.path.startswith("/downloads"):
         return None
     return _require_auth()
 
@@ -238,6 +276,20 @@ def health():
 @app.get("/")
 def index():
     return render_template("index.html", auth_token=AUTH_TOKEN)
+
+
+@app.get("/downloads")
+def downloads_page():
+    return render_template("downloads.html", files=_download_catalog())
+
+
+@app.get("/downloads/<path:filename>")
+def download_file(filename: str):
+    safe = Path(filename).name
+    path = DOWNLOADS_DIR / safe
+    if not path.is_file():
+        abort(404)
+    return send_from_directory(DOWNLOADS_DIR, safe, as_attachment=True)
 
 
 @app.get("/api/state")

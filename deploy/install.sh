@@ -16,8 +16,10 @@ apt-get install -y -qq python3 python3-venv python3-pip rsync
 
 mkdir -p "${APP_DIR}"
 rsync -a --delete \
-  --exclude venv --exclude .git --exclude __pycache__ --exclude data \
+  --exclude venv --exclude .git --exclude __pycache__ --exclude data --exclude downloads \
   /tmp/tropic-deploy/ "${APP_DIR}/"
+
+mkdir -p "${APP_DIR}/downloads"
 
 python3 -m venv "${APP_DIR}/venv"
 "${APP_DIR}/venv/bin/pip" install --upgrade pip
@@ -63,4 +65,5 @@ echo "============================================"
 echo " Tropic Time Checker is live!"
 echo " URL:  http://$(hostname -I | awk '{print $1}'):8080"
 echo " Auth: ${AUTH_TOKEN}"
+echo " Desktop downloads: http://$(hostname -I | awk '{print $1}'):8080/downloads"
 echo "============================================"
