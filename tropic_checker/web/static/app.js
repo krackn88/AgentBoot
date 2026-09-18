@@ -100,6 +100,7 @@ function setRunning(running) {
   els.statusPill.textContent = running ? 'Running' : 'Idle';
   els.statusPill.classList.toggle('running', running);
   document.getElementById('startBtn').disabled = running;
+  document.getElementById('stopBtn').disabled = !running;
 }
 
 function connectEvents() {
@@ -110,7 +111,10 @@ function connectEvents() {
     if (data.type === 'log') appendLog(data.message);
     if (data.type === 'stats') updateStats(data.stats);
     if (data.type === 'hit') refreshState();
-    if (data.type === 'done') { setRunning(false); refreshState(); }
+    if (data.type === 'done' || data.type === 'stopped') {
+      setRunning(false);
+      refreshState();
+    }
   };
   es.onerror = () => setTimeout(connectEvents, 3000);
 }
@@ -141,7 +145,14 @@ document.getElementById('startBtn').onclick = async () => {
   } catch (e) { alert(e.message); }
 };
 
-document.getElementById('stopBtn').onclick = () => api('/api/stop', { method: 'POST' });
+document.getElementById('stopBtn').onclick = async () => {
+  try {
+    const res = await api('/api/stop', { method: 'POST' });
+    if (res.stopped) setRunning(false);
+  } catch (e) {
+    alert(e.message);
+  }
+};
 
 document.getElementById('clearHits').onclick = async () => {
   if (confirm('Clear all hits?')) {

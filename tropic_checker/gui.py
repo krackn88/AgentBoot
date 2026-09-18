@@ -528,6 +528,7 @@ class TropicCheckerApp(ctk.CTk):
         if self.engine:
             self.engine.stop()
             self._log("Stop requested...")
+            self.stop_btn.configure(state="disabled")
 
     def _on_check_done(self) -> None:
         self.start_btn.configure(state="normal")
