@@ -319,7 +319,9 @@ def api_telegram_status():
 def api_telegram_register():
     if not os.environ.get("TELEGRAM_BOT_TOKEN"):
         return jsonify({"error": "TELEGRAM_BOT_TOKEN not set on server"}), 400
-    ok, detail, chat_id = register_first_pending_chat()
+    data = request.get_json(silent=True) or {}
+    preferred = str(data.get("chat_id", "")).strip() or None
+    ok, detail, chat_id = register_first_pending_chat(preferred_chat_id=preferred)
     if not ok:
         return jsonify({"error": detail, "pending_chats": get_pending_chat_ids()}), 400
     return jsonify({"registered": True, "chat_id": chat_id})

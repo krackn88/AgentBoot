@@ -2,11 +2,14 @@
 
 from __future__ import annotations
 
+import json
 import os
 import threading
 from typing import Any
 
 import requests
+
+_updates_lock = threading.Lock()
 
 from .api import AccountResult, format_gift_card
 
@@ -19,6 +22,87 @@ def _data_dir() -> str:
 
 def _chat_id_file() -> str:
     return os.path.join(_data_dir(), "telegram_chat_id")
+
+
+def _offset_file() -> str:
+    return os.path.join(_data_dir(), "telegram_updates_offset")
+
+
+def _discovered_chats_file() -> str:
+    return os.path.join(_data_dir(), "telegram_discovered_chats.json")
+
+
+def _load_discovered_chats() -> dict[str, dict[str, Any]]:
+    try:
+        with open(_discovered_chats_file(), encoding="utf-8") as fh:
+            data = json.load(fh)
+        if isinstance(data, dict):
+            return data
+    except (OSError, json.JSONDecodeError):
+        pass
+    return {}
+
+
+def _save_discovered_chats(chats: dict[str, dict[str, Any]]) -> None:
+    os.makedirs(_data_dir(), exist_ok=True)
+    with open(_discovered_chats_file(), "w", encoding="utf-8") as fh:
+        json.dump(chats, fh)
+
+
+def _load_offset() -> int:
+    try:
+        with open(_offset_file(), encoding="utf-8") as fh:
+            return int(fh.read().strip() or 0)
+    except (OSError, ValueError):
+        return 0
+
+
+def _save_offset(offset: int) -> None:
+    os.makedirs(_data_dir(), exist_ok=True)
+    with open(_offset_file(), "w", encoding="utf-8") as fh:
+        fh.write(str(offset))
+
+
+def _poll_updates() -> dict[str, dict[str, Any]]:
+    token = _bot_token()
+    if not token:
+        return _load_discovered_chats()
+
+    with _updates_lock:
+        chats = _load_discovered_chats()
+        offset = _load_offset()
+        try:
+            resp = requests.get(
+                f"https://api.telegram.org/bot{token}/getUpdates",
+                params={"offset": offset, "timeout": 0},
+                timeout=15,
+            )
+            data = resp.json()
+            if not data.get("ok"):
+                return chats
+            for item in data.get("result", []):
+                update_id = int(item.get("update_id", 0))
+                if update_id >= offset:
+                    offset = update_id + 1
+                msg = item.get("message") or item.get("edited_message") or {}
+                chat = msg.get("chat") or {}
+                chat_id = chat.get("id")
+                if chat_id is None:
+                    continue
+                key = str(chat_id)
+                chats[key] = {
+                    "chat_id": key,
+                    "type": chat.get("type"),
+                    "username": chat.get("username"),
+                    "first_name": chat.get("first_name"),
+                    "last_name": chat.get("last_name"),
+                }
+            if offset:
+                _save_offset(offset)
+            _save_discovered_chats(chats)
+        except requests.RequestException:
+            pass
+        return chats
 
 
 def is_configured() -> bool:
@@ -51,11 +135,25 @@ def save_chat_id(chat_id: str) -> None:
     os.environ["TELEGRAM_CHAT_ID"] = chat_id
 
 
-def register_first_pending_chat() -> tuple[bool, str, str]:
-    pending = get_pending_chat_ids()
-    if not pending:
+def _pick_chat(chats: list[dict[str, Any]], preferred_chat_id: str | None = None) -> dict[str, Any] | None:
+    if preferred_chat_id:
+        for chat in chats:
+            if str(chat.get("chat_id")) == str(preferred_chat_id):
+                return chat
+    for chat in chats:
+        if chat.get("type") == "private":
+            return chat
+    return chats[0] if chats else None
+
+
+def register_first_pending_chat(preferred_chat_id: str | None = None) -> tuple[bool, str, str]:
+    chats = list(_poll_updates().values())
+    if not chats:
         return False, "no pending chats — open Telegram and send /start to @tropicalhitsbot", ""
-    chat_id = str(pending[0]["chat_id"])
+    picked = _pick_chat(chats, preferred_chat_id)
+    if not picked:
+        return False, "no pending chats — open Telegram and send /start to @tropicalhitsbot", ""
+    chat_id = str(picked["chat_id"])
     save_chat_id(chat_id)
     return True, "registered", chat_id
 
@@ -143,32 +241,4 @@ def notify_gift_card_hit(result: AccountResult) -> None:
 
 
 def get_pending_chat_ids() -> list[dict[str, Any]]:
-    token = _bot_token()
-    if not token:
-        return []
-    try:
-        resp = requests.get(
-            f"https://api.telegram.org/bot{token}/getUpdates",
-            timeout=15,
-        )
-        data = resp.json()
-        if not data.get("ok"):
-            return []
-        chats: dict[str, dict[str, Any]] = {}
-        for item in data.get("result", []):
-            msg = item.get("message") or item.get("edited_message") or {}
-            chat = msg.get("chat") or {}
-            chat_id = chat.get("id")
-            if chat_id is None:
-                continue
-            key = str(chat_id)
-            chats[key] = {
-                "chat_id": key,
-                "type": chat.get("type"),
-                "username": chat.get("username"),
-                "first_name": chat.get("first_name"),
-                "last_name": chat.get("last_name"),
-            }
-        return list(chats.values())
-    except requests.RequestException:
-        return []
+    return list(_poll_updates().values())
