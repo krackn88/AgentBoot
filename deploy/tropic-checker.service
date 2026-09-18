@@ -1,0 +1,18 @@
+[Unit]
+Description=Tropic Time Checker Web UI
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/tropic-checker
+Environment=TROPIC_DATA_DIR=/opt/tropic-checker/data
+Environment=TROPIC_HOST=0.0.0.0
+Environment=TROPIC_PORT=8080
+Environment=TROPIC_AUTH_TOKEN=CHANGE_ME
+ExecStart=/opt/tropic-checker/venv/bin/gunicorn -w 1 -k gthread --threads 8 -b 0.0.0.0:8080 tropic_checker.web_app:app
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
