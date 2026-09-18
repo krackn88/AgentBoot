@@ -16,6 +16,13 @@ from flask import Flask, Response, jsonify, render_template, request, send_from_
 from .api import AccountResult, parse_combo_line
 from .engine import CheckerEngine, CheckerStats
 from .smoke import run_smoke_checks
+from .telegram_notify import (
+    format_gift_card_hit,
+    get_pending_chat_ids,
+    is_configured as telegram_configured,
+    notify_gift_card_hit,
+    send_message as send_telegram_message,
+)
 from . import storage
 
 WEB_DIR = Path(__file__).resolve().parent / "web"
@@ -250,6 +257,7 @@ def api_start():
                 state.combos.remove(combo)
         _save_hits()
         _save_combos()
+        notify_gift_card_hit(result)
         snapshot = state.snapshot()
         state.publish({
             "type": "hit",
@@ -293,6 +301,56 @@ def api_start():
     state.worker = threading.Thread(target=run, daemon=True)
     state.worker.start()
     return jsonify({"started": True, "total": len(combos_snapshot)})
+
+
+@app.get("/api/telegram/status")
+def api_telegram_status():
+    pending = get_pending_chat_ids()
+    return jsonify({
+        "configured": telegram_configured(),
+        "has_bot_token": bool(os.environ.get("TELEGRAM_BOT_TOKEN")),
+        "has_chat_id": bool(os.environ.get("TELEGRAM_CHAT_ID")),
+        "pending_chats": pending,
+    })
+
+
+@app.post("/api/telegram/test")
+def api_telegram_test():
+    if not telegram_configured():
+        return jsonify({
+            "error": "Telegram not configured. Set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID on the server.",
+            "pending_chats": get_pending_chat_ids(),
+        }), 400
+    ok, detail = send_telegram_message(
+        f"🌴 Test from Tropic Time Checker\n\nBrand: Tropical Smoothie Cafe\nTelegram alerts are working."
+    )
+    if ok:
+        return jsonify({"sent": True})
+    return jsonify({"error": detail}), 502
+
+
+@app.post("/api/telegram/notify-sample")
+def api_telegram_notify_sample():
+    """Send a sample gift-card hit using smoke credentials (for setup testing)."""
+    from .api import check_account
+
+    email = os.environ.get("TROPIC_SMOKE_EMAIL", "").strip()
+    password = os.environ.get("TROPIC_SMOKE_PASSWORD", "").strip()
+    if not email or not password:
+        return jsonify({"error": "TROPIC_SMOKE_EMAIL/PASSWORD not set on server"}), 400
+    if not telegram_configured():
+        return jsonify({"error": "Telegram not configured", "pending_chats": get_pending_chat_ids()}), 400
+
+    proxy = state.proxies[0] if state.proxies else None
+    result = check_account(email, password, proxy=proxy)
+    if not result.success or not result.gift_cards:
+        return jsonify({"error": "Smoke account has no gift cards or login failed"}), 400
+
+    text = format_gift_card_hit(result)
+    ok, detail = send_telegram_message(text)
+    if ok:
+        return jsonify({"sent": True, "preview": text})
+    return jsonify({"error": detail}), 502
 
 
 @app.post("/api/smoke")

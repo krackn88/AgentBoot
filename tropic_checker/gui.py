@@ -482,6 +482,8 @@ class TropicCheckerApp(ctk.CTk):
             self.combos.remove(combo)
 
     def _on_hit(self, result: AccountResult) -> None:
+        from .telegram_notify import notify_gift_card_hit
+
         self._remove_combo(result)
         line = result.summary_line()
         self.hits.insert(0, line)
@@ -489,6 +491,7 @@ class TropicCheckerApp(ctk.CTk):
         path = self.config.get("hits_path", str(storage.HITS_PATH))
         storage.append_hit(path, result)
         self._add_hit_card(result)
+        notify_gift_card_hit(result)
 
     def _on_fail(self, result: AccountResult) -> None:
         self._remove_combo(result)

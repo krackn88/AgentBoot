@@ -23,9 +23,13 @@ mkdir -p "${APP_DIR}/data/data"
 SERVICE_FILE="/etc/systemd/system/tropic-checker.service"
 OLD_SMOKE_EMAIL=""
 OLD_SMOKE_PASSWORD=""
+OLD_TELEGRAM_BOT_TOKEN=""
+OLD_TELEGRAM_CHAT_ID=""
 if [ -f "${SERVICE_FILE}" ]; then
   OLD_SMOKE_EMAIL="$(grep -m1 '^Environment=TROPIC_SMOKE_EMAIL=' "${SERVICE_FILE}" | sed 's/^Environment=TROPIC_SMOKE_EMAIL=//' || true)"
   OLD_SMOKE_PASSWORD="$(grep -m1 '^Environment=TROPIC_SMOKE_PASSWORD=' "${SERVICE_FILE}" | sed 's/^Environment=TROPIC_SMOKE_PASSWORD=//' || true)"
+  OLD_TELEGRAM_BOT_TOKEN="$(grep -m1 '^Environment=TELEGRAM_BOT_TOKEN=' "${SERVICE_FILE}" | sed 's/^Environment=TELEGRAM_BOT_TOKEN=//' || true)"
+  OLD_TELEGRAM_CHAT_ID="$(grep -m1 '^Environment=TELEGRAM_CHAT_ID=' "${SERVICE_FILE}" | sed 's/^Environment=TELEGRAM_CHAT_ID=//' || true)"
 fi
 
 sed "s/CHANGE_ME/${AUTH_TOKEN}/" "${APP_DIR}/deploy/tropic-checker.service" > "${SERVICE_FILE}"
@@ -35,6 +39,15 @@ SMOKE_PASSWORD="${TROPIC_SMOKE_PASSWORD:-${OLD_SMOKE_PASSWORD}}"
 if [ -n "${SMOKE_EMAIL}" ] && [ -n "${SMOKE_PASSWORD}" ]; then
   sed -i "/Environment=TROPIC_AUTH_TOKEN/a Environment=TROPIC_SMOKE_EMAIL=${SMOKE_EMAIL}" "${SERVICE_FILE}"
   sed -i "/Environment=TROPIC_SMOKE_EMAIL/a Environment=TROPIC_SMOKE_PASSWORD=${SMOKE_PASSWORD}" "${SERVICE_FILE}"
+fi
+
+TELEGRAM_BOT_TOKEN="${TELEGRAM_BOT_TOKEN:-${OLD_TELEGRAM_BOT_TOKEN}}"
+TELEGRAM_CHAT_ID="${TELEGRAM_CHAT_ID:-${OLD_TELEGRAM_CHAT_ID}}"
+if [ -n "${TELEGRAM_BOT_TOKEN}" ]; then
+  sed -i "/Environment=TROPIC_AUTH_TOKEN/a Environment=TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}" "${SERVICE_FILE}"
+fi
+if [ -n "${TELEGRAM_CHAT_ID}" ]; then
+  sed -i "/Environment=TELEGRAM_BOT_TOKEN/a Environment=TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}" "${SERVICE_FILE}"
 fi
 
 systemctl daemon-reload
