@@ -2,7 +2,12 @@
 set -euo pipefail
 
 APP_DIR="/opt/tropic-checker"
-AUTH_TOKEN="${TROPIC_AUTH_TOKEN:-tropic-$(openssl rand -hex 16)}"
+SERVICE_FILE="/etc/systemd/system/tropic-checker.service"
+OLD_AUTH_TOKEN=""
+if [ -f "${SERVICE_FILE}" ]; then
+  OLD_AUTH_TOKEN="$(grep -m1 '^Environment=TROPIC_AUTH_TOKEN=' "${SERVICE_FILE}" | sed 's/^Environment=TROPIC_AUTH_TOKEN=//' || true)"
+fi
+AUTH_TOKEN="${TROPIC_AUTH_TOKEN:-${OLD_AUTH_TOKEN:-tropic-$(openssl rand -hex 16)}}"
 
 echo "Installing Tropic Time Checker to ${APP_DIR}"
 
@@ -20,7 +25,6 @@ python3 -m venv "${APP_DIR}/venv"
 
 mkdir -p "${APP_DIR}/data/data"
 
-SERVICE_FILE="/etc/systemd/system/tropic-checker.service"
 OLD_SMOKE_EMAIL=""
 OLD_SMOKE_PASSWORD=""
 OLD_TELEGRAM_BOT_TOKEN=""
