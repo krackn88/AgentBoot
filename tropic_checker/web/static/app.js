@@ -142,10 +142,18 @@ els.hitsList.addEventListener('click', (e) => {
   if (action === 'delete') deleteHit(btn.dataset.id);
 });
 
+function formatComboCount(comboCount, progress) {
+  const checkedEver = progress?.checked_ever || 0;
+  if (checkedEver > 0) {
+    return `${comboCount} remaining (${checkedEver} already checked)`;
+  }
+  return `${comboCount} combos loaded`;
+}
+
 async function refreshState() {
   const data = await api('/api/state');
   updateStats(data.stats, data.combo_count);
-  els.comboCount.textContent = `${data.combo_count} combos loaded`;
+  els.comboCount.textContent = formatComboCount(data.combo_count, data.progress);
   els.proxyCount.textContent = `${data.proxy_count} proxies loaded`;
   renderHits(data.hits);
   els.logBox.textContent = data.logs.length ? data.logs.join('\n') + '\n' : '';
@@ -197,7 +205,8 @@ els.threads.addEventListener('input', () => {
 
 document.getElementById('loadCombos').onclick = async () => {
   const data = await api('/api/combos', { method: 'POST', body: JSON.stringify({ text: els.comboInput.value }) });
-  els.comboCount.textContent = `${data.combo_count} combos loaded`;
+  els.comboCount.textContent = formatComboCount(data.combo_count, { checked_ever: data.checked_ever });
+  if (data.message) appendLog(data.message);
   refreshState();
 };
 

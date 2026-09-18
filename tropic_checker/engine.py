@@ -18,7 +18,22 @@ class CheckerStats:
     checked: int = 0
     hits: int = 0
     fails: int = 0
+    checked_baseline: int = 0
+    hits_baseline: int = 0
+    fails_baseline: int = 0
     start_time: float = field(default_factory=time.time)
+
+    @property
+    def checked_total(self) -> int:
+        return self.checked_baseline + self.checked
+
+    @property
+    def hits_total(self) -> int:
+        return self.hits_baseline + self.hits
+
+    @property
+    def fails_total(self) -> int:
+        return self.fails_baseline + self.fails
 
     @property
     def cpm(self) -> float:
@@ -166,5 +181,8 @@ class CheckerEngine:
         finally:
             self._shutdown_pool(pool, cancel_pending=stopped)
 
-        self._log("Stopped" if stopped else "Finished")
+        if stopped:
+            self._log("Stopped")
+        else:
+            self._log("Finished")
         return hits

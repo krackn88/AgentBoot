@@ -83,17 +83,48 @@ class AppState:
                 "proxy_count": len(self.proxies),
                 "hits": list(self.hits),
                 "logs": self.logs[-100:],
-                "stats": {
-                    "total": self.stats.total,
-                    "checked": self.stats.checked,
-                    "hits": self.stats.hits,
-                    "fails": self.stats.fails,
-                    "cpm": round(self.stats.cpm, 1),
+                "stats": _stats_payload(self.stats),
+                "progress": {
+                    "checked_ever": PROGRESS.checked_count(),
+                    "remaining": len(self.combos),
                 },
             }
 
 
 state = AppState()
+PROGRESS = storage.ProgressTracker(DATA_ROOT / "data")
+
+
+def _stats_payload(stats: CheckerStats) -> dict[str, Any]:
+    return {
+        "total": stats.total,
+        "checked": stats.checked_total,
+        "checked_session": stats.checked,
+        "checked_baseline": stats.checked_baseline,
+        "hits": stats.hits_total,
+        "hits_session": stats.hits,
+        "fails": stats.fails_total,
+        "fails_session": stats.fails,
+        "cpm": round(stats.cpm, 1),
+    }
+
+
+def _idle_stats() -> CheckerStats:
+    checked = PROGRESS.checked_count()
+    hits = PROGRESS.hits_count()
+    fails = PROGRESS.fails_count()
+    remaining = len(state.combos)
+    return CheckerStats(
+        total=checked + remaining,
+        checked_baseline=checked,
+        hits_baseline=hits,
+        fails_baseline=fails,
+    )
+
+
+def _mark_checked(result: AccountResult) -> None:
+    PROGRESS.mark_checked(result.email, result.password, success=result.success)
+    PROGRESS.set_remaining_count(len(state.combos))
 
 
 def _auth_ok() -> bool:
@@ -167,9 +198,11 @@ def _load_persisted() -> None:
     combo_path = DATA_ROOT / "data" / "combos.txt"
     if combo_path.exists():
         state.combos = storage.load_combos(combo_path)
+        PROGRESS.set_remaining_count(len(state.combos))
     proxy_path = DATA_ROOT / "data" / "proxies.txt"
     if proxy_path.exists():
         state.proxies = storage.load_proxies(proxy_path)
+    state.stats = _idle_stats()
 
 
 def _save_hits() -> None:
@@ -216,11 +249,24 @@ def api_state():
 def api_set_combos():
     data = request.get_json(silent=True) or {}
     text = data.get("text", "")
+    skipped = 0
+    message = ""
     if text:
-        state.combos = _parse_combos_text(text)
+        parsed = _parse_combos_text(text)
+        previous = list(state.combos)
+        state.combos, skipped, message = PROGRESS.merge_reload(parsed, previous)
     _save_combos()
-    state.add_log(f"Loaded {len(state.combos)} combos")
-    return jsonify({"combo_count": len(state.combos)})
+    PROGRESS.set_remaining_count(len(state.combos))
+    state.stats = _idle_stats()
+    if message:
+        state.add_log(message)
+    state.add_log(f"Loaded {len(state.combos)} combos ({PROGRESS.checked_count()} already checked)")
+    return jsonify({
+        "combo_count": len(state.combos),
+        "skipped": skipped,
+        "checked_ever": PROGRESS.checked_count(),
+        "message": message,
+    })
 
 
 @app.post("/api/proxies")
@@ -246,8 +292,21 @@ def api_start():
         return jsonify({"error": "No combos loaded"}), 400
 
     state.running = True
-    state.stats = CheckerStats(total=len(state.combos))
+    checked_baseline = PROGRESS.checked_count()
+    hits_baseline = PROGRESS.hits_count()
+    fails_baseline = PROGRESS.fails_count()
     combos_snapshot = list(state.combos)
+    state.stats = CheckerStats(
+        total=len(combos_snapshot) + checked_baseline,
+        checked_baseline=checked_baseline,
+        hits_baseline=hits_baseline,
+        fails_baseline=fails_baseline,
+    )
+    state.add_log(
+        f"Resuming at {checked_baseline} checked, {len(combos_snapshot)} remaining"
+        if checked_baseline
+        else f"Starting {len(combos_snapshot)} combos"
+    )
 
     def on_hit(result: AccountResult) -> None:
         hit = _result_to_hit(result)
@@ -256,6 +315,7 @@ def api_start():
             combo = (result.email, result.password)
             if combo in state.combos:
                 state.combos.remove(combo)
+        _mark_checked(result)
         _save_hits()
         _save_combos()
         notify_gift_card_hit(result)
@@ -271,6 +331,7 @@ def api_start():
         with state.lock:
             if combo in state.combos:
                 state.combos.remove(combo)
+        _mark_checked(result)
         _save_combos()
 
     def on_progress(stats: CheckerStats) -> None:
@@ -297,6 +358,8 @@ def api_start():
         finally:
             state.running = False
             _save_combos()
+            PROGRESS.set_remaining_count(len(state.combos))
+            state.stats = _idle_stats()
             state.publish({"type": "done"})
 
     state.worker = threading.Thread(target=run, daemon=True)
