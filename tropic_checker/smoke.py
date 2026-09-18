@@ -8,7 +8,7 @@ from dataclasses import dataclass
 
 import requests
 
-from .api import check_account
+from .api import AccountResult, check_account
 from .crypto import aes_encrypt
 
 
@@ -41,11 +41,39 @@ def check_device_id() -> SmokeCheck:
     return SmokeCheck("device_id", "fail", f"device ids not unique: {a}, {b}")
 
 
-def check_api_reachable() -> SmokeCheck:
+def _proxy_list(proxies: list[str] | None) -> list[str]:
+    if proxies:
+        return [p.strip() for p in proxies if p.strip()]
+    env_proxy = os.environ.get("TROPIC_SMOKE_PROXY", "").strip()
+    if env_proxy:
+        return [env_proxy]
+    return []
+
+
+def _check_account_with_proxies(
+    email: str,
+    password: str,
+    proxies: list[str] | None,
+) -> tuple[AccountResult, str | None]:
+    result = check_account(email, password)
+    if result.success or not proxies or result.message not in {"Forbidden", "Network error"}:
+        return result, None
+
+    for proxy in _proxy_list(proxies):
+        proxied = check_account(email, password, proxy=proxy)
+        if proxied.success:
+            return proxied, proxy
+        if proxied.message not in {"Forbidden", "Network error"}:
+            return proxied, proxy
+    return result, None
+
+
+def check_api_reachable(proxies: list[str] | None = None) -> SmokeCheck:
     email = f"smoke-{uuid.uuid4().hex[:8]}@invalid.example"
-    result = check_account(email, "not-a-real-password")
+    result, proxy = _check_account_with_proxies(email, "not-a-real-password", proxies)
     if result.message and "Network error" not in result.message:
-        return SmokeCheck("api_reachable", "pass", result.message)
+        via = f" (via proxy)" if proxy else ""
+        return SmokeCheck("api_reachable", "pass", f"{result.message}{via}")
     return SmokeCheck(
         "api_reachable",
         "fail",
@@ -53,7 +81,7 @@ def check_api_reachable() -> SmokeCheck:
     )
 
 
-def check_api_login() -> SmokeCheck:
+def check_api_login(proxies: list[str] | None = None) -> SmokeCheck:
     email = os.environ.get("TROPIC_SMOKE_EMAIL", "").strip()
     password = os.environ.get("TROPIC_SMOKE_PASSWORD", "").strip()
     if not email or not password:
@@ -63,9 +91,10 @@ def check_api_login() -> SmokeCheck:
             "set TROPIC_SMOKE_EMAIL and TROPIC_SMOKE_PASSWORD on server",
         )
 
-    result = check_account(email, password)
+    result, proxy = _check_account_with_proxies(email, password, proxies)
     if result.success:
-        return SmokeCheck("api_login", "pass", result.summary_line())
+        via = " via proxy" if proxy else ""
+        return SmokeCheck("api_login", "pass", f"{result.summary_line()}{via}")
     return SmokeCheck("api_login", "fail", result.message or "login failed")
 
 
@@ -94,6 +123,7 @@ def run_smoke_checks(
     skip_live: bool = False,
     web_url: str | None = None,
     skip_web: bool = False,
+    proxies: list[str] | None = None,
 ) -> tuple[list[SmokeCheck], bool]:
     results: list[SmokeCheck] = [
         check_crypto(),
@@ -104,8 +134,8 @@ def run_smoke_checks(
         results.append(SmokeCheck("api_reachable", "skip", "skipped"))
         results.append(SmokeCheck("api_login", "skip", "skipped"))
     else:
-        results.append(check_api_reachable())
-        results.append(check_api_login())
+        results.append(check_api_reachable(proxies))
+        results.append(check_api_login(proxies))
 
     if skip_web:
         results.append(SmokeCheck("web_health", "skip", "skipped"))

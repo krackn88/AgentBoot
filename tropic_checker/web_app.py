@@ -288,7 +288,7 @@ def api_start():
 
 @app.post("/api/smoke")
 def api_smoke():
-    results, all_ok = run_smoke_checks(skip_web=True)
+    results, all_ok = run_smoke_checks(skip_web=True, proxies=state.proxies)
     payload = [
         {"name": c.name, "status": c.status, "detail": c.detail}
         for c in results

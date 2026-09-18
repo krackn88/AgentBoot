@@ -20,7 +20,23 @@ python3 -m venv "${APP_DIR}/venv"
 
 mkdir -p "${APP_DIR}/data/data"
 
-sed "s/CHANGE_ME/${AUTH_TOKEN}/" "${APP_DIR}/deploy/tropic-checker.service" > /etc/systemd/system/tropic-checker.service
+SERVICE_FILE="/etc/systemd/system/tropic-checker.service"
+OLD_SMOKE_EMAIL=""
+OLD_SMOKE_PASSWORD=""
+if [ -f "${SERVICE_FILE}" ]; then
+  OLD_SMOKE_EMAIL="$(grep -m1 '^Environment=TROPIC_SMOKE_EMAIL=' "${SERVICE_FILE}" | cut -d= -f2- || true)"
+  OLD_SMOKE_PASSWORD="$(grep -m1 '^Environment=TROPIC_SMOKE_PASSWORD=' "${SERVICE_FILE}" | cut -d= -f2- || true)"
+fi
+
+sed "s/CHANGE_ME/${AUTH_TOKEN}/" "${APP_DIR}/deploy/tropic-checker.service" > "${SERVICE_FILE}"
+
+SMOKE_EMAIL="${TROPIC_SMOKE_EMAIL:-${OLD_SMOKE_EMAIL}}"
+SMOKE_PASSWORD="${TROPIC_SMOKE_PASSWORD:-${OLD_SMOKE_PASSWORD}}"
+if [ -n "${SMOKE_EMAIL}" ] && [ -n "${SMOKE_PASSWORD}" ]; then
+  sed -i "/Environment=TROPIC_AUTH_TOKEN/a Environment=TROPIC_SMOKE_EMAIL=${SMOKE_EMAIL}" "${SERVICE_FILE}"
+  sed -i "/Environment=TROPIC_SMOKE_EMAIL/a Environment=TROPIC_SMOKE_PASSWORD=${SMOKE_PASSWORD}" "${SERVICE_FILE}"
+fi
+
 systemctl daemon-reload
 systemctl enable tropic-checker
 systemctl restart tropic-checker
