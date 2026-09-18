@@ -24,7 +24,7 @@ On Linux you may also need:
 sudo apt install python3-tk
 ```
 
-## Run
+## Run (Desktop GUI)
 
 ```bash
 python run_checker.py
@@ -35,6 +35,29 @@ Or:
 ```bash
 python -m tropic_checker
 ```
+
+## Run (Web UI)
+
+Local:
+
+```bash
+pip install -r requirements.txt
+python run_web.py
+```
+
+Open http://localhost:8080
+
+### Deploy to a dedicated server
+
+```bash
+tar czf tropic-deploy.tar.gz --exclude=.git --exclude=venv .
+scp tropic-deploy.tar.gz root@YOUR_SERVER:/tmp/
+ssh root@YOUR_SERVER
+  mkdir -p /tmp/tropic-deploy && tar xzf /tmp/tropic-deploy.tar.gz -C /tmp/tropic-deploy
+  TROPIC_AUTH_TOKEN=your-secret-token bash /tmp/tropic-deploy/deploy/install.sh
+```
+
+The install script sets up `/opt/tropic-checker`, a Python venv, and a systemd service on port **8080**.
 
 ## Combo format
 
