@@ -21,6 +21,7 @@ from .telegram_notify import (
     get_pending_chat_ids,
     is_configured as telegram_configured,
     notify_gift_card_hit,
+    register_first_pending_chat,
     send_message as send_telegram_message,
 )
 from . import storage
@@ -309,9 +310,19 @@ def api_telegram_status():
     return jsonify({
         "configured": telegram_configured(),
         "has_bot_token": bool(os.environ.get("TELEGRAM_BOT_TOKEN")),
-        "has_chat_id": bool(os.environ.get("TELEGRAM_CHAT_ID")),
+        "has_chat_id": bool(telegram_configured()),
         "pending_chats": pending,
     })
+
+
+@app.post("/api/telegram/register")
+def api_telegram_register():
+    if not os.environ.get("TELEGRAM_BOT_TOKEN"):
+        return jsonify({"error": "TELEGRAM_BOT_TOKEN not set on server"}), 400
+    ok, detail, chat_id = register_first_pending_chat()
+    if not ok:
+        return jsonify({"error": detail, "pending_chats": get_pending_chat_ids()}), 400
+    return jsonify({"registered": True, "chat_id": chat_id})
 
 
 @app.post("/api/telegram/test")

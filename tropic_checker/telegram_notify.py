@@ -13,6 +13,14 @@ from .api import AccountResult, format_gift_card
 BRAND_NAME = os.environ.get("TROPIC_BRAND_NAME", "Tropical Smoothie Cafe")
 
 
+def _data_dir() -> str:
+    return os.environ.get("TROPIC_DATA_DIR", "data")
+
+
+def _chat_id_file() -> str:
+    return os.path.join(_data_dir(), "telegram_chat_id")
+
+
 def is_configured() -> bool:
     return bool(_bot_token() and _chat_id())
 
@@ -22,7 +30,34 @@ def _bot_token() -> str:
 
 
 def _chat_id() -> str:
-    return os.environ.get("TELEGRAM_CHAT_ID", "").strip()
+    env_id = os.environ.get("TELEGRAM_CHAT_ID", "").strip()
+    if env_id:
+        return env_id
+    path = _chat_id_file()
+    try:
+        with open(path, encoding="utf-8") as fh:
+            return fh.read().strip()
+    except OSError:
+        return ""
+
+
+def save_chat_id(chat_id: str) -> None:
+    chat_id = str(chat_id).strip()
+    if not chat_id:
+        return
+    os.makedirs(_data_dir(), exist_ok=True)
+    with open(_chat_id_file(), "w", encoding="utf-8") as fh:
+        fh.write(chat_id)
+    os.environ["TELEGRAM_CHAT_ID"] = chat_id
+
+
+def register_first_pending_chat() -> tuple[bool, str, str]:
+    pending = get_pending_chat_ids()
+    if not pending:
+        return False, "no pending chats — open Telegram and send /start to @tropicalhitsbot", ""
+    chat_id = str(pending[0]["chat_id"])
+    save_chat_id(chat_id)
+    return True, "registered", chat_id
 
 
 def has_gift_cards(result: AccountResult) -> bool:
