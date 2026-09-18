@@ -5,6 +5,9 @@ let knownHitIds = new Set();
 let serverComboPreview = false;
 let loadedComboText = '';
 let loadedProxyText = '';
+let listsLoaded = false;
+let statsThrottleTimer = null;
+let pendingStats = null;
 
 function headers() {
   const h = { 'Content-Type': 'application/json' };
@@ -57,6 +60,18 @@ function updateStats(stats, comboCount) {
   els.statFails.textContent = stats.fails;
   els.statCpm.textContent = stats.cpm;
   if (comboCount !== undefined) els.statCombos.textContent = comboCount;
+}
+
+function updateStatsThrottled(stats, comboCount) {
+  pendingStats = { stats, comboCount };
+  if (statsThrottleTimer) return;
+  statsThrottleTimer = setTimeout(() => {
+    statsThrottleTimer = null;
+    if (pendingStats) {
+      updateStats(pendingStats.stats, pendingStats.comboCount);
+      pendingStats = null;
+    }
+  }, 250);
 }
 
 function appendLog(msg) {
@@ -113,13 +128,17 @@ function prependHit(hit) {
   els.hitsList.insertAdjacentHTML('afterbegin', hitCardHtml(hit));
 }
 
-function renderHits(hits) {
+function renderHits(hits, hitsTotal) {
   knownHitIds = new Set();
   if (!hits.length) {
     els.hitsList.innerHTML = '<div class="empty">No hits yet — load combos and start checking</div>';
     return;
   }
-  els.hitsList.innerHTML = hits.map((hit) => {
+  const total = hitsTotal ?? hits.length;
+  const notice = total > hits.length
+    ? `<div class="empty" style="padding:8px 0;font-size:0.85rem">Showing latest ${hits.length} of ${total} hits</div>`
+    : '';
+  els.hitsList.innerHTML = notice + hits.map((hit) => {
     knownHitIds.add(hit.id);
     return hitCardHtml(hit);
   }).join('');
@@ -153,15 +172,12 @@ function formatComboCount(comboCount, progress) {
   return `${comboCount} combos loaded`;
 }
 
-async function refreshState() {
-  const data = await api('/api/state');
-  updateStats(data.stats, data.combo_count);
+function applyListFields(data) {
   els.comboCount.textContent = formatComboCount(data.combo_count, data.progress);
   if (data.combos_truncated) {
     els.comboCount.textContent += ` — preview only (first ${data.combos_preview_lines || 200} lines)`;
   }
   els.proxyCount.textContent = `${data.proxy_count} proxies loaded`;
-
   if (data.combos_text !== undefined) {
     els.comboInput.value = data.combos_text;
     loadedComboText = data.combos_text;
@@ -171,8 +187,21 @@ async function refreshState() {
     els.proxyInput.value = data.proxies_text;
     loadedProxyText = data.proxies_text;
   }
+}
 
-  renderHits(data.hits);
+async function loadListsOnce() {
+  if (listsLoaded) return;
+  const data = await api('/api/lists');
+  applyListFields(data);
+  listsLoaded = true;
+}
+
+async function refreshState() {
+  const data = await api('/api/state');
+  updateStats(data.stats, data.combo_count);
+  els.comboCount.textContent = formatComboCount(data.combo_count, data.progress);
+  els.proxyCount.textContent = `${data.proxy_count} proxies loaded`;
+  renderHits(data.hits, data.hits_total);
   els.logBox.textContent = data.logs.length ? data.logs.join('\n') + '\n' : '';
   setRunning(data.running);
 }
@@ -196,7 +225,7 @@ function connectEvents() {
   eventSource.onmessage = (ev) => {
     const data = JSON.parse(ev.data);
     if (data.type === 'log') appendLog(data.message);
-    if (data.type === 'stats') updateStats(data.stats);
+    if (data.type === 'stats') updateStatsThrottled(data.stats);
     if (data.type === 'hit' && data.hit) {
       prependHit(data.hit);
       if (data.stats) updateStats(data.stats);
@@ -292,7 +321,11 @@ document.getElementById('copyAllHits').onclick = async () => {
 
 document.getElementById('clearLog').onclick = () => { els.logBox.textContent = ''; };
 
-refreshState().catch((e) => {
-  els.logBox.textContent = `Failed to load state: ${e.message}\n`;
-});
-connectEvents();
+Promise.all([
+  loadListsOnce().catch((e) => {
+    els.logBox.textContent = `Failed to load lists: ${e.message}\n`;
+  }),
+  refreshState().catch((e) => {
+    els.logBox.textContent = `Failed to load state: ${e.message}\n`;
+  }),
+]).then(() => connectEvents());

@@ -42,6 +42,7 @@ app.config["SECRET_KEY"] = os.environ.get("TROPIC_SECRET", "tropic-change-me")
 # Optional simple auth token for dedi deployment
 AUTH_TOKEN = os.environ.get("TROPIC_AUTH_TOKEN", "")
 COMBO_PREVIEW_LINES = int(os.environ.get("TROPIC_COMBO_PREVIEW_LINES", "200"))
+HITS_UI_LIMIT = int(os.environ.get("TROPIC_HITS_UI_LIMIT", "100"))
 
 
 class AppState:
@@ -79,18 +80,14 @@ class AppState:
                 self.logs = self.logs[-500:]
         self.publish({"type": "log", "message": message})
 
-    def snapshot(self) -> dict[str, Any]:
+    def snapshot(self, *, include_lists: bool = False) -> dict[str, Any]:
         with self.lock:
-            combos_text, combos_truncated = _combos_text(self.combos)
-            return {
+            payload: dict[str, Any] = {
                 "running": self.running,
                 "combo_count": len(self.combos),
                 "proxy_count": len(self.proxies),
-                "combos_text": combos_text,
-                "combos_truncated": combos_truncated,
-                "combos_preview_lines": COMBO_PREVIEW_LINES if combos_truncated else len(self.combos),
-                "proxies_text": "\n".join(self.proxies),
-                "hits": list(self.hits),
+                "hits": list(self.hits[:HITS_UI_LIMIT]),
+                "hits_total": len(self.hits),
                 "logs": self.logs[-100:],
                 "stats": _stats_payload(self.stats),
                 "progress": {
@@ -98,6 +95,15 @@ class AppState:
                     "remaining": len(self.combos),
                 },
             }
+            if include_lists:
+                combos_text, combos_truncated = _combos_text(self.combos)
+                payload["combos_text"] = combos_text
+                payload["combos_truncated"] = combos_truncated
+                payload["combos_preview_lines"] = (
+                    COMBO_PREVIEW_LINES if combos_truncated else len(self.combos)
+                )
+                payload["proxies_text"] = "\n".join(self.proxies)
+            return payload
 
 
 state = AppState()
@@ -315,6 +321,12 @@ def api_state():
     return jsonify(state.snapshot())
 
 
+@app.get("/api/lists")
+def api_lists():
+    """Combo/proxy preview text — loaded once on page init to keep /api/state fast."""
+    return jsonify(state.snapshot(include_lists=True))
+
+
 @app.post("/api/combos")
 def api_set_combos():
     data = request.get_json(silent=True) or {}
@@ -389,11 +401,12 @@ def api_start():
         _save_hits()
         _save_combos()
         notify_gift_card_hit(result)
-        snapshot = state.snapshot()
+        with state.lock:
+            stats_payload = _stats_payload(state.stats)
         state.publish({
             "type": "hit",
             "hit": hit,
-            "stats": snapshot["stats"],
+            "stats": stats_payload,
         })
 
     def on_fail(result: AccountResult) -> None:
@@ -404,10 +417,18 @@ def api_start():
         _mark_checked(result)
         _save_combos()
 
+    last_stats_publish = 0.0
+
     def on_progress(stats: CheckerStats) -> None:
+        nonlocal last_stats_publish
         with state.lock:
             state.stats = stats
-        state.publish({"type": "stats", "stats": state.snapshot()["stats"]})
+            stats_payload = _stats_payload(stats)
+        now = time.time()
+        if now - last_stats_publish < 0.25:
+            return
+        last_stats_publish = now
+        state.publish({"type": "stats", "stats": stats_payload})
 
     def on_log(message: str) -> None:
         state.add_log(message)
@@ -544,7 +565,9 @@ def api_events():
     def stream():
         q = state.subscribe()
         try:
-            yield f"data: {json.dumps({'type': 'stats', 'stats': state.snapshot()['stats']})}\n\n"
+            with state.lock:
+                stats_payload = _stats_payload(state.stats)
+            yield f"data: {json.dumps({'type': 'stats', 'stats': stats_payload})}\n\n"
             while True:
                 try:
                     msg = q.get(timeout=15)
