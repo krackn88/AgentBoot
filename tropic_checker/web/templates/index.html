@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tropic Time Checker</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <meta name="auth-token" content="{{ auth_token }}" />
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="brand">
+        <span class="logo">🌴</span>
+        <div>
+          <h1>Tropic Time Checker</h1>
+          <p>Tropical Smoothie Cafe Account Checker</p>
+        </div>
+      </div>
+      <div class="status-pill" id="statusPill">Idle</div>
+    </header>
+
+    <section class="stats-bar">
+      <div class="stat"><span>Total</span><strong id="statTotal">0</strong></div>
+      <div class="stat"><span>Checked</span><strong id="statChecked">0</strong></div>
+      <div class="stat hit"><span>Hits</span><strong id="statHits">0</strong></div>
+      <div class="stat fail"><span>Fails</span><strong id="statFails">0</strong></div>
+      <div class="stat"><span>CPM</span><strong id="statCpm">0</strong></div>
+      <div class="stat"><span>Combos Left</span><strong id="statCombos">0</strong></div>
+    </section>
+
+    <div class="layout">
+      <aside class="panel sidebar">
+        <h2>Combo List</h2>
+        <textarea id="comboInput" placeholder="email@example.com:password&#10;user@mail.com:pass123"></textarea>
+        <div class="btn-row">
+          <button class="btn mint" id="loadCombos">Load Combos</button>
+          <button class="btn ghost" id="saveCombos">Save</button>
+        </div>
+        <p class="hint" id="comboCount">0 combos loaded</p>
+
+        <h2>Proxies</h2>
+        <textarea id="proxyInput" placeholder="1.2.3.4:8080&#10;1.2.3.4:8080:user:pass"></textarea>
+        <div class="btn-row">
+          <button class="btn mint" id="loadProxies">Load Proxies</button>
+          <button class="btn ghost" id="saveProxies">Save</button>
+        </div>
+        <p class="hint" id="proxyCount">0 proxies loaded</p>
+
+        <h2>Settings</h2>
+        <label class="thread-label">
+          Threads: <strong id="threadVal">10</strong>
+          <input type="range" id="threads" min="1" max="50" value="10" />
+        </label>
+        <div class="btn-row stack">
+          <button class="btn pink big" id="startBtn">▶ Start Checking</button>
+          <button class="btn red" id="stopBtn">■ Stop</button>
+        </div>
+      </aside>
+
+      <main class="panel main">
+        <div class="section-head">
+          <h2>🍹 Hits</h2>
+          <div class="btn-row">
+            <button class="btn ghost" id="copyAllHits">Copy All</button>
+            <button class="btn ghost" id="clearHits">Clear All</button>
+          </div>
+        </div>
+        <div id="hitsList" class="hits-list">
+          <div class="empty">No hits yet — load combos and start checking</div>
+        </div>
+
+        <div class="section-head">
+          <h2>Activity Log</h2>
+          <button class="btn ghost small" id="clearLog">Clear</button>
+        </div>
+        <pre id="logBox" class="log-box"></pre>
+      </main>
+    </div>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

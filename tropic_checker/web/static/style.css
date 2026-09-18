@@ -1,0 +1,117 @@
+:root {
+  --pink: #cf0082;
+  --pink-hover: #e6008f;
+  --mint: #00c9a7;
+  --lime: #7ed321;
+  --sun: #ffb800;
+  --bg: #12121f;
+  --panel: #1a1a2e;
+  --card: #2d2d4a;
+  --border: #3d3d5c;
+  --text: #ffffff;
+  --dim: #b8b8d0;
+  --hit: #00e676;
+  --fail: #ff5252;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: radial-gradient(circle at top left, #2a1030, var(--bg) 45%);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.app { max-width: 1400px; margin: 0 auto; padding: 20px; }
+
+.header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 20px;
+}
+.brand { display: flex; gap: 14px; align-items: center; }
+.logo { font-size: 2.4rem; }
+.brand h1 { margin: 0; color: var(--pink); font-size: 1.8rem; }
+.brand p { margin: 4px 0 0; color: var(--dim); font-size: 0.9rem; }
+
+.status-pill {
+  padding: 8px 16px; border-radius: 999px; background: var(--card);
+  border: 1px solid var(--border); font-weight: 600;
+}
+.status-pill.running { background: rgba(207,0,130,.2); border-color: var(--pink); color: var(--pink); }
+
+.stats-bar {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 20px;
+}
+.stat {
+  background: var(--panel); border: 1px solid var(--border); border-radius: 12px;
+  padding: 14px; text-align: center;
+}
+.stat span { display: block; color: var(--dim); font-size: 0.8rem; margin-bottom: 6px; }
+.stat strong { font-size: 1.4rem; color: var(--mint); }
+.stat.hit strong { color: var(--hit); }
+.stat.fail strong { color: var(--fail); }
+
+.layout { display: grid; grid-template-columns: 340px 1fr; gap: 20px; }
+.panel {
+  background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 18px;
+}
+.sidebar h2, .section-head h2 {
+  margin: 0 0 10px; font-size: 0.85rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--pink);
+}
+.sidebar h2:not(:first-child) { margin-top: 22px; }
+
+textarea {
+  width: 100%; min-height: 120px; resize: vertical;
+  background: var(--card); color: var(--text); border: 1px solid var(--border);
+  border-radius: 10px; padding: 10px; font-family: Consolas, monospace; font-size: 0.85rem;
+}
+.thread-label { display: block; margin: 10px 0 16px; color: var(--dim); }
+input[type=range] { width: 100%; accent-color: var(--pink); }
+
+.btn-row { display: flex; gap: 8px; margin-top: 8px; }
+.btn-row.stack { flex-direction: column; }
+.btn {
+  border: none; border-radius: 10px; padding: 10px 14px; cursor: pointer;
+  font-weight: 600; color: white; transition: .15s;
+}
+.btn.small { padding: 6px 10px; font-size: 0.85rem; }
+.btn.big { padding: 14px; font-size: 1rem; }
+.btn.pink { background: var(--pink); }
+.btn.pink:hover { background: var(--pink-hover); }
+.btn.mint { background: var(--mint); color: #111; }
+.btn.mint:hover { background: var(--lime); }
+.btn.red { background: var(--fail); }
+.btn.ghost { background: var(--card); border: 1px solid var(--border); color: var(--text); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+
+.hint { color: var(--dim); font-size: 0.85rem; margin: 8px 0 0; }
+
+.section-head {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+}
+
+.hits-list { display: flex; flex-direction: column; gap: 10px; max-height: 520px; overflow: auto; margin-bottom: 20px; }
+.empty { color: var(--dim); text-align: center; padding: 40px 10px; }
+
+.hit-card {
+  background: var(--card); border: 1px solid var(--border); border-left: 4px solid var(--hit);
+  border-radius: 12px; padding: 14px;
+}
+.hit-card h3 { margin: 0 0 8px; color: var(--hit); font-size: 1rem; }
+.hit-card .combo { color: var(--sun); font-family: Consolas, monospace; font-size: 0.9rem; margin-bottom: 8px; word-break: break-all; }
+.hit-card .meta { color: var(--text); font-size: 0.9rem; margin-bottom: 8px; }
+.hit-card .rewards { color: var(--mint); font-size: 0.82rem; margin-bottom: 8px; }
+.hit-card .actions { display: flex; gap: 8px; }
+
+.log-box {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  min-height: 160px; max-height: 220px; overflow: auto; padding: 12px;
+  font-family: Consolas, monospace; font-size: 0.8rem; color: var(--dim); margin: 0;
+}
+
+@media (max-width: 960px) {
+  .layout { grid-template-columns: 1fr; }
+  .stats-bar { grid-template-columns: repeat(3, 1fr); }
+}
