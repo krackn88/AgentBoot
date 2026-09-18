@@ -2,6 +2,9 @@ const authToken = document.querySelector('meta[name="auth-token"]')?.content || 
 
 let eventSource = null;
 let knownHitIds = new Set();
+let serverComboPreview = false;
+let loadedComboText = '';
+let loadedProxyText = '';
 
 function headers() {
   const h = { 'Content-Type': 'application/json' };
@@ -154,7 +157,21 @@ async function refreshState() {
   const data = await api('/api/state');
   updateStats(data.stats, data.combo_count);
   els.comboCount.textContent = formatComboCount(data.combo_count, data.progress);
+  if (data.combos_truncated) {
+    els.comboCount.textContent += ` — preview only (first ${data.combos_preview_lines || 200} lines)`;
+  }
   els.proxyCount.textContent = `${data.proxy_count} proxies loaded`;
+
+  if (data.combos_text !== undefined) {
+    els.comboInput.value = data.combos_text;
+    loadedComboText = data.combos_text;
+    serverComboPreview = Boolean(data.combos_truncated);
+  }
+  if (data.proxies_text !== undefined) {
+    els.proxyInput.value = data.proxies_text;
+    loadedProxyText = data.proxies_text;
+  }
+
   renderHits(data.hits);
   els.logBox.textContent = data.logs.length ? data.logs.join('\n') + '\n' : '';
   setRunning(data.running);
@@ -204,7 +221,19 @@ els.threads.addEventListener('input', () => {
 });
 
 document.getElementById('loadCombos').onclick = async () => {
-  const data = await api('/api/combos', { method: 'POST', body: JSON.stringify({ text: els.comboInput.value }) });
+  const text = els.comboInput.value;
+  if (serverComboPreview && text === loadedComboText) {
+    appendLog('Server combo queue already loaded — paste a new list to replace it');
+    return;
+  }
+  if (serverComboPreview && !confirm(
+    'This replaces the full server queue with only what is in the text box. Continue?'
+  )) {
+    return;
+  }
+  const data = await api('/api/combos', { method: 'POST', body: JSON.stringify({ text }) });
+  serverComboPreview = false;
+  loadedComboText = text;
   els.comboCount.textContent = formatComboCount(data.combo_count, { checked_ever: data.checked_ever });
   if (data.message) appendLog(data.message);
   refreshState();

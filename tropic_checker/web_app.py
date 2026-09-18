@@ -41,6 +41,7 @@ app.config["SECRET_KEY"] = os.environ.get("TROPIC_SECRET", "tropic-change-me")
 
 # Optional simple auth token for dedi deployment
 AUTH_TOKEN = os.environ.get("TROPIC_AUTH_TOKEN", "")
+COMBO_PREVIEW_LINES = int(os.environ.get("TROPIC_COMBO_PREVIEW_LINES", "200"))
 
 
 class AppState:
@@ -80,10 +81,15 @@ class AppState:
 
     def snapshot(self) -> dict[str, Any]:
         with self.lock:
+            combos_text, combos_truncated = _combos_text(self.combos)
             return {
                 "running": self.running,
                 "combo_count": len(self.combos),
                 "proxy_count": len(self.proxies),
+                "combos_text": combos_text,
+                "combos_truncated": combos_truncated,
+                "combos_preview_lines": COMBO_PREVIEW_LINES if combos_truncated else len(self.combos),
+                "proxies_text": "\n".join(self.proxies),
                 "hits": list(self.hits),
                 "logs": self.logs[-100:],
                 "stats": _stats_payload(self.stats),
@@ -170,6 +176,18 @@ def _result_to_hit(result: AccountResult) -> dict[str, Any]:
         ],
         "referral_code": (result.profile or {}).get("referral_code"),
     }
+
+
+def _combos_text(combos: list[tuple[str, str]]) -> tuple[str, bool]:
+    lines = [f"{email}:{password}" for email, password in combos]
+    if len(lines) > COMBO_PREVIEW_LINES:
+        preview = lines[:COMBO_PREVIEW_LINES]
+        header = (
+            f"# Server queue: {len(lines)} combos "
+            f"(showing first {COMBO_PREVIEW_LINES} — do not click Load unless replacing the list)\n"
+        )
+        return header + "\n".join(preview), True
+    return "\n".join(lines), False
 
 
 def _parse_combos_text(text: str) -> list[tuple[str, str]]:
