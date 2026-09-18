@@ -105,6 +105,7 @@ input[type=range] { width: 100%; accent-color: var(--pink); }
 .hit-card h3 { margin: 0 0 8px; color: var(--hit); font-size: 1rem; }
 .hit-card .combo { color: #c45a00; font-family: Consolas, monospace; font-size: 0.9rem; margin-bottom: 8px; word-break: break-all; font-weight: 600; }
 .hit-card .meta { color: var(--text); font-size: 0.9rem; margin-bottom: 8px; }
+.hit-card .gift-cards { color: #c45a00; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }
 .hit-card .rewards { color: var(--mint); font-size: 0.82rem; margin-bottom: 8px; }
 .hit-card .actions { display: flex; gap: 8px; flex-wrap: wrap; }
 

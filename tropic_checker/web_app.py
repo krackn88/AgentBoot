@@ -112,6 +112,15 @@ def _result_to_hit(result: AccountResult) -> dict[str, Any]:
         "points": result.points or 0,
         "gift_cards": len(result.gift_cards),
         "gift_card_balance": result.gift_card_balance,
+        "gift_card_details": [
+            {
+                "nickname": card.get("nickName") or card.get("nickname"),
+                "balance": card.get("balance"),
+                "is_default": bool(card.get("isDefault")),
+                "card_id": card.get("cardId") or card.get("card_id"),
+            }
+            for card in result.gift_cards
+        ],
         "rewards": [
             {"name": r.get("name"), "expiring_at": r.get("expiring_at")}
             for r in result.rewards

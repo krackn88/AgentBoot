@@ -548,14 +548,9 @@ class TropicCheckerApp(ctk.CTk):
 
 
 def json_card_summary(card: dict[str, Any]) -> str:
-    parts = []
-    for key in ("card_number", "number", "masked_number", "last_four"):
-        if card.get(key):
-            parts.append(str(card[key]))
-    for key in ("balance", "amount", "available_balance"):
-        if card.get(key) is not None:
-            parts.append(f"${card[key]}")
-    return " | ".join(parts) if parts else str(card)
+    from .api import format_gift_card
+
+    return format_gift_card(card)
 
 
 def line_to_result(line: str) -> AccountResult | None:

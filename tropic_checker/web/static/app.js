@@ -68,6 +68,12 @@ function hitCardHtml(hit) {
     ? ` • GC $${Number(hit.gift_card_balance).toFixed(2)}`
     : '';
   const rewards = (hit.rewards || []).map((r) => `↳ ${escapeHtml(r.name || '')}`).join('<br>');
+  const giftCards = (hit.gift_card_details || []).map((gc) => {
+    const nick = gc.nickname ? escapeHtml(gc.nickname) : 'Gift Card';
+    const bal = gc.balance != null ? `$${escapeHtml(String(gc.balance))}` : '';
+    const def = gc.is_default ? ' (default)' : '';
+    return `💳 ${nick}${bal ? `: ${bal}` : ''}${def}`;
+  }).join('<br>');
   return `
     <article class="hit-card" data-id="${escapeHtml(hit.id)}">
       <h3>🌴 HIT — ${escapeHtml(hit.name || hit.email)}</h3>
@@ -77,6 +83,7 @@ function hitCardHtml(hit) {
         • Rewards: ${(hit.rewards || []).length}
         ${hit.referral_code ? ` • Ref: ${escapeHtml(hit.referral_code)}` : ''}
       </div>
+      ${giftCards ? `<div class="gift-cards">${giftCards}</div>` : ''}
       ${rewards ? `<div class="rewards">${rewards}</div>` : ''}
       <div class="actions">
         <button class="btn pink small" data-action="copy" data-text="${escapeHtml(hit.line)}">Copy Hit</button>

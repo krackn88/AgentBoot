@@ -16,6 +16,20 @@ USER_AGENT = "Tropical Smoothie Cafe/6.8.20/3268 (iPhone; iOS 26.6.2; Scale/3.00
 DEVICE_TOKEN = "0" * 64
 
 
+def format_gift_card(card: dict[str, Any]) -> str:
+    nick = str(card.get("nickName") or card.get("nickname") or "card")
+    balance = None
+    for key in ("balance", "amount", "available_balance", "card_balance"):
+        val = card.get(key)
+        if val is not None and str(val).strip():
+            balance = f"${val}"
+            break
+    suffix = " (default)" if card.get("isDefault") else ""
+    if balance:
+        return f"{nick}:{balance}{suffix}"
+    return f"{nick}{suffix}"
+
+
 @dataclass
 class AccountResult:
     email: str
@@ -65,6 +79,8 @@ class AccountResult:
         parts.append(f"GiftCards={len(self.gift_cards)}")
         if self.gift_card_balance:
             parts.append(f"GC_Balance=${self.gift_card_balance:.2f}")
+        if self.gift_cards:
+            parts.append("GC_Details=" + "; ".join(format_gift_card(c) for c in self.gift_cards))
         parts.append(f"Rewards={len(self.rewards)}")
         if self.rewards:
             names = [r.get("name", "?") for r in self.rewards[:3]]
