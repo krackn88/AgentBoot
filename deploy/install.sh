@@ -24,8 +24,8 @@ SERVICE_FILE="/etc/systemd/system/tropic-checker.service"
 OLD_SMOKE_EMAIL=""
 OLD_SMOKE_PASSWORD=""
 if [ -f "${SERVICE_FILE}" ]; then
-  OLD_SMOKE_EMAIL="$(grep -m1 '^Environment=TROPIC_SMOKE_EMAIL=' "${SERVICE_FILE}" | cut -d= -f2- || true)"
-  OLD_SMOKE_PASSWORD="$(grep -m1 '^Environment=TROPIC_SMOKE_PASSWORD=' "${SERVICE_FILE}" | cut -d= -f2- || true)"
+  OLD_SMOKE_EMAIL="$(grep -m1 '^Environment=TROPIC_SMOKE_EMAIL=' "${SERVICE_FILE}" | sed 's/^Environment=TROPIC_SMOKE_EMAIL=//' || true)"
+  OLD_SMOKE_PASSWORD="$(grep -m1 '^Environment=TROPIC_SMOKE_PASSWORD=' "${SERVICE_FILE}" | sed 's/^Environment=TROPIC_SMOKE_PASSWORD=//' || true)"
 fi
 
 sed "s/CHANGE_ME/${AUTH_TOKEN}/" "${APP_DIR}/deploy/tropic-checker.service" > "${SERVICE_FILE}"
