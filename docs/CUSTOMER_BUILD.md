@@ -19,16 +19,30 @@ python -c "import secrets; print(secrets.token_hex(32))"
 
 2. Save it as `license_secret.txt` in the repo root (gitignored).
 
-## Build customer EXE (Windows machine required)
+## Build customer editions (Linux or Windows hosts)
+
+From Linux (builds both platforms):
+
+```bash
+bash build/build_customer_all.sh
+```
+
+Output:
+
+- `dist/TropicChecker-Customer-linux-x86_64.tar.gz`
+- `dist/TropicChecker-Customer-windows-x64.zip`
+
+Windows-only obfuscated EXE (optional, requires Windows):
 
 ```bat
 build\build_customer_windows.bat
 ```
 
-Output:
+Upload to the customer portal:
 
-- `dist\customer\release\TropicChecker.exe`
-- `dist\TropicChecker-Customer-windows-x64.zip`
+```bash
+bash deploy/upload_customer_build.sh
+```
 
 ## Issue a license (recommended: online dashboard)
 

@@ -19,13 +19,19 @@ CATALOG = [
     {
         "filename": "TropicChecker-Customer-windows-x64.zip",
         "title": "Windows (64-bit)",
-        "description": "Licensed customer edition. Extract and run TropicChecker.exe — no Python required.",
+        "description": "Licensed customer edition. Extract the zip and run TropicChecker.bat — no Python required.",
         "platform": "windows",
+    },
+    {
+        "filename": "TropicChecker-Customer-linux-x86_64.tar.gz",
+        "title": "Linux (64-bit)",
+        "description": "Licensed customer edition. Extract and run ./TropicChecker — no Python required.",
+        "platform": "linux",
     },
     {
         "filename": "TropicChecker-Customer.exe",
         "title": "Windows EXE (single file)",
-        "description": "Same app as a single portable executable.",
+        "description": "Same Windows app as a single portable executable.",
         "platform": "windows",
     },
 ]

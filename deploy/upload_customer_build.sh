@@ -8,17 +8,19 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
 SSHPASS="${SSHPASS:-}"
 SCP=(scp -o StrictHostKeyChecking=no)
+SSH=(ssh -o StrictHostKeyChecking=no)
 if [ -n "${SSHPASS}" ]; then
   SCP=(sshpass -e scp -o StrictHostKeyChecking=no)
+  SSH=(sshpass -e ssh -o StrictHostKeyChecking=no)
 fi
 
 echo "Uploading customer builds to ${DEDI}:${REMOTE_DIR}"
 "${SCP[@]}" "${DEDI}:${REMOTE_DIR}" --dry-run 2>/dev/null || true
-SSHPASS="${SSHPASS}" sshpass -e ssh -o StrictHostKeyChecking=no "${DEDI}" "mkdir -p ${REMOTE_DIR}" 2>/dev/null || \
-  ssh -o StrictHostKeyChecking=no "${DEDI}" "mkdir -p ${REMOTE_DIR}"
+SSHPASS="${SSHPASS}" "${SSH[@]}" "${DEDI}" "mkdir -p ${REMOTE_DIR}"
 
 for file in \
   TropicChecker-Customer-windows-x64.zip \
+  TropicChecker-Customer-linux-x86_64.tar.gz \
   TropicChecker-Customer.exe; do
   src=""
   if [ -f "${ROOT}/dist/customer/release/TropicChecker.exe" ] && [ "${file}" = "TropicChecker-Customer.exe" ]; then
@@ -30,27 +32,17 @@ for file in \
   fi
   if [ -n "${src}" ]; then
     echo "  -> ${file}"
-    if [ -n "${SSHPASS}" ]; then
-      SSHPASS="${SSHPASS}" sshpass -e scp -o StrictHostKeyChecking=no "${src}" "${DEDI}:${REMOTE_DIR}/${file}"
-    else
-      scp -o StrictHostKeyChecking=no "${src}" "${DEDI}:${REMOTE_DIR}/${file}"
-    fi
+    "${SCP[@]}" "${src}" "${DEDI}:${REMOTE_DIR}/${file}"
   fi
 done
 
-# Fallback: offer standard Windows zip as customer build until customer EXE is built
-if ! ssh -o StrictHostKeyChecking=no "${DEDI}" "test -f ${REMOTE_DIR}/TropicChecker-Customer-windows-x64.zip" 2>/dev/null; then
+# Fallback only when no customer Windows build was produced locally
+if [ ! -f "${ROOT}/dist/TropicChecker-Customer-windows-x64.zip" ] \
+  && ! "${SSH[@]}" "${DEDI}" "test -f ${REMOTE_DIR}/TropicChecker-Customer-windows-x64.zip" 2>/dev/null; then
   if [ -f "${ROOT}/dist/TropicChecker-windows-x64.zip" ]; then
-    echo "  -> TropicChecker-Customer-windows-x64.zip (from standard build)"
-    if [ -n "${SSHPASS}" ]; then
-      SSHPASS="${SSHPASS}" sshpass -e scp -o StrictHostKeyChecking=no \
-        "${ROOT}/dist/TropicChecker-windows-x64.zip" \
-        "${DEDI}:${REMOTE_DIR}/TropicChecker-Customer-windows-x64.zip"
-    else
-      scp -o StrictHostKeyChecking=no \
-        "${ROOT}/dist/TropicChecker-windows-x64.zip" \
-        "${DEDI}:${REMOTE_DIR}/TropicChecker-Customer-windows-x64.zip"
-    fi
+    echo "  -> TropicChecker-Customer-windows-x64.zip (from standard build fallback)"
+    "${SCP[@]}" "${ROOT}/dist/TropicChecker-windows-x64.zip" \
+      "${DEDI}:${REMOTE_DIR}/TropicChecker-Customer-windows-x64.zip"
   fi
 fi
 
