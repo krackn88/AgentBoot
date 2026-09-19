@@ -8,10 +8,10 @@ User=root
 WorkingDirectory=/opt/tropic-checker
 Environment=LICENSE_DATA_DIR=/opt/tropic-checker/data/license-server
 Environment=LICENSE_HOST=0.0.0.0
-Environment=LICENSE_PORT=8081
+Environment=LICENSE_PORT=8082
 Environment=LICENSE_ADMIN_TOKEN=CHANGE_ME
 Environment=LICENSE_SECRET_FILE=/opt/tropic-checker/license_secret.txt
-ExecStart=/opt/tropic-checker/venv/bin/gunicorn -w 1 -k gthread --threads 4 -b 0.0.0.0:8081 license_server.app:app
+ExecStart=/opt/tropic-checker/venv/bin/gunicorn -w 1 -k gthread --threads 4 -b 0.0.0.0:8082 license_server.app:app
 Restart=always
 RestartSec=3
 

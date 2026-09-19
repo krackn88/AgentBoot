@@ -13,7 +13,7 @@ from .store import save_license
 
 DEFAULT_API_URL = os.environ.get(
     "TROPIC_LICENSE_API_URL",
-    "http://159.69.76.189:8081",
+    "http://159.69.76.189:8082",
 ).rstrip("/")
 
 

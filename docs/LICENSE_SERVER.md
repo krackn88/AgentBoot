@@ -4,9 +4,9 @@ Online activation API and vendor dashboard for customer editions.
 
 ## URLs (dedi)
 
-- **Dashboard:** http://159.69.76.189:8081
-- **Activate API:** `POST http://159.69.76.189:8081/api/v1/activate`
-- **Validate API:** `POST http://159.69.76.189:8081/api/v1/validate`
+- **Dashboard:** http://159.69.76.189:8082
+- **Activate API:** `POST http://159.69.76.189:8082/api/v1/activate`
+- **Validate API:** `POST http://159.69.76.189:8082/api/v1/validate`
 
 ## Deploy on dedi
 
