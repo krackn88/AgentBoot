@@ -7,7 +7,8 @@ APP_JS_VERSION = "1789761619"
 APP_PLATFORM = "ios"
 
 # curl_cffi TLS + HTTP/2 fingerprint (real HTTPS, not plain Python requests).
-TLS_IMPERSONATE = "safari17_2_ios"
+# Must match iOS 18.x — safari17_2_ios triggers gateway blocks (sig 6b8cc245...).
+TLS_IMPERSONATE = "safari18_0_ios"
 
 USER_AGENT = (
     "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) "
