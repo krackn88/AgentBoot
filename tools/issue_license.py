@@ -32,9 +32,8 @@ def _load_secret() -> None:
             file=sys.stderr,
         )
         sys.exit(1)
-    import tropic_checker.licensing._secret as secret_mod
-
-    secret_mod._LICENSE_SECRET = secret.encode("utf-8")
+    # license_core reads TROPIC_LICENSE_SECRET (set above) to sign with the
+    # Ed25519 private key; nothing else needs patching.
 
 
 def main() -> None:

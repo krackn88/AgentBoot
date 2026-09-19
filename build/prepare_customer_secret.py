@@ -1,5 +1,10 @@
 #!/usr/bin/env python3
-"""Inject license signing secret before customer obfuscation build."""
+"""Inject the license PUBLIC key into the client before the customer build.
+
+The vendor's private signing secret (TROPIC_LICENSE_SECRET / license_secret.txt)
+never ships to customers. This script derives the Ed25519 *public* key from it
+and writes only that public key into ``tropic_checker/licensing/_secret.py``.
+"""
 
 from __future__ import annotations
 
@@ -20,13 +25,20 @@ def main() -> None:
         print("ERROR: Set TROPIC_LICENSE_SECRET or create license_secret.txt", file=sys.stderr)
         sys.exit(1)
 
-    escaped = secret.encode("utf-8").hex()
+    # Import lazily so this runs from the repo root without side effects.
+    sys.path.insert(0, str(ROOT))
+    os.environ["TROPIC_LICENSE_SECRET"] = secret
+    from tropic_checker.licensing.license_core import public_key_hex
+
+    pub_hex = public_key_hex()
     TARGET.write_text(
-        '"""Auto-generated at customer build time — do not edit."""\n\n'
-        f"_LICENSE_SECRET = bytes.fromhex({escaped!r})\n",
+        '"""Auto-generated at customer build time — do not edit.\n\n'
+        "Only the Ed25519 PUBLIC key is embedded here. The private signing key\n"
+        'stays on the vendor side and is never shipped to customers.\n"""\n\n'
+        f"_LICENSE_PUBLIC_KEY_HEX = {pub_hex!r}\n",
         encoding="utf-8",
     )
-    print(f"Wrote signing secret to {TARGET}")
+    print(f"Wrote public key to {TARGET}")
 
 
 if __name__ == "__main__":
