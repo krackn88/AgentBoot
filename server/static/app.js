@@ -46,6 +46,8 @@ let selectedIds = new Set();
 let selectedSavedIds = new Set();
 let pollTimer = null;
 let lastLogSeq = 0;
+let lastSessionHits = 0;
+let lastSessionValid = 0;
 let saveTimer = null;
 let sessionCheckedCount = 0;
 let storedComboCount = 0;
@@ -133,6 +135,8 @@ async function loadSession() {
     if (data.proxies) proxiesText.value = data.proxies;
     if (data.threads) threadsInput.value = data.threads;
     sessionCheckedCount = data.checked_count || 0;
+    lastSessionHits = data.hits || 0;
+    lastSessionValid = data.valid || 0;
     updateResumeHint();
     renderLogs(data);
     updateStatus(data);
@@ -557,6 +561,8 @@ startBtn.addEventListener("click", async () => {
     updateResumeHint();
     showToast(`Preparing ${(result.combo_count || storedComboCount).toLocaleString()} combos...`);
     lastLogSeq = 0;
+    lastSessionHits = 0;
+    lastSessionValid = 0;
     logBox.textContent = "";
     await poll();
   } catch (err) {
@@ -626,11 +632,23 @@ async function poll() {
   try {
     const data = await api("/api/status");
     updateStatus(data);
-    if (data.hits > hits.length) await loadHits();
-    if (data.valid > savedCombos.length) await loadSavedCombos();
-    if (!data.running && !data.preparing) {
+    if ((data.hits || 0) > lastSessionHits) {
+      lastSessionHits = data.hits || 0;
       await loadHits();
+    }
+    if ((data.valid || 0) > lastSessionValid) {
+      lastSessionValid = data.valid || 0;
       await loadSavedCombos();
+    }
+    if (!data.running && !data.preparing) {
+      if (lastSessionHits !== (data.hits || 0)) {
+        lastSessionHits = data.hits || 0;
+        await loadHits();
+      }
+      if (lastSessionValid !== (data.valid || 0)) {
+        lastSessionValid = data.valid || 0;
+        await loadSavedCombos();
+      }
       const session = await api("/api/session");
       sessionCheckedCount = session.checked_count || 0;
       storedComboCount = session.combo_count || storedComboCount;
