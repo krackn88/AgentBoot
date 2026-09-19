@@ -15,8 +15,8 @@ COPY server/ server/
 RUN mkdir -p /app/data
 
 ENV HOST=0.0.0.0
-ENV PORT=8080
+ENV PORT=8090
 
-EXPOSE 8080
+EXPOSE 8090
 
-CMD ["uvicorn", "server.app:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "server.app:app", "--host", "0.0.0.0", "--port", "8090"]
