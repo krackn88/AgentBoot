@@ -20,6 +20,17 @@ def _code() -> str:
     return f"TROPIC-{raw[:4]}-{raw[4:]}"
 
 
+def normalize_hwid(hardware_id: str) -> str:
+    return hardware_id.replace("-", "").replace(" ", "").upper()
+
+
+def validate_hwid(hardware_id: str) -> str:
+    hwid = normalize_hwid(hardware_id)
+    if len(hwid) < 16:
+        raise ValueError("hardware_id must be at least 16 characters")
+    return hwid
+
+
 @dataclass
 class LicenseRow:
     id: str
@@ -56,8 +67,10 @@ class LicenseRow:
             return "revoked"
         if self.expires_at and _now() > self.expires_at:
             return "expired"
-        if self.hardware_id:
+        if self.hardware_id and self.license_key:
             return "active"
+        if self.hardware_id:
+            return "locked"
         return "pending"
 
 
@@ -128,22 +141,36 @@ class LicenseDB:
         email: str = "",
         days: int | None = None,
         notes: str = "",
+        hardware_id: str = "",
     ) -> LicenseRow:
         license_id = str(uuid.uuid4())
         created = _now()
         expires_at = created + days * 86400 if days and days > 0 else None
         code = _code()
+        hwid = validate_hwid(hardware_id)
+        existing = self.get_by_hardware(hwid)
+        if existing and existing.effective_status() not in {"revoked", "expired"}:
+            raise ValueError("This hardware ID already has a license")
         with self._connect() as conn:
             while True:
                 try:
                     conn.execute(
                         """
                         INSERT INTO licenses (
-                            id, customer_name, email, activation_code, status,
+                            id, customer_name, email, activation_code, hardware_id, status,
                             expires_at, created_at, notes
-                        ) VALUES (?, ?, ?, ?, 'pending', ?, ?, ?)
+                        ) VALUES (?, ?, ?, ?, ?, 'pending', ?, ?, ?)
                         """,
-                        (license_id, customer_name.strip(), email.strip(), code, expires_at, created, notes),
+                        (
+                            license_id,
+                            customer_name.strip(),
+                            email.strip(),
+                            code,
+                            hwid,
+                            expires_at,
+                            created,
+                            notes,
+                        ),
                     )
                     break
                 except sqlite3.IntegrityError:
@@ -270,7 +297,15 @@ class LicenseDB:
 
     def stats(self) -> dict[str, int]:
         rows = self.list_licenses()
-        counts = {"total": 0, "pending": 0, "active": 0, "expired": 0, "revoked": 0, "expiring_soon": 0}
+        counts = {
+            "total": 0,
+            "pending": 0,
+            "locked": 0,
+            "active": 0,
+            "expired": 0,
+            "revoked": 0,
+            "expiring_soon": 0,
+        }
         soon = _now() + 7 * 86400
         for lic in rows:
             counts["total"] += 1

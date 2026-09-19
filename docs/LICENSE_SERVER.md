@@ -30,10 +30,11 @@ Set `LICENSE_ADMIN_TOKEN` before install to control dashboard access (shown afte
 
 ## Vendor workflow
 
-1. Open dashboard → **Create License**
-2. Enter customer name, optional email, days until expiry (0 = never)
-3. Copy the **activation code** (e.g. `TROPIC-AB12-CD34`) and send to customer
-4. Customer enters code in desktop app → **Activate Online**
+1. Customer downloads the app and runs it — they copy their **Hardware ID** from the activation screen and send it to you
+2. Open dashboard → **Create License**
+3. Enter customer name, paste their **Hardware ID**, optional email, days until expiry (0 = never)
+4. Copy the **activation code** (e.g. `TROPIC-AB12-CD34`) and send to customer
+5. Customer enters code in desktop app → **Activate Online** (only works on the PC you locked)
 
 ## Dashboard actions
 

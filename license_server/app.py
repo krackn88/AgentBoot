@@ -10,7 +10,7 @@ from typing import Any, Callable
 
 from flask import Flask, abort, jsonify, redirect, render_template, request, send_from_directory
 
-from .db import LicenseDB
+from .db import LicenseDB, validate_hwid
 from .portal_files import list_downloads, resolve_file
 
 APP_DIR = Path(__file__).resolve().parent
@@ -120,7 +120,12 @@ def api_activate():
 
     if lic.hardware_id and lic.hardware_id != hwid:
         db.log_activation(lic.id, hwid, ip, False, "hwid mismatch")
-        return jsonify({"error": "This code is already activated on another PC"}), 403
+        msg = (
+            "This license is locked to a different PC"
+            if not lic.license_key
+            else "This code is already activated on another PC"
+        )
+        return jsonify({"error": msg}), 403
 
     try:
         license_key = _issue_key(hwid, lic.customer_name, lic.expires_at)
@@ -223,12 +228,23 @@ def admin_create():
     if not customer:
         return jsonify({"error": "customer_name required"}), 400
     days = int(data.get("days", 0) or 0)
-    lic = db.create_license(
-        customer,
-        email=str(data.get("email", "")),
-        days=days if days > 0 else None,
-        notes=str(data.get("notes", "")),
-    )
+    hardware_id = str(data.get("hardware_id", "")).strip()
+    if not hardware_id:
+        return jsonify({"error": "hardware_id required — customer sends this from the app"}), 400
+    try:
+        validate_hwid(hardware_id)
+    except ValueError as exc:
+        return jsonify({"error": str(exc)}), 400
+    try:
+        lic = db.create_license(
+            customer,
+            email=str(data.get("email", "")),
+            days=days if days > 0 else None,
+            notes=str(data.get("notes", "")),
+            hardware_id=hardware_id,
+        )
+    except ValueError as exc:
+        return jsonify({"error": str(exc)}), 409
     return jsonify({"license": lic.to_dict()})
 
 

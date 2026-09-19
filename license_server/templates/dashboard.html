@@ -22,8 +22,10 @@
 
     <section class="panel">
       <h2>Create License</h2>
+      <p class="hint">Customer runs the app first and sends you their Hardware ID. Paste it below to lock the license to their PC.</p>
       <form id="createForm" class="form-grid">
         <input name="customer_name" placeholder="Customer name" required />
+        <input name="hardware_id" class="mono wide" placeholder="Hardware ID (from customer)" required />
         <input name="email" placeholder="Email (optional)" />
         <input name="days" type="number" min="0" placeholder="Days (0 = never)" />
         <input name="notes" placeholder="Notes" />
@@ -71,6 +73,6 @@
       </div>
     </section>
   </div>
-  <script src="/static/dashboard.js?v=1"></script>
+  <script src="/static/dashboard.js?v=2"></script>
 </body>
 </html>

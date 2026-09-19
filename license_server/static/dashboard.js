@@ -37,8 +37,9 @@ async function loadStats() {
   const s = await api('/admin/api/stats');
   document.getElementById('statsBar').innerHTML = [
     ['Total', s.total],
-    ['Pending', s.pending],
+    ['Locked', s.locked],
     ['Active', s.active],
+    ['Pending', s.pending],
     ['Expiring (7d)', s.expiring_soon],
     ['Expired', s.expired],
     ['Revoked', s.revoked],
@@ -101,6 +102,7 @@ document.getElementById('createForm').onsubmit = async (e) => {
   const fd = new FormData(e.target);
   const body = {
     customer_name: fd.get('customer_name'),
+    hardware_id: fd.get('hardware_id'),
     email: fd.get('email'),
     days: Number(fd.get('days') || 0),
     notes: fd.get('notes'),

@@ -26,6 +26,7 @@ header p { margin: 4px 0 0; color: #666; }
 .form-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px;
 }
+.form-grid .wide { grid-column: 1 / -1; }
 input {
   padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95rem;
 }
@@ -47,6 +48,7 @@ th { color: #666; font-weight: 600; }
   display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.75rem; font-weight: 600;
 }
 .badge.active { background: #e8fff3; color: #0a7a4b; }
+.badge.locked { background: #e8f4ff; color: #0a5a9e; }
 .badge.pending { background: #fff4e0; color: #a65e00; }
 .badge.expired { background: #ffecec; color: #b00020; }
 .badge.revoked { background: #eee; color: #555; }

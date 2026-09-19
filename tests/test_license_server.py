@@ -24,14 +24,17 @@ def client(tmp_path):
 
 def test_create_and_activate(client):
     headers = {"X-Admin-Token": "admin-test-token"}
+    hwid = "A1B2C3D4E5F60718293A4B5C6D7E8F90"
     create = client.post(
         "/admin/api/licenses",
-        json={"customer_name": "Alice", "days": 30},
+        json={"customer_name": "Alice", "days": 30, "hardware_id": hwid},
         headers=headers,
     )
     assert create.status_code == 200
-    code = create.get_json()["license"]["activation_code"]
-    hwid = "A1B2C3D4E5F60718293A4B5C6D7E8F90"
+    lic = create.get_json()["license"]
+    code = lic["activation_code"]
+    assert lic["status"] == "locked"
+    assert lic["hardware_id"] == hwid
 
     act = client.post("/api/v1/activate", json={"activation_code": code, "hardware_id": hwid})
     assert act.status_code == 200
@@ -43,17 +46,49 @@ def test_create_and_activate(client):
         json={"activation_code": code, "hardware_id": "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"},
     )
     assert again.status_code == 403
+    assert "another PC" in again.get_json()["error"]
 
     val = client.post("/api/v1/validate", json={"license_key": key, "hardware_id": hwid})
     assert val.get_json()["valid"] is True
 
 
+def test_create_requires_hwid(client):
+    headers = {"X-Admin-Token": "admin-test-token"}
+    missing = client.post(
+        "/admin/api/licenses",
+        json={"customer_name": "No HWID"},
+        headers=headers,
+    )
+    assert missing.status_code == 400
+
+
+def test_prelocked_hwid_rejects_wrong_machine(client):
+    headers = {"X-Admin-Token": "admin-test-token"}
+    hwid = "11111111111111111111111111111111"
+    create = client.post(
+        "/admin/api/licenses",
+        json={"customer_name": "Carol", "hardware_id": hwid},
+        headers=headers,
+    )
+    code = create.get_json()["license"]["activation_code"]
+    wrong = client.post(
+        "/api/v1/activate",
+        json={"activation_code": code, "hardware_id": "22222222222222222222222222222222"},
+    )
+    assert wrong.status_code == 403
+    assert "locked to a different PC" in wrong.get_json()["error"]
+
+
 def test_dashboard_stats(client):
     headers = {"X-Admin-Token": "admin-test-token"}
-    client.post("/admin/api/licenses", json={"customer_name": "Bob"}, headers=headers)
+    client.post(
+        "/admin/api/licenses",
+        json={"customer_name": "Bob", "hardware_id": "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"},
+        headers=headers,
+    )
     stats = client.get("/admin/api/stats", headers=headers).get_json()
     assert stats["total"] >= 1
-    assert stats["pending"] >= 1
+    assert stats["locked"] >= 1
 
 
 def test_portal_home_and_download(client, tmp_path):

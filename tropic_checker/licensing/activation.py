@@ -39,16 +39,20 @@ class ActivationApp(ctk.CTk):
         ).pack(anchor="w", padx=20, pady=(20, 6))
         ctk.CTkLabel(
             frame,
-            text="Activate online with a code from your vendor, or paste an offline license key.",
+            text="Step 1: Copy your Hardware ID below and send it to your vendor.\n"
+            "Step 2: After they create your license, enter the activation code they send you.",
             font=T.FONT_BODY,
             text_color=T.TEXT_DIM,
             wraplength=580,
             justify="left",
         ).pack(anchor="w", padx=20, pady=(0, 12))
 
-        ctk.CTkLabel(frame, text="Your Hardware ID", font=T.FONT_HEADING, text_color=T.TEXT).pack(
-            anchor="w", padx=20
-        )
+        ctk.CTkLabel(
+            frame,
+            text="Your Hardware ID (send this to your vendor)",
+            font=T.FONT_HEADING,
+            text_color=T.TEXT,
+        ).pack(anchor="w", padx=20)
         hw_row = ctk.CTkFrame(frame, fg_color="transparent")
         hw_row.pack(fill="x", padx=20, pady=(6, 12))
         self.hwid_var = tk.StringVar(value=self.hwid)
@@ -72,7 +76,8 @@ class ActivationApp(ctk.CTk):
 
         ctk.CTkLabel(
             online_tab,
-            text="Enter the activation code from your vendor (e.g. TROPIC-AB12-CD34)",
+            text="Enter the activation code from your vendor (e.g. TROPIC-AB12-CD34).\n"
+            "Your license only works on this PC.",
             font=T.FONT_SMALL,
             text_color=T.TEXT_DIM,
             wraplength=520,
