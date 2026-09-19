@@ -1,0 +1,11 @@
+services:
+  checker:
+    build: .
+    container_name: fabletics-checker
+    restart: unless-stopped
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - FABLETICS_PROXY=${FABLETICS_PROXY:-}

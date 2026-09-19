@@ -22,7 +22,18 @@ Reverse-engineered from the `.chlz` capture:
    - `/api/accounts/me/addresses`
    - `/api/accounts/me/payments`
 
-## Install
+## Web UI
+
+```bash
+pip install -r requirements.txt
+./run.sh
+```
+
+Open `http://localhost:8090` — paste or upload combos/proxies, start checking, copy/delete hits from the table.
+
+**Deployed:** http://159.69.76.189:8090
+
+## CLI
 
 ```bash
 pip install -r requirements.txt

@@ -18,10 +18,17 @@ from .config import (
 
 
 class FableticsAPIError(Exception):
-    def __init__(self, message: str, status_code: int | None = None, retryable: bool = False):
+    def __init__(
+        self,
+        message: str,
+        status_code: int | None = None,
+        retryable: bool = False,
+        captcha_required: bool = False,
+    ):
         super().__init__(message)
         self.status_code = status_code
         self.retryable = retryable
+        self.captcha_required = captcha_required
 
 
 @dataclass
@@ -149,7 +156,13 @@ class FableticsClient:
 
         if not (200 <= response.status_code < 300):
             message = body.get("message", "Login failed") if isinstance(body, dict) else "Login failed"
-            raise FableticsAPIError(message, status_code=response.status_code)
+            lower = str(message).lower()
+            captcha_required = "recaptcha" in lower
+            raise FableticsAPIError(
+                message,
+                status_code=response.status_code,
+                captcha_required=captcha_required,
+            )
 
         access_token = body.get("accessToken")
         customer = body.get("customer") or {}
