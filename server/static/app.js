@@ -31,11 +31,20 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove("show"), 2200);
 }
 
+function formatError(detail) {
+  if (!detail) return "Request failed";
+  if (typeof detail === "string") return detail;
+  if (Array.isArray(detail)) {
+    return detail.map((d) => d.msg || JSON.stringify(d)).join("; ");
+  }
+  return String(detail);
+}
+
 async function api(path, options = {}) {
   const res = await fetch(path, options);
   if (!res.ok) {
     const err = await res.json().catch(() => ({ detail: res.statusText }));
-    throw new Error(err.detail || "Request failed");
+    throw new Error(formatError(err.detail) || res.statusText || "Request failed");
   }
   return res.json();
 }
@@ -165,19 +174,29 @@ clearHitsBtn.addEventListener("click", async () => {
 });
 
 startBtn.addEventListener("click", async () => {
+  const comboText = combosText.value.trim();
+  if (!comboText && !comboFile.files[0]) {
+    showToast("Add at least one combo");
+    return;
+  }
+
   const form = new FormData();
   form.append("combos", combosText.value);
   form.append("proxies", proxiesText.value);
-  form.append("threads", threadsInput.value || "5");
+  form.append("threads", String(threadsInput.value || "5"));
   if (comboFile.files[0]) form.append("combo_file", comboFile.files[0]);
   if (proxyFile.files[0]) form.append("proxy_file", proxyFile.files[0]);
 
+  startBtn.disabled = true;
   try {
-    await api("/api/jobs/start", { method: "POST", body: form });
-    showToast("Job started");
-    startPolling();
+    const result = await api("/api/jobs/start", { method: "POST", body: form });
+    showToast(`Started — ${result.total} combos`);
+    lastLogCount = 0;
+    logBox.textContent = "";
+    await poll();
   } catch (err) {
-    showToast(err.message);
+    showToast(err.message || "Failed to start");
+    startBtn.disabled = false;
   }
 });
 
@@ -217,9 +236,9 @@ async function poll() {
 }
 
 function startPolling() {
-  if (pollTimer) return;
-  lastLogCount = 0;
-  pollTimer = setInterval(poll, 1000);
+  if (!pollTimer) {
+    pollTimer = setInterval(poll, 1000);
+  }
   poll();
 }
 

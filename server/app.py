@@ -47,11 +47,11 @@ async def status() -> dict[str, Any]:
 
 @app.post("/api/jobs/start")
 async def start_job(
-    combos: str = Form(""),
-    proxies: str = Form(""),
-    threads: int = Form(5),
-    combo_file: UploadFile | None = File(None),
-    proxy_file: UploadFile | None = File(None),
+    combos: str = Form(default=""),
+    proxies: str = Form(default=""),
+    threads: str = Form(default="5"),
+    combo_file: UploadFile | None = File(default=None),
+    proxy_file: UploadFile | None = File(default=None),
 ) -> dict[str, Any]:
     if worker.is_running():
         raise HTTPException(409, "A job is already running")
@@ -65,7 +65,12 @@ async def start_job(
     combo_lines.extend(_lines_from_text(combo_upload))
     proxy_lines.extend(_lines_from_text(proxy_upload))
 
-    started = worker.start(combo_lines, proxy_lines, threads=max(1, min(threads, 50)))
+    try:
+        thread_count = max(1, min(int(threads or "5"), 50))
+    except ValueError:
+        thread_count = 5
+
+    started = worker.start(combo_lines, proxy_lines, threads=thread_count)
     if not started:
         raise HTTPException(400, "No valid combos found")
 
