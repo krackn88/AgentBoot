@@ -4,13 +4,11 @@ Account checker for **app.fabletics.com** (Fabletics iOS mobile API), built from
 
 ## What it captures
 
-On a valid login (`HIT`), the checker pulls member credit balances and billing context:
+On a valid login (`HIT`), output format:
 
-| Category | Fields |
-|----------|--------|
-| **Member credits** | Available member credits (tokens), store credit balance, membership store credit, max prepaid credits |
-| **Membership** | Status, monthly price, next billing date, billing period, skip/due flags |
-| **Account** | Name, email |
+```
+email:password | Points = 1299 | Member_Credits = 3 | storeCreditBalance = 0 | CC = [VISA - 426684••••••4147 exp: 07/27] | Address = [Name, Street, , US, City, ST, (555) 555-5555, 12345]
+```
 
 ## API flow
 
@@ -19,9 +17,10 @@ Reverse-engineered from the `.chlz` capture:
 1. `GET /api/sessions` — obtain guest JWT from the `Authorization` response header
 2. `POST /api/auth/login` — exchange `email:password` for an access token (guest JWT required)
 3. Account fetches:
-   - `/api/accounts/me/profile`
+   - `/api/accounts/me/loyalty/details`
    - `/api/accounts/me/membership`
-   - `/api/accounts/me/membership/period`
+   - `/api/accounts/me/addresses`
+   - `/api/accounts/me/payments`
 
 ## Install
 
