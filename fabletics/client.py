@@ -145,13 +145,36 @@ class FableticsClient:
             raise FableticsAPIError("Guest session returned an empty token")
         return token
 
+    def get_login_methods(self, email: str, guest_token: str | None = None) -> dict[str, Any]:
+        token = guest_token or self.create_guest_session()
+        body = self._request(
+            "POST",
+            "/api/members/loginMethods",
+            token,
+            json={"email": email},
+        )
+        return body if isinstance(body, dict) else {}
+
+    def is_turnstile_enabled(self, guest_token: str | None = None) -> bool:
+        token = guest_token or self.create_guest_session()
+        body = self._request(
+            "GET",
+            "/api/features/turnstile",
+            token,
+            params={"brand": "fableticsappcom", "gender": "F", "membership": "vip"},
+        )
+        if not isinstance(body, dict):
+            return False
+        return bool(body.get("enabled") and body.get("value"))
+
     def login(
         self,
         username: str,
         password: str,
         recaptcha_response: str | None = None,
+        guest_token: str | None = None,
     ) -> LoginResult:
-        guest_token = self.create_guest_session()
+        guest_token = guest_token or self.create_guest_session()
         payload: dict[str, str] = {"username": username, "password": password}
         if recaptcha_response:
             payload["reCaptchaResponse"] = recaptcha_response

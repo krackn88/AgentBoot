@@ -17,7 +17,13 @@ USER_AGENT = (
 
 DEFAULT_TIMEOUT = 30
 
-# reCAPTCHA — solved on demand when login is gateway-blocked.
+# Cloudflare Turnstile — required for login (sent as reCaptchaResponse in API).
+# Set TURNSTILE_SITE_KEY in .env (extract from the mobile app / Charles capture).
+TURNSTILE_SITE_KEY = ""
+TURNSTILE_PAGE_URL = "https://app.fabletics.com/"
+TURNSTILE_ACTION = "login"
+
+# Legacy reCAPTCHA fallback if Turnstile site key is not configured.
 RECAPTCHA_SITE_KEY = "6LfUn5IUAAAAAM7ssrSkY6BVkNHIPaweAXxTy-eO"
 RECAPTCHA_ACTION = "login"
 

