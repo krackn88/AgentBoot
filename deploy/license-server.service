@@ -9,7 +9,14 @@ WorkingDirectory=/opt/tropic-checker
 Environment=LICENSE_DATA_DIR=/opt/tropic-checker/data/license-server
 Environment=LICENSE_HOST=0.0.0.0
 Environment=LICENSE_PORT=8082
-Environment=LICENSE_ADMIN_TOKEN=CHANGE_ME
+Environment=LICENSE_ADMIN_TOKEN=CHANGE_ME_ADMIN_TOKEN
+# Restrict the /admin dashboard + admin API to your own IP(s)/CIDRs (comma
+# separated). Empty = token-only. Set this to lock management to just you.
+Environment=LICENSE_ADMIN_IPS=CHANGE_ME_ADMIN_IPS
+# Only set to true if the server sits behind a trusted reverse proxy that sets
+# X-Forwarded-For; otherwise leave false so rate limits / IP allowlist use the
+# real socket peer and can't be spoofed.
+Environment=LICENSE_TRUST_PROXY=false
 Environment=LICENSE_SECRET_FILE=/opt/tropic-checker/license_secret.txt
 Environment=CUSTOMER_DOWNLOADS_DIR=/opt/tropic-checker/downloads/customer
 Environment=LICENSE_PUBLIC_URL=http://159.69.76.189:8082

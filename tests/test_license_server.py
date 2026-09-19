@@ -3,14 +3,12 @@ from pathlib import Path
 
 import pytest
 
-import tropic_checker.licensing._secret as secret_mod
 from license_server.app import app
 from license_server.db import LicenseDB
 
 
 @pytest.fixture()
 def client(tmp_path):
-    secret_mod._LICENSE_SECRET = b"test-secret-for-unit-tests-only!!"
     os.environ["TROPIC_LICENSE_SECRET"] = "test-secret-for-unit-tests-only!!"
     os.environ["LICENSE_ADMIN_TOKEN"] = "admin-test-token"
 
@@ -39,7 +37,7 @@ def test_create_and_activate(client):
     act = client.post("/api/v1/activate", json={"activation_code": code, "hardware_id": hwid})
     assert act.status_code == 200
     key = act.get_json()["license_key"]
-    assert key.startswith("TROPIC1.")
+    assert key.startswith("TROPIC2.")
 
     again = client.post(
         "/api/v1/activate",
@@ -77,6 +75,46 @@ def test_prelocked_hwid_rejects_wrong_machine(client):
     )
     assert wrong.status_code == 403
     assert "locked to a different PC" in wrong.get_json()["error"]
+
+
+def test_admin_page_does_not_leak_token(client):
+    page = client.get("/admin")
+    assert page.status_code == 200
+    # The real admin token must never be embedded in the served HTML.
+    assert b"admin-test-token" not in page.data
+    assert b"admin-token" not in page.data
+
+
+def test_admin_query_param_token_rejected(client):
+    # Token via query string must NOT authenticate (would leak into logs).
+    resp = client.get("/admin/api/stats?token=admin-test-token")
+    assert resp.status_code == 401
+
+
+def test_admin_wrong_token_rejected(client):
+    resp = client.get("/admin/api/stats", headers={"X-Admin-Token": "nope"})
+    assert resp.status_code == 401
+
+
+def test_admin_ip_allowlist_blocks_and_allows(client):
+    import ipaddress
+
+    import license_server.app as ls_app
+
+    headers = {"X-Admin-Token": "admin-test-token"}
+    # Allowlist that excludes the test client's 127.0.0.1 -> hidden as 404.
+    ls_app.ADMIN_IP_ALLOWLIST = [ipaddress.ip_network("10.0.0.0/8")]
+    try:
+        assert client.get("/admin", headers=headers).status_code == 404
+        assert client.get("/admin/api/stats", headers=headers).status_code == 404
+        # Public activation endpoints stay reachable.
+        assert client.get("/health").status_code == 200
+        # Allowlist that includes localhost -> admin reachable again.
+        ls_app.ADMIN_IP_ALLOWLIST = [ipaddress.ip_network("127.0.0.0/8")]
+        assert client.get("/admin", headers=headers).status_code == 200
+        assert client.get("/admin/api/stats", headers=headers).status_code == 200
+    finally:
+        ls_app.ADMIN_IP_ALLOWLIST = []
 
 
 def test_dashboard_stats(client):
