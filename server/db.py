@@ -53,6 +53,16 @@ def init_db() -> None:
                 checked_at TEXT NOT NULL
             );
             CREATE INDEX IF NOT EXISTS idx_checked_at ON checked_combos(checked_at DESC);
+
+            CREATE TABLE IF NOT EXISTS saved_combos (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                combo_key TEXT NOT NULL UNIQUE,
+                email TEXT NOT NULL,
+                password TEXT NOT NULL,
+                line TEXT NOT NULL,
+                created_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_saved_combos_created ON saved_combos(created_at DESC);
             """
         )
 
@@ -165,6 +175,61 @@ def clear_checked_combos() -> int:
         return cur.rowcount
 
 
+def insert_saved_combo(email: str, password: str) -> int | None:
+    line = f"{email}:{password}"
+    key = combo_key(email, password)
+    with connect() as conn:
+        try:
+            cur = conn.execute(
+                """
+                INSERT INTO saved_combos (combo_key, email, password, line, created_at)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (key, email, password, line, _utc_now()),
+            )
+            return cur.lastrowid
+        except sqlite3.IntegrityError:
+            return None
+
+
+def count_saved_combos() -> int:
+    with connect() as conn:
+        row = conn.execute("SELECT COUNT(*) AS n FROM saved_combos").fetchone()
+        return int(row["n"])
+
+
+def list_saved_combos(limit: int = 500) -> list[dict[str, Any]]:
+    with connect() as conn:
+        rows = conn.execute(
+            "SELECT * FROM saved_combos ORDER BY created_at DESC, id DESC LIMIT ?",
+            (limit,),
+        ).fetchall()
+        return [dict(row) for row in rows]
+
+
+def export_saved_combos_text() -> str:
+    with connect() as conn:
+        rows = conn.execute(
+            "SELECT line FROM saved_combos ORDER BY created_at ASC, id ASC"
+        ).fetchall()
+        return "\n".join(row["line"] for row in rows)
+
+
+def delete_saved_combos(ids: list[int]) -> int:
+    if not ids:
+        return 0
+    placeholders = ",".join("?" * len(ids))
+    with connect() as conn:
+        cur = conn.execute(f"DELETE FROM saved_combos WHERE id IN ({placeholders})", ids)
+        return cur.rowcount
+
+
+def clear_saved_combos() -> int:
+    with connect() as conn:
+        cur = conn.execute("DELETE FROM saved_combos")
+        return cur.rowcount
+
+
 def insert_hit(line: str, email: str, password: str, data: dict[str, Any]) -> int | None:
     with connect() as conn:
         try:
@@ -194,7 +259,11 @@ def insert_hit(line: str, email: str, password: str, data: dict[str, Any]) -> in
 def list_hits() -> list[dict[str, Any]]:
     with connect() as conn:
         rows = conn.execute(
-            "SELECT * FROM hits ORDER BY created_at DESC, id DESC"
+            """
+            SELECT * FROM hits
+            WHERE member_credits > 0
+            ORDER BY member_credits DESC, created_at DESC, id DESC
+            """
         ).fetchall()
         return [dict(row) for row in rows]
 

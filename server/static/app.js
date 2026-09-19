@@ -15,16 +15,30 @@ const progressFill = $("#progressFill");
 const progressStats = $("#progressStats");
 const resumeHint = $("#resumeHint");
 const hitsBody = $("#hitsBody");
+const savedBodyRows = $("#savedBodyRows");
 const logBox = $("#logBox");
 const selectAllBtn = $("#selectAllBtn");
 const copySelectedBtn = $("#copySelectedBtn");
 const deleteSelectedBtn = $("#deleteSelectedBtn");
 const clearHitsBtn = $("#clearHitsBtn");
+const copyAllSavedBtn = $("#copyAllSavedBtn");
+const exportSavedBtn = $("#exportSavedBtn");
+const clearSavedBtn = $("#clearSavedBtn");
+const savedCountBadge = $("#savedCountBadge");
+const savedPanelToggle = $("#savedPanelToggle");
+const savedBody = $("#savedBody");
+const savedChevron = $("#savedChevron");
+const statProgress = $("#statProgress");
+const statHits = $("#statHits");
+const statValid = $("#statValid");
+const statFails = $("#statFails");
+const statErrors = $("#statErrors");
 const toast = $("#toast");
 
 const LARGE_COMBO_THRESHOLD = 2000;
 
 let hits = [];
+let savedCombos = [];
 let selectedIds = new Set();
 let pollTimer = null;
 let lastLogCount = 0;
@@ -32,6 +46,7 @@ let saveTimer = null;
 let sessionCheckedCount = 0;
 let storedComboCount = 0;
 let combosOnServer = false;
+let savedPanelOpen = true;
 
 function showToast(msg) {
   toast.textContent = msg;
@@ -54,17 +69,16 @@ async function api(path, options = {}) {
     const err = await res.json().catch(() => ({ detail: res.statusText }));
     throw new Error(formatError(err.detail) || res.statusText || "Request failed");
   }
-  return res.json();
+  if (res.headers.get("content-type")?.includes("application/json")) {
+    return res.json();
+  }
+  return res.text();
 }
 
 function comboLineCount() {
   const text = combosText.value.trim();
   if (!text) return 0;
   return text.split(/\r?\n/).filter((line) => line.trim()).length;
-}
-
-function isLargeComboInput() {
-  return comboLineCount() > LARGE_COMBO_THRESHOLD || combosOnServer;
 }
 
 function scheduleSave() {
@@ -93,9 +107,7 @@ async function saveSession() {
     if (result.combo_count) storedComboCount = result.combo_count;
     if (result.combos_stored) combosOnServer = true;
     updateResumeHint();
-  } catch (_) {
-    /* ignore save errors for large payloads */
-  }
+  } catch (_) {}
 }
 
 async function loadSession() {
@@ -108,7 +120,7 @@ async function loadSession() {
       combosText.value = data.combos;
     } else if (combosOnServer && storedComboCount > 0) {
       combosText.value = "";
-      combosText.placeholder = `${storedComboCount.toLocaleString()} combos loaded on server (use Start / Resume)`;
+      combosText.placeholder = `${storedComboCount.toLocaleString()} combos on server`;
     } else if (!proxiesText.value) {
       proxiesText.value =
         "core-residential.evomi.com:1000:gulley886:tStXC3zZrqpDmVdVQdzF_country-US";
@@ -134,22 +146,18 @@ function updateResumeHint() {
   const comboInfo = combosOnServer && storedComboCount > 0
     ? `${storedComboCount.toLocaleString()} combos on server`
     : comboLineCount() > 0
-      ? `${comboLineCount().toLocaleString()} combos in box`
-      : "paste combos or upload a file";
+      ? `${comboLineCount().toLocaleString()} in box`
+      : "add combos or upload a file";
 
-  if (sessionCheckedCount > 0) {
-    resumeHint.textContent =
-      `${comboInfo} · ${sessionCheckedCount.toLocaleString()} already checked — Start skips those and continues.`;
-  } else {
-    resumeHint.textContent =
-      `${comboInfo} · large lists stay on the server (no browser freeze). Already-checked combos are skipped on resume.`;
-  }
+  const checked = sessionCheckedCount > 0
+    ? ` · ${sessionCheckedCount.toLocaleString()} already checked`
+    : "";
+
+  resumeHint.textContent = `${comboInfo}${checked}`;
 }
 
 combosText.addEventListener("input", () => {
-  if (comboLineCount() <= LARGE_COMBO_THRESHOLD) {
-    combosOnServer = false;
-  }
+  if (comboLineCount() <= LARGE_COMBO_THRESHOLD) combosOnServer = false;
   updateResumeHint();
   scheduleSave();
 });
@@ -158,25 +166,23 @@ threadsInput.addEventListener("change", scheduleSave);
 
 comboFile.addEventListener("change", () => {
   const file = comboFile.files[0];
-  comboFileName.textContent = file ? `${file.name} (${formatBytes(file.size)})` : "No file";
+  comboFileName.textContent = file ? `${file.name} (${formatBytes(file.size)})` : "No file selected";
   if (file) {
     combosOnServer = true;
     storedComboCount = 0;
     combosText.value = "";
-    combosText.placeholder = `File selected: ${file.name} — will upload on Start (not loaded into browser)`;
+    combosText.placeholder = `${file.name} uploads on Start`;
     updateResumeHint();
   }
 });
 
 proxyFile.addEventListener("change", async () => {
   const file = proxyFile.files[0];
-  proxyFileName.textContent = file ? file.name : "No file";
+  proxyFileName.textContent = file ? file.name : "No file selected";
   if (file && file.size < 512 * 1024) {
     const text = await file.text();
     proxiesText.value = proxiesText.value ? `${proxiesText.value}\n${text}` : text;
     scheduleSave();
-  } else if (file) {
-    proxyFileName.textContent = `${file.name} (uploads on Start)`;
   }
 });
 
@@ -184,6 +190,28 @@ function formatBytes(bytes) {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+function escapeHtml(str) {
+  return str
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+}
+
+function escapeAttr(str) {
+  return str.replaceAll('"', "&quot;");
+}
+
+async function copyText(text) {
+  await navigator.clipboard.writeText(text);
+  showToast("Copied to clipboard");
+}
+
+function shorten(text, max = 72) {
+  if (!text) return "—";
+  return text.length > max ? `${text.slice(0, max)}…` : text;
 }
 
 function updateSelectionButtons() {
@@ -194,25 +222,35 @@ function updateSelectionButtons() {
 
 function renderHits() {
   if (!hits.length) {
-    hitsBody.innerHTML = '<tr class="empty-row"><td colspan="3">No hits yet</td></tr>';
+    hitsBody.innerHTML = '<tr class="empty-row"><td colspan="5">No credit hits yet</td></tr>';
     updateSelectionButtons();
     return;
   }
 
   hitsBody.innerHTML = hits
-    .map(
-      (hit) => `
+    .map((hit) => {
+      const capture = [
+        `Points ${hit.points || 0}`,
+        hit.cc && hit.cc !== "N/A" ? hit.cc : null,
+        hit.address && hit.address !== "N/A" ? shorten(hit.address, 56) : null,
+      ]
+        .filter(Boolean)
+        .join(" · ");
+
+      return `
     <tr data-id="${hit.id}">
       <td class="col-check">
         <input type="checkbox" class="hit-check" data-id="${hit.id}" ${selectedIds.has(hit.id) ? "checked" : ""} />
       </td>
-      <td><div class="hit-line">${escapeHtml(hit.line)}</div></td>
+      <td><span class="credit-badge">${hit.member_credits}</span></td>
+      <td class="account-cell"><strong>${escapeHtml(hit.email)}</strong></td>
+      <td class="capture-cell">${escapeHtml(capture)}</td>
       <td class="col-actions">
-        <button class="btn small copy-one" data-line="${escapeAttr(hit.line)}">Copy</button>
-        <button class="btn small danger delete-one" data-id="${hit.id}">Del</button>
+        <button class="btn small ghost copy-one" data-line="${escapeAttr(hit.line)}">Copy</button>
+        <button class="btn small ghost danger delete-one" data-id="${hit.id}">Del</button>
       </td>
-    </tr>`
-    )
+    </tr>`;
+    })
     .join("");
 
   hitsBody.querySelectorAll(".hit-check").forEach((el) => {
@@ -237,21 +275,34 @@ function renderHits() {
   updateSelectionButtons();
 }
 
-function escapeHtml(str) {
-  return str
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;");
-}
+function renderSavedCombos() {
+  const count = savedCombos.length;
+  savedCountBadge.textContent = `${count.toLocaleString()} saved`;
+  copyAllSavedBtn.disabled = count === 0;
+  exportSavedBtn.disabled = count === 0;
+  clearSavedBtn.disabled = count === 0;
 
-function escapeAttr(str) {
-  return str.replaceAll('"', "&quot;");
-}
+  if (!count) {
+    savedBodyRows.innerHTML = '<tr class="empty-row"><td colspan="2">No valid combos saved yet</td></tr>';
+    return;
+  }
 
-async function copyText(text) {
-  await navigator.clipboard.writeText(text);
-  showToast("Copied to clipboard");
+  savedBodyRows.innerHTML = savedCombos
+    .slice(0, 200)
+    .map(
+      (item) => `
+    <tr>
+      <td class="mono-line">${escapeHtml(item.line)}</td>
+      <td class="col-actions">
+        <button class="btn small ghost copy-saved" data-line="${escapeAttr(item.line)}">Copy</button>
+      </td>
+    </tr>`
+    )
+    .join("");
+
+  savedBodyRows.querySelectorAll(".copy-saved").forEach((el) => {
+    el.addEventListener("click", () => copyText(el.dataset.line));
+  });
 }
 
 async function loadHits() {
@@ -259,6 +310,15 @@ async function loadHits() {
   const valid = new Set(hits.map((h) => h.id));
   selectedIds = new Set([...selectedIds].filter((id) => valid.has(id)));
   renderHits();
+}
+
+async function loadSavedCombos() {
+  const data = await api("/api/saved-combos");
+  savedCombos = data.items || [];
+  if (data.count !== undefined) {
+    savedCountBadge.textContent = `${data.count.toLocaleString()} saved`;
+  }
+  renderSavedCombos();
 }
 
 async function deleteHits(ids) {
@@ -276,11 +336,7 @@ async function deleteHits(ids) {
 selectAllBtn.addEventListener("click", () => {
   if (!hits.length) return;
   const allSelected = selectedIds.size === hits.length;
-  if (allSelected) {
-    selectedIds.clear();
-  } else {
-    hits.forEach((h) => selectedIds.add(h.id));
-  }
+  selectedIds = allSelected ? new Set() : new Set(hits.map((h) => h.id));
   renderHits();
 });
 
@@ -296,15 +352,39 @@ deleteSelectedBtn.addEventListener("click", async () => {
 
 clearHitsBtn.addEventListener("click", async () => {
   if (!hits.length) return;
-  if (!confirm("Delete all hits?")) return;
+  if (!confirm("Delete all credit hits?")) return;
   await api("/api/hits/clear", { method: "POST" });
   selectedIds.clear();
   await loadHits();
-  showToast("All hits cleared");
+  showToast("Credit hits cleared");
+});
+
+copyAllSavedBtn.addEventListener("click", async () => {
+  const text = await api("/api/saved-combos/export");
+  if (!text.trim()) return;
+  await copyText(text);
+});
+
+exportSavedBtn.addEventListener("click", () => {
+  window.open("/api/saved-combos/export", "_blank");
+});
+
+clearSavedBtn.addEventListener("click", async () => {
+  if (!savedCombos.length) return;
+  if (!confirm("Clear all saved valid combos?")) return;
+  await api("/api/saved-combos/clear", { method: "POST" });
+  await loadSavedCombos();
+  showToast("Saved combos cleared");
+});
+
+savedPanelToggle.addEventListener("click", () => {
+  savedPanelOpen = !savedPanelOpen;
+  savedBody.classList.toggle("collapsed", !savedPanelOpen);
+  savedChevron.classList.toggle("open", savedPanelOpen);
 });
 
 resetProgressBtn.addEventListener("click", async () => {
-  if (!confirm("Clear all checked progress? Combos will be re-checked on next start.")) return;
+  if (!confirm("Clear checked progress? Combos will be re-checked on next start.")) return;
   try {
     const result = await api("/api/progress/reset", { method: "POST" });
     sessionCheckedCount = 0;
@@ -321,7 +401,7 @@ startBtn.addEventListener("click", async () => {
   const hasStored = combosOnServer && storedComboCount > 0;
 
   if (!hasFile && textCount === 0 && !hasStored) {
-    showToast("Add at least one combo (paste, upload, or use stored list)");
+    showToast("Add combos first");
     return;
   }
 
@@ -333,7 +413,6 @@ startBtn.addEventListener("click", async () => {
     form.append("combo_file", comboFile.files[0]);
   } else if (textCount > 0) {
     if (textCount > LARGE_COMBO_THRESHOLD) {
-      showToast(`Uploading ${textCount.toLocaleString()} combos to server...`);
       const blob = new Blob([combosText.value], { type: "text/plain" });
       form.append("combo_file", blob, "combos.txt");
     } else {
@@ -343,9 +422,7 @@ startBtn.addEventListener("click", async () => {
     form.append("use_stored_combos", "true");
   }
 
-  if (proxyFile.files[0]) {
-    form.append("proxy_file", proxyFile.files[0]);
-  }
+  if (proxyFile.files[0]) form.append("proxy_file", proxyFile.files[0]);
 
   const prevLabel = startBtn.textContent;
   startBtn.disabled = true;
@@ -357,7 +434,6 @@ startBtn.addEventListener("click", async () => {
     }
 
     const result = await api("/api/jobs/start", { method: "POST", body: form });
-
     storedComboCount = result.combo_count || storedComboCount;
     combosOnServer = true;
     if (hasFile || textCount > LARGE_COMBO_THRESHOLD) {
@@ -365,13 +441,7 @@ startBtn.addEventListener("click", async () => {
       combosText.placeholder = `${storedComboCount.toLocaleString()} combos on server`;
     }
     updateResumeHint();
-
-    showToast(
-      result.preparing
-        ? `Preparing ${(result.combo_count || storedComboCount).toLocaleString()} combos...`
-        : `Started — ${(result.queued || result.combo_count || 0).toLocaleString()} queued`
-    );
-
+    showToast(`Preparing ${(result.combo_count || storedComboCount).toLocaleString()} combos...`);
     lastLogCount = 0;
     await poll();
   } catch (err) {
@@ -399,19 +469,20 @@ function updateStatus(data) {
   const pct = total ? Math.round(((checked + skipped) / total) * 100) : 0;
   progressFill.style.width = `${pct}%`;
 
+  statProgress.textContent = total ? `${checked + skipped} / ${total}` : "—";
+  statHits.textContent = String(data.hits || hits.length || 0);
+  statValid.textContent = String(data.valid || 0);
+  statFails.textContent = String(data.fails || 0);
+  statErrors.textContent = String(data.errors || 0);
+
   const parts = [];
-  if (data.preparing) {
-    parts.push("Preparing...");
-  } else if (total) {
-    parts.push(`${checked + skipped} / ${total} done`);
-  } else if (data.combo_count) {
-    parts.push(`${data.combo_count.toLocaleString()} combos loaded`);
-  }
+  if (data.preparing) parts.push("Preparing list...");
+  else if (total) parts.push(`${checked + skipped} / ${total} checked`);
+  else if (data.combo_count) parts.push(`${data.combo_count.toLocaleString()} loaded`);
   if (skipped) parts.push(`${skipped.toLocaleString()} skipped`);
-  parts.push(`${data.hits || 0} hits`);
-  parts.push(`${data.fails || 0} fails`);
-  if (data.errors) parts.push(`${data.errors} errors`);
-  progressStats.textContent = parts.join(" · ");
+  if (data.hits) parts.push(`${data.hits} credit hits`);
+  if (data.valid) parts.push(`${data.valid} valid saved`);
+  progressStats.textContent = parts.join(" · ") || "Ready";
 
   let statusLabel = "Idle";
   if (data.preparing) statusLabel = "Preparing";
@@ -424,14 +495,11 @@ function updateStatus(data) {
   stopBtn.disabled = !busy;
   resetProgressBtn.disabled = busy;
 
-  if (data.combo_count !== undefined) {
-    storedComboCount = data.combo_count;
-  }
-  if (data.combos_stored !== undefined) {
-    combosOnServer = Boolean(data.combos_stored);
-  }
-  if (data.checked_count !== undefined) {
-    sessionCheckedCount = data.checked_count;
+  if (data.combo_count !== undefined) storedComboCount = data.combo_count;
+  if (data.combos_stored !== undefined) combosOnServer = Boolean(data.combos_stored);
+  if (data.checked_count !== undefined) sessionCheckedCount = data.checked_count;
+  if (data.saved_combo_count !== undefined) {
+    savedCountBadge.textContent = `${data.saved_combo_count.toLocaleString()} saved`;
   }
   updateResumeHint();
 
@@ -447,26 +515,28 @@ async function poll() {
     const data = await api("/api/status");
     updateStatus(data);
     if (data.hits > hits.length) await loadHits();
+    if (data.valid > savedCombos.length) await loadSavedCombos();
     if (!data.running && !data.preparing) {
       await loadHits();
+      await loadSavedCombos();
       const session = await api("/api/session");
       sessionCheckedCount = session.checked_count || 0;
       storedComboCount = session.combo_count || storedComboCount;
       combosOnServer = Boolean(session.combos_stored);
       updateResumeHint();
     }
-  } catch (_) {
-    /* ignore transient errors */
-  }
+  } catch (_) {}
 }
 
 function startPolling() {
-  if (!pollTimer) {
-    pollTimer = setInterval(poll, 1000);
-  }
+  if (!pollTimer) pollTimer = setInterval(poll, 1000);
   poll();
 }
 
+savedBody.classList.toggle("collapsed", !savedPanelOpen);
+savedChevron.classList.toggle("open", savedPanelOpen);
+
 loadSession();
 loadHits();
+loadSavedCombos();
 startPolling();

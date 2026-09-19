@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
@@ -17,7 +17,20 @@ from .combo_store import (
     stream_upload_to_file,
     write_text_file,
 )
-from .db import clear_checked_combos, clear_hits, delete_hits, get_session, init_db, list_hits, save_session
+from .db import (
+    clear_checked_combos,
+    clear_hits,
+    clear_saved_combos,
+    count_saved_combos,
+    delete_hits,
+    delete_saved_combos,
+    export_saved_combos_text,
+    get_session,
+    init_db,
+    list_hits,
+    list_saved_combos,
+    save_session,
+)
 from .worker import worker
 
 STATIC_DIR = Path(__file__).resolve().parent / "static"
@@ -27,6 +40,10 @@ init_db()
 
 
 class DeleteHitsRequest(BaseModel):
+    ids: list[int]
+
+
+class DeleteSavedCombosRequest(BaseModel):
     ids: list[int]
 
 
@@ -103,6 +120,7 @@ async def status() -> dict[str, Any]:
     data["checked_count"] = session_data["checked_count"]
     data["combo_count"] = session_data["combo_count"]
     data["combos_stored"] = session_data["combos_stored"]
+    data["saved_combo_count"] = count_saved_combos()
     return data
 
 
@@ -221,6 +239,31 @@ async def remove_hits(body: DeleteHitsRequest) -> dict[str, int]:
 @app.post("/api/hits/clear")
 async def remove_all_hits() -> dict[str, int]:
     deleted = clear_hits()
+    return {"deleted": deleted}
+
+
+@app.get("/api/saved-combos")
+async def get_saved_combos() -> dict[str, Any]:
+    return {
+        "count": count_saved_combos(),
+        "items": list_saved_combos(),
+    }
+
+
+@app.get("/api/saved-combos/export")
+async def export_saved_combos() -> PlainTextResponse:
+    return PlainTextResponse(export_saved_combos_text(), media_type="text/plain")
+
+
+@app.post("/api/saved-combos/delete")
+async def remove_saved_combos(body: DeleteSavedCombosRequest) -> dict[str, int]:
+    deleted = delete_saved_combos(body.ids)
+    return {"deleted": deleted}
+
+
+@app.post("/api/saved-combos/clear")
+async def remove_all_saved_combos() -> dict[str, int]:
+    deleted = clear_saved_combos()
     return {"deleted": deleted}
 
 
