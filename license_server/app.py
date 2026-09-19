@@ -36,9 +36,14 @@ def _load_signing_secret() -> None:
         secret = secret_file.read_text(encoding="utf-8").strip()
     if not secret:
         return
-    import tropic_checker.licensing._secret as secret_mod
+    import importlib.util
 
-    secret_mod._LICENSE_SECRET = secret.encode("utf-8")
+    secret_path = APP_DIR.parent / "tropic_checker" / "licensing" / "_secret.py"
+    spec = importlib.util.spec_from_file_location("tropic_lic_secret", secret_path)
+    if spec and spec.loader:
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        mod._LICENSE_SECRET = secret.encode("utf-8")
 
 
 _load_signing_secret()
