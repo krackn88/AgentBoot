@@ -18,9 +18,9 @@ USER_AGENT = (
 DEFAULT_TIMEOUT = 30
 
 # Cloudflare Turnstile — required for login (sent as reCaptchaResponse in API).
-# Set TURNSTILE_SITE_KEY in .env (extract from the mobile app / Charles capture).
-TURNSTILE_SITE_KEY = ""
-TURNSTILE_PAGE_URL = "https://app.fabletics.com/"
+# From challenges.cloudflare.com capture (www.fabletics.com login WebView).
+TURNSTILE_SITE_KEY = "0x4AAAAAACrzZC9DUqcsHJrW"
+TURNSTILE_PAGE_URL = "https://www.fabletics.com/"
 TURNSTILE_ACTION = "login"
 
 # Legacy reCAPTCHA fallback if Turnstile site key is not configured.
