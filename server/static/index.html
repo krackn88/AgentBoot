@@ -138,6 +138,9 @@
       </div>
       <div class="saved-body" id="savedBody">
         <div class="toolbar saved-toolbar">
+          <button class="btn ghost small" id="selectAllSavedBtn">Select all</button>
+          <button class="btn ghost small" id="copySelectedSavedBtn" disabled>Copy selected</button>
+          <button class="btn ghost small" id="deleteSelectedSavedBtn" disabled>Delete selected</button>
           <button class="btn ghost small" id="copyAllSavedBtn" disabled>Copy all</button>
           <button class="btn ghost small" id="exportSavedBtn" disabled>Download .txt</button>
           <button class="btn ghost small danger" id="clearSavedBtn" disabled>Clear all</button>
@@ -146,12 +149,13 @@
           <table class="data-table">
             <thead>
               <tr>
-                <th>Combo</th>
+                <th class="col-check"></th>
+                <th>email:password</th>
                 <th class="col-actions">Actions</th>
               </tr>
             </thead>
             <tbody id="savedBodyRows">
-              <tr class="empty-row"><td colspan="2">No valid combos saved yet</td></tr>
+              <tr class="empty-row"><td colspan="3">No valid combos saved yet</td></tr>
             </tbody>
           </table>
         </div>

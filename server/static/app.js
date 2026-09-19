@@ -21,6 +21,9 @@ const selectAllBtn = $("#selectAllBtn");
 const copySelectedBtn = $("#copySelectedBtn");
 const deleteSelectedBtn = $("#deleteSelectedBtn");
 const clearHitsBtn = $("#clearHitsBtn");
+const selectAllSavedBtn = $("#selectAllSavedBtn");
+const copySelectedSavedBtn = $("#copySelectedSavedBtn");
+const deleteSelectedSavedBtn = $("#deleteSelectedSavedBtn");
 const copyAllSavedBtn = $("#copyAllSavedBtn");
 const exportSavedBtn = $("#exportSavedBtn");
 const clearSavedBtn = $("#clearSavedBtn");
@@ -40,6 +43,7 @@ const LARGE_COMBO_THRESHOLD = 2000;
 let hits = [];
 let savedCombos = [];
 let selectedIds = new Set();
+let selectedSavedIds = new Set();
 let pollTimer = null;
 let lastLogCount = 0;
 let saveTimer = null;
@@ -204,9 +208,49 @@ function escapeAttr(str) {
   return str.replaceAll('"', "&quot;");
 }
 
+function fallbackCopy(text) {
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.setAttribute("readonly", "");
+  ta.style.position = "fixed";
+  ta.style.top = "-1000px";
+  ta.style.left = "-1000px";
+  document.body.appendChild(ta);
+  ta.select();
+  ta.setSelectionRange(0, text.length);
+  const ok = document.execCommand("copy");
+  document.body.removeChild(ta);
+  if (!ok) throw new Error("Copy failed");
+}
+
 async function copyText(text) {
-  await navigator.clipboard.writeText(text);
-  showToast("Copied to clipboard");
+  if (!text) {
+    showToast("Nothing to copy");
+    return;
+  }
+  try {
+    if (navigator.clipboard?.writeText && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+    } else {
+      fallbackCopy(text);
+    }
+    showToast("Copied to clipboard");
+  } catch {
+    try {
+      fallbackCopy(text);
+      showToast("Copied to clipboard");
+    } catch {
+      showToast("Copy failed — try Download .txt");
+    }
+  }
+}
+
+function getHitLine(id) {
+  return hits.find((h) => h.id === id)?.line || "";
+}
+
+function getSavedLine(id) {
+  return savedCombos.find((s) => s.id === id)?.line || "";
 }
 
 function shorten(text, max = 72) {
@@ -246,7 +290,7 @@ function renderHits() {
       <td class="account-cell"><strong>${escapeHtml(hit.email)}</strong></td>
       <td class="capture-cell">${escapeHtml(capture)}</td>
       <td class="col-actions">
-        <button class="btn small ghost copy-one" data-line="${escapeAttr(hit.line)}">Copy</button>
+        <button class="btn small ghost copy-one" data-id="${hit.id}">Copy</button>
         <button class="btn small ghost danger delete-one" data-id="${hit.id}">Del</button>
       </td>
     </tr>`;
@@ -263,7 +307,7 @@ function renderHits() {
   });
 
   hitsBody.querySelectorAll(".copy-one").forEach((el) => {
-    el.addEventListener("click", () => copyText(el.dataset.line));
+    el.addEventListener("click", () => copyText(getHitLine(Number(el.dataset.id))));
   });
 
   hitsBody.querySelectorAll(".delete-one").forEach((el) => {
@@ -275,6 +319,12 @@ function renderHits() {
   updateSelectionButtons();
 }
 
+function updateSavedSelectionButtons() {
+  const count = selectedSavedIds.size;
+  copySelectedSavedBtn.disabled = count === 0;
+  deleteSelectedSavedBtn.disabled = count === 0;
+}
+
 function renderSavedCombos() {
   const count = savedCombos.length;
   savedCountBadge.textContent = `${count.toLocaleString()} saved`;
@@ -283,26 +333,51 @@ function renderSavedCombos() {
   clearSavedBtn.disabled = count === 0;
 
   if (!count) {
-    savedBodyRows.innerHTML = '<tr class="empty-row"><td colspan="2">No valid combos saved yet</td></tr>';
+    savedBodyRows.innerHTML = '<tr class="empty-row"><td colspan="3">No valid combos saved yet</td></tr>';
+    selectedSavedIds.clear();
+    updateSavedSelectionButtons();
     return;
   }
 
+  const valid = new Set(savedCombos.map((s) => s.id));
+  selectedSavedIds = new Set([...selectedSavedIds].filter((id) => valid.has(id)));
+
   savedBodyRows.innerHTML = savedCombos
-    .slice(0, 200)
     .map(
       (item) => `
-    <tr>
-      <td class="mono-line">${escapeHtml(item.line)}</td>
+    <tr data-id="${item.id}">
+      <td class="col-check">
+        <input type="checkbox" class="saved-check" data-id="${item.id}" ${selectedSavedIds.has(item.id) ? "checked" : ""} />
+      </td>
+      <td><div class="combo-line">${escapeHtml(item.line)}</div></td>
       <td class="col-actions">
-        <button class="btn small ghost copy-saved" data-line="${escapeAttr(item.line)}">Copy</button>
+        <button class="btn small ghost copy-saved" data-id="${item.id}">Copy</button>
+        <button class="btn small ghost danger delete-saved" data-id="${item.id}">Del</button>
       </td>
     </tr>`
     )
     .join("");
 
-  savedBodyRows.querySelectorAll(".copy-saved").forEach((el) => {
-    el.addEventListener("click", () => copyText(el.dataset.line));
+  savedBodyRows.querySelectorAll(".saved-check").forEach((el) => {
+    el.addEventListener("change", (e) => {
+      const id = Number(e.target.dataset.id);
+      if (e.target.checked) selectedSavedIds.add(id);
+      else selectedSavedIds.delete(id);
+      updateSavedSelectionButtons();
+    });
   });
+
+  savedBodyRows.querySelectorAll(".copy-saved").forEach((el) => {
+    el.addEventListener("click", () => copyText(getSavedLine(Number(el.dataset.id))));
+  });
+
+  savedBodyRows.querySelectorAll(".delete-saved").forEach((el) => {
+    el.addEventListener("click", async () => {
+      await deleteSavedCombos([Number(el.dataset.id)]);
+    });
+  });
+
+  updateSavedSelectionButtons();
 }
 
 async function loadHits() {
@@ -333,6 +408,18 @@ async function deleteHits(ids) {
   showToast(`Deleted ${ids.length} hit(s)`);
 }
 
+async function deleteSavedCombos(ids) {
+  if (!ids.length) return;
+  await api("/api/saved-combos/delete", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ids }),
+  });
+  ids.forEach((id) => selectedSavedIds.delete(id));
+  await loadSavedCombos();
+  showToast(`Deleted ${ids.length} combo(s)`);
+}
+
 selectAllBtn.addEventListener("click", () => {
   if (!hits.length) return;
   const allSelected = selectedIds.size === hits.length;
@@ -357,6 +444,25 @@ clearHitsBtn.addEventListener("click", async () => {
   selectedIds.clear();
   await loadHits();
   showToast("Credit hits cleared");
+});
+
+selectAllSavedBtn.addEventListener("click", () => {
+  if (!savedCombos.length) return;
+  const allSelected = selectedSavedIds.size === savedCombos.length;
+  selectedSavedIds = allSelected ? new Set() : new Set(savedCombos.map((s) => s.id));
+  renderSavedCombos();
+});
+
+copySelectedSavedBtn.addEventListener("click", async () => {
+  const lines = savedCombos
+    .filter((s) => selectedSavedIds.has(s.id))
+    .map((s) => s.line);
+  if (!lines.length) return;
+  await copyText(lines.join("\n"));
+});
+
+deleteSelectedSavedBtn.addEventListener("click", async () => {
+  await deleteSavedCombos([...selectedSavedIds]);
 });
 
 copyAllSavedBtn.addEventListener("click", async () => {

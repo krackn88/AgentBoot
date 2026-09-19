@@ -198,7 +198,7 @@ def count_saved_combos() -> int:
         return int(row["n"])
 
 
-def list_saved_combos(limit: int = 500) -> list[dict[str, Any]]:
+def list_saved_combos(limit: int = 10000) -> list[dict[str, Any]]:
     with connect() as conn:
         rows = conn.execute(
             "SELECT * FROM saved_combos ORDER BY created_at DESC, id DESC LIMIT ?",
