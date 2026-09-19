@@ -37,6 +37,7 @@ class JobStats:
     stop_requested: bool = False
     current: str = ""
     logs: list[str] = field(default_factory=list)
+    log_seq: int = 0
 
 
 class CheckerWorker:
@@ -107,14 +108,16 @@ class CheckerWorker:
                 "running": self.stats.running,
                 "preparing": self.stats.preparing,
                 "current": self.stats.current,
-                "logs": list(self.stats.logs[-100:]),
+                "log_seq": self.stats.log_seq,
+                "logs": list(self.stats.logs[-200:]),
             }
 
     def _log(self, message: str) -> None:
         with self._lock:
             self.stats.logs.append(message)
-            if len(self.stats.logs) > 500:
-                self.stats.logs = self.stats.logs[-500:]
+            self.stats.log_seq += 1
+            if len(self.stats.logs) > 1000:
+                self.stats.logs = self.stats.logs[-1000:]
 
     def _iter_combo_lines(
         self,

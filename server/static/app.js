@@ -45,7 +45,7 @@ let savedCombos = [];
 let selectedIds = new Set();
 let selectedSavedIds = new Set();
 let pollTimer = null;
-let lastLogCount = 0;
+let lastLogSeq = 0;
 let saveTimer = null;
 let sessionCheckedCount = 0;
 let storedComboCount = 0;
@@ -134,10 +134,7 @@ async function loadSession() {
     if (data.threads) threadsInput.value = data.threads;
     sessionCheckedCount = data.checked_count || 0;
     updateResumeHint();
-    if (data.logs?.length) {
-      logBox.textContent = data.logs.join("\n");
-      lastLogCount = data.logs.length;
-    }
+    renderLogs(data);
     updateStatus(data);
   } catch (_) {
     proxiesText.value =
@@ -251,6 +248,17 @@ function getHitLine(id) {
 
 function getSavedLine(id) {
   return savedCombos.find((s) => s.id === id)?.line || "";
+}
+
+function renderLogs(data) {
+  const lines = data.logs || [];
+  const seq = data.log_seq ?? 0;
+  const text = lines.join("\n");
+  if (seq !== lastLogSeq || text !== logBox.textContent) {
+    logBox.textContent = text;
+    logBox.scrollTop = logBox.scrollHeight;
+    lastLogSeq = seq;
+  }
 }
 
 function shorten(text, max = 72) {
@@ -548,7 +556,8 @@ startBtn.addEventListener("click", async () => {
     }
     updateResumeHint();
     showToast(`Preparing ${(result.combo_count || storedComboCount).toLocaleString()} combos...`);
-    lastLogCount = 0;
+    lastLogSeq = 0;
+    logBox.textContent = "";
     await poll();
   } catch (err) {
     showToast(err.message || "Failed to start");
@@ -609,11 +618,7 @@ function updateStatus(data) {
   }
   updateResumeHint();
 
-  if (data.logs && data.logs.length > lastLogCount) {
-    logBox.textContent = data.logs.join("\n");
-    logBox.scrollTop = logBox.scrollHeight;
-    lastLogCount = data.logs.length;
-  }
+  renderLogs(data);
 }
 
 async function poll() {
