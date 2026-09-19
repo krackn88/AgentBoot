@@ -4,15 +4,13 @@ Account checker for **app.fabletics.com** (Fabletics iOS mobile API), built from
 
 ## What it captures
 
-On a valid login (`HIT`), the checker pulls:
+On a valid login (`HIT`), the checker pulls member credit balances and billing context:
 
 | Category | Fields |
 |----------|--------|
-| **Loyalty / points** | Tier (e.g. Black), point balance, tier points, redeemed/expired points, redemption credits |
-| **Membership** | Status, monthly price, next billing date, billing period, skip/due flags, member credits (tokens) |
-| **Credits / rewards** | Store credit balance, membership store credit, active bounceback/endowment rewards |
-| **Account** | Name, email, phone, VIP lifetime savings, days since last order, member since dates |
-| **Activity** | Cart item count, wishlist count |
+| **Member credits** | Available member credits (tokens), membership credits, store credit balance, membership store credit, max prepaid credits |
+| **Membership** | Status, monthly price, next billing date, billing period, skip/due flags |
+| **Account** | Name, email |
 
 ## API flow
 
@@ -20,14 +18,10 @@ Reverse-engineered from the `.chlz` capture:
 
 1. `GET /api/sessions` — obtain guest JWT from the `Authorization` response header
 2. `POST /api/auth/login` — exchange `email:password` for an access token (guest JWT required)
-3. Parallel account fetches:
+3. Account fetches:
    - `/api/accounts/me/profile`
-   - `/api/accounts/me/loyalty/details`
    - `/api/accounts/me/membership`
    - `/api/accounts/me/membership/period`
-   - `/api/accounts/me/endowment/history`
-   - `/api/cart/items/count`
-   - `/api/accounts/me/wishlist/ids`
 
 ## Install
 
