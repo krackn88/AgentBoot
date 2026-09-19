@@ -35,7 +35,7 @@ const statProgress = $("#statProgress");
 const statHits = $("#statHits");
 const statValid = $("#statValid");
 const statFails = $("#statFails");
-const statErrors = $("#statErrors");
+const statBans = $("#statBans");
 const toast = $("#toast");
 
 const LARGE_COMBO_THRESHOLD = 2000;
@@ -588,7 +588,7 @@ function updateStatus(data) {
   statHits.textContent = String(data.hits || hits.length || 0);
   statValid.textContent = String(data.valid || 0);
   statFails.textContent = String(data.fails || 0);
-  statErrors.textContent = String(data.errors || 0);
+  statBans.textContent = String(data.bans || 0);
 
   const parts = [];
   if (data.preparing) parts.push("Preparing list...");
@@ -597,6 +597,7 @@ function updateStatus(data) {
   if (skipped) parts.push(`${skipped.toLocaleString()} skipped`);
   if (data.hits) parts.push(`${data.hits} credit hits`);
   if (data.valid) parts.push(`${data.valid} valid saved`);
+  if (data.bans) parts.push(`${data.bans} bans`);
   progressStats.textContent = parts.join(" · ") || "Ready";
 
   let statusLabel = "Idle";

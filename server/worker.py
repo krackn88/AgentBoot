@@ -31,6 +31,7 @@ class JobStats:
     valid: int = 0
     fails: int = 0
     retries: int = 0
+    bans: int = 0
     errors: int = 0
     running: bool = False
     preparing: bool = False
@@ -104,6 +105,7 @@ class CheckerWorker:
                 "valid": self.stats.valid,
                 "fails": self.stats.fails,
                 "retries": self.stats.retries,
+                "bans": self.stats.bans,
                 "errors": self.stats.errors,
                 "running": self.stats.running,
                 "preparing": self.stats.preparing,
@@ -239,6 +241,10 @@ class CheckerWorker:
             with self._lock:
                 self.stats.retries += 1
             self._log(f"RETRY | {email} | {result.message}")
+        elif result.status == "BAN":
+            with self._lock:
+                self.stats.bans += 1
+            self._log(f"BAN | {email} | {result.message}")
         else:
             with self._lock:
                 self.stats.errors += 1

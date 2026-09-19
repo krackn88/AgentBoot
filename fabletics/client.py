@@ -133,21 +133,12 @@ class FableticsClient:
             raise FableticsAPIError("Guest session returned an empty token")
         return token
 
-    def login(
-        self,
-        username: str,
-        password: str,
-        recaptcha_response: str | None = None,
-    ) -> LoginResult:
+    def login(self, username: str, password: str) -> LoginResult:
         guest_token = self.create_guest_session()
-        payload: dict[str, str] = {"username": username, "password": password}
-        if recaptcha_response:
-            payload["reCaptchaResponse"] = recaptcha_response
-
         response = self._session.post(
             f"{BASE_URL}/api/auth/login",
             headers=self._base_headers(guest_token),
-            json=payload,
+            json={"username": username, "password": password},
             timeout=self.timeout,
         )
 
