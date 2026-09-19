@@ -84,16 +84,40 @@ def set_state(key: str, value: str) -> None:
 
 
 def get_session() -> dict[str, Any]:
+    combo_count = int(get_state("combo_count", "0") or "0")
+    combos_stored = get_state("combos_stored", "0") == "1"
+    combos_text = ""
+    if not combos_stored:
+        combos_text = get_state("combos")
     return {
-        "combos": get_state("combos"),
+        "combos": combos_text,
         "proxies": get_state("proxies"),
         "threads": int(get_state("threads", "5") or "5"),
         "checked_count": count_checked_combos(),
+        "combo_count": combo_count,
+        "combos_stored": combos_stored,
     }
 
 
-def save_session(combos: str, proxies: str, threads: int | str) -> None:
-    set_state("combos", combos)
+def save_session(
+    combos: str,
+    proxies: str,
+    threads: int | str,
+    *,
+    combo_count: int | None = None,
+    combos_stored: bool = False,
+) -> None:
+    if combos_stored:
+        set_state("combos", "")
+        set_state("combos_stored", "1")
+        set_state("combo_count", str(combo_count or 0))
+    else:
+        set_state("combos", combos)
+        set_state("combos_stored", "0")
+        line_count = combo_count if combo_count is not None else len(
+            [line for line in combos.splitlines() if line.strip()]
+        )
+        set_state("combo_count", str(line_count))
     set_state("proxies", proxies)
     set_state("threads", str(threads))
 
@@ -112,6 +136,12 @@ def is_combo_checked(email: str, password: str) -> bool:
             (key,),
         ).fetchone()
         return row is not None
+
+
+def get_checked_keys() -> set[str]:
+    with connect() as conn:
+        rows = conn.execute("SELECT combo_key FROM checked_combos").fetchall()
+        return {row["combo_key"] for row in rows}
 
 
 def mark_combo_checked(email: str, password: str, status: str) -> None:

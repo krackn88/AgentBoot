@@ -190,6 +190,13 @@ def parse_combo(line: str) -> tuple[str, str] | None:
     if " | " in line:
         line = line.split(" | ", 1)[0].strip()
 
+    if "\t" in line and ":" not in line:
+        parts = line.split("\t", 1)
+        if len(parts) == 2:
+            email, password = parts[0].strip(), parts[1].strip()
+            if email and password and "@" in email:
+                return email, password
+
     if ":" not in line:
         return None
 

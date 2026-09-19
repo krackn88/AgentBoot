@@ -22,17 +22,21 @@ const deleteSelectedBtn = $("#deleteSelectedBtn");
 const clearHitsBtn = $("#clearHitsBtn");
 const toast = $("#toast");
 
+const LARGE_COMBO_THRESHOLD = 2000;
+
 let hits = [];
 let selectedIds = new Set();
 let pollTimer = null;
 let lastLogCount = 0;
 let saveTimer = null;
 let sessionCheckedCount = 0;
+let storedComboCount = 0;
+let combosOnServer = false;
 
 function showToast(msg) {
   toast.textContent = msg;
   toast.classList.add("show");
-  setTimeout(() => toast.classList.remove("show"), 2200);
+  setTimeout(() => toast.classList.remove("show"), 3200);
 }
 
 function formatError(detail) {
@@ -53,35 +57,63 @@ async function api(path, options = {}) {
   return res.json();
 }
 
+function comboLineCount() {
+  const text = combosText.value.trim();
+  if (!text) return 0;
+  return text.split(/\r?\n/).filter((line) => line.trim()).length;
+}
+
+function isLargeComboInput() {
+  return comboLineCount() > LARGE_COMBO_THRESHOLD || combosOnServer;
+}
+
 function scheduleSave() {
   clearTimeout(saveTimer);
   saveTimer = setTimeout(saveSession, 600);
 }
 
 async function saveSession() {
+  const comboCount = comboLineCount();
+  const payload = {
+    proxies: proxiesText.value,
+    threads: Number(threadsInput.value || 5),
+    combos: "",
+  };
+
+  if (comboCount > 0 && comboCount <= LARGE_COMBO_THRESHOLD) {
+    payload.combos = combosText.value;
+  }
+
   try {
-    await api("/api/session", {
+    const result = await api("/api/session", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        combos: combosText.value,
-        proxies: proxiesText.value,
-        threads: Number(threadsInput.value || 5),
-      }),
+      body: JSON.stringify(payload),
     });
+    if (result.combo_count) storedComboCount = result.combo_count;
+    if (result.combos_stored) combosOnServer = true;
+    updateResumeHint();
   } catch (_) {
-    /* ignore save errors */
+    /* ignore save errors for large payloads */
   }
 }
 
 async function loadSession() {
   try {
     const data = await api("/api/session");
-    if (data.combos) combosText.value = data.combos;
-    else if (!proxiesText.value) {
+    storedComboCount = data.combo_count || 0;
+    combosOnServer = Boolean(data.combos_stored);
+
+    if (data.combos) {
+      combosText.value = data.combos;
+    } else if (combosOnServer && storedComboCount > 0) {
+      combosText.value = "";
+      combosText.placeholder = `${storedComboCount.toLocaleString()} combos loaded on server (use Start / Resume)`;
+    } else if (!proxiesText.value) {
       proxiesText.value =
         "core-residential.evomi.com:1000:gulley886:tStXC3zZrqpDmVdVQdzF_country-US";
     }
+
     if (data.proxies) proxiesText.value = data.proxies;
     if (data.threads) threadsInput.value = data.threads;
     sessionCheckedCount = data.checked_count || 0;
@@ -99,36 +131,60 @@ async function loadSession() {
 }
 
 function updateResumeHint() {
+  const comboInfo = combosOnServer && storedComboCount > 0
+    ? `${storedComboCount.toLocaleString()} combos on server`
+    : comboLineCount() > 0
+      ? `${comboLineCount().toLocaleString()} combos in box`
+      : "paste combos or upload a file";
+
   if (sessionCheckedCount > 0) {
     resumeHint.textContent =
-      `${sessionCheckedCount} combo(s) already checked — Start will skip those and continue the rest.`;
+      `${comboInfo} · ${sessionCheckedCount.toLocaleString()} already checked — Start skips those and continues.`;
   } else {
     resumeHint.textContent =
-      "Combos and proxies are saved automatically. Already-checked combos are skipped on resume.";
+      `${comboInfo} · large lists stay on the server (no browser freeze). Already-checked combos are skipped on resume.`;
   }
 }
 
-combosText.addEventListener("input", scheduleSave);
+combosText.addEventListener("input", () => {
+  if (comboLineCount() <= LARGE_COMBO_THRESHOLD) {
+    combosOnServer = false;
+  }
+  updateResumeHint();
+  scheduleSave();
+});
 proxiesText.addEventListener("input", scheduleSave);
 threadsInput.addEventListener("change", scheduleSave);
 
-comboFile.addEventListener("change", async () => {
-  comboFileName.textContent = comboFile.files[0]?.name || "No file";
-  if (comboFile.files[0]) {
-    const text = await comboFile.files[0].text();
-    combosText.value = combosText.value ? `${combosText.value}\n${text}` : text;
-    scheduleSave();
+comboFile.addEventListener("change", () => {
+  const file = comboFile.files[0];
+  comboFileName.textContent = file ? `${file.name} (${formatBytes(file.size)})` : "No file";
+  if (file) {
+    combosOnServer = true;
+    storedComboCount = 0;
+    combosText.value = "";
+    combosText.placeholder = `File selected: ${file.name} — will upload on Start (not loaded into browser)`;
+    updateResumeHint();
   }
 });
 
 proxyFile.addEventListener("change", async () => {
-  proxyFileName.textContent = proxyFile.files[0]?.name || "No file";
-  if (proxyFile.files[0]) {
-    const text = await proxyFile.files[0].text();
+  const file = proxyFile.files[0];
+  proxyFileName.textContent = file ? file.name : "No file";
+  if (file && file.size < 512 * 1024) {
+    const text = await file.text();
     proxiesText.value = proxiesText.value ? `${proxiesText.value}\n${text}` : text;
     scheduleSave();
+  } else if (file) {
+    proxyFileName.textContent = `${file.name} (uploads on Start)`;
   }
 });
+
+function formatBytes(bytes) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
 
 function updateSelectionButtons() {
   const count = selectedIds.size;
@@ -260,39 +316,74 @@ resetProgressBtn.addEventListener("click", async () => {
 });
 
 startBtn.addEventListener("click", async () => {
-  const comboText = combosText.value.trim();
-  if (!comboText && !comboFile.files[0]) {
-    showToast("Add at least one combo");
+  const hasFile = Boolean(comboFile.files[0]);
+  const textCount = comboLineCount();
+  const hasStored = combosOnServer && storedComboCount > 0;
+
+  if (!hasFile && textCount === 0 && !hasStored) {
+    showToast("Add at least one combo (paste, upload, or use stored list)");
     return;
   }
 
-  await saveSession();
-
   const form = new FormData();
-  form.append("combos", combosText.value);
-  form.append("proxies", proxiesText.value);
   form.append("threads", String(threadsInput.value || "5"));
-  if (comboFile.files[0]) form.append("combo_file", comboFile.files[0]);
+  form.append("proxies", proxiesText.value);
 
-  startBtn.disabled = true;
-  try {
-    const result = await api("/api/jobs/start", { method: "POST", body: form });
-    const skipped = result.skipped || 0;
-    const queued = result.queued ?? result.total;
-    showToast(
-      skipped
-        ? `Resuming — ${queued} to check, ${skipped} skipped`
-        : `Started — ${queued} combo(s)`
-    );
-    if (!result.running && queued === 0) {
-      logBox.textContent = "All combos already checked.";
+  if (hasFile) {
+    form.append("combo_file", comboFile.files[0]);
+  } else if (textCount > 0) {
+    if (textCount > LARGE_COMBO_THRESHOLD) {
+      showToast(`Uploading ${textCount.toLocaleString()} combos to server...`);
+      const blob = new Blob([combosText.value], { type: "text/plain" });
+      form.append("combo_file", blob, "combos.txt");
     } else {
-      lastLogCount = 0;
+      form.append("combos", combosText.value);
     }
+  } else {
+    form.append("use_stored_combos", "true");
+  }
+
+  if (proxyFile.files[0]) {
+    form.append("proxy_file", proxyFile.files[0]);
+  }
+
+  const prevLabel = startBtn.textContent;
+  startBtn.disabled = true;
+  startBtn.textContent = hasFile ? "Uploading..." : "Starting...";
+
+  try {
+    if (textCount > 0 && textCount <= LARGE_COMBO_THRESHOLD && !hasFile) {
+      await saveSession();
+    }
+
+    const result = await api("/api/jobs/start", { method: "POST", body: form });
+
+    storedComboCount = result.combo_count || storedComboCount;
+    combosOnServer = true;
+    if (hasFile || textCount > LARGE_COMBO_THRESHOLD) {
+      combosText.value = "";
+      combosText.placeholder = `${storedComboCount.toLocaleString()} combos on server`;
+    }
+    updateResumeHint();
+
+    showToast(
+      result.preparing
+        ? `Preparing ${(result.combo_count || storedComboCount).toLocaleString()} combos...`
+        : `Started — ${(result.queued || result.combo_count || 0).toLocaleString()} queued`
+    );
+
+    lastLogCount = 0;
     await poll();
   } catch (err) {
     showToast(err.message || "Failed to start");
-    startBtn.disabled = false;
+  } finally {
+    startBtn.textContent = prevLabel;
+    try {
+      const data = await api("/api/status");
+      updateStatus(data);
+    } catch (_) {
+      startBtn.disabled = false;
+    }
   }
 });
 
@@ -302,30 +393,47 @@ stopBtn.addEventListener("click", async () => {
 });
 
 function updateStatus(data) {
-  const total = data.total || 0;
+  const total = data.total || data.combo_count || 0;
   const checked = data.checked || 0;
   const skipped = data.skipped || 0;
   const pct = total ? Math.round(((checked + skipped) / total) * 100) : 0;
   progressFill.style.width = `${pct}%`;
 
   const parts = [];
-  if (total) parts.push(`${checked + skipped} / ${total} done`);
-  if (skipped) parts.push(`${skipped} skipped`);
+  if (data.preparing) {
+    parts.push("Preparing...");
+  } else if (total) {
+    parts.push(`${checked + skipped} / ${total} done`);
+  } else if (data.combo_count) {
+    parts.push(`${data.combo_count.toLocaleString()} combos loaded`);
+  }
+  if (skipped) parts.push(`${skipped.toLocaleString()} skipped`);
   parts.push(`${data.hits || 0} hits`);
   parts.push(`${data.fails || 0} fails`);
   if (data.errors) parts.push(`${data.errors} errors`);
   progressStats.textContent = parts.join(" · ");
 
-  statusPill.textContent = data.running ? "Running" : "Idle";
-  statusPill.className = `status-pill ${data.running ? "running" : "idle"}`;
-  startBtn.disabled = data.running;
-  stopBtn.disabled = !data.running;
-  resetProgressBtn.disabled = data.running;
+  let statusLabel = "Idle";
+  if (data.preparing) statusLabel = "Preparing";
+  else if (data.running) statusLabel = "Running";
+  statusPill.textContent = statusLabel;
+  statusPill.className = `status-pill ${data.running || data.preparing ? "running" : "idle"}`;
 
+  const busy = Boolean(data.running || data.preparing);
+  startBtn.disabled = busy;
+  stopBtn.disabled = !busy;
+  resetProgressBtn.disabled = busy;
+
+  if (data.combo_count !== undefined) {
+    storedComboCount = data.combo_count;
+  }
+  if (data.combos_stored !== undefined) {
+    combosOnServer = Boolean(data.combos_stored);
+  }
   if (data.checked_count !== undefined) {
     sessionCheckedCount = data.checked_count;
-    updateResumeHint();
   }
+  updateResumeHint();
 
   if (data.logs && data.logs.length > lastLogCount) {
     logBox.textContent = data.logs.join("\n");
@@ -339,10 +447,12 @@ async function poll() {
     const data = await api("/api/status");
     updateStatus(data);
     if (data.hits > hits.length) await loadHits();
-    if (!data.running) {
+    if (!data.running && !data.preparing) {
       await loadHits();
       const session = await api("/api/session");
       sessionCheckedCount = session.checked_count || 0;
+      storedComboCount = session.combo_count || storedComboCount;
+      combosOnServer = Boolean(session.combos_stored);
       updateResumeHint();
     }
   } catch (_) {
