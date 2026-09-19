@@ -31,6 +31,8 @@ from .db import (
     list_saved_combos,
     save_session,
 )
+from fabletics.smoke_test import run_smoke_test
+
 from .worker import worker
 
 STATIC_DIR = Path(__file__).resolve().parent / "static"
@@ -53,6 +55,10 @@ class SaveSessionRequest(BaseModel):
     threads: int = 5
 
 
+class SmokeTestRequest(BaseModel):
+    proxy: str = ""
+
+
 def _lines_from_text(text: str) -> list[str]:
     return [line.strip() for line in text.splitlines() if line.strip()]
 
@@ -69,6 +75,21 @@ async def _read_upload(file: UploadFile | None) -> str:
 
 def _count_nonempty_lines(text: str) -> int:
     return len(_lines_from_text(text))
+
+
+def _first_proxy_line(provided: str = "") -> str:
+    lines = _lines_from_text(provided)
+    if lines:
+        return lines[0]
+    if PROXIES_PATH.exists():
+        file_lines = _lines_from_text(
+            PROXIES_PATH.read_text(encoding="utf-8", errors="replace")
+        )
+        if file_lines:
+            return file_lines[0]
+    session = get_session()
+    session_lines = _lines_from_text(session.get("proxies", ""))
+    return session_lines[0] if session_lines else ""
 
 
 @app.get("/")
@@ -122,6 +143,15 @@ async def status() -> dict[str, Any]:
     data["combos_stored"] = session_data["combos_stored"]
     data["saved_combo_count"] = count_saved_combos()
     return data
+
+
+@app.post("/api/smoke-test")
+async def smoke_test(body: SmokeTestRequest | None = None) -> dict[str, Any]:
+    if worker.is_running():
+        raise HTTPException(409, "Stop the job before running a smoke test")
+
+    proxy_line = _first_proxy_line((body.proxy if body else "") or "")
+    return run_smoke_test(proxy_line or None)
 
 
 @app.post("/api/jobs/start")

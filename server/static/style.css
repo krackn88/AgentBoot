@@ -312,6 +312,39 @@ textarea:focus {
 
 .progress-stats { margin-top: 8px; }
 
+.smoke-result {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface-2);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.smoke-result.ok {
+  border-color: #b9e8d4;
+  background: var(--success-soft);
+  color: #0d5f42;
+}
+
+.smoke-result.fail {
+  border-color: #f0c8cf;
+  background: var(--danger-soft);
+  color: #9b1c2c;
+}
+
+.smoke-result .smoke-steps {
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+
+.smoke-result .smoke-meta {
+  color: var(--muted);
+  font-size: 0.78rem;
+  margin-top: 6px;
+}
+
 .table-wrap {
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);

@@ -10,6 +10,8 @@ const threadsInput = $("#threads");
 const startBtn = $("#startBtn");
 const stopBtn = $("#stopBtn");
 const resetProgressBtn = $("#resetProgressBtn");
+const smokeTestBtn = $("#smokeTestBtn");
+const smokeResult = $("#smokeResult");
 const statusPill = $("#statusPill");
 const progressFill = $("#progressFill");
 const progressStats = $("#progressStats");
@@ -501,6 +503,50 @@ savedPanelToggle.addEventListener("click", () => {
   savedChevron.classList.toggle("open", savedPanelOpen);
 });
 
+function renderSmokeResult(data) {
+  smokeResult.hidden = false;
+  smokeResult.className = `smoke-result ${data.ok ? "ok" : "fail"}`;
+  const steps = (data.steps || [])
+    .map((step) => {
+      const icon = step.ok ? "✓" : "✗";
+      const extra = step.status ? ` [${step.status}]` : "";
+      const ms = step.ms != null ? ` (${step.ms}ms)` : "";
+      return `<li>${icon} <strong>${step.step}</strong>${extra}${ms} — ${escapeHtml(step.detail || "")}</li>`;
+    })
+    .join("");
+  smokeResult.innerHTML = `
+    <strong>${escapeHtml(data.summary || (data.ok ? "Smoke test passed" : "Smoke test failed"))}</strong>
+    <ul class="smoke-steps">${steps}</ul>
+    <div class="smoke-meta">TLS: ${escapeHtml(data.tls_profile || "?")} · Proxy: ${escapeHtml(data.proxy || "?")} · ${data.total_ms || 0}ms total</div>
+  `;
+}
+
+smokeTestBtn.addEventListener("click", async () => {
+  smokeTestBtn.disabled = true;
+  const prev = smokeTestBtn.textContent;
+  smokeTestBtn.textContent = "Testing...";
+  try {
+    const result = await api("/api/smoke-test", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ proxy: proxiesText.value.split(/\r?\n/).find((l) => l.trim()) || "" }),
+    });
+    renderSmokeResult(result);
+    showToast(result.ok ? "Smoke test passed" : "Smoke test failed");
+    if (result.steps?.length) {
+      logBox.textContent = `[smoke test]\n${result.steps.map((s) => `${s.ok ? "OK" : "FAIL"} | ${s.step} | ${s.detail || ""}`).join("\n")}\n\n${logBox.textContent}`;
+    }
+  } catch (err) {
+    smokeResult.hidden = false;
+    smokeResult.className = "smoke-result fail";
+    smokeResult.textContent = err.message || "Smoke test failed";
+    showToast(err.message || "Smoke test failed");
+  } finally {
+    smokeTestBtn.textContent = prev;
+    smokeTestBtn.disabled = false;
+  }
+});
+
 resetProgressBtn.addEventListener("click", async () => {
   if (!confirm("Clear checked progress? Combos will be re-checked on next start.")) return;
   try {
@@ -616,6 +662,7 @@ function updateStatus(data) {
   startBtn.disabled = busy;
   stopBtn.disabled = !busy;
   resetProgressBtn.disabled = busy;
+  smokeTestBtn.disabled = busy;
 
   if (data.combo_count !== undefined) storedComboCount = data.combo_count;
   if (data.combos_stored !== undefined) combosOnServer = Boolean(data.combos_stored);
