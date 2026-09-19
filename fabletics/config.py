@@ -14,6 +14,10 @@ USER_AGENT = (
 
 DEFAULT_TIMEOUT = 30
 
+# reCAPTCHA — only solved on demand when login requires it.
+RECAPTCHA_SITE_KEY = "6LfUn5IUAAAAAM7ssrSkY6BVkNHIPaweAXxTy-eO"
+RECAPTCHA_ACTION = "login"
+
 # Evomi residential proxy (US). Override with FABLETICS_PROXY env or --proxy.
 DEFAULT_PROXY = (
     "http://gulley886:tStXC3zZrqpDmVdVQdzF_country-US"
