@@ -223,5 +223,8 @@ function startPolling() {
   poll();
 }
 
+// Default Evomi proxy pre-filled for convenience
+proxiesText.value = proxiesText.value || "core-residential.evomi.com:1000:gulley886:tStXC3zZrqpDmVdVQdzF_country-US";
+
 loadHits();
 startPolling();
