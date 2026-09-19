@@ -13,6 +13,7 @@ from .config import (
     BASE_URL,
     DEFAULT_TIMEOUT,
     STORE_DOMAIN,
+    TLS_IMPERSONATE,
     USER_AGENT,
 )
 
@@ -40,9 +41,15 @@ class LoginResult:
 class FableticsClient:
     def __init__(self, proxy: str | None = None, timeout: int = DEFAULT_TIMEOUT):
         self.timeout = timeout
-        self._session = Session(impersonate="safari_ios")
+        self._session = Session(impersonate=TLS_IMPERSONATE)
         if proxy:
             self._session.proxies = {"http": proxy, "https": proxy}
+
+    def close(self) -> None:
+        try:
+            self._session.close()
+        except Exception:
+            pass
 
     def _base_headers(self, token: str | None = None) -> dict[str, str]:
         headers = {
@@ -54,6 +61,9 @@ class FableticsClient:
             "x-app-native-version": APP_NATIVE_VERSION,
             "x-app-js-version": APP_JS_VERSION,
             "Accept": "application/json, text/plain, */*",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Connection": "keep-alive",
         }
         if token:
             headers["Authorization"] = f"Bearer {token}"

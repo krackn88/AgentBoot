@@ -6,6 +6,9 @@ APP_NATIVE_VERSION = "2.3.0"
 APP_JS_VERSION = "1789761619"
 APP_PLATFORM = "ios"
 
+# curl_cffi TLS + HTTP/2 fingerprint (real HTTPS, not plain Python requests).
+TLS_IMPERSONATE = "safari17_2_ios"
+
 USER_AGENT = (
     "Mozilla/5.0 (iPhone; CPU iPhone OS 18_7 like Mac OS X) "
     "AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148 "
@@ -13,6 +16,10 @@ USER_AGENT = (
 )
 
 DEFAULT_TIMEOUT = 30
+
+# Per-check delay jitter (seconds) to avoid hammering the same gateway IP.
+CHECK_DELAY_MIN = 0.35
+CHECK_DELAY_MAX = 1.1
 
 # Evomi residential proxy (US). Override with FABLETICS_PROXY env or --proxy.
 DEFAULT_PROXY = (

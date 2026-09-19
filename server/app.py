@@ -137,7 +137,7 @@ async def start_job(
         raise HTTPException(409, "A job is already running")
 
     try:
-        thread_count = max(1, min(int(threads or "5"), 50))
+        thread_count = max(1, min(int(threads or "3"), 20))
     except ValueError:
         thread_count = 5
 
