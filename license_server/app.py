@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import hmac
+import ipaddress
 import os
 import time
 from functools import wraps
@@ -24,6 +26,34 @@ PUBLIC_API_URL = os.environ.get(
     "http://159.69.76.189:8082",
 ).rstrip("/")
 
+# Trust X-Forwarded-For only when explicitly told we sit behind a known proxy.
+# Otherwise an attacker could spoof the header to bypass rate limits and any
+# IP allowlist, so we default to the real socket peer (request.remote_addr).
+TRUST_PROXY = os.environ.get("LICENSE_TRUST_PROXY", "").strip().lower() in {
+    "1",
+    "true",
+    "yes",
+    "on",
+}
+
+
+def _parse_ip_allowlist(raw: str) -> list[Any]:
+    nets: list[Any] = []
+    for part in raw.split(","):
+        part = part.strip()
+        if not part:
+            continue
+        try:
+            nets.append(ipaddress.ip_network(part, strict=False))
+        except ValueError:
+            continue
+    return nets
+
+
+# Optional hard lock: restrict the admin dashboard + admin API to specific
+# IPs/CIDRs (e.g. your home/office IP or VPN). Empty => token-only protection.
+ADMIN_IP_ALLOWLIST = _parse_ip_allowlist(os.environ.get("LICENSE_ADMIN_IPS", ""))
+
 app = Flask(
     __name__,
     template_folder=str(APP_DIR / "templates"),
@@ -35,27 +65,65 @@ _rate: dict[str, list[float]] = {}
 
 
 def _load_signing_secret() -> None:
-    secret = os.environ.get("TROPIC_LICENSE_SECRET", "").strip()
-    secret_file = Path(os.environ.get("LICENSE_SECRET_FILE", APP_DIR.parent / "license_secret.txt"))
-    if not secret and secret_file.is_file():
-        secret = secret_file.read_text(encoding="utf-8").strip()
-    if not secret:
-        return
-    import importlib.util
+    """Make the Ed25519 private signing secret discoverable by license_core.
 
-    secret_path = APP_DIR.parent / "tropic_checker" / "licensing" / "_secret.py"
-    spec = importlib.util.spec_from_file_location("tropic_lic_secret", secret_path)
-    if spec and spec.loader:
-        mod = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(mod)
-        mod._LICENSE_SECRET = secret.encode("utf-8")
+    Only the vendor server holds this private secret; it signs license keys.
+    Customer builds embed only the derived public key.
+    """
+    if os.environ.get("TROPIC_LICENSE_SECRET", "").strip():
+        return
+    secret_file = Path(os.environ.get("LICENSE_SECRET_FILE", APP_DIR.parent / "license_secret.txt"))
+    if secret_file.is_file():
+        secret = secret_file.read_text(encoding="utf-8").strip()
+        if secret:
+            os.environ["TROPIC_LICENSE_SECRET"] = secret
 
 
 _load_signing_secret()
 
 
 def _client_ip() -> str:
-    return request.headers.get("X-Forwarded-For", request.remote_addr or "")
+    if TRUST_PROXY:
+        fwd = request.headers.get("X-Forwarded-For", "")
+        if fwd:
+            return fwd.split(",")[0].strip()
+    return request.remote_addr or ""
+
+
+def _admin_ip_ok() -> bool:
+    """True if the caller's IP is allowed to reach admin routes.
+
+    When no allowlist is configured we return True and rely on the token; when
+    one is configured, only listed IPs/CIDRs pass.
+    """
+    if not ADMIN_IP_ALLOWLIST:
+        return True
+    try:
+        addr = ipaddress.ip_address(_client_ip())
+    except ValueError:
+        return False
+    return any(addr in net for net in ADMIN_IP_ALLOWLIST)
+
+
+@app.before_request
+def _guard_admin_routes():
+    path = request.path
+    if path == "/admin" or path.startswith("/admin/"):
+        # Hide the admin surface entirely from non-allowlisted IPs (404, not 403,
+        # so its existence isn't confirmed).
+        if not _admin_ip_ok():
+            abort(404)
+
+
+@app.after_request
+def _admin_security_headers(resp):
+    path = request.path
+    if path == "/admin" or path.startswith("/admin/"):
+        resp.headers["Cache-Control"] = "no-store"
+        resp.headers["X-Content-Type-Options"] = "nosniff"
+        resp.headers["Referrer-Policy"] = "no-referrer"
+        resp.headers["X-Frame-Options"] = "DENY"
+    return resp
 
 
 def _rate_ok(ip: str) -> bool:
@@ -73,8 +141,10 @@ def _admin_required(fn: Callable[..., Any]):
     def wrapper(*args: Any, **kwargs: Any):
         if not ADMIN_TOKEN:
             return jsonify({"error": "LICENSE_ADMIN_TOKEN not configured"}), 503
-        token = request.headers.get("X-Admin-Token") or request.args.get("token", "")
-        if token != ADMIN_TOKEN:
+        # Header only — never accept the token via query string, which would leak
+        # it into access logs, browser history, and Referer headers.
+        token = request.headers.get("X-Admin-Token", "")
+        if not token or not hmac.compare_digest(token, ADMIN_TOKEN):
             return jsonify({"error": "Unauthorized"}), 401
         return fn(*args, **kwargs)
 
@@ -199,7 +269,9 @@ def portal_download(filename: str):
 
 @app.get("/admin")
 def dashboard():
-    return render_template("dashboard.html", admin_token=ADMIN_TOKEN)
+    # The admin token is NEVER embedded in the page. The browser prompts for it
+    # and sends it as the X-Admin-Token header on each admin API call.
+    return render_template("dashboard.html")
 
 
 @app.get("/admin/api/stats")

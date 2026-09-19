@@ -1,4 +1,15 @@
-const token = document.querySelector('meta[name="admin-token"]')?.content || '';
+// The admin token is entered by the operator and kept only in this browser tab's
+// sessionStorage. It is never rendered into the page by the server.
+function getToken() {
+  let t = sessionStorage.getItem('adminToken') || '';
+  if (!t) {
+    t = (window.prompt('Enter admin token') || '').trim();
+    if (t) sessionStorage.setItem('adminToken', t);
+  }
+  return t;
+}
+
+let token = getToken();
 
 function headers() {
   const h = { 'Content-Type': 'application/json' };
@@ -8,6 +19,12 @@ function headers() {
 
 async function api(path, opts = {}) {
   const res = await fetch(path, { ...opts, headers: { ...headers(), ...(opts.headers || {}) } });
+  if (res.status === 401) {
+    // Token wrong/expired — clear it so the next action prompts again.
+    sessionStorage.removeItem('adminToken');
+    token = '';
+    throw new Error('Unauthorized — reload the page and re-enter the admin token.');
+  }
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.error || res.statusText);
   return data;

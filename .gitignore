@@ -11,3 +11,5 @@ build/desktop/
 license_secret.txt
 .customer-build-venv/
 .DS_Store
+downloads/
+data/
