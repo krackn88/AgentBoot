@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fabletics Checker</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Fabletics Checker</h1>
+      <div class="status-pill" id="statusPill">Idle</div>
+    </header>
+
+    <section class="panel">
+      <h2>Input</h2>
+      <div class="grid-2">
+        <div class="field">
+          <label>Combos <span class="hint">email:password per line · large files upload on Start</span></label>
+          <textarea id="combosText" placeholder="email@example.com:password123&#10;Or pick a .txt file below for big lists (100k+ lines)"></textarea>
+          <div class="file-row">
+            <input type="file" id="comboFile" accept=".txt,.csv" />
+            <span class="file-name" id="comboFileName">No file</span>
+          </div>
+        </div>
+        <div class="field">
+          <label>Proxies <span class="hint">host:port:user:pass or URL</span></label>
+          <textarea id="proxiesText" placeholder="core-residential.evomi.com:1000:user:pass_country-US"></textarea>
+          <div class="file-row">
+            <input type="file" id="proxyFile" accept=".txt,.csv" />
+            <span class="file-name" id="proxyFileName">No file</span>
+          </div>
+        </div>
+      </div>
+      <div class="controls">
+        <label class="threads">
+          Threads
+          <input type="number" id="threads" min="1" max="50" value="5" />
+        </label>
+        <button class="btn primary" id="startBtn">Start / Resume</button>
+        <button class="btn danger" id="stopBtn" disabled>Stop</button>
+        <button class="btn" id="resetProgressBtn" title="Re-check all combos from scratch">Reset progress</button>
+      </div>
+      <p class="resume-hint" id="resumeHint">Combos and proxies are saved automatically. Already-checked combos are skipped on resume.</p>
+      <div class="progress-wrap">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-stats" id="progressStats">0 / 0 checked · 0 hits</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Hits</h2>
+        <div class="toolbar">
+          <button class="btn" id="selectAllBtn">Select all</button>
+          <button class="btn" id="copySelectedBtn" disabled>Copy selected</button>
+          <button class="btn" id="deleteSelectedBtn" disabled>Delete selected</button>
+          <button class="btn danger" id="clearHitsBtn">Clear all</button>
+        </div>
+      </div>
+      <div class="hits-table-wrap">
+        <table class="hits-table">
+          <thead>
+            <tr>
+              <th class="col-check"></th>
+              <th>One-liner</th>
+              <th class="col-actions">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="hitsBody">
+            <tr class="empty-row"><td colspan="3">No hits yet</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Live log</h2>
+      <pre class="log" id="logBox"></pre>
+    </section>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

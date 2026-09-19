@@ -182,9 +182,20 @@ def check_account(
 
 
 def parse_combo(line: str) -> tuple[str, str] | None:
-    line = line.strip()
+    line = line.strip().lstrip("\ufeff")
     if not line or line.startswith("#"):
         return None
+
+    # Support pasted hit one-liners: email:pass | Points = ...
+    if " | " in line:
+        line = line.split(" | ", 1)[0].strip()
+
+    if "\t" in line and ":" not in line:
+        parts = line.split("\t", 1)
+        if len(parts) == 2:
+            email, password = parts[0].strip(), parts[1].strip()
+            if email and password and "@" in email:
+                return email, password
 
     if ":" not in line:
         return None
@@ -192,6 +203,6 @@ def parse_combo(line: str) -> tuple[str, str] | None:
     email, password = line.split(":", 1)
     email = email.strip()
     password = password.strip()
-    if not email or not password:
+    if not email or not password or "@" not in email:
         return None
     return email, password
