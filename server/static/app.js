@@ -9,9 +9,11 @@ const proxyFileName = $("#proxyFileName");
 const threadsInput = $("#threads");
 const startBtn = $("#startBtn");
 const stopBtn = $("#stopBtn");
+const resetProgressBtn = $("#resetProgressBtn");
 const statusPill = $("#statusPill");
 const progressFill = $("#progressFill");
 const progressStats = $("#progressStats");
+const resumeHint = $("#resumeHint");
 const hitsBody = $("#hitsBody");
 const logBox = $("#logBox");
 const selectAllBtn = $("#selectAllBtn");
@@ -24,6 +26,8 @@ let hits = [];
 let selectedIds = new Set();
 let pollTimer = null;
 let lastLogCount = 0;
+let saveTimer = null;
+let sessionCheckedCount = 0;
 
 function showToast(msg) {
   toast.textContent = msg;
@@ -49,11 +53,81 @@ async function api(path, options = {}) {
   return res.json();
 }
 
-comboFile.addEventListener("change", () => {
+function scheduleSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveSession, 600);
+}
+
+async function saveSession() {
+  try {
+    await api("/api/session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        combos: combosText.value,
+        proxies: proxiesText.value,
+        threads: Number(threadsInput.value || 5),
+      }),
+    });
+  } catch (_) {
+    /* ignore save errors */
+  }
+}
+
+async function loadSession() {
+  try {
+    const data = await api("/api/session");
+    if (data.combos) combosText.value = data.combos;
+    else if (!proxiesText.value) {
+      proxiesText.value =
+        "core-residential.evomi.com:1000:gulley886:tStXC3zZrqpDmVdVQdzF_country-US";
+    }
+    if (data.proxies) proxiesText.value = data.proxies;
+    if (data.threads) threadsInput.value = data.threads;
+    sessionCheckedCount = data.checked_count || 0;
+    updateResumeHint();
+    if (data.logs?.length) {
+      logBox.textContent = data.logs.join("\n");
+      lastLogCount = data.logs.length;
+    }
+    updateStatus(data);
+  } catch (_) {
+    proxiesText.value =
+      proxiesText.value ||
+      "core-residential.evomi.com:1000:gulley886:tStXC3zZrqpDmVdVQdzF_country-US";
+  }
+}
+
+function updateResumeHint() {
+  if (sessionCheckedCount > 0) {
+    resumeHint.textContent =
+      `${sessionCheckedCount} combo(s) already checked — Start will skip those and continue the rest.`;
+  } else {
+    resumeHint.textContent =
+      "Combos and proxies are saved automatically. Already-checked combos are skipped on resume.";
+  }
+}
+
+combosText.addEventListener("input", scheduleSave);
+proxiesText.addEventListener("input", scheduleSave);
+threadsInput.addEventListener("change", scheduleSave);
+
+comboFile.addEventListener("change", async () => {
   comboFileName.textContent = comboFile.files[0]?.name || "No file";
+  if (comboFile.files[0]) {
+    const text = await comboFile.files[0].text();
+    combosText.value = combosText.value ? `${combosText.value}\n${text}` : text;
+    scheduleSave();
+  }
 });
-proxyFile.addEventListener("change", () => {
+
+proxyFile.addEventListener("change", async () => {
   proxyFileName.textContent = proxyFile.files[0]?.name || "No file";
+  if (proxyFile.files[0]) {
+    const text = await proxyFile.files[0].text();
+    proxiesText.value = proxiesText.value ? `${proxiesText.value}\n${text}` : text;
+    scheduleSave();
+  }
 });
 
 function updateSelectionButtons() {
@@ -173,6 +247,18 @@ clearHitsBtn.addEventListener("click", async () => {
   showToast("All hits cleared");
 });
 
+resetProgressBtn.addEventListener("click", async () => {
+  if (!confirm("Clear all checked progress? Combos will be re-checked on next start.")) return;
+  try {
+    const result = await api("/api/progress/reset", { method: "POST" });
+    sessionCheckedCount = 0;
+    updateResumeHint();
+    showToast(`Reset ${result.cleared} checked combo(s)`);
+  } catch (err) {
+    showToast(err.message);
+  }
+});
+
 startBtn.addEventListener("click", async () => {
   const comboText = combosText.value.trim();
   if (!comboText && !comboFile.files[0]) {
@@ -180,19 +266,29 @@ startBtn.addEventListener("click", async () => {
     return;
   }
 
+  await saveSession();
+
   const form = new FormData();
   form.append("combos", combosText.value);
   form.append("proxies", proxiesText.value);
   form.append("threads", String(threadsInput.value || "5"));
   if (comboFile.files[0]) form.append("combo_file", comboFile.files[0]);
-  if (proxyFile.files[0]) form.append("proxy_file", proxyFile.files[0]);
 
   startBtn.disabled = true;
   try {
     const result = await api("/api/jobs/start", { method: "POST", body: form });
-    showToast(`Started — ${result.total} combos`);
-    lastLogCount = 0;
-    logBox.textContent = "";
+    const skipped = result.skipped || 0;
+    const queued = result.queued ?? result.total;
+    showToast(
+      skipped
+        ? `Resuming — ${queued} to check, ${skipped} skipped`
+        : `Started — ${queued} combo(s)`
+    );
+    if (!result.running && queued === 0) {
+      logBox.textContent = "All combos already checked.";
+    } else {
+      lastLogCount = 0;
+    }
     await poll();
   } catch (err) {
     showToast(err.message || "Failed to start");
@@ -206,16 +302,32 @@ stopBtn.addEventListener("click", async () => {
 });
 
 function updateStatus(data) {
-  const pct = data.total ? Math.round((data.checked / data.total) * 100) : 0;
+  const total = data.total || 0;
+  const checked = data.checked || 0;
+  const skipped = data.skipped || 0;
+  const pct = total ? Math.round(((checked + skipped) / total) * 100) : 0;
   progressFill.style.width = `${pct}%`;
-  progressStats.textContent = `${data.checked} / ${data.total} checked · ${data.hits} hits · ${data.fails} fails · ${data.errors} errors`;
+
+  const parts = [];
+  if (total) parts.push(`${checked + skipped} / ${total} done`);
+  if (skipped) parts.push(`${skipped} skipped`);
+  parts.push(`${data.hits || 0} hits`);
+  parts.push(`${data.fails || 0} fails`);
+  if (data.errors) parts.push(`${data.errors} errors`);
+  progressStats.textContent = parts.join(" · ");
 
   statusPill.textContent = data.running ? "Running" : "Idle";
   statusPill.className = `status-pill ${data.running ? "running" : "idle"}`;
   startBtn.disabled = data.running;
   stopBtn.disabled = !data.running;
+  resetProgressBtn.disabled = data.running;
 
-  if (data.logs.length > lastLogCount) {
+  if (data.checked_count !== undefined) {
+    sessionCheckedCount = data.checked_count;
+    updateResumeHint();
+  }
+
+  if (data.logs && data.logs.length > lastLogCount) {
     logBox.textContent = data.logs.join("\n");
     logBox.scrollTop = logBox.scrollHeight;
     lastLogCount = data.logs.length;
@@ -227,8 +339,11 @@ async function poll() {
     const data = await api("/api/status");
     updateStatus(data);
     if (data.hits > hits.length) await loadHits();
-    if (!data.running && pollTimer) {
+    if (!data.running) {
       await loadHits();
+      const session = await api("/api/session");
+      sessionCheckedCount = session.checked_count || 0;
+      updateResumeHint();
     }
   } catch (_) {
     /* ignore transient errors */
@@ -242,8 +357,6 @@ function startPolling() {
   poll();
 }
 
-// Default Evomi proxy pre-filled for convenience
-proxiesText.value = proxiesText.value || "core-residential.evomi.com:1000:gulley886:tStXC3zZrqpDmVdVQdzF_country-US";
-
+loadSession();
 loadHits();
 startPolling();

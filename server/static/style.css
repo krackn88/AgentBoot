@@ -201,6 +201,12 @@ textarea:focus {
   font-size: 0.85rem;
 }
 
+.resume-hint {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
 .hits-table-wrap {
   max-height: 420px;
   overflow: auto;

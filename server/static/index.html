@@ -38,9 +38,11 @@
           Threads
           <input type="number" id="threads" min="1" max="50" value="5" />
         </label>
-        <button class="btn primary" id="startBtn">Start</button>
+        <button class="btn primary" id="startBtn">Start / Resume</button>
         <button class="btn danger" id="stopBtn" disabled>Stop</button>
+        <button class="btn" id="resetProgressBtn" title="Re-check all combos from scratch">Reset progress</button>
       </div>
+      <p class="resume-hint" id="resumeHint">Combos and proxies are saved automatically. Already-checked combos are skipped on resume.</p>
       <div class="progress-wrap">
         <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
         <div class="progress-stats" id="progressStats">0 / 0 checked · 0 hits</div>

