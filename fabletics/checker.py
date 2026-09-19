@@ -27,7 +27,6 @@ class CheckResult:
             self.password,
             f"Name={self.data.get('name', 'N/A')}",
             f"MemberCredits={self.data.get('member_credits', 0)}",
-            f"MembershipCredits={self.data.get('membership_credits', 0)}",
             f"StoreCredit=${self.data.get('store_credit_balance', 0):.2f}",
             f"MembershipStoreCredit=${self.data.get('membership_store_credit_balance', 0):.2f}",
             f"MaxPrepaidCredits={self.data.get('max_prepaid_credits', 0)}",

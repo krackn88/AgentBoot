@@ -8,7 +8,7 @@ On a valid login (`HIT`), the checker pulls member credit balances and billing c
 
 | Category | Fields |
 |----------|--------|
-| **Member credits** | Available member credits (tokens), membership credits, store credit balance, membership store credit, max prepaid credits |
+| **Member credits** | Available member credits (tokens), store credit balance, membership store credit, max prepaid credits |
 | **Membership** | Status, monthly price, next billing date, billing period, skip/due flags |
 | **Account** | Name, email |
 
