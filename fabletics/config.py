@@ -17,6 +17,10 @@ USER_AGENT = (
 
 DEFAULT_TIMEOUT = 30
 
+# reCAPTCHA — solved on demand when login is gateway-blocked.
+RECAPTCHA_SITE_KEY = "6LfUn5IUAAAAAM7ssrSkY6BVkNHIPaweAXxTy-eO"
+RECAPTCHA_ACTION = "login"
+
 # Per-check delay jitter (seconds) to avoid hammering the same gateway IP.
 CHECK_DELAY_MIN = 0.35
 CHECK_DELAY_MAX = 1.1
