@@ -147,7 +147,7 @@ class FableticsClient:
         except Exception:
             raise FableticsAPIError(f"Invalid login response: {response.text[:200]}")
 
-        if response.status_code != 200:
+        if not (200 <= response.status_code < 300):
             message = body.get("message", "Login failed") if isinstance(body, dict) else "Login failed"
             raise FableticsAPIError(message, status_code=response.status_code)
 

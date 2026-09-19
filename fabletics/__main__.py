@@ -6,7 +6,7 @@ import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
-from .checker import check_account, parse_combo
+from .checker import check_account, parse_combo, resolve_proxy
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -26,7 +26,15 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "-p",
         "--proxy",
-        help="HTTP/S proxy URL (e.g. http://user:pass@host:port)",
+        help=(
+            "Proxy URL or host:port:user:pass (default: Evomi residential US proxy). "
+            "Pass --no-proxy to disable."
+        ),
+    )
+    parser.add_argument(
+        "--no-proxy",
+        action="store_true",
+        help="Disable proxy (direct connection)",
     )
     parser.add_argument(
         "-t",
@@ -99,14 +107,23 @@ def print_result(result, as_json: bool, output_file: str | None) -> None:
     print(result.format_line())
 
 
+def selected_proxy(args: argparse.Namespace) -> str | None:
+    if args.no_proxy:
+        return None
+    if args.proxy:
+        return resolve_proxy(args.proxy)
+    return resolve_proxy()
+
+
 def main() -> None:
     parser = build_parser()
     args = parser.parse_args()
     combos = load_combos(args)
+    proxy = selected_proxy(args)
 
     if args.threads <= 1 or len(combos) == 1:
         for email, password in combos:
-            result = check_account(email, password, proxy=args.proxy, timeout=args.timeout)
+            result = check_account(email, password, proxy=proxy, timeout=args.timeout)
             print_result(result, args.json, args.output)
             if result.status == "RETRY":
                 sys.exit(2)
@@ -118,7 +135,7 @@ def main() -> None:
                 check_account,
                 email,
                 password,
-                args.proxy,
+                proxy,
                 args.timeout,
             ): (email, password)
             for email, password in combos

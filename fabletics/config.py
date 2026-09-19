@@ -13,3 +13,9 @@ USER_AGENT = (
 )
 
 DEFAULT_TIMEOUT = 30
+
+# Evomi residential proxy (US). Override with FABLETICS_PROXY env or --proxy.
+DEFAULT_PROXY = (
+    "http://gulley886:tStXC3zZrqpDmVdVQdzF_country-US"
+    "@core-residential.evomi.com:1000"
+)

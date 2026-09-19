@@ -3,7 +3,11 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
+import os
+
 from .client import FableticsAPIError, FableticsClient
+from .config import DEFAULT_PROXY
+from .proxy import parse_proxy
 
 
 @dataclass
@@ -154,13 +158,27 @@ def capture_account_data(client: FableticsClient, token: str, login_customer: di
     }
 
 
+_UNSET = object()
+
+
+def resolve_proxy(proxy: str | None = None) -> str | None:
+    raw = proxy if proxy is not None else os.environ.get("FABLETICS_PROXY") or DEFAULT_PROXY
+    if not raw:
+        return None
+    return parse_proxy(raw)
+
+
 def check_account(
     email: str,
     password: str,
-    proxy: str | None = None,
+    proxy: str | None | object = _UNSET,
     timeout: int = 30,
 ) -> CheckResult:
-    client = FableticsClient(proxy=proxy, timeout=timeout)
+    if proxy is _UNSET:
+        resolved_proxy = resolve_proxy()
+    else:
+        resolved_proxy = proxy
+    client = FableticsClient(proxy=resolved_proxy, timeout=timeout)
 
     try:
         login = client.login(email, password)
