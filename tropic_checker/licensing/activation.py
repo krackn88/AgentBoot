@@ -10,6 +10,7 @@ import customtkinter as ctk
 from .. import theme as T
 from .hwid import format_hwid, get_hardware_id
 from .license_core import validate_license_key
+from .online import activate_online, validate_online
 from .store import load_saved_license, save_license
 
 
@@ -17,8 +18,8 @@ class ActivationApp(ctk.CTk):
     def __init__(self) -> None:
         super().__init__()
         self.title("Tropic Time Checker — Activation")
-        self.geometry("640x520")
-        self.minsize(600, 480)
+        self.geometry("680x620")
+        self.minsize(640, 560)
         self.configure(fg_color=T.PANEL)
         self.activated = False
         self.license_key = ""
@@ -38,25 +39,22 @@ class ActivationApp(ctk.CTk):
         ).pack(anchor="w", padx=20, pady=(20, 6))
         ctk.CTkLabel(
             frame,
-            text="Send your Hardware ID to receive a license key. This app is locked to one PC.",
+            text="Activate online with a code from your vendor, or paste an offline license key.",
             font=T.FONT_BODY,
             text_color=T.TEXT_DIM,
-            wraplength=560,
+            wraplength=580,
             justify="left",
-        ).pack(anchor="w", padx=20, pady=(0, 16))
+        ).pack(anchor="w", padx=20, pady=(0, 12))
 
         ctk.CTkLabel(frame, text="Your Hardware ID", font=T.FONT_HEADING, text_color=T.TEXT).pack(
             anchor="w", padx=20
         )
         hw_row = ctk.CTkFrame(frame, fg_color="transparent")
-        hw_row.pack(fill="x", padx=20, pady=(6, 16))
+        hw_row.pack(fill="x", padx=20, pady=(6, 12))
         self.hwid_var = tk.StringVar(value=self.hwid)
-        ctk.CTkEntry(
-            hw_row,
-            textvariable=self.hwid_var,
-            font=T.FONT_MONO,
-            state="readonly",
-        ).pack(side="left", fill="x", expand=True, padx=(0, 8))
+        ctk.CTkEntry(hw_row, textvariable=self.hwid_var, font=T.FONT_MONO, state="readonly").pack(
+            side="left", fill="x", expand=True, padx=(0, 8)
+        )
         ctk.CTkButton(
             hw_row,
             text="Copy",
@@ -67,27 +65,71 @@ class ActivationApp(ctk.CTk):
             command=self._copy_hwid,
         ).pack(side="right")
 
-        ctk.CTkLabel(frame, text="License Key", font=T.FONT_HEADING, text_color=T.TEXT).pack(
-            anchor="w", padx=20
-        )
-        self.key_box = ctk.CTkTextbox(frame, height=120, font=T.FONT_MONO)
-        self.key_box.pack(fill="x", padx=20, pady=(6, 16))
+        tabs = ctk.CTkTabview(frame, fg_color=T.CARD)
+        tabs.pack(fill="both", expand=True, padx=20, pady=(0, 12))
+        online_tab = tabs.add("Online")
+        offline_tab = tabs.add("Offline Key")
 
+        ctk.CTkLabel(
+            online_tab,
+            text="Enter the activation code from your vendor (e.g. TROPIC-AB12-CD34)",
+            font=T.FONT_SMALL,
+            text_color=T.TEXT_DIM,
+            wraplength=520,
+            justify="left",
+        ).pack(anchor="w", pady=(8, 6))
+        self.code_entry = ctk.CTkEntry(online_tab, font=T.FONT_MONO, placeholder_text="TROPIC-XXXX-XXXX")
+        self.code_entry.pack(fill="x", pady=(0, 10))
         ctk.CTkButton(
-            frame,
-            text="Activate",
-            height=40,
+            online_tab,
+            text="Activate Online",
+            height=38,
+            fg_color=T.MINT,
+            hover_color=T.LIME,
+            text_color="#111",
+            command=self._activate_online,
+        ).pack(fill="x")
+
+        ctk.CTkLabel(
+            offline_tab,
+            text="Paste a license key if your vendor sent one directly.",
+            font=T.FONT_SMALL,
+            text_color=T.TEXT_DIM,
+        ).pack(anchor="w", pady=(8, 6))
+        self.key_box = ctk.CTkTextbox(offline_tab, height=100, font=T.FONT_MONO)
+        self.key_box.pack(fill="x", pady=(0, 10))
+        ctk.CTkButton(
+            offline_tab,
+            text="Activate Offline Key",
+            height=38,
             fg_color=T.PINK,
             hover_color=T.PINK_HOVER,
-            command=self._activate,
-        ).pack(fill="x", padx=20, pady=(0, 20))
+            command=self._activate_offline,
+        ).pack(fill="x")
 
     def _copy_hwid(self) -> None:
         self.clipboard_clear()
         self.clipboard_append(self.hwid)
         messagebox.showinfo("Copied", "Hardware ID copied to clipboard.")
 
-    def _activate(self) -> None:
+    def _finish(self, key: str) -> None:
+        self.license_key = key
+        self.activated = True
+        messagebox.showinfo("Activated", "License accepted. Starting Tropic Time Checker...")
+        self.destroy()
+
+    def _activate_online(self) -> None:
+        code = self.code_entry.get().strip()
+        if not code:
+            messagebox.showwarning("Activation", "Enter your activation code.")
+            return
+        try:
+            key = activate_online(code)
+            self._finish(key)
+        except (ValueError, OSError) as exc:
+            messagebox.showerror("Activation Failed", str(exc))
+
+    def _activate_offline(self) -> None:
         key = self.key_box.get("1.0", "end").strip()
         if not key:
             messagebox.showwarning("Activation", "Paste your license key first.")
@@ -95,10 +137,7 @@ class ActivationApp(ctk.CTk):
         try:
             validate_license_key(key)
             save_license(key)
-            self.license_key = key
-            self.activated = True
-            messagebox.showinfo("Activated", "License accepted. Starting Tropic Time Checker...")
-            self.destroy()
+            self._finish(key)
         except ValueError as exc:
             messagebox.showerror("Activation Failed", str(exc))
 
@@ -108,7 +147,9 @@ def ensure_activated() -> None:
     saved = load_saved_license()
     if saved:
         try:
-            validate_license_key(saved)
+            info = validate_license_key(saved)
+            if not validate_online(saved):
+                raise ValueError("License revoked or expired on server")
             return
         except ValueError:
             pass

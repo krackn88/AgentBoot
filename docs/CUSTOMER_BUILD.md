@@ -30,21 +30,19 @@ Output:
 - `dist\customer\release\TropicChecker.exe`
 - `dist\TropicChecker-Customer-windows-x64.zip`
 
-## Issue a license for a customer
+## Issue a license (recommended: online dashboard)
 
-Customer runs the app once, copies **Hardware ID**, sends it to you.
+1. Deploy license server: see `docs/LICENSE_SERVER.md`
+2. Open dashboard → create license → copy **activation code**
+3. Customer enters code in app → **Activate Online**
+
+## Issue a license (offline CLI)
 
 ```bash
 python tools/issue_license.py --hwid "XXXX-XXXX-XXXX-XXXX" --customer "Customer Name"
 ```
 
-Optional trial:
-
-```bash
-python tools/issue_license.py --hwid "..." --customer "Trial" --days 30
-```
-
-Send the printed license key to the customer. They paste it in the activation window.
+Optional trial: `--days 30`. Customer pastes key under **Offline Key** tab.
 
 ## Security notes
 

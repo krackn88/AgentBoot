@@ -41,6 +41,7 @@ a = Analysis(
         "tropic_checker.licensing.activation",
         "tropic_checker.licensing.store",
         "tropic_checker.licensing._secret",
+        "tropic_checker.licensing.online",
     ],
     hookspath=[],
     hooksconfig={},
