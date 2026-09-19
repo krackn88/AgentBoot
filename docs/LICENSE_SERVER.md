@@ -4,7 +4,8 @@ Online activation API and vendor dashboard for customer editions.
 
 ## URLs (dedi)
 
-- **Dashboard:** http://159.69.76.189:8082
+- **Customer portal (downloads):** http://159.69.76.189:8082/
+- **Vendor dashboard:** http://159.69.76.189:8082/admin
 - **Activate API:** `POST http://159.69.76.189:8082/api/v1/activate`
 - **Validate API:** `POST http://159.69.76.189:8082/api/v1/validate`
 
@@ -14,6 +15,16 @@ Online activation API and vendor dashboard for customer editions.
 # Requires license_secret.txt in /opt/tropic-checker/ (same as customer build secret)
 bash /opt/tropic-checker/deploy/install_license_server.sh
 ```
+
+## Upload customer build to portal
+
+After building on Windows (`build\build_customer_windows.bat`):
+
+```bash
+bash deploy/upload_customer_build.sh
+```
+
+Files are served at http://159.69.76.189:8082/portal/files/...
 
 Set `LICENSE_ADMIN_TOKEN` before install to control dashboard access (shown after install).
 
@@ -34,7 +45,7 @@ Set `LICENSE_ADMIN_TOKEN` before install to control dashboard access (shown afte
 
 ## Customer desktop
 
-Built with `TROPIC_LICENSE_API_URL` (default: `http://159.69.76.189:8081`).
+Built with `TROPIC_LICENSE_API_URL` (default: `http://159.69.76.189:8082`).
 
 On each startup, app validates license online when possible (revoked/expired licenses blocked).
 

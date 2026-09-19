@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tropic Time Checker — Customer Portal</title>
+  <link rel="stylesheet" href="/static/portal.css" />
+</head>
+<body>
+  <div class="portal">
+    <header class="hero">
+      <div class="hero-inner">
+        <span class="logo">🌴</span>
+        <div>
+          <h1>Tropic Time Checker</h1>
+          <p>Licensed customer edition — download, activate, and run on your PC</p>
+        </div>
+      </div>
+    </header>
+
+    <main class="content">
+      <section class="card highlight">
+        <h2>📥 Download</h2>
+        {% if files %}
+        {% for item in files %}
+        <div class="download-row">
+          <div>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.description }}</p>
+            <p class="meta">Size: {{ item.size }} · Updated: {{ item.updated }}</p>
+          </div>
+          <a class="btn mint" href="{{ item.url }}">Download</a>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p class="muted">Customer build not uploaded yet. Contact your vendor for the installer.</p>
+        {% endif %}
+      </section>
+
+      <section class="card">
+        <h2>🔑 Activate (first time only)</h2>
+        <ol class="steps">
+          <li>Download and run <strong>TropicChecker.exe</strong></li>
+          <li>Copy your <strong>Hardware ID</strong> from the activation screen</li>
+          <li>Send it to your vendor — you'll receive an activation code like <code>TROPIC-XXXX-XXXX</code></li>
+          <li>In the app, open the <strong>Online</strong> tab, paste your code, and click <strong>Activate Online</strong></li>
+        </ol>
+        <p class="hint">Each license works on <strong>one PC</strong>. Need a new machine? Ask your vendor to reset your license.</p>
+      </section>
+
+      <section class="card">
+        <h2>⚙️ After activation</h2>
+        <ul class="bullets">
+          <li>Load your combo list and proxies in the sidebar</li>
+          <li>Hit <strong>Start Checking</strong> — progress saves automatically</li>
+          <li>Gift card hits can alert your Telegram (optional)</li>
+          <li>Data folder: <code>%APPDATA%\.tropic-checker\</code></li>
+        </ul>
+      </section>
+
+      <section class="card subtle">
+        <h2>Need help?</h2>
+        <p>Contact your vendor with your Hardware ID and activation code if you have issues.</p>
+        <p class="meta">Activation server: <code>{{ api_url }}</code></p>
+      </section>
+    </main>
+
+    <footer>
+      <span>Licensed software — do not redistribute</span>
+    </footer>
+  </div>
+</body>
+</html>

@@ -54,3 +54,27 @@ def test_dashboard_stats(client):
     stats = client.get("/admin/api/stats", headers=headers).get_json()
     assert stats["total"] >= 1
     assert stats["pending"] >= 1
+
+
+def test_portal_home_and_download(client, tmp_path):
+    import license_server.app as ls_app
+    import license_server.portal_files as portal
+
+    downloads = tmp_path / "customer"
+    downloads.mkdir()
+    sample = downloads / "TropicChecker-Customer-windows-x64.zip"
+    sample.write_bytes(b"fake-zip-content")
+
+    portal.DOWNLOADS_DIR = downloads
+    ls_app.PUBLIC_API_URL = "http://test.example:8082"
+
+    page = client.get("/")
+    assert page.status_code == 200
+    assert b"Tropic Time Checker" in page.data
+    assert b"Windows (64-bit)" in page.data
+
+    dl = client.get("/portal/files/TropicChecker-Customer-windows-x64.zip")
+    assert dl.status_code == 200
+    assert dl.data == b"fake-zip-content"
+
+    assert client.get("/portal/files/../etc/passwd").status_code == 404

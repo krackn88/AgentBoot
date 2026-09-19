@@ -8,9 +8,10 @@ from functools import wraps
 from pathlib import Path
 from typing import Any, Callable
 
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, abort, jsonify, redirect, render_template, request, send_from_directory
 
 from .db import LicenseDB
+from .portal_files import list_downloads, resolve_file
 
 APP_DIR = Path(__file__).resolve().parent
 DATA_DIR = Path(os.environ.get("LICENSE_DATA_DIR", APP_DIR.parent / "data" / "license-server"))
@@ -18,6 +19,10 @@ DB_PATH = DATA_DIR / "licenses.db"
 
 ADMIN_TOKEN = os.environ.get("LICENSE_ADMIN_TOKEN", "")
 API_RATE_LIMIT = int(os.environ.get("LICENSE_RATE_LIMIT", "30"))
+PUBLIC_API_URL = os.environ.get(
+    "LICENSE_PUBLIC_URL",
+    "http://159.69.76.189:8082",
+).rstrip("/")
 
 app = Flask(
     __name__,
@@ -166,6 +171,28 @@ def api_validate():
 
 
 @app.get("/")
+def portal_home():
+    return render_template(
+        "portal.html",
+        files=list_downloads(),
+        api_url=PUBLIC_API_URL,
+    )
+
+
+@app.get("/portal")
+def portal_alias():
+    return redirect("/", code=302)
+
+
+@app.get("/portal/files/<path:filename>")
+def portal_download(filename: str):
+    path = resolve_file(filename)
+    if not path:
+        abort(404)
+    return send_from_directory(path.parent, path.name, as_attachment=True)
+
+
+@app.get("/admin")
 def dashboard():
     return render_template("dashboard.html", admin_token=ADMIN_TOKEN)
 

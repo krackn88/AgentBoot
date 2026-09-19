@@ -16,6 +16,7 @@ if [ ! -f "${APP_DIR}/license_secret.txt" ] && [ -f "${APP_DIR}/../license_secre
 fi
 
 mkdir -p "${APP_DIR}/data/license-server"
+mkdir -p "${APP_DIR}/downloads/customer"
 
 sed "s/CHANGE_ME/${ADMIN_TOKEN}/" "${APP_DIR}/deploy/license-server.service" > "${SERVICE_FILE}"
 
@@ -26,6 +27,6 @@ systemctl restart license-server
 echo ""
 echo "============================================"
 echo " License server is live!"
-echo " Dashboard: http://$(hostname -I | awk '{print $1}'):8081"
+echo " Dashboard: http://$(hostname -I | awk '{print $1}'):8082"
 echo " Admin token: ${ADMIN_TOKEN}"
 echo "============================================"
