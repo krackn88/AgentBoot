@@ -13,15 +13,23 @@ from .config import (
     BASE_URL,
     DEFAULT_TIMEOUT,
     STORE_DOMAIN,
+    TLS_IMPERSONATE,
     USER_AGENT,
 )
 
 
 class FableticsAPIError(Exception):
-    def __init__(self, message: str, status_code: int | None = None, retryable: bool = False):
+    def __init__(
+        self,
+        message: str,
+        status_code: int | None = None,
+        retryable: bool = False,
+        captcha_required: bool = False,
+    ):
         super().__init__(message)
         self.status_code = status_code
         self.retryable = retryable
+        self.captcha_required = captcha_required
 
 
 @dataclass
@@ -33,9 +41,15 @@ class LoginResult:
 class FableticsClient:
     def __init__(self, proxy: str | None = None, timeout: int = DEFAULT_TIMEOUT):
         self.timeout = timeout
-        self._session = Session(impersonate="safari_ios")
+        self._session = Session(impersonate=TLS_IMPERSONATE)
         if proxy:
             self._session.proxies = {"http": proxy, "https": proxy}
+
+    def close(self) -> None:
+        try:
+            self._session.close()
+        except Exception:
+            pass
 
     def _base_headers(self, token: str | None = None) -> dict[str, str]:
         headers = {
@@ -47,6 +61,9 @@ class FableticsClient:
             "x-app-native-version": APP_NATIVE_VERSION,
             "x-app-js-version": APP_JS_VERSION,
             "Accept": "application/json, text/plain, */*",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Connection": "keep-alive",
         }
         if token:
             headers["Authorization"] = f"Bearer {token}"
@@ -149,7 +166,13 @@ class FableticsClient:
 
         if not (200 <= response.status_code < 300):
             message = body.get("message", "Login failed") if isinstance(body, dict) else "Login failed"
-            raise FableticsAPIError(message, status_code=response.status_code)
+            lower = str(message).lower()
+            captcha_required = "recaptcha" in lower
+            raise FableticsAPIError(
+                message,
+                status_code=response.status_code,
+                captcha_required=captcha_required,
+            )
 
         access_token = body.get("accessToken")
         customer = body.get("customer") or {}
