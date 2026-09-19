@@ -172,6 +172,11 @@ def _is_auth_failure(message: str) -> bool:
     )
 
 
+def _is_mfa_required(message: str) -> bool:
+    lower = message.lower()
+    return "multi-factor" in lower or "multifactor" in lower or "two-factor" in lower
+
+
 def _is_captcha(message: str, exc: FableticsAPIError) -> bool:
     lower = message.lower()
     if exc.captcha_required:
@@ -194,6 +199,13 @@ def _is_gateway_block(exc: FableticsAPIError, message: str) -> bool:
 def _classify_api_error(exc: FableticsAPIError, email: str, password: str) -> CheckResult:
     message = str(exc)
     lower = message.lower()
+    if _is_mfa_required(message):
+        return CheckResult(
+            status="VALID",
+            email=email,
+            password=password,
+            message=message,
+        )
     if _is_captcha(message, exc):
         return CheckResult(
             status="BAN",

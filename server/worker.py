@@ -236,6 +236,15 @@ class CheckerWorker:
                     self._log(f"VALID (dup) | {email}")
                 else:
                     self._log(f"VALID | {email} — saved for combo reuse")
+        elif result.status == "VALID":
+            saved_id = insert_saved_combo(email, password)
+            with self._lock:
+                self.stats.valid += 1
+            detail = result.message or "Valid login"
+            if saved_id is None:
+                self._log(f"VALID (dup) | {email} | {detail}")
+            else:
+                self._log(f"VALID | {email} | {detail}")
         elif result.status == "FAIL":
             with self._lock:
                 self.stats.fails += 1
