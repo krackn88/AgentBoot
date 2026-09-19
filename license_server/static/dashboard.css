@@ -1,0 +1,55 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", system-ui, sans-serif;
+  background: linear-gradient(135deg, #fff8f0 0%, #ffe8f5 100%);
+  color: #1a1a2e;
+}
+.app { max-width: 1200px; margin: 0 auto; padding: 24px; }
+header {
+  display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+}
+h1 { margin: 0; color: #cf0082; }
+header p { margin: 4px 0 0; color: #666; }
+.stats {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 20px;
+}
+.stat {
+  background: #fff; border: 1px solid #f0d8b8; border-radius: 12px; padding: 14px;
+}
+.stat span { display: block; font-size: 0.8rem; color: #777; }
+.stat strong { font-size: 1.5rem; }
+.panel {
+  background: #fff; border: 1px solid #f0d8b8; border-radius: 14px; padding: 18px; margin-bottom: 18px;
+}
+.panel h2 { margin: 0 0 12px; font-size: 1.1rem; }
+.form-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px;
+}
+.form-grid .wide { grid-column: 1 / -1; }
+input {
+  padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 0.95rem;
+}
+.btn {
+  border: none; border-radius: 8px; padding: 10px 14px; font-weight: 600; cursor: pointer;
+}
+.btn.pink { background: #cf0082; color: #fff; }
+.btn.mint { background: #00c9a7; color: #111; }
+.btn.ghost { background: #eee; color: #333; }
+.btn.red { background: #ff5252; color: #fff; }
+.btn.small { padding: 6px 10px; font-size: 0.8rem; }
+.hint { color: #666; font-size: 0.9rem; margin-top: 8px; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #f0f0f0; }
+th { color: #666; font-weight: 600; }
+.mono { font-family: Consolas, monospace; font-size: 0.82rem; }
+.badge {
+  display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 0.75rem; font-weight: 600;
+}
+.badge.active { background: #e8fff3; color: #0a7a4b; }
+.badge.locked { background: #e8f4ff; color: #0a5a9e; }
+.badge.pending { background: #fff4e0; color: #a65e00; }
+.badge.expired { background: #ffecec; color: #b00020; }
+.badge.revoked { background: #eee; color: #555; }
+.actions { display: flex; gap: 6px; flex-wrap: wrap; }

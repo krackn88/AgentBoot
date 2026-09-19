@@ -8,4 +8,6 @@ venv/
 dist/
 build/desktop/
 .env
+license_secret.txt
+.customer-build-venv/
 .DS_Store

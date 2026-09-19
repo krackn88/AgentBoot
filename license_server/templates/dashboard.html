@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tropic License Dashboard</title>
+  <link rel="stylesheet" href="/static/dashboard.css" />
+  <meta name="admin-token" content="{{ admin_token }}" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div>
+        <h1>🌴 License Dashboard</h1>
+        <p>Customer activations, expiry, and hardware locks</p>
+        <p class="hint"><a href="/" style="color:#cf0082">← Customer download portal</a></p>
+      </div>
+      <button class="btn mint" id="refreshBtn">Refresh</button>
+    </header>
+
+    <section class="stats" id="statsBar"></section>
+
+    <section class="panel">
+      <h2>Create License</h2>
+      <p class="hint">Customer runs the app first and sends you their Hardware ID. Paste it below to lock the license to their PC.</p>
+      <form id="createForm" class="form-grid">
+        <input name="customer_name" placeholder="Customer name" required />
+        <input name="hardware_id" class="mono wide" placeholder="Hardware ID (from customer)" required />
+        <input name="email" placeholder="Email (optional)" />
+        <input name="days" type="number" min="0" placeholder="Days (0 = never)" />
+        <input name="notes" placeholder="Notes" />
+        <button type="submit" class="btn pink">Create activation code</button>
+      </form>
+      <p class="hint" id="createResult"></p>
+    </section>
+
+    <section class="panel">
+      <h2>Licenses</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Customer</th>
+              <th>Code</th>
+              <th>Status</th>
+              <th>HWID</th>
+              <th>Expires</th>
+              <th>Last seen</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="licenseRows"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Recent activation log</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Time</th>
+              <th>Customer</th>
+              <th>Code</th>
+              <th>HWID</th>
+              <th>IP</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody id="logRows"></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+  <script src="/static/dashboard.js?v=2"></script>
+</body>
+</html>
