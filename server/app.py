@@ -179,7 +179,10 @@ async def start_job(
 
     proxies_text = "\n".join(proxy_lines) if proxy_lines else proxies
     if proxy_lines:
-        write_text_file(PROXIES_PATH, proxies_text)
+        try:
+            write_text_file(PROXIES_PATH, proxies_text)
+        except OSError as exc:
+            raise HTTPException(500, f"Cannot write proxy file: {exc}") from exc
 
     save_session(
         "" if combos_stored else combos,

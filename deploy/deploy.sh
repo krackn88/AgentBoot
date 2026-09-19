@@ -19,7 +19,9 @@ else
 fi
 
 cd "${APP_DIR}"
-mkdir -p data
+sudo mkdir -p data
+sudo chown -R www-data:www-data data
+sudo chmod 775 data
 
 if command -v docker >/dev/null 2>&1; then
   docker compose down || true
@@ -33,6 +35,7 @@ else
   sudo cp deploy/fabletics-checker.service /etc/systemd/system/
   sudo systemctl daemon-reload
   sudo systemctl enable fabletics-checker
+  sudo chown -R www-data:www-data "${APP_DIR}/data"
   sudo systemctl restart fabletics-checker
-  echo "==> Running via systemd on port 8080"
+  echo "==> Running via systemd on port 8090"
 fi
