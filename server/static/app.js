@@ -38,6 +38,8 @@ const statHits = $("#statHits");
 const statValid = $("#statValid");
 const statFails = $("#statFails");
 const statBans = $("#statBans");
+const statCapsolver = $("#statCapsolver");
+const capsolverCard = statCapsolver?.closest(".stat-card");
 const toast = $("#toast");
 
 const LARGE_COMBO_THRESHOLD = 2000;
@@ -140,6 +142,7 @@ async function loadSession() {
     lastSessionHits = data.hits || 0;
     lastSessionValid = data.valid || 0;
     updateResumeHint();
+    updateCapsolverBalance(data.capsolver);
     renderLogs(data);
     updateStatus(data);
   } catch (_) {
@@ -629,6 +632,31 @@ stopBtn.addEventListener("click", async () => {
   showToast("Stopping...");
 });
 
+function formatCapsolverBalance(capsolver) {
+  if (!capsolver?.configured) return "not set";
+  if (capsolver.error && capsolver.balance == null) return "error";
+  if (capsolver.balance == null) return "—";
+  const value = Number(capsolver.balance);
+  if (!Number.isFinite(value)) return "—";
+  return `$${value.toFixed(2)}`;
+}
+
+function updateCapsolverBalance(capsolver) {
+  if (!statCapsolver) return;
+  statCapsolver.textContent = formatCapsolverBalance(capsolver);
+  if (!capsolverCard) return;
+  capsolverCard.classList.remove("warn", "error");
+  if (!capsolver?.configured) return;
+  if (capsolver.error && capsolver.balance == null) {
+    capsolverCard.classList.add("error");
+    return;
+  }
+  const value = Number(capsolver.balance);
+  if (Number.isFinite(value) && value < 1) {
+    capsolverCard.classList.add("warn");
+  }
+}
+
 function updateStatus(data) {
   const total = data.total || data.combo_count || 0;
   const checked = data.checked || 0;
@@ -641,6 +669,7 @@ function updateStatus(data) {
   statValid.textContent = String(data.valid || 0);
   statFails.textContent = String(data.fails || 0);
   statBans.textContent = String(data.bans || 0);
+  updateCapsolverBalance(data.capsolver);
 
   const parts = [];
   if (data.preparing) parts.push("Preparing list...");

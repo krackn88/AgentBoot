@@ -5,6 +5,7 @@ import os
 import time
 import urllib.error
 import urllib.request
+from typing import Any
 
 from .config import (
     BASE_URL,
@@ -17,6 +18,11 @@ from .config import (
 
 CAPSOLVER_CREATE_URL = "https://api.capsolver.com/createTask"
 CAPSOLVER_RESULT_URL = "https://api.capsolver.com/getTaskResult"
+CAPSOLVER_BALANCE_URL = "https://api.capsolver.com/getBalance"
+
+_BALANCE_CACHE_TTL = 30.0
+_balance_cache: dict[str, Any] | None = None
+_balance_cache_at = 0.0
 
 
 def captcha_api_key() -> str | None:
@@ -223,3 +229,46 @@ def solve_login_captcha(timeout: int = 120) -> str | None:
     if turnstile_site_key():
         return solve_turnstile(timeout=timeout)
     return solve_recaptcha(timeout=timeout)
+
+
+def get_capsolver_balance(force: bool = False) -> dict[str, Any]:
+    """Return CapSolver account balance (USD), cached for 30s."""
+    global _balance_cache, _balance_cache_at
+
+    api_key = captcha_api_key()
+    if not api_key:
+        return {"configured": False, "balance": None, "error": None}
+
+    now = time.time()
+    if (
+        not force
+        and _balance_cache is not None
+        and now - _balance_cache_at < _BALANCE_CACHE_TTL
+    ):
+        return _balance_cache
+
+    try:
+        result = _capsolver_post(CAPSOLVER_BALANCE_URL, {"clientKey": api_key})
+        if result.get("errorId"):
+            payload = {
+                "configured": True,
+                "balance": None,
+                "error": result.get("errorDescription") or "CapSolver balance lookup failed",
+            }
+        else:
+            balance = result.get("balance")
+            payload = {
+                "configured": True,
+                "balance": float(balance) if balance is not None else None,
+                "error": None,
+            }
+    except Exception as exc:
+        payload = {
+            "configured": True,
+            "balance": _balance_cache.get("balance") if _balance_cache else None,
+            "error": str(exc),
+        }
+
+    _balance_cache = payload
+    _balance_cache_at = now
+    return payload
