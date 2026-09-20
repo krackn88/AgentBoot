@@ -31,6 +31,7 @@ from .db import (
     list_saved_combos,
     save_session,
 )
+from fabletics.captcha import get_capsolver_balance
 from fabletics.smoke_test import run_smoke_test
 
 from .worker import worker
@@ -101,6 +102,7 @@ async def index():
 async def session() -> dict[str, Any]:
     data = get_session()
     data.update(worker.snapshot())
+    data["capsolver"] = get_capsolver_balance()
     return data
 
 
@@ -142,6 +144,7 @@ async def status() -> dict[str, Any]:
     data["combo_count"] = session_data["combo_count"]
     data["combos_stored"] = session_data["combos_stored"]
     data["saved_combo_count"] = count_saved_combos()
+    data["capsolver"] = get_capsolver_balance()
     return data
 
 

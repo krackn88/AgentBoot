@@ -104,7 +104,7 @@ h1 {
 
 .stats-row {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 12px;
   margin-bottom: 18px;
 }
@@ -124,6 +124,23 @@ h1 {
 .stat-card.accent {
   background: linear-gradient(180deg, #f8fbff, #ffffff);
   border-color: #c9d9ff;
+}
+
+.stat-card.capsolver {
+  background: linear-gradient(180deg, #fff9ef, #ffffff);
+  border-color: #f0dfc0;
+}
+
+.stat-card.capsolver .stat-value {
+  font-size: 1.15rem;
+}
+
+.stat-card.capsolver.warn .stat-value {
+  color: var(--warning);
+}
+
+.stat-card.capsolver.error .stat-value {
+  color: var(--danger);
 }
 
 .stat-label {

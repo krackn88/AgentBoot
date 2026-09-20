@@ -4,7 +4,7 @@ import os
 import time
 from typing import Any
 
-from .checker import _classify_api_error, capture_account_data, parse_combo
+from .checker import _attempt_check, _classify_api_error, _solve_and_retry, parse_combo
 from .client import FableticsAPIError, FableticsClient
 from .config import BASE_URL, TLS_IMPERSONATE
 from .proxy import parse_proxy
@@ -92,10 +92,9 @@ def run_smoke_test(
         if test_account:
             email, password = test_account
             try:
-                login = client.login(email, password)
-                data = capture_account_data(client, login.access_token, login.customer)
-                credits = int(data.get("member_credits") or 0)
-                points = int(data.get("points") or 0)
+                result = _attempt_check(client, email, password)
+                credits = int(result.data.get("member_credits") or 0)
+                points = int(result.data.get("points") or 0)
                 steps.append(
                     {
                         "step": "test_account",
@@ -110,15 +109,49 @@ def run_smoke_test(
                 )
             except FableticsAPIError as exc:
                 classified = _classify_api_error(exc, email, password)
-                steps.append(
-                    {
-                        "step": "test_account",
-                        "ok": False,
-                        "status": classified.status,
-                        "detail": classified.message or str(exc),
-                        "ms": int((time.perf_counter() - t1) * 1000),
-                    }
-                )
+                if classified.status == "BAN":
+                    retry = _solve_and_retry(
+                        client,
+                        email,
+                        password,
+                        30,
+                        "Login gateway blocked (captcha/WAF)",
+                    )
+                    if retry.status == "HIT":
+                        credits = int(retry.data.get("member_credits") or 0)
+                        points = int(retry.data.get("points") or 0)
+                        steps.append(
+                            {
+                                "step": "test_account",
+                                "ok": True,
+                                "status": "HIT",
+                                "detail": (
+                                    f"Login + capture OK after captcha for {_mask_email(email)} "
+                                    f"(credits={credits}, points={points})"
+                                ),
+                                "ms": int((time.perf_counter() - t1) * 1000),
+                            }
+                        )
+                    else:
+                        steps.append(
+                            {
+                                "step": "test_account",
+                                "ok": False,
+                                "status": retry.status,
+                                "detail": retry.message or str(exc),
+                                "ms": int((time.perf_counter() - t1) * 1000),
+                            }
+                        )
+                else:
+                    steps.append(
+                        {
+                            "step": "test_account",
+                            "ok": False,
+                            "status": classified.status,
+                            "detail": classified.message or str(exc),
+                            "ms": int((time.perf_counter() - t1) * 1000),
+                        }
+                    )
             except Exception as exc:
                 steps.append(
                     {

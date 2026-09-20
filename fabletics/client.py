@@ -25,11 +25,13 @@ class FableticsAPIError(Exception):
         status_code: int | None = None,
         retryable: bool = False,
         captcha_required: bool = False,
+        response_sig: str | None = None,
     ):
         super().__init__(message)
         self.status_code = status_code
         self.retryable = retryable
         self.captcha_required = captcha_required
+        self.response_sig = response_sig
 
 
 @dataclass
@@ -143,12 +145,44 @@ class FableticsClient:
             raise FableticsAPIError("Guest session returned an empty token")
         return token
 
-    def login(self, username: str, password: str) -> LoginResult:
-        guest_token = self.create_guest_session()
+    def get_login_methods(self, email: str, guest_token: str | None = None) -> dict[str, Any]:
+        token = guest_token or self.create_guest_session()
+        body = self._request(
+            "POST",
+            "/api/members/loginMethods",
+            token,
+            json={"email": email},
+        )
+        return body if isinstance(body, dict) else {}
+
+    def is_turnstile_enabled(self, guest_token: str | None = None) -> bool:
+        token = guest_token or self.create_guest_session()
+        body = self._request(
+            "GET",
+            "/api/features/turnstile",
+            token,
+            params={"brand": "fableticsappcom", "gender": "F", "membership": "vip"},
+        )
+        if not isinstance(body, dict):
+            return False
+        return bool(body.get("enabled") and body.get("value"))
+
+    def login(
+        self,
+        username: str,
+        password: str,
+        recaptcha_response: str | None = None,
+        guest_token: str | None = None,
+    ) -> LoginResult:
+        guest_token = guest_token or self.create_guest_session()
+        payload: dict[str, str] = {"username": username, "password": password}
+        if recaptcha_response:
+            payload["reCaptchaResponse"] = recaptcha_response
+
         response = self._session.post(
             f"{BASE_URL}/api/auth/login",
             headers=self._base_headers(guest_token),
-            json={"username": username, "password": password},
+            json=payload,
             timeout=self.timeout,
         )
 
@@ -168,10 +202,12 @@ class FableticsClient:
             message = body.get("message", "Login failed") if isinstance(body, dict) else "Login failed"
             lower = str(message).lower()
             captcha_required = "recaptcha" in lower
+            response_sig = body.get("sig") if isinstance(body, dict) else None
             raise FableticsAPIError(
                 message,
                 status_code=response.status_code,
                 captcha_required=captcha_required,
+                response_sig=response_sig,
             )
 
         access_token = body.get("accessToken")
