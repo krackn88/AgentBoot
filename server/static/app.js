@@ -283,7 +283,7 @@ function updateSelectionButtons() {
 
 function renderHits() {
   if (!hits.length) {
-    hitsBody.innerHTML = '<tr class="empty-row"><td colspan="5">No credit hits yet</td></tr>';
+    hitsBody.innerHTML = '<tr class="empty-row"><td colspan="6">No credit hits yet</td></tr>';
     updateSelectionButtons();
     return;
   }
@@ -298,6 +298,8 @@ function renderHits() {
         .filter(Boolean)
         .join(" · ");
 
+      const phone = hit.phone && hit.phone !== "N/A" ? hit.phone : "—";
+
       return `
     <tr data-id="${hit.id}">
       <td class="col-check">
@@ -305,6 +307,7 @@ function renderHits() {
       </td>
       <td><span class="credit-badge">${hit.member_credits}</span></td>
       <td class="account-cell"><strong>${escapeHtml(hit.email)}</strong></td>
+      <td class="phone-cell">${escapeHtml(phone)}</td>
       <td class="capture-cell">${escapeHtml(capture)}</td>
       <td class="col-actions">
         <button class="btn small ghost copy-one" data-id="${hit.id}">Copy</button>

