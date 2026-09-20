@@ -8,7 +8,25 @@ Checks DirectTV credentials against `identity.directv.com` and pulls account sta
 pip install -r requirements.txt
 ```
 
-## Usage
+## Web UI
+
+Start the checker UI locally:
+
+```bash
+uvicorn server.app:app --host 0.0.0.0 --port 8091
+```
+
+Open `http://localhost:8091` — light-themed UI with combo upload, proxy paste, configurable threads, CPM, live log, and single-line hits (select/copy/delete).
+
+### Deploy to dedi
+
+```bash
+BRANCH=cursor/dtv-checker-88aa PORT=8091 bash deploy/deploy.sh
+```
+
+Installs to `/opt/dtv-checker` and runs via systemd on port 8091.
+
+## CLI Usage
 
 Single combo:
 
