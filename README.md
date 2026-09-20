@@ -30,15 +30,17 @@ python dtv_checker.py "email@example.com:password" --json
 
 ## Output
 
-- `HIT` — valid login; shows active status, package/plan name, account type, and channel count
+- `HIT` — valid login; shows active status, package/plan name, streaming add-ons (Peacock, Netflix, etc.), sports packages, and channel count
 - `BAD` — invalid credentials
 - `ERROR` — network or API failure
 
 Example:
 
 ```
-nena200013@gmail.com:Faithful12! | HIT | Active: Yes | Package: 4 Addtl TV Access Fees_5Client + DIRECTV Protection Plan + Minimum Service | type=PTR | name=NELLIE | channels=158
+nena200013@gmail.com:Faithful12! | HIT | Active: Yes | Package: 4 Addtl TV Access Fees_5Client + DIRECTV Protection Plan + Minimum Service | type=PTR | name=NELLIE | channels=158 | streaming=none | sports=MLB, MLB Extra Innings, Regional Sports | addons=Protection Plan, MLB, MLB Extra Innings, Regional Sports
 ```
+
+Streaming add-ons are detected from DirectTV's SVOD provider API (Peacock, Netflix, Max, Disney+, Hulu, etc.). Sports packages are inferred from the channel lineup and package metadata.
 
 ## Flow
 

