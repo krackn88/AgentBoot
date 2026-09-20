@@ -229,20 +229,6 @@ def _classify_api_error(exc: FableticsAPIError, email: str, password: str) -> Ch
     return CheckResult(status="ERROR", email=email, password=password, message=message)
 
 
-def _prepare_login_captcha(
-    client: FableticsClient,
-    email: str,
-    timeout: int,
-) -> tuple[str, str | None]:
-    guest_token = client.create_guest_session()
-    captcha_token: str | None = None
-    if captcha_api_key():
-        methods = client.get_login_methods(email, guest_token)
-        if methods.get("captcha") or client.is_turnstile_enabled(guest_token):
-            captcha_token = solve_login_captcha(timeout=min(timeout * 2, 120))
-    return guest_token, captcha_token
-
-
 def _attempt_check(
     client: FableticsClient,
     email: str,
@@ -251,8 +237,6 @@ def _attempt_check(
     guest_token: str | None = None,
     timeout: int = 30,
 ) -> CheckResult:
-    if guest_token is None and recaptcha_response is None and captcha_api_key():
-        guest_token, recaptcha_response = _prepare_login_captcha(client, email, timeout)
     login = client.login(
         email,
         password,
