@@ -6,7 +6,13 @@ import time
 from dataclasses import dataclass, field
 from typing import Any
 
-from .captcha import captcha_api_key, needs_captcha, solve_login_captcha, turnstile_site_key
+from .captcha import (
+    captcha_api_key,
+    get_capsolver_balance,
+    needs_captcha,
+    solve_login_captcha,
+    turnstile_site_key,
+)
 from .client import FableticsAPIError, FableticsClient
 from .config import CHECK_DELAY_MAX, CHECK_DELAY_MIN, DEFAULT_PROXY
 from .proxy import parse_proxy, with_rotating_session
@@ -283,6 +289,22 @@ def _attempt_check(
     return CheckResult(status="HIT", email=email, password=password, data=data)
 
 
+def _captcha_solve_timeout(timeout: int) -> int:
+    return min(timeout, 45)
+
+
+def _should_skip_captcha_solve() -> str | None:
+    if not captcha_api_key():
+        return "set CAPSOLVER_API_KEY"
+    balance_info = get_capsolver_balance()
+    balance = balance_info.get("balance")
+    if balance is not None and float(balance) < 0.02:
+        return f"CapSolver balance too low (${float(balance):.2f})"
+    if balance_info.get("error") and balance is None:
+        return f"CapSolver balance check failed: {balance_info['error']}"
+    return None
+
+
 def _solve_and_retry(
     client: FableticsClient,
     email: str,
@@ -290,12 +312,13 @@ def _solve_and_retry(
     timeout: int,
     reason: str,
 ) -> CheckResult:
-    if not captcha_api_key():
+    skip_reason = _should_skip_captcha_solve()
+    if skip_reason:
         return CheckResult(
             status="BAN",
             email=email,
             password=password,
-            message=f"{reason} — set CAPSOLVER_API_KEY",
+            message=f"{reason} — {skip_reason}",
         )
     if not turnstile_site_key():
         return CheckResult(
@@ -305,7 +328,7 @@ def _solve_and_retry(
             message=f"{reason} — set TURNSTILE_SITE_KEY",
         )
     try:
-        token = solve_login_captcha(timeout=min(timeout * 2, 120))
+        token = solve_login_captcha(timeout=_captcha_solve_timeout(timeout))
     except Exception as solve_exc:
         return CheckResult(
             status="BAN",

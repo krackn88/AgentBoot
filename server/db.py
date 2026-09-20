@@ -76,8 +76,11 @@ def _migrate_hits_phone_column(conn: sqlite3.Connection) -> None:
 
 @contextmanager
 def connect():
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(DB_PATH, timeout=30.0)
     conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA journal_mode=WAL")
+    conn.execute("PRAGMA synchronous=NORMAL")
+    conn.execute("PRAGMA busy_timeout=30000")
     try:
         yield conn
         conn.commit()

