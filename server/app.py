@@ -36,6 +36,7 @@ from .db import (
 )
 from fabletics.captcha import get_capsolver_balance
 from fabletics.checker import check_account
+from fabletics.proxy import parse_proxy
 from fabletics.smoke_test import run_smoke_test
 
 from .worker import worker
@@ -292,12 +293,19 @@ async def recapture_hits() -> dict[str, Any]:
         return {"ok": True, "total": 0, "updated": 0, "failed": 0, "results": []}
 
     proxy_line = _first_proxy_line()
+    parsed_proxy: str | None = None
+    if proxy_line:
+        try:
+            parsed_proxy = parse_proxy(proxy_line)
+        except ValueError:
+            parsed_proxy = None
+
     threads = min(5, max(1, len(hits)))
 
     def recapture_one(hit: dict[str, Any]) -> dict[str, Any]:
         email = hit["email"]
         password = hit["password"]
-        result = check_account(email, password, proxy=proxy_line or None, timeout=45)
+        result = check_account(email, password, proxy=parsed_proxy, timeout=45)
         if result.status != "HIT":
             return {
                 "id": hit["id"],
