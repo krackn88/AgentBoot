@@ -250,8 +250,7 @@ def upsert_hit(line: str, email: str, password: str, data: dict[str, Any]) -> in
             "SELECT id FROM hits WHERE email = ? AND password = ?",
             (email, password),
         ).fetchone()
-        values = (
-            line,
+        capture = (
             int(data.get("points") or 0),
             int(data.get("member_credits") or 0),
             float(data.get("store_credit_balance") or 0),
@@ -267,7 +266,7 @@ def upsert_hit(line: str, email: str, password: str, data: dict[str, Any]) -> in
                     phone = ?, cc = ?, address = ?
                 WHERE id = ?
                 """,
-                (*values, existing["id"]),
+                (line, *capture, existing["id"]),
             )
             return int(existing["id"])
 
@@ -278,13 +277,7 @@ def upsert_hit(line: str, email: str, password: str, data: dict[str, Any]) -> in
                                   store_credit_balance, phone, cc, address, created_at)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
-                (
-                    line,
-                    email,
-                    password,
-                    *values,
-                    _utc_now(),
-                ),
+                (line, email, password, *capture, _utc_now()),
             )
             return cur.lastrowid
         except sqlite3.IntegrityError:
