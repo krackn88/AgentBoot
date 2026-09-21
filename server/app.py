@@ -168,6 +168,38 @@ async def status(since_log_seq: int = Query(default=0)) -> dict[str, Any]:
     return data
 
 
+@app.post("/api/sensor-config")
+async def upload_sensor_config(sensor_config_file: UploadFile = File(...)) -> dict[str, Any]:
+    if worker.is_running():
+        raise HTTPException(409, "Stop the job before uploading sensor config")
+
+    raw = await sensor_config_file.read()
+    try:
+        payload = json.loads(raw.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise HTTPException(400, "sensor_config must be valid JSON") from exc
+
+    if not payload.get("sensor_headers"):
+        raise HTTPException(400, "sensor_config must include sensor_headers")
+
+    write_text_file(SENSOR_CONFIG_PATH, json.dumps(payload, indent=2))
+    session = get_session()
+    save_session(
+        session.get("combos", ""),
+        session.get("proxies", ""),
+        session.get("threads", 3),
+        combo_count=session.get("combo_count", 0),
+        combos_stored=session.get("combos_stored", False),
+        full_bootstrap=False,
+        auto_sensors=True,
+        has_sensor_config=True,
+        request_delay=session.get("request_delay", 0.35),
+    )
+    reset_runtime_state()
+    _apply_checker_settings()
+    return {"ok": True, "has_sensor_config": True, "mode": "capture"}
+
+
 @app.post("/api/smoke-test")
 async def smoke_test(body: SmokeTestRequest | None = None) -> dict[str, Any]:
     if worker.is_running():
