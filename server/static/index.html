@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zeus Checker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">Z</div>
+        <div>
+          <h1>Zeus Network Checker</h1>
+          <p class="brand-sub">Subscription · plan · billing capture</p>
+        </div>
+      </div>
+      <div class="status-pill" id="statusPill">Idle</div>
+    </header>
+
+    <section class="stats-row stats-row-7">
+      <div class="stat-card">
+        <span class="stat-label">Progress</span>
+        <span class="stat-value" id="statProgress">0 / 0</span>
+      </div>
+      <div class="stat-card accent">
+        <span class="stat-label">Hits</span>
+        <span class="stat-value" id="statHits">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">CPM</span>
+        <span class="stat-value" id="statCpm">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Invalid</span>
+        <span class="stat-value" id="statBads">0</span>
+      </div>
+      <div class="stat-card warn">
+        <span class="stat-label">Valid / Inactive</span>
+        <span class="stat-value" id="statFails">0</span>
+      </div>
+      <div class="stat-card muted">
+        <span class="stat-label">Errors</span>
+        <span class="stat-value" id="statErrors">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Current</span>
+        <span class="stat-value stat-current" id="statCurrent">—</span>
+      </div>
+    </section>
+
+    <div class="layout">
+      <section class="panel input-panel">
+        <div class="panel-title">Run checker</div>
+
+        <div class="source-tabs" role="tablist">
+          <button class="tab active" data-source="paste" type="button">Paste</button>
+          <button class="tab" data-source="library" type="button">Library</button>
+          <button class="tab" data-source="import" type="button">Import URL</button>
+        </div>
+
+        <div class="source-pane active" id="pane-paste">
+          <div class="field">
+            <label for="combosText">Combos</label>
+            <span class="field-hint">email:password · large lists upload on Start</span>
+            <textarea id="combosText" rows="5" placeholder="email@example.com:password123"></textarea>
+            <div class="file-row">
+              <label class="file-btn">
+                <input type="file" id="comboFile" accept=".txt,.csv" hidden />
+                Upload file
+              </label>
+              <span class="file-name" id="comboFileName">No file selected</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="source-pane" id="pane-library">
+          <div class="field">
+            <label>Combo library</label>
+            <span class="field-hint">Stored in data/combos/ · select one to run</span>
+            <div class="library-toolbar">
+              <label class="file-btn">
+                <input type="file" id="libraryUpload" accept=".txt,.csv" hidden />
+                Upload to library
+              </label>
+              <button class="btn ghost small" id="refreshLibraryBtn" type="button">Refresh</button>
+            </div>
+            <div class="library-list" id="libraryList">
+              <div class="empty-hits">No saved combo files</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="source-pane" id="pane-import">
+          <div class="field">
+            <label for="importUrl">Import from URL</label>
+            <span class="field-hint">Direct download link or VS dedi combo</span>
+            <input type="text" id="importUrl" class="text-input" placeholder="http://159.69.76.189:8812/api/combos/download?name=..." />
+            <input type="text" id="importFilename" class="text-input" placeholder="Optional filename (e.g. my_combos.txt)" />
+            <div class="import-actions">
+              <button class="btn ghost small" id="importUrlBtn" type="button">Import to library</button>
+            </div>
+          </div>
+          <div class="field">
+            <label>Quick VS imports</label>
+            <div class="quick-imports" id="quickImports"></div>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field compact">
+            <label for="startLine">Start line</label>
+            <input type="number" id="startLine" class="text-input" min="1" value="1" />
+          </div>
+          <div class="field compact">
+            <label for="threads">Threads</label>
+            <input type="number" id="threads" class="text-input" min="1" max="50" value="5" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="proxyPreset">Proxy preset</label>
+          <select id="proxyPreset" class="select-input">
+            <option value="none">No proxy</option>
+            <option value="resi">Residential (Evomi US)</option>
+            <option value="dc">Datacenter</option>
+            <option value="custom">Custom (below)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="proxiesText">Proxies</label>
+          <span class="field-hint">host:port:user:pass · one per line</span>
+          <textarea id="proxiesText" rows="3" placeholder="core-residential.evomi.com:1000:user:pass_country-US"></textarea>
+          <div class="file-row">
+            <label class="file-btn">
+              <input type="file" id="proxyFile" accept=".txt,.csv" hidden />
+              Proxy file
+            </label>
+            <label class="check-label">
+              <input type="checkbox" id="rotateProxy" checked />
+              Rotate session (resi)
+            </label>
+          </div>
+        </div>
+
+        <div class="field smoke-field">
+          <label for="smokeCombo">Smoke test</label>
+          <input type="text" id="smokeCombo" class="text-input" placeholder="email@example.com:password123" autocomplete="off" spellcheck="false" />
+        </div>
+
+        <div class="controls">
+          <button class="btn primary" id="startBtn" type="button">Start</button>
+          <button class="btn ghost danger" id="stopBtn" type="button" disabled>Stop</button>
+          <button class="btn ghost" id="smokeTestBtn" type="button">Smoke test</button>
+          <button class="btn ghost" id="resetProgressBtn" type="button">Reset progress</button>
+        </div>
+
+        <div class="smoke-result" id="smokeResult" hidden></div>
+        <p class="resume-hint" id="resumeHint"></p>
+
+        <div class="progress-wrap">
+          <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="progress-stats" id="progressStats">Ready</div>
+        </div>
+      </section>
+
+      <section class="panel results-panel">
+        <div class="panel-head">
+          <div>
+            <div class="result-tabs">
+              <button class="result-tab active" data-result="hits" type="button">Active hits</button>
+              <button class="result-tab" data-result="valid" type="button">Valid / inactive</button>
+            </div>
+            <p class="panel-sub">Select rows to copy · double-click line to copy</p>
+          </div>
+          <div class="toolbar" id="resultsToolbar">
+            <button class="btn ghost small" id="selectAllBtn" type="button">Select all</button>
+            <button class="btn ghost small" id="copySelectedBtn" type="button" disabled>Copy</button>
+            <button class="btn ghost small" id="deleteSelectedBtn" type="button" disabled>Delete</button>
+            <button class="btn ghost small" id="copyAllBtn" type="button" disabled>Copy all</button>
+            <button class="btn ghost small" id="exportBtn" type="button" disabled>Download</button>
+            <button class="btn ghost small danger" id="clearBtn" type="button">Clear</button>
+          </div>
+        </div>
+        <div class="hits-list" id="resultsList">
+          <div class="empty-hits">No hits yet</div>
+        </div>
+      </section>
+    </div>
+
+    <section class="panel log-panel">
+      <div class="panel-head log-head">
+        <div class="panel-title">Live log</div>
+        <button class="btn ghost small" id="clearLogBtn" type="button">Clear view</button>
+      </div>
+      <pre class="log" id="logBox"></pre>
+    </section>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>
