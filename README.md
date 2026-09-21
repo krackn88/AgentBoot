@@ -10,6 +10,29 @@ Checks Southwest Airlines Rapid Rewards account balances using the mobile API (`
 
 The login endpoint returns full account info including redeemable points, tier status, and companion pass progress — no separate points API call needed.
 
+## Web UI (dedicated server)
+
+Full checker UI with large combo upload, resume progress, hits export, and live stats.
+
+```bash
+# Local dev
+npm install
+pip install -r requirements.txt
+bash run.sh
+# Open http://localhost:8093
+
+# Deploy to dedi
+BRANCH=cursor/southwest-checker-web-ui-1af1 PORT=8093 bash deploy/deploy.sh
+```
+
+**Live:** http://159.69.76.189:8093
+
+Features:
+- Upload large combo files (streamed to disk, not loaded in browser)
+- Resume checked combos across restarts
+- APIGuard full bootstrap (default) or capture template mode
+- Smoke test, CPM stats, hits copy/export
+
 ## Setup
 
 ```bash
