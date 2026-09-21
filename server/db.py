@@ -1,0 +1,228 @@
+from __future__ import annotations
+
+import hashlib
+import json
+import sqlite3
+from contextlib import contextmanager
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+DB_PATH = Path(__file__).resolve().parent.parent / "data" / "checker.db"
+
+FINAL_STATUSES = {"hit", "bad"}
+
+
+def _utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def combo_key(email: str, password: str) -> str:
+    normalized = f"{email.strip().lower()}:{password}"
+    return hashlib.sha256(normalized.encode()).hexdigest()
+
+
+def init_db() -> None:
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with connect() as conn:
+        conn.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS hits (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                line TEXT NOT NULL UNIQUE,
+                email TEXT NOT NULL,
+                password TEXT NOT NULL,
+                data_json TEXT NOT NULL DEFAULT '{}',
+                created_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_hits_created ON hits(created_at DESC);
+
+            CREATE TABLE IF NOT EXISTS app_state (
+                key TEXT PRIMARY KEY,
+                value TEXT NOT NULL
+            );
+
+            CREATE TABLE IF NOT EXISTS checked_combos (
+                combo_key TEXT PRIMARY KEY,
+                email TEXT NOT NULL,
+                password TEXT NOT NULL,
+                status TEXT NOT NULL,
+                checked_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_checked_at ON checked_combos(checked_at DESC);
+            """
+        )
+
+
+@contextmanager
+def connect():
+    conn = sqlite3.connect(DB_PATH, timeout=30.0)
+    conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA journal_mode=WAL")
+    conn.execute("PRAGMA synchronous=NORMAL")
+    conn.execute("PRAGMA busy_timeout=30000")
+    try:
+        yield conn
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def get_state(key: str, default: str = "") -> str:
+    with connect() as conn:
+        row = conn.execute("SELECT value FROM app_state WHERE key = ?", (key,)).fetchone()
+        return row["value"] if row else default
+
+
+def set_state(key: str, value: str) -> None:
+    with connect() as conn:
+        conn.execute(
+            "INSERT INTO app_state (key, value) VALUES (?, ?) "
+            "ON CONFLICT(key) DO UPDATE SET value = excluded.value",
+            (key, value),
+        )
+
+
+def get_session() -> dict[str, Any]:
+    combo_count = int(get_state("combo_count", "0") or "0")
+    combos_stored = get_state("combos_stored", "0") == "1"
+    combos_text = ""
+    if not combos_stored:
+        combos_text = get_state("combos")
+    return {
+        "combos": combos_text,
+        "proxies": get_state("proxies"),
+        "threads": int(get_state("threads", "3") or "3"),
+        "request_delay": float(get_state("request_delay", "0.35") or "0.35"),
+        "full_bootstrap": get_state("full_bootstrap", "1") == "1",
+        "auto_sensors": get_state("auto_sensors", "0") == "1",
+        "has_sensor_config": get_state("has_sensor_config", "0") == "1",
+        "checked_count": count_checked_combos(),
+        "combo_count": combo_count,
+        "combos_stored": combos_stored,
+    }
+
+
+def save_session(
+    combos: str,
+    proxies: str,
+    threads: int | str,
+    *,
+    combo_count: int | None = None,
+    combos_stored: bool = False,
+    full_bootstrap: bool | None = None,
+    auto_sensors: bool | None = None,
+    has_sensor_config: bool | None = None,
+    request_delay: float | None = None,
+) -> None:
+    if combos_stored:
+        set_state("combos", "")
+        set_state("combos_stored", "1")
+        set_state("combo_count", str(combo_count or 0))
+    else:
+        set_state("combos", combos)
+        set_state("combos_stored", "0")
+        line_count = combo_count if combo_count is not None else len(
+            [line for line in combos.splitlines() if line.strip()]
+        )
+        set_state("combo_count", str(line_count))
+    set_state("proxies", proxies)
+    set_state("threads", str(threads))
+    if full_bootstrap is not None:
+        set_state("full_bootstrap", "1" if full_bootstrap else "0")
+    if auto_sensors is not None:
+        set_state("auto_sensors", "1" if auto_sensors else "0")
+    if has_sensor_config is not None:
+        set_state("has_sensor_config", "1" if has_sensor_config else "0")
+    if request_delay is not None:
+        set_state("request_delay", str(max(0.0, float(request_delay))))
+
+
+def count_checked_combos() -> int:
+    with connect() as conn:
+        row = conn.execute("SELECT COUNT(*) AS n FROM checked_combos").fetchone()
+        return int(row["n"])
+
+
+def get_checked_keys() -> set[str]:
+    with connect() as conn:
+        rows = conn.execute("SELECT combo_key FROM checked_combos").fetchall()
+        return {row["combo_key"] for row in rows}
+
+
+def mark_combo_checked(email: str, password: str, status: str) -> None:
+    key = combo_key(email, password)
+    with connect() as conn:
+        conn.execute(
+            """
+            INSERT INTO checked_combos (combo_key, email, password, status, checked_at)
+            VALUES (?, ?, ?, ?, ?)
+            ON CONFLICT(combo_key) DO UPDATE SET
+                status = excluded.status,
+                checked_at = excluded.checked_at
+            """,
+            (key, email, password, status, _utc_now()),
+        )
+
+
+def clear_checked_combos() -> int:
+    with connect() as conn:
+        cur = conn.execute("DELETE FROM checked_combos")
+        return cur.rowcount
+
+
+def insert_hit(line: str, email: str, password: str, data: dict[str, Any]) -> int | None:
+    with connect() as conn:
+        existing = conn.execute(
+            "SELECT id FROM hits WHERE email = ? AND password = ?",
+            (email, password),
+        ).fetchone()
+        payload = json.dumps(data)
+        if existing:
+            conn.execute(
+                "UPDATE hits SET line = ?, data_json = ? WHERE id = ?",
+                (line, payload, existing["id"]),
+            )
+            return int(existing["id"])
+        try:
+            cur = conn.execute(
+                """
+                INSERT INTO hits (line, email, password, data_json, created_at)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (line, email, password, payload, _utc_now()),
+            )
+            return cur.lastrowid
+        except sqlite3.IntegrityError:
+            return None
+
+
+def list_hits() -> list[dict[str, Any]]:
+    with connect() as conn:
+        rows = conn.execute(
+            "SELECT * FROM hits ORDER BY created_at DESC, id DESC"
+        ).fetchall()
+        return [dict(row) for row in rows]
+
+
+def export_hits_text() -> str:
+    with connect() as conn:
+        rows = conn.execute(
+            "SELECT line FROM hits ORDER BY created_at ASC, id ASC"
+        ).fetchall()
+        return "\n".join(row["line"] for row in rows)
+
+
+def delete_hits(ids: list[int]) -> int:
+    if not ids:
+        return 0
+    placeholders = ",".join("?" * len(ids))
+    with connect() as conn:
+        cur = conn.execute(f"DELETE FROM hits WHERE id IN ({placeholders})", ids)
+        return cur.rowcount
+
+
+def clear_hits() -> int:
+    with connect() as conn:
+        cur = conn.execute("DELETE FROM hits")
+        return cur.rowcount
