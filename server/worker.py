@@ -22,6 +22,7 @@ class JobStats:
     checked: int = 0
     hits: int = 0
     bads: int = 0
+    fails: int = 0
     errors: int = 0
     running: bool = False
     preparing: bool = False
@@ -107,6 +108,7 @@ class CheckerWorker:
                 "checked": self.stats.checked,
                 "hits": self.stats.hits,
                 "bads": self.stats.bads,
+                "fails": self.stats.fails,
                 "errors": self.stats.errors,
                 "running": self.stats.running,
                 "preparing": self.stats.preparing,
@@ -234,6 +236,10 @@ class CheckerWorker:
         elif result.status == "BAD":
             with self._lock:
                 self.stats.bads += 1
+            self._log(result.format_line())
+        elif result.status == "FAIL":
+            with self._lock:
+                self.stats.fails += 1
             self._log(result.format_line())
         else:
             with self._lock:

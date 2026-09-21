@@ -107,8 +107,18 @@ h1 {
   margin-bottom: 16px;
 }
 
-@media (max-width: 900px) {
-  .stats-row { grid-template-columns: repeat(2, 1fr); }
+.stats-row.stats-row-7 {
+  grid-template-columns: repeat(7, 1fr);
+}
+
+@media (max-width: 1100px) {
+  .stats-row,
+  .stats-row.stats-row-7 { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 700px) {
+  .stats-row,
+  .stats-row.stats-row-7 { grid-template-columns: repeat(2, 1fr); }
 }
 
 .stat-card {

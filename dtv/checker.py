@@ -131,7 +131,7 @@ class CheckResult:
         }
 
     def format_line(self) -> str:
-        if self.status == "HIT":
+        if self.status in {"HIT", "FAIL"}:
             active_label = "Yes" if self.active else "No"
             package = self.package or "Unknown"
             extras = []
@@ -150,9 +150,11 @@ class CheckResult:
             if self.addons:
                 extras.append(f"addons={', '.join(self.addons)}")
             extra = f" | {' | '.join(extras)}" if extras else ""
+            reason = "Inactive account" if self.status == "FAIL" else ""
+            reason_part = f" | {reason}" if reason else ""
             return (
-                f"{self.email}:{self.password} | HIT | Active: {active_label} | "
-                f"Package: {package}{extra}"
+                f"{self.email}:{self.password} | {self.status} | Active: {active_label} | "
+                f"Package: {package}{extra}{reason_part}"
             )
         if self.status == "BAD":
             return f"{self.email}:{self.password} | BAD | Invalid credentials"
@@ -296,10 +298,12 @@ class DTVChecker:
                 )
                 addons = self._merge_addons(stream_addons, package_addons, sports_packages, svod_addons)
 
+                status = "HIT" if active is True else "FAIL"
+
                 return CheckResult(
                     email=email,
                     password=password,
-                    status="HIT",
+                    status=status,
                     active=active,
                     account_status=account_status,
                     account_type=info.get("accountType") or value_pairs.get("accountType"),

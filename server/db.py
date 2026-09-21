@@ -10,7 +10,7 @@ from typing import Any
 
 DB_PATH = Path(__file__).resolve().parent.parent / "data" / "checker.db"
 
-FINAL_STATUSES = {"hit", "bad"}
+FINAL_STATUSES = {"hit", "bad", "fail"}
 
 
 def _utc_now() -> str:

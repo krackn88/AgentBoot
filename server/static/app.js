@@ -29,6 +29,7 @@ const statProgress = $("#statProgress");
 const statHits = $("#statHits");
 const statCpm = $("#statCpm");
 const statBads = $("#statBads");
+const statFails = $("#statFails");
 const statErrors = $("#statErrors");
 const statCurrent = $("#statCurrent");
 const toast = $("#toast");
@@ -333,6 +334,7 @@ function updateStatus(data) {
   statHits.textContent = String(data.hits ?? hits.length ?? 0);
   statCpm.textContent = data.cpm != null ? String(data.cpm) : "0";
   statBads.textContent = String(data.bads || 0);
+  statFails.textContent = String(data.fails || 0);
   statErrors.textContent = String(data.errors || 0);
   statCurrent.textContent = data.current || "—";
 
@@ -343,7 +345,8 @@ function updateStatus(data) {
   if (skipped) parts.push(`${skipped.toLocaleString()} skipped`);
   if (data.cpm) parts.push(`${data.cpm} CPM`);
   if (data.hits) parts.push(`${data.hits} hits`);
-  if (data.bads) parts.push(`${data.bads} bad`);
+  if (data.bads) parts.push(`${data.bads} invalid`);
+  if (data.fails) parts.push(`${data.fails} inactive`);
   if (data.errors) parts.push(`${data.errors} errors`);
   progressStats.textContent = parts.join(" · ") || "Ready";
 
