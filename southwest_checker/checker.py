@@ -12,14 +12,10 @@ from urllib.parse import urlencode
 from curl_cffi import requests
 
 from southwest_checker.apiguard.client import APIGuardClient
-from southwest_checker.apiguard.generator import RequestContext, generate_e_header, generate_g_header
 from southwest_checker.constants import (
-    API_KEY,
     BASE_URL,
     CLIENT_ID,
     DEFAULT_HEADERS,
-    HEADER_FAMILY,
-    INIT_PATH,
     TOKEN_PATH,
 )
 
@@ -79,6 +75,7 @@ class SouthwestChecker:
         impersonate: str = "safari17_2_ios",
         proxy: str | None = None,
         auto_sensors: bool = False,
+        full_bootstrap: bool = False,
         capture_data: dict[str, Any] | None = None,
     ):
         self.sensor_headers = sensor_headers or {}
@@ -87,8 +84,15 @@ class SouthwestChecker:
         self.impersonate = impersonate
         self.proxy = proxy
         self.auto_sensors = auto_sensors
+        self.full_bootstrap = full_bootstrap
         self._apiguard: APIGuardClient | None = None
-        if auto_sensors and capture_data:
+        if full_bootstrap:
+            self._apiguard = APIGuardClient(
+                impersonate=impersonate,
+                proxy=proxy,
+                full_bootstrap=True,
+            )
+        elif auto_sensors and capture_data:
             self._apiguard = APIGuardClient.from_capture(
                 capture_data, impersonate=impersonate, proxy=proxy
             )
@@ -103,34 +107,23 @@ class SouthwestChecker:
             **kwargs,
         )
 
-    def _build_headers(self) -> dict[str, str]:
-        if self.auto_sensors and self._apiguard:
-            return self._build_generated_headers()
-
-        headers = dict(DEFAULT_HEADERS)
-        headers.update(self.base_headers)
-        headers.update(self.sensor_headers)
-        headers["X-User-Experience-ID"] = str(uuid.uuid4()).upper()
-        headers["x-swa-di-dtid"] = str(uuid.uuid4()).upper()
-        if self.cookies:
-            headers["Cookie"] = self.cookies
-        return headers
-
-    def _build_generated_headers(self) -> dict[str, str]:
-        assert self._apiguard is not None
-        now_ms = int(time.time() * 1000)
-        ctx = RequestContext(uri=f"{BASE_URL}{TOKEN_PATH}", now_ms=now_ms)
-
-        headers = dict(DEFAULT_HEADERS)
-        headers.update(self.base_headers)
-        headers.update(self.sensor_headers)
-
-        profile = self._apiguard.profile
-        profile.kid = headers.get("X-dUblrIiu-f", profile.kid)
-        headers["X-dUblrIiu-e"] = generate_e_header(profile, self._apiguard.engine, ctx)
-        headers["X-dUblrIiu-g"] = generate_g_header(
-            profile, self._apiguard.engine, now_ms
+    def _uses_generated_headers(self) -> bool:
+        return bool(
+            self._apiguard and (self.auto_sensors or self.full_bootstrap)
         )
+
+    def _build_headers(self) -> dict[str, str]:
+        if self._uses_generated_headers():
+            assert self._apiguard is not None
+            if not self._apiguard.session:
+                self._apiguard.init()
+            headers = self._apiguard.generate_headers(cookies=self.cookies)
+            headers.update(self.base_headers)
+            return headers
+
+        headers = dict(DEFAULT_HEADERS)
+        headers.update(self.base_headers)
+        headers.update(self.sensor_headers)
         headers["X-User-Experience-ID"] = str(uuid.uuid4()).upper()
         headers["x-swa-di-dtid"] = str(uuid.uuid4()).upper()
         if self.cookies:
@@ -149,15 +142,15 @@ class SouthwestChecker:
         )
 
     def check(self, username: str, password: str, retries: int = 2) -> CheckResult:
-        if not self.sensor_headers:
+        if not self.sensor_headers and not self._uses_generated_headers():
             return CheckResult(
                 username=username,
                 status="error",
-                error="No sensor headers loaded. Extract from a .chlz capture first.",
+                error=(
+                    "No sensor headers loaded. Extract from a .chlz capture first, "
+                    "or use --full-bootstrap."
+                ),
             )
-
-        if self.auto_sensors and self._apiguard and not self._apiguard.session:
-            self._apiguard.init()
 
         session = requests.Session(impersonate=self.impersonate)
         headers = self._build_headers()

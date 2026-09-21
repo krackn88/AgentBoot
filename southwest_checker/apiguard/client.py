@@ -17,6 +17,7 @@ from southwest_checker.apiguard.generator import (
     generate_e_header,
     generate_g_header,
 )
+from southwest_checker.apiguard.session import run_kernel_bootstrap
 from southwest_checker.constants import API_KEY, BASE_URL, DEFAULT_HEADERS, HEADER_FAMILY, INIT_PATH, TOKEN_PATH
 
 
@@ -25,7 +26,6 @@ class InitSession:
     kernel_id: str
     sk: str
     ck: dict[str, Any] = field(default_factory=dict)
-    # Session-level static headers from a prior capture (updated partially from init)
     header_a: str = ""
     header_b: str = "vl8bjr"
     header_c: str = ""
@@ -42,11 +42,13 @@ class APIGuardClient:
         impersonate: str = "safari17_2_ios",
         proxy: str | None = None,
         template: InitSession | None = None,
+        full_bootstrap: bool = False,
     ):
         self.impersonate = impersonate
         self.proxy = proxy
         self.session: InitSession | None = None
         self.template = template
+        self.full_bootstrap = full_bootstrap
         self.profile = IOSDeviceProfile()
         self.engine = EngineState()
         self._session_obj = requests.Session(impersonate=impersonate)
@@ -71,8 +73,41 @@ class APIGuardClient:
             return None
         return {"http": self.proxy, "https": self.proxy}
 
+    def _prev_kernel_id(self) -> str:
+        if self.session:
+            return self.session.kernel_id
+        if self.template:
+            return self.template.kernel_id
+        return ""
+
+    def _init_from_kernel(self) -> InitSession:
+        """Execute init kernel JS and capture session headers via webkit bridge mock."""
+        data = run_kernel_bootstrap(
+            request_url=f"{BASE_URL}{TOKEN_PATH}",
+            proxy=self.proxy,
+        )
+        headers = data.get("headers") or {}
+        prev_pid = self._prev_kernel_id()
+
+        self.session = InitSession(
+            kernel_id=data.get("kernelId") or headers.get(f"{HEADER_FAMILY}-f", ""),
+            sk=data.get("sk", ""),
+            header_a=headers.get(f"{HEADER_FAMILY}-a", ""),
+            header_b=headers.get(f"{HEADER_FAMILY}-b", "vl8bjr"),
+            header_c=headers.get(f"{HEADER_FAMILY}-c", ""),
+            header_d=headers.get(f"{HEADER_FAMILY}-d", ""),
+            header_z=headers.get(f"{HEADER_FAMILY}-z", "q"),
+            pid=prev_pid,
+        )
+        self.profile.kid = self.session.kernel_id
+        self.profile.pid = prev_pid
+        return self.session
+
     def init(self) -> InitSession:
-        """Fetch fresh kernel from /sw_check/ios/init."""
+        """Fetch fresh kernel from /sw_check/ios/init (or run JS kernel bootstrap)."""
+        if self.full_bootstrap:
+            return self._init_from_kernel()
+
         resp = self._session_obj.get(
             f"{BASE_URL}{INIT_PATH}",
             headers={
@@ -89,10 +124,7 @@ class APIGuardClient:
         kernel_id = data["kernelId"]
         sk = data.get("sk", "")
         ck = data.get("ck", {})
-
-        prev_pid = self.session.kernel_id if self.session else (
-            self.template.kernel_id if self.template else ""
-        )
+        prev_pid = self._prev_kernel_id()
 
         self.session = InitSession(
             kernel_id=kernel_id,

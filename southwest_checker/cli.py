@@ -49,8 +49,13 @@ def cmd_check(args: argparse.Namespace) -> int:
         print(f"Using proxy: {proxy.split('@')[-1]}")
     if args.auto_sensors:
         print("APIGuard: generating fresh -e/-g headers per request")
+    if args.full_bootstrap:
+        print("APIGuard: full bootstrap from /sw_check/ios/init (no capture template)")
     checker = SouthwestChecker.from_config(
-        config, proxy=proxy, auto_sensors=args.auto_sensors
+        config,
+        proxy=proxy,
+        auto_sensors=args.auto_sensors,
+        full_bootstrap=args.full_bootstrap,
     )
 
     if args.username and args.password:
@@ -136,6 +141,11 @@ def main() -> int:
         "--auto-sensors",
         action="store_true",
         help="Generate fresh -e/-g APIGuard headers per request (requires capture template)",
+    )
+    check_p.add_argument(
+        "--full-bootstrap",
+        action="store_true",
+        help="Bootstrap all APIGuard session headers from init kernel JS (no capture needed)",
     )
 
     decode_p = sub.add_parser("decode", help="Decode an APIGuard header token")

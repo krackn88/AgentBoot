@@ -14,6 +14,7 @@ The login endpoint returns full account info including redeemable points, tier s
 
 ```bash
 pip install -r requirements.txt
+npm install
 ```
 
 ## Usage
@@ -97,9 +98,12 @@ Key response fields:
 
 ## APIGuard sensor generation
 
-The checker can generate fresh `-e` and `-g` APIGuard headers per request using the reverse-engineered ChaCha-CFB cipher from APIGuard 3.
+The checker can generate APIGuard headers without a Charles capture using init kernel bootstrap, or generate fresh `-e`/`-g` per request using a capture template.
 
 ```bash
+# Full bootstrap: all session headers from /sw_check/ios/init (no capture needed)
+python -m southwest_checker check -u USER -p PASS --full-bootstrap
+
 # Decode a captured header to inspect its contents
 python -m southwest_checker decode e "b;...;..."
 
@@ -113,13 +117,11 @@ python -m southwest_checker check -c sensor_config.json -u USER -p PASS --auto-s
 |--------|--------|--------------|
 | `-e` | Generated (device sensor JSON + ChaCha encrypt) | Yes |
 | `-g` | Generated (iOS signal JSON + ChaCha encrypt) | Yes |
-| `-a` | Session template from Charles capture | No |
-| `-c` | Session template from Charles capture | No |
-| `-d` | Session template from Charles capture | No |
-| `-f` | kernelId from capture (or `/sw_check/ios/init`) | No |
-| `-b`, `-z` | Static constants | No |
+| `-a`, `-b`, `-c`, `-d`, `-f`, `-z` | Init kernel JS bootstrap (`--full-bootstrap`) | Session |
+| `-a`, `-c`, `-d`, `-f` | Charles capture template (`--auto-sensors`) | Session |
+| `-b`, `-z` | Static constants (capture mode only) | No |
 
-The init endpoint `/sw_check/ios/init` returns `kernelId`, `kernel` (JS), `ck` (LuaJIT modules), and `sk` (session key). Full session bootstrap (generating `-a`/`-c`/`-d` from init alone) is not yet implemented — re-capture from the app when session headers expire.
+The init endpoint `/sw_check/ios/init` returns `kernelId`, `kernel` (JS), `ck` (LuaJIT modules), and `sk` (session key). With `--full-bootstrap`, a Node.js kernel runner executes the init JS inside jsdom, mocks the iOS webkit bridge, and captures session headers before Python generates fresh `-e`/`-g`.
 
 ### Cipher details
 
