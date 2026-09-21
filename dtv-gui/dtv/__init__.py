@@ -1,0 +1,1 @@
+"""DirectTV account checker package."""
