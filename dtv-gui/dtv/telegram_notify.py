@@ -1,9 +1,10 @@
-"""Telegram notifications for premium / streaming DTV hits."""
+"""Telegram notifications for streaming / top-tier DTV hits only."""
 
 from __future__ import annotations
 
 import json
 import os
+import re
 import threading
 from pathlib import Path
 from typing import Any
@@ -17,22 +18,47 @@ _CHAT_ID_FILE = _DATA_DIR / "telegram_chat_id"
 _OFFSET_FILE = _DATA_DIR / "telegram_updates_offset"
 _DISCOVERED_FILE = _DATA_DIR / "telegram_discovered_chats.json"
 
-PREMIUM_PACKAGE_KEYWORDS = (
+# Top-tier DTV plan names only — not access fees, sports, or minimum service.
+MAXED_PACKAGE_MARKERS = (
     "ultimate",
     "premier",
+    "lovers & movies",
+    "lovers and movies",
     "choice",
     "entertainment",
-    "xtra",
-    "top tier",
-    "max",
-    "premier",
-    "5client",
-    "4 addtl",
+    "select",
+    "optimo mas",
+    "mas ultra",
+    "mas liv",
+    "mas latino",
 )
 
-MIN_CHANNELS_PREMIUM = 140
-MIN_ADDONS_PREMIUM = 4
-MIN_SPORTS_PREMIUM = 2
+EXCLUDED_PACKAGE_MARKERS = (
+    "minimum service",
+    "minimum package",
+    "basic",
+    "local",
+    "transitional",
+    "protection plan only",
+    "rv ",
+)
+
+STREAMING_MARKERS = (
+    "peacock",
+    "netflix",
+    "hulu",
+    "disney",
+    "disney+",
+    "max",
+    "hbo",
+    "showtime",
+    "starz",
+    "cinemax",
+    "paramount",
+    "discovery+",
+    "amc+",
+    "espn+",
+)
 
 
 def _bot_token() -> str:
@@ -62,27 +88,44 @@ def save_chat_id(chat_id: str) -> None:
     os.environ["TELEGRAM_CHAT_ID"] = chat_id
 
 
+def _normalize_package(package: str | None) -> str:
+    return re.sub(r"\s+", " ", (package or "").lower().replace("_", " ")).strip()
+
+
 def has_streaming(result: CheckResult) -> bool:
-    return bool(result.svod_addons)
+    if result.svod_addons:
+        return True
+
+    for addon in result.addons or []:
+        addon_lower = addon.lower()
+        if any(marker in addon_lower for marker in STREAMING_MARKERS):
+            return True
+
+    package = _normalize_package(result.package)
+    if package and any(marker in package for marker in STREAMING_MARKERS):
+        return True
+
+    return False
 
 
 def is_maxed_package(result: CheckResult) -> bool:
-    package = (result.package or "").lower().replace("_", " ")
-    channels = result.channels or 0
-    addons = result.addons or []
-    sports = result.sports_packages or []
+    package = _normalize_package(result.package)
+    if not package or package == "unknown":
+        return False
 
-    if channels >= MIN_CHANNELS_PREMIUM:
-        return True
-    if len(addons) >= MIN_ADDONS_PREMIUM:
-        return True
-    if len(sports) >= MIN_SPORTS_PREMIUM:
-        return True
-    if any(keyword in package for keyword in PREMIUM_PACKAGE_KEYWORDS) and channels >= 100:
-        return True
-    if "addtl tv access" in package and any(x in package for x in ("4 ", "5 ", "5client", "4client")):
-        return True
-    return False
+    if any(marker in package for marker in EXCLUDED_PACKAGE_MARKERS):
+        return False
+
+    # Access-fee / client-count bundles are not top-tier plans.
+    if "addtl tv access" in package and not any(
+        marker in package for marker in MAXED_PACKAGE_MARKERS
+    ):
+        return False
+
+    if "minimum" in package:
+        return False
+
+    return any(marker in package for marker in MAXED_PACKAGE_MARKERS)
 
 
 def should_notify(result: CheckResult) -> bool:
@@ -96,20 +139,24 @@ def format_hit_message(result: CheckResult) -> str:
     if has_streaming(result):
         tags.append("STREAMING")
     if is_maxed_package(result):
-        tags.append("PREMIUM")
+        tags.append("MAX PLAN")
 
     lines = [
-        f"📺 DTV {' + '.join(tags) or 'HIT'}",
+        f"📺 DTV {' + '.join(tags)}",
         "",
         result.format_line(),
     ]
     if result.svod_addons:
         lines.append("")
         lines.append(f"Streaming: {', '.join(result.svod_addons)}")
-    if result.sports_packages:
-        lines.append(f"Sports: {', '.join(result.sports_packages)}")
-    if result.channels is not None:
-        lines.append(f"Channels: {result.channels}")
+    elif has_streaming(result) and result.addons:
+        streaming = [
+            a for a in result.addons
+            if any(m in a.lower() for m in STREAMING_MARKERS)
+        ]
+        if streaming:
+            lines.append("")
+            lines.append(f"Streaming: {', '.join(streaming)}")
     return "\n".join(lines)
 
 
