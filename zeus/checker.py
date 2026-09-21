@@ -530,8 +530,9 @@ def check_account(
     password: str,
     *,
     proxy: str | None | object = _UNSET,
+    rotate_proxy: bool = True,
     timeout: float = 45.0,
 ) -> CheckResult:
     checker = ZeusChecker(timeout=timeout)
     proxy_value = None if proxy is _UNSET else proxy
-    return checker.check(email, password, proxy=proxy_value)
+    return checker.check(email, password, proxy=proxy_value, rotate_proxy=rotate_proxy)

@@ -50,6 +50,16 @@ def init_db() -> None:
                 checked_at TEXT NOT NULL
             );
             CREATE INDEX IF NOT EXISTS idx_checked_at ON checked_combos(checked_at DESC);
+
+            CREATE TABLE IF NOT EXISTS valid_logins (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                line TEXT NOT NULL UNIQUE,
+                email TEXT NOT NULL,
+                password TEXT NOT NULL,
+                data_json TEXT NOT NULL DEFAULT '{}',
+                created_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_valid_created ON valid_logins(created_at DESC);
             """
         )
 
@@ -93,6 +103,10 @@ def get_session() -> dict[str, Any]:
         "combos": combos_text,
         "proxies": get_state("proxies"),
         "threads": int(get_state("threads", "5") or "5"),
+        "start_line": int(get_state("start_line", "1") or "1"),
+        "rotate_proxy": get_state("rotate_proxy", "1") == "1",
+        "proxy_preset": get_state("proxy_preset", "none"),
+        "combo_library": get_state("combo_library", ""),
         "checked_count": count_checked_combos(),
         "combo_count": combo_count,
         "combos_stored": combos_stored,
@@ -106,6 +120,10 @@ def save_session(
     *,
     combo_count: int | None = None,
     combos_stored: bool = False,
+    start_line: int | str = 1,
+    rotate_proxy: bool = True,
+    proxy_preset: str = "none",
+    combo_library: str = "",
 ) -> None:
     if combos_stored:
         set_state("combos", "")
@@ -120,6 +138,10 @@ def save_session(
         set_state("combo_count", str(line_count))
     set_state("proxies", proxies)
     set_state("threads", str(threads))
+    set_state("start_line", str(max(1, int(start_line or 1))))
+    set_state("rotate_proxy", "1" if rotate_proxy else "0")
+    set_state("proxy_preset", proxy_preset or "none")
+    set_state("combo_library", combo_library or "")
 
 
 def count_checked_combos() -> int:
@@ -209,4 +231,61 @@ def delete_hits(ids: list[int]) -> int:
 def clear_hits() -> int:
     with connect() as conn:
         cur = conn.execute("DELETE FROM hits")
+        return cur.rowcount
+
+
+def insert_valid(line: str, email: str, password: str, data: dict[str, Any]) -> int | None:
+    with connect() as conn:
+        existing = conn.execute(
+            "SELECT id FROM valid_logins WHERE email = ? AND password = ?",
+            (email, password),
+        ).fetchone()
+        payload = json.dumps(data)
+        if existing:
+            conn.execute(
+                "UPDATE valid_logins SET line = ?, data_json = ? WHERE id = ?",
+                (line, payload, existing["id"]),
+            )
+            return int(existing["id"])
+        try:
+            cur = conn.execute(
+                """
+                INSERT INTO valid_logins (line, email, password, data_json, created_at)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (line, email, password, payload, _utc_now()),
+            )
+            return cur.lastrowid
+        except sqlite3.IntegrityError:
+            return None
+
+
+def list_valid() -> list[dict[str, Any]]:
+    with connect() as conn:
+        rows = conn.execute(
+            "SELECT * FROM valid_logins ORDER BY created_at DESC, id DESC"
+        ).fetchall()
+        return [dict(row) for row in rows]
+
+
+def export_valid_text() -> str:
+    with connect() as conn:
+        rows = conn.execute(
+            "SELECT line FROM valid_logins ORDER BY created_at ASC, id ASC"
+        ).fetchall()
+        return "\n".join(row["line"] for row in rows)
+
+
+def delete_valid(ids: list[int]) -> int:
+    if not ids:
+        return 0
+    placeholders = ",".join("?" * len(ids))
+    with connect() as conn:
+        cur = conn.execute(f"DELETE FROM valid_logins WHERE id IN ({placeholders})", ids)
+        return cur.rowcount
+
+
+def clear_valid() -> int:
+    with connect() as conn:
+        cur = conn.execute("DELETE FROM valid_logins")
         return cur.rowcount

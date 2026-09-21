@@ -13,10 +13,20 @@ pip install -r requirements.txt
 Start the checker UI locally:
 
 ```bash
-uvicorn server.app:app --host 0.0.0.0 --port 8093
+./run.sh
+# or: PYTHONPATH=. python3 -m uvicorn server.app:app --host 0.0.0.0 --port 8093
 ```
 
-Open `http://localhost:8093` — combo upload, proxy paste, configurable threads, CPM, live log, and hits panel.
+Open `http://localhost:8093`
+
+Features:
+
+- **Combo sources** — paste, upload, combo library (`data/combos/`), or import from URL (VS dedi quick-import buttons)
+- **Start line** — resume from any line in large files
+- **Proxy presets** — residential (Evomi US), datacenter, or custom; rotate session toggle for resi
+- **Results tabs** — active hits vs valid/inactive logins (stored separately)
+- **Progress** — resume skips already-checked combos; reset progress when needed
+- **Smoke test** — single combo check before a full run
 
 ### Deploy to dedi
 
