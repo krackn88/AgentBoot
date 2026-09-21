@@ -8,7 +8,12 @@ const crypto = require("crypto");
 const { fetch: undiciFetch, ProxyAgent } = require("undici");
 const { JSDOM } = require("jsdom");
 const canvas = require("canvas");
-const { createProbeHandler, decodeSendRequest, REPLAY_PATH } = require("./probe_handler");
+const {
+  createProbeHandler,
+  decodeSendRequest,
+  parseInitArgs,
+  REPLAY_PATH,
+} = require("./probe_handler");
 const fs = require("fs");
 
 const INIT_URL =
@@ -22,7 +27,29 @@ const REQUEST_URL =
   process.env.SW_REQUEST_URL ||
   "https://mobile.southwest.com/api/security/v4/security/token";
 const PROBE_MODE =
-  process.env.SW_PROBE_MODE || (fs.existsSync(REPLAY_PATH) ? "replay" : "hmac-chain");
+  process.env.SW_PROBE_MODE || (fs.existsSync(REPLAY_PATH) ? "replay" : "native-sess-all");
+
+/** Inject Lua ck modules into the kernel CustomEvent bootstrap args. */
+function injectCkModules(kernel, ck) {
+  if (!kernel || !ck || typeof ck !== "object") {
+    return kernel;
+  }
+  const ckJson = JSON.stringify(ck);
+  const re = /createEvent\("CustomEvent"\),\["([^"]+)","([^"]+)",\[\],(\[\d+(?:,\d+){7}\])/;
+  if (!re.test(kernel)) {
+    return kernel;
+  }
+  return kernel.replace(re, `createEvent("CustomEvent"),["$1","$2",${ckJson},$3`);
+}
+
+function prepareKernel(initData) {
+  const kernel = injectCkModules(initData.kernel || "", initData.ck || null);
+  return {
+    ...initData,
+    kernel,
+    initArgs: parseInitArgs(kernel),
+  };
+}
 
 function normalizeProxy(value) {
   const raw = String(value || "").trim();
@@ -87,9 +114,14 @@ function makeHandler(name, fn) {
   return { postMessage: nativeFn("postMessage", fn) };
 }
 
-function buildBridge(onHeaders, initData) {
+function buildBridge(onHeaders, initData, initArgs, nativeCalls) {
   const pendingSend = [];
-  const computeProbe = createProbeHandler(initData.sk, PROBE_MODE);
+  const computeProbe = createProbeHandler(
+    initData.sk,
+    PROBE_MODE,
+    initData,
+    initArgs
+  );
 
   const sendHandler = makeHandler("send", (...args) => {
     try {
@@ -126,13 +158,23 @@ function buildBridge(onHeaders, initData) {
 }
 
 function runKernel(initData, requestUrl) {
+  const prepared = prepareKernel(initData);
   const headers = {};
   const errors = [];
-  const { messageHandlers, pendingSend } = buildBridge(headers, initData);
+  const nativeCalls = [];
+  const { messageHandlers, pendingSend } = buildBridge(
+    headers,
+    prepared,
+    prepared.initArgs,
+    nativeCalls
+  );
 
   const agent = {
     ios: {},
-    invoke: nativeFn("invoke", () => null),
+    invoke: nativeFn("invoke", (...args) => {
+      nativeCalls.push(args.map((value) => String(value).slice(0, 160)));
+      return null;
+    }),
   };
 
   const dom = new JSDOM(
@@ -142,7 +184,18 @@ function runKernel(initData, requestUrl) {
       runScripts: "dangerously",
       pretendToBeVisual: true,
       beforeParse(window) {
-        window.global = { nativeAgent: agent };
+        window.global = {
+          nativeAgent: agent,
+          sk: prepared.sk,
+          ck: prepared.ck,
+          kernelId: prepared.kernelId,
+        };
+        window.console = {
+          ...window.console,
+          log: () => {},
+          warn: () => {},
+          error: (...args) => errors.push(args.map(String).join(" ")),
+        };
         window.webkit = { messageHandlers };
       },
     }
@@ -163,7 +216,7 @@ function runKernel(initData, requestUrl) {
   window.addEventListener("error", (e) => errors.push(e.message || String(e.error)));
 
   const script = window.document.createElement("script");
-  script.textContent = initData.kernel;
+  script.textContent = prepared.kernel;
   window.document.body.appendChild(script);
 
   const start = Date.now();
@@ -187,13 +240,24 @@ function runKernel(initData, requestUrl) {
     headers,
     errors,
     hasCallback,
+    initArgs: prepared.initArgs,
+    ckInjected: prepared.kernel !== (initData.kernel || ""),
+    nativeCalls: nativeCalls.length,
     probeStats: { total: pendingSend.length, ok: probeOk, fail: probeFail, mode: PROBE_MODE },
   };
 }
 
 async function main() {
   const initData = await fetchInit();
-  const { headers, errors, hasCallback, probeStats } = runKernel(initData, REQUEST_URL);
+  const {
+    headers,
+    errors,
+    hasCallback,
+    probeStats,
+    initArgs,
+    ckInjected,
+    nativeCalls,
+  } = runKernel(initData, REQUEST_URL);
 
   const out = {
     kernelId: initData.kernelId,
@@ -201,6 +265,9 @@ async function main() {
     headers,
     headerKeys: Object.keys(headers).sort(),
     hasCallback,
+    initArgs,
+    ckInjected,
+    nativeCalls,
     probeStats,
     errors,
   };
@@ -216,4 +283,12 @@ if (require.main === module) {
   });
 }
 
-module.exports = { fetchInit, runKernel, REQUEST_URL, UA, API_KEY };
+module.exports = {
+  fetchInit,
+  runKernel,
+  prepareKernel,
+  injectCkModules,
+  REQUEST_URL,
+  UA,
+  API_KEY,
+};

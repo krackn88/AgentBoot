@@ -153,10 +153,20 @@ The init endpoint `/sw_check/ios/init` returns `kernelId`, `kernel` (JS), `ck` (
 | Init fetch + kernel JS execution | Working |
 | `pushMinPayload` / `pushMaxPayload` header capture | Working |
 | `send` probe handler parse | Fixed (was JSON-parsing an already-parsed array → all 37 probes returned `[]`) |
-| `send` probe crypto via `sk` | **Not yet reversed** — Akamai still returns 429 with computed probes |
+| `send` probe crypto via `sk` | **Partial** — best native candidate is `native-sess-all` (~40% login pass rate vs ~90% capture mode). Still not production-ready |
 | Capture template + fresh `-e`/`-g` | **Working** (recommended for production) |
 
-To unblock full bootstrap without Charles captures, capture real probe pairs from an iOS device:
+Native probe reverse engineering (no device capture required) found that probe responses feed into the `-a` header (not `-c`/`-d`). The best computed mode so far HMACs all three probe tokens with the init `sessionKey` left-hand segment:
+
+```bash
+# Default full-bootstrap probe mode (override with SW_PROBE_MODE)
+SW_PROBE_MODE=native-sess-all python -m southwest_checker check --full-bootstrap -u USER -p PASS
+
+# Benchmark probe modes against live login
+python scripts/test_native_probes.py -u USER -p PASS --proxy host:port:user:pass_country-US
+```
+
+Optional: capture real probe pairs from an iOS device for replay mode:
 
 ```bash
 # 1. Run Frida on a jailbroken device during Southwest login
@@ -168,7 +178,7 @@ frida -U -f com.southwest.iphoneprod -l deploy/frida_capture_ios_probes.js
 SW_PROBE_MODE=replay node southwest_checker/apiguard/kernel_runner.js
 ```
 
-Probe modes can be tuned via env: `SW_PROBE_MODE` (`replay`, `hmac-chain`, `random`, …) and `SW_PROBE_KEY` (`sk-key`, `sk-xor`).
+Probe modes can be tuned via env: `SW_PROBE_MODE` (`replay`, `native-sess-all`, `native-sk-key-hmac`, `hmac-chain`, …) and `SW_PROBE_KEY` (`sk-key`, `sk-xor`).
 
 ### Cipher details
 

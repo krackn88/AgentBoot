@@ -99,7 +99,58 @@ function deriveProbeKey(sk, mode = "sk-key") {
   return Buffer.from(String(sk || ""), "utf8");
 }
 
-function responseForToken(token, key, index, tokens, mode) {
+function parseInitArgs(kernel) {
+  if (!kernel || typeof kernel !== "string") {
+    return { kernelId: "", sessionKey: "", ints: [] };
+  }
+  const head = kernel.match(/createEvent\("CustomEvent"\),\["([^"]+)","([^"]+)"/);
+  const intsMatch = kernel.match(/,\[(\d+(?:,\d+){7})\],/);
+  return {
+    kernelId: head ? head[1] : "",
+    sessionKey: head ? head[2] : "",
+    ints: intsMatch ? intsMatch[1].split(",").map((n) => Number(n)) : [],
+  };
+}
+
+function computeNativeProbeResponses(tokens, initData, initArgs, mode) {
+  if (!tokens.length) {
+    return [];
+  }
+  const { spawnSync } = require("child_process");
+  const script = require("path").join(__dirname, "probe_native.py");
+  const payload = {
+    tokens,
+    sk: initData.sk || "",
+    sessionKey: initArgs.sessionKey || "",
+    ints: initArgs.ints || [],
+    mode,
+  };
+  const repoRoot = require("path").join(__dirname, "..", "..");
+  const proc = spawnSync("python3", [script], {
+    input: JSON.stringify(payload),
+    encoding: "utf8",
+    timeout: 5000,
+    cwd: repoRoot,
+    env: {
+      ...process.env,
+      PYTHONPATH: repoRoot,
+    },
+  });
+  if (proc.status !== 0 || !proc.stdout) {
+    if (process.env.SW_PROBE_DEBUG && proc.stderr) {
+      console.error(proc.stderr.trim());
+    }
+    return null;
+  }
+  try {
+    const parsed = JSON.parse(proc.stdout.trim());
+    return Array.isArray(parsed) ? parsed : null;
+  } catch {
+    return null;
+  }
+}
+
+function responseForToken(token, key, index, tokens, mode, ctx) {
   const t0 = tokens[0] || "";
   const t1 = tokens[1] || "";
   const t2 = tokens[2] || "";
@@ -144,14 +195,29 @@ function responseForToken(token, key, index, tokens, mode) {
     const off = h.readUInt32BE(0) % Math.max(1, ct.length - 32);
     return b64url(ct.slice(off, off + 32)).slice(0, 43);
   }
+  if (mode.startsWith("native-") && ctx?.nativeResponses) {
+    const val = ctx.nativeResponses[index];
+    if (val) return val;
+  }
   return crypto.randomBytes(16).toString("base64url");
 }
 
-function createProbeHandler(sk, mode = "hmac-chain") {
+function createProbeHandler(sk, mode = "hmac-chain", initData = null, initArgs = null) {
   const replayTable = mode === "replay" ? loadReplayTable() : null;
   const keyMode = process.env.SW_PROBE_KEY || "sk-key";
   const key = deriveProbeKey(sk, keyMode);
   key.__sk = sk;
+
+  let nativeResponses = null;
+  if (mode.startsWith("native-") && initData && initArgs) {
+    const probeMode = mode.replace(/^native-/, "") || "auto";
+    nativeResponses = computeNativeProbeResponses(
+      ["probe0", "probe1", "probe2", "ios"],
+      initData,
+      initArgs,
+      probeMode
+    );
+  }
 
   return function probeHandler(raw) {
     const tokens = decodeSendRequest(raw);
@@ -166,11 +232,22 @@ function createProbeHandler(sk, mode = "hmac-chain") {
       }
     }
 
+    let nativeForRequest = null;
+    if (mode.startsWith("native-") && initData && initArgs) {
+      const probeMode = mode.replace(/^native-/, "") || "auto";
+      if (probeMode === "auto") {
+        nativeForRequest = null;
+      } else {
+        nativeForRequest = computeNativeProbeResponses(tokens, initData, initArgs, probeMode);
+      }
+    }
+
+    const ctx = { nativeResponses: nativeForRequest };
     const resp = tokens.map((token, index) => {
       if (index >= 3) {
         return token;
       }
-      return responseForToken(token, key, index, tokens, mode);
+      return responseForToken(token, key, index, tokens, mode, ctx);
     });
     return JSON.stringify(resp);
   };
@@ -184,4 +261,5 @@ module.exports = {
   parseSkToken,
   loadReplayTable,
   createProbeHandler,
+  parseInitArgs,
 };
