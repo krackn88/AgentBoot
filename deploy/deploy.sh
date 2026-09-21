@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-APP_DIR="${APP_DIR:-/opt/dtv-checker}"
+APP_DIR="${APP_DIR:-/opt/zeus-checker}"
 REPO_URL="${REPO_URL:-https://github.com/krackn88/AgentBoot.git}"
-BRANCH="${BRANCH:-cursor/dtv-checker-88aa}"
-PORT="${PORT:-8092}"
+BRANCH="${BRANCH:-cursor/zeus-checker-cfa6}"
+PORT="${PORT:-8093}"
 
-echo "==> Deploying DTV Checker to ${APP_DIR}"
+echo "==> Deploying Zeus Checker to ${APP_DIR}"
 
 if [ ! -d "${APP_DIR}/.git" ]; then
   sudo mkdir -p "${APP_DIR}"
@@ -28,11 +28,11 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-sudo sed "s/--port [0-9]\\+/--port ${PORT}/" deploy/dtv-checker.service | sudo tee /etc/systemd/system/dtv-checker.service > /dev/null
+sudo sed "s/--port [0-9]\\+/--port ${PORT}/" deploy/zeus-checker.service | sudo tee /etc/systemd/system/zeus-checker.service > /dev/null
 sudo systemctl daemon-reload
-sudo systemctl enable dtv-checker
+sudo systemctl enable zeus-checker
 sudo chown -R www-data:www-data "${APP_DIR}/data"
-sudo systemctl restart dtv-checker
+sudo systemctl restart zeus-checker
 
 IP=$(hostname -I | awk '{print $1}')
-echo "==> DTV Checker running at http://${IP}:${PORT}"
+echo "==> Zeus Checker running at http://${IP}:${PORT}"

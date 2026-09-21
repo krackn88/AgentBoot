@@ -1,6 +1,6 @@
-# DirectTV Account Checker
+# Zeus Network Account Checker
 
-Checks DirectTV credentials against `identity.directv.com` and pulls account status plus package details from the stream API.
+Checks Zeus Network credentials against `www.thezeusnetwork.com` (VHX platform) and captures subscription/plan details.
 
 ## Setup
 
@@ -13,68 +13,56 @@ pip install -r requirements.txt
 Start the checker UI locally:
 
 ```bash
-uvicorn server.app:app --host 0.0.0.0 --port 8092
+uvicorn server.app:app --host 0.0.0.0 --port 8093
 ```
 
-Open `http://localhost:8092` — light-themed UI with combo upload, proxy paste, configurable threads, CPM, live log, and single-line hits (select/copy/delete).
+Open `http://localhost:8093` — combo upload, proxy paste, configurable threads, CPM, live log, and hits panel.
 
 ### Deploy to dedi
 
 ```bash
-BRANCH=cursor/dtv-checker-88aa PORT=8092 bash deploy/deploy.sh
+BRANCH=cursor/zeus-checker-cfa6 PORT=8093 bash deploy/deploy.sh
 ```
 
-Installs to `/opt/dtv-checker` and runs via systemd on port 8092.
-
-## Standalone GUI (Windows / Linux)
-
-Download: http://159.69.76.189:8092/static/downloads/dtv-checker-gui.zip
-
-Extract and run:
-- **Windows:** double-click `start.bat`
-- **Linux:** `chmod +x start.sh && ./start.sh`
-
-First run installs Python dependencies automatically (requires Python 3.10+).
+Installs to `/opt/zeus-checker` and runs via systemd on port 8093.
 
 ## CLI Usage
 
 Single combo:
 
 ```bash
-python dtv_checker.py "email@example.com:password"
+python zeus_checker.py "email@example.com:password"
 ```
 
 Combo file (`email:password` per line):
 
 ```bash
-python dtv_checker.py -f combos.txt
+python zeus_checker.py -f combos.txt
 ```
 
 JSON output:
 
 ```bash
-python dtv_checker.py "email@example.com:password" --json
+python zeus_checker.py "email@example.com:password" --json
 ```
 
 ## Output
 
-- `HIT` — valid login; shows active status, package/plan name, streaming add-ons (Peacock, Netflix, etc.), sports packages, and channel count
+- `HIT` — valid login with active subscription
+- `FAIL` — valid login but inactive/expired subscription
 - `BAD` — invalid credentials
-- `ERROR` — network or API failure
+- `ERROR` — network, Cloudflare, or site failure
 
 Example:
 
 ```
-nena200013@gmail.com:Faithful12! | HIT | Active: Yes | Package: 4 Addtl TV Access Fees_5Client + DIRECTV Protection Plan + Minimum Service | type=PTR | name=NELLIE | channels=158 | streaming=none | sports=MLB, MLB Extra Innings, Regional Sports | addons=Protection Plan, MLB, MLB Extra Innings, Regional Sports
+user@example.com:password123 | HIT | Active: Yes | Plan: Zeus Monthly | status=enabled | freq=monthly | renews=2026-10-21
 ```
-
-Streaming add-ons are detected from DirectTV's SVOD provider API (Peacock, Netflix, Max, Disney+, Hulu, etc.). Sports packages are inferred from the channel lineup and package metadata.
 
 ## Flow
 
-Based on the Charles capture of the iOS mobile login flow:
+Based on the HAR capture of the Zeus web login flow:
 
-1. ForgeRock `IdPwdAuth` login at `identity.directv.com`
-2. OAuth authorize to obtain an auth code
-3. Token exchange via `authn-tokengo/v3/tokens`
-4. Account info from `profile/information/basicinfogo/service`
+1. GET `/login` for CSRF token and session cookie (Firefox TLS impersonation via `curl_cffi`)
+2. POST `/login` with `email`, `password`, `authenticity_token`
+3. On success, fetch `/settings/manage/billing.json` and `/settings/purchases.json` for plan/subscription capture

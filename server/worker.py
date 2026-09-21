@@ -7,9 +7,9 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Iterable
 
-from dtv.checker import _UNSET, check_account, parse_combo
-from dtv.proxy import parse_proxy_lines
-from dtv.telegram_notify import notify_hit
+from zeus.checker import _UNSET, check_account, parse_combo
+from zeus.proxy import parse_proxy_lines
+from zeus.telegram_notify import notify_hit
 
 from .combo_store import iter_nonempty_lines
 from .db import FINAL_STATUSES, combo_key, get_checked_keys, insert_hit, mark_combo_checked

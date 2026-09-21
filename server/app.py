@@ -10,9 +10,9 @@ from fastapi.responses import FileResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from dtv.checker import check_account, parse_combo, probe_geo_blocked
-from dtv.proxy import parse_proxy, parse_proxy_lines
-from dtv.telegram_notify import is_configured, poll_updates, register_chat, send_message
+from zeus.checker import check_account, parse_combo
+from zeus.proxy import parse_proxy, parse_proxy_lines
+from zeus.telegram_notify import is_configured, poll_updates, register_chat, send_message
 
 from .combo_store import (
     COMBOS_PATH,
@@ -37,13 +37,13 @@ from .worker import worker
 
 STATIC_DIR = Path(__file__).resolve().parent / "static"
 
-app = FastAPI(title="DTV Checker")
+app = FastAPI(title="Zeus Checker")
 init_db()
 
 
 @app.on_event("startup")
 async def setup_telegram() -> None:
-    os.environ.setdefault("DTV_DATA_DIR", str(Path(__file__).resolve().parent.parent / "data"))
+    os.environ.setdefault("ZEUS_DATA_DIR", str(Path(__file__).resolve().parent.parent / "data"))
     if _bot_token_configured() and not is_configured():
         preferred = os.environ.get("TELEGRAM_CHAT_ID", "").strip() or None
         register_chat(preferred)
@@ -244,18 +244,6 @@ async def start_job(
             "Use host:port:user:pass or http://user:pass@host:port",
         )
 
-    if not parsed_proxies and probe_geo_blocked():
-        raise HTTPException(
-            400,
-            "DIRECTV geo-blocks this server IP. US residential proxies are required.",
-        )
-
-    if parsed_proxies and probe_geo_blocked(proxy=parsed_proxies[0]):
-        raise HTTPException(
-            400,
-            "Proxies are configured but still geo-blocked. Check proxy format and US residential IPs.",
-        )
-
     save_session(
         "" if combos_stored else combos,
         proxies_text,
@@ -342,7 +330,7 @@ async def telegram_register() -> dict[str, Any]:
 
 @app.post("/api/telegram/test")
 async def telegram_test() -> dict[str, Any]:
-    ok, detail = send_message("DTV Checker — Telegram notifications are working.")
+    ok, detail = send_message("Zeus Checker — Telegram notifications are working.")
     return {"ok": ok, "detail": detail}
 
 
