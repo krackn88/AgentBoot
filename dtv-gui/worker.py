@@ -10,6 +10,7 @@ from PyQt6.QtCore import QObject, QThread, pyqtSignal
 
 from dtv.checker import _UNSET, check_account, parse_combo
 from dtv.proxy import parse_proxy_lines
+from dtv.telegram_notify import notify_hit
 
 
 class CheckerSignals(QObject):
@@ -143,6 +144,7 @@ class CheckerWorker(QThread):
                                 hits += 1
                                 self.signals.hit.emit(line)
                                 self._log(line)
+                                notify_hit(result)
                             elif result.status == "BAD":
                                 bads += 1
                                 self._log(line)

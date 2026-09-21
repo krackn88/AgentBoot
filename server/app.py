@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import time
 from pathlib import Path
 from typing import Any
@@ -11,6 +12,7 @@ from pydantic import BaseModel
 
 from dtv.checker import check_account, parse_combo, probe_geo_blocked
 from dtv.proxy import parse_proxy, parse_proxy_lines
+from dtv.telegram_notify import is_configured, poll_updates, register_chat, send_message
 
 from .combo_store import (
     COMBOS_PATH,
@@ -37,6 +39,18 @@ STATIC_DIR = Path(__file__).resolve().parent / "static"
 
 app = FastAPI(title="DTV Checker")
 init_db()
+
+
+@app.on_event("startup")
+async def setup_telegram() -> None:
+    os.environ.setdefault("DTV_DATA_DIR", str(Path(__file__).resolve().parent.parent / "data"))
+    if _bot_token_configured() and not is_configured():
+        preferred = os.environ.get("TELEGRAM_CHAT_ID", "").strip() or None
+        register_chat(preferred)
+
+
+def _bot_token_configured() -> bool:
+    return bool(os.environ.get("TELEGRAM_BOT_TOKEN", "").strip())
 
 
 class DeleteHitsRequest(BaseModel):
@@ -306,6 +320,30 @@ async def remove_hits(body: DeleteHitsRequest) -> dict[str, int]:
 async def remove_all_hits() -> dict[str, int]:
     deleted = clear_hits()
     return {"deleted": deleted}
+
+
+@app.get("/api/telegram/status")
+async def telegram_status() -> dict[str, Any]:
+    return {
+        "configured": is_configured(),
+        "has_token": _bot_token_configured(),
+        "pending_chats": poll_updates(),
+    }
+
+
+@app.post("/api/telegram/register")
+async def telegram_register() -> dict[str, Any]:
+    preferred = os.environ.get("TELEGRAM_CHAT_ID", "").strip() or None
+    ok, detail = register_chat(preferred)
+    if not ok:
+        raise HTTPException(400, detail)
+    return {"ok": True, "chat_id": detail}
+
+
+@app.post("/api/telegram/test")
+async def telegram_test() -> dict[str, Any]:
+    ok, detail = send_message("DTV Checker — Telegram notifications are working.")
+    return {"ok": ok, "detail": detail}
 
 
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")

@@ -9,6 +9,7 @@ from typing import Any, Iterable
 
 from dtv.checker import _UNSET, check_account, parse_combo
 from dtv.proxy import parse_proxy_lines
+from dtv.telegram_notify import notify_hit
 
 from .combo_store import iter_nonempty_lines
 from .db import FINAL_STATUSES, combo_key, get_checked_keys, insert_hit, mark_combo_checked
@@ -231,6 +232,7 @@ class CheckerWorker:
             with self._lock:
                 self.stats.hits += 1
             self._log(line)
+            notify_hit(result)
             if hit_id is None:
                 self._log(f"DUPLICATE HIT | {email}")
         elif result.status == "BAD":
