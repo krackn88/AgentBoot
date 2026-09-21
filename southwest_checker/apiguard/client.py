@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import time
 import uuid
 from dataclasses import dataclass, field
@@ -17,6 +18,7 @@ from southwest_checker.apiguard.generator import (
     generate_e_header,
     generate_g_header,
 )
+from southwest_checker.apiguard.headers import decode_e
 from southwest_checker.apiguard.session import run_kernel_bootstrap
 from southwest_checker.constants import API_KEY, BASE_URL, DEFAULT_HEADERS, HEADER_FAMILY, INIT_PATH, TOKEN_PATH
 
@@ -32,6 +34,18 @@ class InitSession:
     header_d: str = ""
     header_z: str = "q"
     pid: str = ""
+
+
+def _pid_from_capture(sensors: dict[str, str]) -> str:
+    """Extract the previous kernel id chain from a captured -e header."""
+    e_header = sensors.get(f"{HEADER_FAMILY}-e", "")
+    if not e_header:
+        return ""
+    try:
+        captured = json.loads(decode_e(e_header)["sensor"].decode("latin1"))
+    except (KeyError, ValueError, json.JSONDecodeError):
+        return ""
+    return str(captured.get("pid") or "")
 
 
 class APIGuardClient:
@@ -65,6 +79,7 @@ class APIGuardClient:
             header_c=sensors.get(f"{HEADER_FAMILY}-c", ""),
             header_d=sensors.get(f"{HEADER_FAMILY}-d", ""),
             header_z=sensors.get(f"{HEADER_FAMILY}-z", "q"),
+            pid=_pid_from_capture(sensors),
         )
         return cls(template=template, **kwargs)
 
@@ -103,10 +118,32 @@ class APIGuardClient:
         self.profile.pid = prev_pid
         return self.session
 
+    def _init_from_template(self) -> InitSession:
+        """Use captured session headers as-is (no HTTP init / kernel rotation)."""
+        if not self.template:
+            raise RuntimeError("capture template required for template init")
+
+        self.session = InitSession(
+            kernel_id=self.template.kernel_id,
+            sk=self.template.sk,
+            ck=dict(self.template.ck),
+            header_a=self.template.header_a,
+            header_b=self.template.header_b or "vl8bjr",
+            header_c=self.template.header_c,
+            header_d=self.template.header_d,
+            header_z=self.template.header_z or "q",
+            pid=self.template.pid or "",
+        )
+        self.profile.kid = self.session.kernel_id
+        self.profile.pid = self.template.pid or ""
+        return self.session
+
     def init(self) -> InitSession:
         """Fetch fresh kernel from /sw_check/ios/init (or run JS kernel bootstrap)."""
         if self.full_bootstrap:
             return self._init_from_kernel()
+        if self.template:
+            return self._init_from_template()
 
         resp = self._session_obj.get(
             f"{BASE_URL}{INIT_PATH}",

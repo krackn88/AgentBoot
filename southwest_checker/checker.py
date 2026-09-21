@@ -79,8 +79,15 @@ class SouthwestChecker:
         capture_data: dict[str, Any] | None = None,
     ):
         self.sensor_headers = sensor_headers or {}
-        self.base_headers = base_headers or {}
+        self.base_headers = dict(base_headers or {})
         self.cookies = cookies
+        if capture_data:
+            if not self.cookies:
+                self.cookies = capture_data.get("cookies")
+            if not self.sensor_headers:
+                self.sensor_headers = capture_data.get("sensor_headers", {})
+            if not self.base_headers:
+                self.base_headers = dict(capture_data.get("base_headers", {}))
         self.impersonate = impersonate
         self.proxy = proxy
         self.auto_sensors = auto_sensors

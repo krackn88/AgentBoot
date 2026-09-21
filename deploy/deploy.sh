@@ -21,6 +21,14 @@ fi
 
 cd "${APP_DIR}"
 sudo mkdir -p data
+if [ -f sensor_config.json ]; then
+  cp sensor_config.json data/sensor_config.json
+  echo "==> Installed sensor_config.json for capture mode"
+elif [ -f deploy/default_sensor_config.json ]; then
+  cp deploy/default_sensor_config.json data/sensor_config.json
+  echo "==> Installed deploy/default_sensor_config.json for capture mode"
+fi
+
 sudo chown -R www-data:www-data data || true
 sudo chmod 775 data || true
 

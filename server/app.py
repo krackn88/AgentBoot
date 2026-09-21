@@ -16,6 +16,7 @@ from southwest_checker.web_adapter import (
     load_capture_config,
     parse_combo,
     parse_proxy_lines,
+    reset_runtime_state,
     set_job_settings,
 )
 
@@ -52,11 +53,20 @@ ensure_data_dir()
 def _apply_checker_settings() -> None:
     session = get_session()
     capture_data = None
-    if session.get("auto_sensors") and SENSOR_CONFIG_PATH.exists():
+    has_sensor = SENSOR_CONFIG_PATH.exists()
+    if has_sensor:
         capture_data = load_capture_config(SENSOR_CONFIG_PATH)
+
+    full_bootstrap = session.get("full_bootstrap", True)
+    auto_sensors = session.get("auto_sensors", False)
+    if has_sensor and capture_data and capture_data.get("sensor_headers"):
+        if not auto_sensors:
+            full_bootstrap = False
+            auto_sensors = True
+
     set_job_settings(
-        full_bootstrap=session.get("full_bootstrap", True),
-        auto_sensors=session.get("auto_sensors", False),
+        full_bootstrap=full_bootstrap,
+        auto_sensors=auto_sensors,
         capture_data=capture_data,
         request_delay=session.get("request_delay", 0.35),
     )
@@ -182,7 +192,13 @@ async def smoke_test(body: SmokeTestRequest | None = None) -> dict[str, Any]:
             raise HTTPException(400, str(exc)) from exc
 
     started = time.time()
-    result = check_account(username, password, proxy=proxy_value, timeout=60)
+    result = check_account(
+        username,
+        password,
+        proxy=proxy_value,
+        timeout=60,
+        smoke_test=True,
+    )
     elapsed_ms = int((time.time() - started) * 1000)
 
     return {
