@@ -92,7 +92,8 @@ def get_session() -> dict[str, Any]:
     return {
         "combos": combos_text,
         "proxies": get_state("proxies"),
-        "threads": int(get_state("threads", "5") or "5"),
+        "threads": int(get_state("threads", "3") or "3"),
+        "request_delay": float(get_state("request_delay", "0.35") or "0.35"),
         "full_bootstrap": get_state("full_bootstrap", "1") == "1",
         "auto_sensors": get_state("auto_sensors", "0") == "1",
         "has_sensor_config": get_state("has_sensor_config", "0") == "1",
@@ -112,6 +113,7 @@ def save_session(
     full_bootstrap: bool | None = None,
     auto_sensors: bool | None = None,
     has_sensor_config: bool | None = None,
+    request_delay: float | None = None,
 ) -> None:
     if combos_stored:
         set_state("combos", "")
@@ -132,6 +134,8 @@ def save_session(
         set_state("auto_sensors", "1" if auto_sensors else "0")
     if has_sensor_config is not None:
         set_state("has_sensor_config", "1" if has_sensor_config else "0")
+    if request_delay is not None:
+        set_state("request_delay", str(max(0.0, float(request_delay))))
 
 
 def count_checked_combos() -> int:

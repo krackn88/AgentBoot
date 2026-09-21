@@ -58,6 +58,7 @@ def _apply_checker_settings() -> None:
         full_bootstrap=session.get("full_bootstrap", True),
         auto_sensors=session.get("auto_sensors", False),
         capture_data=capture_data,
+        request_delay=session.get("request_delay", 0.35),
     )
 
 
@@ -71,7 +72,8 @@ class DeleteHitsRequest(BaseModel):
 class SaveSessionRequest(BaseModel):
     combos: str = ""
     proxies: str = ""
-    threads: int = 5
+    threads: int = 3
+    request_delay: float = 0.35
     full_bootstrap: bool = True
     auto_sensors: bool = False
 
@@ -136,6 +138,7 @@ async def save_session_state(body: SaveSessionRequest) -> dict[str, Any]:
         full_bootstrap=body.full_bootstrap,
         auto_sensors=body.auto_sensors,
         has_sensor_config=SENSOR_CONFIG_PATH.exists(),
+        request_delay=body.request_delay,
     )
     _apply_checker_settings()
     return {
@@ -195,7 +198,8 @@ async def smoke_test(body: SmokeTestRequest | None = None) -> dict[str, Any]:
 async def start_job(
     combos: str = Form(default=""),
     proxies: str = Form(default=""),
-    threads: str = Form(default="5"),
+    threads: str = Form(default="3"),
+    request_delay: str = Form(default="0.35"),
     full_bootstrap: str = Form(default="true"),
     auto_sensors: str = Form(default="false"),
     combo_file: UploadFile | None = File(default=None),
@@ -207,9 +211,14 @@ async def start_job(
         raise HTTPException(409, "A job is already running")
 
     try:
-        thread_count = max(1, min(int(threads or "5"), 50))
+        thread_count = max(1, min(int(threads or "3"), 20))
     except ValueError:
-        thread_count = 5
+        thread_count = 3
+
+    try:
+        delay_seconds = max(0.0, min(float(request_delay or "0.35"), 5.0))
+    except ValueError:
+        delay_seconds = 0.35
 
     bootstrap_enabled = full_bootstrap.lower() in {"1", "true", "yes"}
     auto_sensors_enabled = auto_sensors.lower() in {"1", "true", "yes"}
@@ -237,6 +246,7 @@ async def start_job(
         full_bootstrap=bootstrap_enabled,
         auto_sensors=auto_sensors_enabled,
         capture_data=capture_data,
+        request_delay=delay_seconds,
     )
 
     combo_lines: list[str] | None = None
@@ -301,6 +311,7 @@ async def start_job(
         full_bootstrap=bootstrap_enabled,
         auto_sensors=auto_sensors_enabled,
         has_sensor_config=SENSOR_CONFIG_PATH.exists(),
+        request_delay=delay_seconds,
     )
 
     result = worker.start(

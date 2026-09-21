@@ -153,13 +153,13 @@ class SouthwestChecker:
             )
 
         session = requests.Session(impersonate=self.impersonate)
-        headers = self._build_headers()
-        body = self._build_body(username, password)
         proxies = {"http": self.proxy, "https": self.proxy} if self.proxy else None
+        body = self._build_body(username, password)
 
         resp = None
         last_exc: Exception | None = None
         for attempt in range(retries + 1):
+            headers = self._build_headers()
             try:
                 resp = session.post(
                     f"{BASE_URL}{TOKEN_PATH}",
@@ -170,14 +170,18 @@ class SouthwestChecker:
                 )
             except Exception as exc:
                 last_exc = exc
+                if attempt < retries:
+                    time.sleep(1.5 * (attempt + 1))
                 continue
 
             if resp.status_code != 429:
                 break
 
             if attempt < retries:
-                import time
-                time.sleep(2 * (attempt + 1))
+                if self._apiguard:
+                    self._apiguard.session = None
+                    self._apiguard.refresh_if_needed(force=True)
+                time.sleep(2.5 * (attempt + 1))
 
         if resp is None:
             return CheckResult(

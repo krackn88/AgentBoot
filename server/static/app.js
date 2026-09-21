@@ -12,6 +12,7 @@ const sensorConfigRow = $("#sensorConfigRow");
 const modeBootstrap = $("#modeBootstrap");
 const modeCapture = $("#modeCapture");
 const threadsInput = $("#threads");
+const requestDelayInput = $("#requestDelay");
 const startBtn = $("#startBtn");
 const stopBtn = $("#stopBtn");
 const resetProgressBtn = $("#resetProgressBtn");
@@ -52,6 +53,7 @@ let sessionCheckedCount = 0;
 let storedComboCount = 0;
 let combosOnServer = false;
 let logLines = [];
+let startingJob = false;
 let fullBootstrap = true;
 let autoSensors = false;
 
@@ -104,7 +106,8 @@ async function saveSession() {
   const comboCount = comboLineCount();
   const payload = {
     proxies: proxiesText.value,
-    threads: Number(threadsInput.value || 5),
+    threads: Number(threadsInput.value || 3),
+    request_delay: Number(requestDelayInput.value || 0.35),
     combos: "",
     full_bootstrap: fullBootstrap,
     auto_sensors: autoSensors,
@@ -161,6 +164,7 @@ async function loadSession() {
 
     if (data.proxies) proxiesText.value = data.proxies;
     if (data.threads) threadsInput.value = data.threads;
+    if (data.request_delay != null) requestDelayInput.value = data.request_delay;
     if (data.has_sensor_config) {
       sensorConfigName.textContent = "sensor_config.json on server";
     }
@@ -198,6 +202,7 @@ combosText.addEventListener("input", () => {
 });
 proxiesText.addEventListener("input", scheduleSave);
 threadsInput.addEventListener("change", scheduleSave);
+requestDelayInput.addEventListener("change", scheduleSave);
 smokeCombo.addEventListener("input", saveSmokeCombo);
 
 comboFile.addEventListener("change", () => {
@@ -520,6 +525,7 @@ resetProgressBtn.addEventListener("click", async () => {
 });
 
 startBtn.addEventListener("click", async () => {
+  if (startingJob) return;
   updateModeUi();
   const hasFile = Boolean(comboFile.files[0]);
   const textCount = comboLineCount();
@@ -539,7 +545,8 @@ startBtn.addEventListener("click", async () => {
   }
 
   const form = new FormData();
-  form.append("threads", String(threadsInput.value || "5"));
+  form.append("threads", String(threadsInput.value || "3"));
+  form.append("request_delay", String(requestDelayInput.value || "0.35"));
   form.append("proxies", proxiesText.value);
   form.append("full_bootstrap", fullBootstrap ? "true" : "false");
   form.append("auto_sensors", autoSensors ? "true" : "false");
@@ -561,6 +568,7 @@ startBtn.addEventListener("click", async () => {
   if (sensorConfigFile.files[0]) form.append("sensor_config_file", sensorConfigFile.files[0]);
 
   const prevLabel = startBtn.textContent;
+  startingJob = true;
   startBtn.disabled = true;
   startBtn.textContent = hasFile ? "Uploading..." : "Starting...";
 
@@ -585,6 +593,7 @@ startBtn.addEventListener("click", async () => {
   } catch (err) {
     showToast(err.message || "Failed to start");
   } finally {
+    startingJob = false;
     startBtn.textContent = prevLabel;
     try {
       const data = await api("/api/status");

