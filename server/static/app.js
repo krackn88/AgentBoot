@@ -685,12 +685,13 @@ function updateStatus(data) {
   progressStats.textContent = parts.join(" · ") || "Ready";
 
   let statusLabel = "Idle";
-  if (data.preparing) statusLabel = "Preparing";
+  if (data.stopping) statusLabel = "Stopping";
+  else if (data.preparing) statusLabel = "Preparing";
   else if (data.running) statusLabel = "Running";
   statusPill.textContent = statusLabel;
-  statusPill.className = `status-pill ${data.running || data.preparing ? "running" : "idle"}`;
+  statusPill.className = `status-pill ${data.running || data.preparing || data.stopping ? "running" : "idle"}`;
 
-  const busy = Boolean(data.running || data.preparing);
+  const busy = Boolean(data.running || data.preparing || data.stopping);
   startBtn.disabled = busy;
   stopBtn.disabled = !busy;
   resetProgressBtn.disabled = busy;

