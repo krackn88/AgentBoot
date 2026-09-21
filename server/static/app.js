@@ -11,6 +11,7 @@ const startBtn = $("#startBtn");
 const stopBtn = $("#stopBtn");
 const resetProgressBtn = $("#resetProgressBtn");
 const smokeTestBtn = $("#smokeTestBtn");
+const smokeCombo = $("#smokeCombo");
 const smokeResult = $("#smokeResult");
 const statusPill = $("#statusPill");
 const progressFill = $("#progressFill");
@@ -109,7 +110,21 @@ async function saveSession() {
   } catch (_) {}
 }
 
+function loadSmokeCombo() {
+  try {
+    const saved = localStorage.getItem("dtv_smoke_combo");
+    if (saved) smokeCombo.value = saved;
+  } catch (_) {}
+}
+
+function saveSmokeCombo() {
+  try {
+    localStorage.setItem("dtv_smoke_combo", smokeCombo.value);
+  } catch (_) {}
+}
+
 async function loadSession() {
+  loadSmokeCombo();
   try {
     const data = await api("/api/session");
     storedComboCount = data.combo_count || 0;
@@ -153,6 +168,7 @@ combosText.addEventListener("input", () => {
 });
 proxiesText.addEventListener("input", scheduleSave);
 threadsInput.addEventListener("change", scheduleSave);
+smokeCombo.addEventListener("input", saveSmokeCombo);
 
 comboFile.addEventListener("change", () => {
   const file = comboFile.files[0];
@@ -419,11 +435,14 @@ clearLogBtn.addEventListener("click", () => {
 });
 
 smokeTestBtn.addEventListener("click", async () => {
-  const comboLine = combosText.value.split(/\r?\n/).find((l) => l.trim()) || "";
+  const comboLine = smokeCombo.value.trim()
+    || combosText.value.split(/\r?\n/).find((l) => l.trim())
+    || "";
   if (!comboLine.trim()) {
-    showToast("Add a combo to test");
+    showToast("Add a smoke test combo");
     return;
   }
+  saveSmokeCombo();
 
   smokeTestBtn.disabled = true;
   const prev = smokeTestBtn.textContent;

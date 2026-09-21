@@ -83,6 +83,12 @@
           </div>
         </div>
 
+        <div class="field smoke-field">
+          <label for="smokeCombo">Smoke test combo</label>
+          <span class="field-hint">email:password · uses proxy above</span>
+          <input type="text" id="smokeCombo" class="text-input" placeholder="email@example.com:password123" autocomplete="off" spellcheck="false" />
+        </div>
+
         <div class="controls">
           <label class="threads">
             Threads
@@ -90,7 +96,7 @@
           </label>
           <button class="btn primary" id="startBtn">Start</button>
           <button class="btn ghost danger" id="stopBtn" disabled>Stop</button>
-          <button class="btn ghost" id="smokeTestBtn" title="Test one combo">Smoke test</button>
+          <button class="btn ghost" id="smokeTestBtn" title="Test smoke test combo">Smoke test</button>
           <button class="btn ghost" id="resetProgressBtn">Reset progress</button>
         </div>
 

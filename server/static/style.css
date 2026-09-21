@@ -225,10 +225,27 @@ textarea {
   font-size: 0.78rem;
 }
 
-textarea:focus {
+textarea:focus,
+.text-input:focus {
   outline: none;
   border-color: var(--accent);
   box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.12);
+}
+
+.text-input {
+  width: 100%;
+  margin-top: 6px;
+  background: var(--surface-2);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+}
+
+.smoke-field {
+  margin-bottom: 10px;
 }
 
 .file-row {
