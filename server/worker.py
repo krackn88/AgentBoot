@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import itertools
+import os
 import random
 import threading
 import time
@@ -38,6 +39,7 @@ class JobStats:
     preparing: bool = False
     stop_requested: bool = False
     current: str = ""
+    last_progress_at: float = 0.0
     logs: list[str] = field(default_factory=list)
     log_seq: int = 0
 
@@ -111,6 +113,7 @@ class CheckerWorker:
                 "running": self.stats.running,
                 "preparing": self.stats.preparing,
                 "current": self.stats.current,
+                "last_progress_at": self.stats.last_progress_at,
                 "log_seq": self.stats.log_seq,
                 "logs": list(self.stats.logs[-200:]),
             }
@@ -213,6 +216,7 @@ class CheckerWorker:
     def _record_result(self, email: str, password: str, result) -> None:
         with self._lock:
             self.stats.checked += 1
+            self.stats.last_progress_at = time.time()
 
         status = result.status.lower()
         if status in FINAL_STATUSES:
@@ -268,12 +272,13 @@ class CheckerWorker:
         proxies: list[str],
         threads: int,
     ) -> None:
-        from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
+        from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, TimeoutError, wait
 
         proxy_cycle = itertools.cycle(proxies) if proxies else None
         combo_iter = iter(enumerate(combos))
         inflight: dict = {}
-        max_inflight = max(threads * 2, threads)
+        max_inflight = max(threads * 3, 4)
+        task_timeout = int(os.environ.get("FABLETICS_TASK_TIMEOUT", "100"))
 
         def task(idx: int, email: str, password: str):
             with self._lock:
@@ -307,11 +312,18 @@ class CheckerWorker:
                     for future in done:
                         email, password = inflight.pop(future)
                         try:
-                            result = future.result()
+                            result = future.result(timeout=task_timeout)
+                        except TimeoutError:
+                            with self._lock:
+                                self.stats.checked += 1
+                                self.stats.errors += 1
+                                self.stats.last_progress_at = time.time()
+                            self._log(f"TIMEOUT | {email} | exceeded {task_timeout}s")
                         except Exception as exc:
                             with self._lock:
                                 self.stats.checked += 1
                                 self.stats.errors += 1
+                                self.stats.last_progress_at = time.time()
                             self._log(f"ERROR | {email} | {exc}")
                         else:
                             if result is not None:
@@ -332,6 +344,7 @@ class CheckerWorker:
                 self.stats.preparing = False
                 self.stats.stop_requested = False
                 self.stats.current = ""
+                self.stats.last_progress_at = 0.0
 
 
 worker = CheckerWorker()

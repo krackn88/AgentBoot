@@ -357,7 +357,14 @@ def _solve_and_retry(
         return _classify_api_error(retry_exc, email, password)
 
 
-def check_account(
+def _check_hard_timeout(timeout: int) -> int:
+    env = os.environ.get("FABLETICS_CHECK_TIMEOUT", "").strip()
+    if env.isdigit():
+        return max(30, int(env))
+    return max(75, timeout * 2)
+
+
+def _check_account_inner(
     email: str,
     password: str,
     proxy: str | None | object = _UNSET,
@@ -387,6 +394,28 @@ def check_account(
         return CheckResult(status="ERROR", email=email, password=password, message=str(exc))
     finally:
         client.close()
+
+
+def check_account(
+    email: str,
+    password: str,
+    proxy: str | None | object = _UNSET,
+    timeout: int = 30,
+) -> CheckResult:
+    from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeout
+
+    hard_timeout = _check_hard_timeout(timeout)
+    with ThreadPoolExecutor(max_workers=1) as executor:
+        future = executor.submit(_check_account_inner, email, password, proxy, timeout)
+        try:
+            return future.result(timeout=hard_timeout)
+        except FutureTimeout:
+            return CheckResult(
+                status="ERROR",
+                email=email,
+                password=password,
+                message=f"Check timed out after {hard_timeout}s",
+            )
 
 
 def parse_combo(line: str) -> tuple[str, str] | None:
