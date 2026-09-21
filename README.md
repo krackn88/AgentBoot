@@ -133,6 +133,6 @@ Ported from [shape-android](https://github.com/vshbnj/shape-android) APIGuard 3 
 
 ## Notes
 
-- **Sensor headers expire.** When you start getting 429 errors, capture a fresh login session from the app and re-run `extract`.
+- **Sensor headers expire.** With `--full-bootstrap`, re-run the check to fetch a fresh init kernel. With capture mode, re-run `extract` when you start getting 429 errors.
 - **Rate limiting:** Use `--delay 2` (default) or higher between checks to avoid Akamai throttling.
 - **TLS fingerprinting:** Uses `curl_cffi` with Safari iOS impersonation to match the mobile app.

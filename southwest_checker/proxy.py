@@ -44,3 +44,18 @@ def resolve_proxy(
         if source:
             return parse_proxy(source)
     return None
+
+
+def parse_proxy_lines(lines: list[str]) -> tuple[list[str], list[str]]:
+    """Return valid proxy URLs and invalid raw lines."""
+    valid: list[str] = []
+    invalid: list[str] = []
+    for line in lines:
+        raw = line.strip()
+        if not raw or raw.startswith("#"):
+            continue
+        try:
+            valid.append(parse_proxy(raw))
+        except ValueError:
+            invalid.append(raw)
+    return valid, invalid

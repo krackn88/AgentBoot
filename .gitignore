@@ -7,3 +7,4 @@ __pycache__/
 .env
 combos.txt
 node_modules/
+.venv/
