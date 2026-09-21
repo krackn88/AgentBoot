@@ -10,6 +10,7 @@ from pathlib import Path
 
 from southwest_checker.checker import SouthwestChecker, load_combos
 from southwest_checker.chlz_parser import load_sensor_config, parse_capture, save_sensor_config
+from southwest_checker.proxy import resolve_proxy
 
 
 def cmd_extract(args: argparse.Namespace) -> int:
@@ -30,7 +31,10 @@ def cmd_extract(args: argparse.Namespace) -> int:
 
 def cmd_check(args: argparse.Namespace) -> int:
     config = load_sensor_config(args.config)
-    checker = SouthwestChecker.from_config(config, proxy=args.proxy)
+    proxy = resolve_proxy(args.proxy, config.get("proxy"))
+    if proxy:
+        print(f"Using proxy: {proxy.split('@')[-1]}")
+    checker = SouthwestChecker.from_config(config, proxy=proxy)
 
     if args.username and args.password:
         combos = [(args.username, args.password)]
@@ -104,7 +108,10 @@ def main() -> int:
     check_p.add_argument("-u", "--username", help="Single username to check")
     check_p.add_argument("-p", "--password", help="Single password to check")
     check_p.add_argument("-f", "--combo-file", help="File with username:password combos")
-    check_p.add_argument("--proxy", help="HTTP proxy URL")
+    check_p.add_argument(
+        "--proxy",
+        help="Proxy as URL or host:port:user:pass (falls back to SW_PROXY env / config)",
+    )
     check_p.add_argument("--delay", type=float, default=2.0, help="Delay between checks (seconds)")
     check_p.add_argument("--hits-file", help="Append hits to this file")
     check_p.add_argument("--json-output", help="Save all results as JSON")
