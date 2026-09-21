@@ -97,8 +97,18 @@ class CheckerWorker:
         with self._lock:
             self.stats.stop_requested = True
 
+    def _reset_job_state(self) -> None:
+        self.stats.running = False
+        self.stats.preparing = False
+        self.stats.stop_requested = False
+        self.stats.current = ""
+        self.stats.last_progress_at = 0.0
+
     def snapshot(self) -> dict[str, Any]:
         with self._lock:
+            stopping = self.stats.stop_requested and (
+                self.stats.running or self.stats.preparing
+            )
             return {
                 "total": self.stats.total,
                 "queued": self.stats.queued,
@@ -112,6 +122,7 @@ class CheckerWorker:
                 "errors": self.stats.errors,
                 "running": self.stats.running,
                 "preparing": self.stats.preparing,
+                "stopping": stopping,
                 "current": self.stats.current,
                 "last_progress_at": self.stats.last_progress_at,
                 "log_seq": self.stats.log_seq,
@@ -152,6 +163,7 @@ class CheckerWorker:
             for line in self._iter_combo_lines(combo_lines, combo_file):
                 with self._lock:
                     if self.stats.stop_requested:
+                        self._log("Stop requested — cancelled during prep")
                         return
 
                 raw_count += 1
@@ -205,6 +217,12 @@ class CheckerWorker:
                 self.stats.preparing = False
                 self.stats.running = False
             self._log(f"ERROR | job prep failed | {exc}")
+        finally:
+            with self._lock:
+                if self.stats.running or self.stats.preparing:
+                    if self.stats.stop_requested:
+                        self._log("Job stopped")
+                    self._reset_job_state()
 
     def _pick_proxy(self, proxies: list[str], index: int) -> str | None:
         if not proxies:
@@ -301,50 +319,57 @@ class CheckerWorker:
             inflight[future] = (email, password)
             return True
 
+        pool = ThreadPoolExecutor(max_workers=threads)
+        stopped = False
         try:
-            with ThreadPoolExecutor(max_workers=threads) as pool:
-                for _ in range(min(max_inflight, len(combos))):
-                    if not submit_next(pool):
+            for _ in range(min(max_inflight, len(combos))):
+                if not submit_next(pool):
+                    break
+
+            while inflight:
+                with self._lock:
+                    if self.stats.stop_requested:
+                        stopped = True
+                        for pending in list(inflight):
+                            pending.cancel()
+                        inflight.clear()
+                        self._log("Stop requested — halting checker")
                         break
 
-                while inflight:
-                    done, _ = wait(inflight, return_when=FIRST_COMPLETED)
-                    for future in done:
-                        email, password = inflight.pop(future)
-                        try:
-                            result = future.result(timeout=task_timeout)
-                        except TimeoutError:
-                            with self._lock:
-                                self.stats.checked += 1
-                                self.stats.errors += 1
-                                self.stats.last_progress_at = time.time()
-                            self._log(f"TIMEOUT | {email} | exceeded {task_timeout}s")
-                        except Exception as exc:
-                            with self._lock:
-                                self.stats.checked += 1
-                                self.stats.errors += 1
-                                self.stats.last_progress_at = time.time()
-                            self._log(f"ERROR | {email} | {exc}")
-                        else:
-                            if result is not None:
-                                self._record_result(email, password, result)
+                done, _ = wait(inflight, return_when=FIRST_COMPLETED, timeout=1.0)
+                if not done:
+                    continue
+
+                for future in done:
+                    email, password = inflight.pop(future)
+                    try:
+                        result = future.result(timeout=task_timeout)
+                    except TimeoutError:
+                        with self._lock:
+                            self.stats.checked += 1
+                            self.stats.errors += 1
+                            self.stats.last_progress_at = time.time()
+                        self._log(f"TIMEOUT | {email} | exceeded {task_timeout}s")
+                    except Exception as exc:
+                        with self._lock:
+                            self.stats.checked += 1
+                            self.stats.errors += 1
+                            self.stats.last_progress_at = time.time()
+                        self._log(f"ERROR | {email} | {exc}")
+                    else:
+                        if result is not None:
+                            self._record_result(email, password, result)
+                        if not stopped:
                             time.sleep(random.uniform(0.15, 0.45))
 
+                    if not stopped:
                         submit_next(pool)
-
-                    with self._lock:
-                        if self.stats.stop_requested:
-                            for pending in inflight:
-                                pending.cancel()
-                            inflight.clear()
-                            break
         finally:
+            pool.shutdown(wait=False, cancel_futures=True)
             with self._lock:
-                self.stats.running = False
-                self.stats.preparing = False
-                self.stats.stop_requested = False
-                self.stats.current = ""
-                self.stats.last_progress_at = 0.0
+                if stopped or self.stats.stop_requested:
+                    self._log("Job stopped")
+                self._reset_job_state()
 
 
 worker = CheckerWorker()
