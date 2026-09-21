@@ -352,11 +352,12 @@ def main() -> int:
             if found
             else (
                 f"Static ChaCha-CFB search peaked at {overall_best.get('score', 0)}/10. "
-                "GI[135] loads five Gq constants (31,10,6,54,0) with rotations (3,6,*,1) "
-                "but E/G/TAG key layouts and schedules do not reproduce the f5 anchor. "
-                "Next: hook Uint32Array writes during real ck lazy-decrypt (trigger_ck_lazy_decrypt.js "
-                "bootstrap path) to capture the 16-word init state and quarter-round index schedule; "
-                "or trace GI[135] parent-frame slots (M[slot_q], M[slot_v]) from a live ck module load."
+                "GI[135] bootstrap call r(135,91131,5) returns an instrumentation closure "
+                "{init,teardown}, not decrypted bytes; ck stays encrypted in JSDOM through "
+                "bootstrap+probe callback (0 LuaJIT fromCharCode events). "
+                "D params require either: (1) static VM emulation of GI[135] body at Q~104826 "
+                "with custom key_layout/schedule decoded from op186 quarter-round indices, or "
+                "(2) native runtime capture (Frida/device) during real ck lazy-load."
             )
         ),
     }
