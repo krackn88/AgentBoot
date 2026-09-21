@@ -186,8 +186,11 @@ class SouthwestChecker:
 
             if attempt < retries:
                 if self._apiguard:
-                    self._apiguard.session = None
-                    self._apiguard.refresh_if_needed(force=True)
+                    if self.full_bootstrap:
+                        self._apiguard.refresh_session_headers()
+                    else:
+                        self._apiguard.session = None
+                        self._apiguard.refresh_if_needed(force=True)
                 time.sleep(2.5 * (attempt + 1))
 
         if resp is None:

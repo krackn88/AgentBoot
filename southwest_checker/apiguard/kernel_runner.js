@@ -1,12 +1,6 @@
 #!/usr/bin/env node
 /**
  * Execute APIGuard kernel JS and capture session headers via webkit bridge mock.
- *
- * The iOS kernel expects:
- *   window.global.nativeAgent
- *   window.webkit.messageHandlers.{send,pushMinPayload,pushMaxPayload}
- *
- * Output JSON: { kernelId, sk, headers, errors }
  */
 "use strict";
 
@@ -14,6 +8,8 @@ const crypto = require("crypto");
 const { fetch: undiciFetch, ProxyAgent } = require("undici");
 const { JSDOM } = require("jsdom");
 const canvas = require("canvas");
+const { createProbeHandler, decodeSendRequest, REPLAY_PATH } = require("./probe_handler");
+const fs = require("fs");
 
 const INIT_URL =
   process.env.SW_INIT_URL ||
@@ -25,6 +21,8 @@ const UA =
 const REQUEST_URL =
   process.env.SW_REQUEST_URL ||
   "https://mobile.southwest.com/api/security/v4/security/token";
+const PROBE_MODE =
+  process.env.SW_PROBE_MODE || (fs.existsSync(REPLAY_PATH) ? "replay" : "hmac-chain");
 
 function normalizeProxy(value) {
   const raw = String(value || "").trim();
@@ -68,7 +66,6 @@ function nativeFn(name, impl = () => null) {
   return fn;
 }
 
-/** Parse comma-joined header payload: name,value,name,value,... */
 function parseHeaderPayload(raw) {
   const headers = {};
   if (!raw || typeof raw !== "string") return headers;
@@ -90,16 +87,17 @@ function makeHandler(name, fn) {
   return { postMessage: nativeFn("postMessage", fn) };
 }
 
-function buildBridge(onHeaders) {
+function buildBridge(onHeaders, initData) {
   const pendingSend = [];
+  const computeProbe = createProbeHandler(initData.sk, PROBE_MODE);
 
   const sendHandler = makeHandler("send", (...args) => {
     try {
-      const req = JSON.parse(args[0]);
-      const resp = req.map(() => crypto.randomBytes(16).toString("base64url"));
-      pendingSend.push({ reqLen: req.length });
-      return JSON.stringify(resp);
-    } catch {
+      const tokens = decodeSendRequest(args[0]);
+      pendingSend.push({ reqLen: tokens.length, ok: tokens.length > 0 });
+      return computeProbe(args[0]);
+    } catch (err) {
+      pendingSend.push({ error: err.message });
       return "[]";
     }
   });
@@ -130,7 +128,7 @@ function buildBridge(onHeaders) {
 function runKernel(initData, requestUrl) {
   const headers = {};
   const errors = [];
-  const { messageHandlers } = buildBridge(headers);
+  const { messageHandlers, pendingSend } = buildBridge(headers, initData);
 
   const agent = {
     ios: {},
@@ -153,6 +151,9 @@ function runKernel(initData, requestUrl) {
   const { window } = dom;
   Object.defineProperty(window.navigator, "userAgent", { get: () => UA });
   Object.defineProperty(window.navigator, "platform", { get: () => "iPhone" });
+  Object.defineProperty(window.navigator, "maxTouchPoints", { get: () => 5 });
+  Object.defineProperty(window.navigator, "language", { get: () => "en-US" });
+  Object.defineProperty(window.navigator, "languages", { get: () => ["en-US"] });
 
   window.HTMLCanvasElement.prototype.getContext = function (type) {
     const c = canvas.createCanvas(this.width || 300, this.height || 150);
@@ -165,13 +166,13 @@ function runKernel(initData, requestUrl) {
   script.textContent = initData.kernel;
   window.document.body.appendChild(script);
 
-  // Allow bootstrap probes to finish (bounded)
   const start = Date.now();
   while (Date.now() - start < 2500) {
-    // spin briefly; kernel runs synchronously on appendChild
+    // allow sync kernel work to finish
   }
 
-  if (typeof window.__callback === "function") {
+  let hasCallback = typeof window.__callback === "function";
+  if (hasCallback) {
     try {
       window.__callback("POST", requestUrl);
     } catch (e) {
@@ -179,12 +180,20 @@ function runKernel(initData, requestUrl) {
     }
   }
 
-  return { headers, errors, hasCallback: typeof window.__callback === "function" };
+  const probeOk = pendingSend.filter((p) => p.ok).length;
+  const probeFail = pendingSend.filter((p) => !p.ok).length;
+
+  return {
+    headers,
+    errors,
+    hasCallback,
+    probeStats: { total: pendingSend.length, ok: probeOk, fail: probeFail, mode: PROBE_MODE },
+  };
 }
 
 async function main() {
   const initData = await fetchInit();
-  const { headers, errors, hasCallback } = runKernel(initData, REQUEST_URL);
+  const { headers, errors, hasCallback, probeStats } = runKernel(initData, REQUEST_URL);
 
   const out = {
     kernelId: initData.kernelId,
@@ -192,6 +201,7 @@ async function main() {
     headers,
     headerKeys: Object.keys(headers).sort(),
     hasCallback,
+    probeStats,
     errors,
   };
 
@@ -199,7 +209,11 @@ async function main() {
   process.exit(errors.length && !Object.keys(headers).length ? 1 : 0);
 }
 
-main().catch((e) => {
-  console.error(JSON.stringify({ error: e.message, stack: e.stack }));
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch((e) => {
+    console.error(JSON.stringify({ error: e.message, stack: e.stack }));
+    process.exit(1);
+  });
+}
+
+module.exports = { fetchInit, runKernel, REQUEST_URL, UA, API_KEY };

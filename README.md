@@ -146,6 +146,30 @@ python -m southwest_checker check -c sensor_config.json -u USER -p PASS --auto-s
 
 The init endpoint `/sw_check/ios/init` returns `kernelId`, `kernel` (JS), `ck` (LuaJIT modules), and `sk` (session key). With `--full-bootstrap`, a Node.js kernel runner executes the init JS inside jsdom, mocks the iOS webkit bridge, and captures session headers before Python generates fresh `-e`/`-g`.
 
+#### Full bootstrap status
+
+| Component | Status |
+|-----------|--------|
+| Init fetch + kernel JS execution | Working |
+| `pushMinPayload` / `pushMaxPayload` header capture | Working |
+| `send` probe handler parse | Fixed (was JSON-parsing an already-parsed array → all 37 probes returned `[]`) |
+| `send` probe crypto via `sk` | **Not yet reversed** — Akamai still returns 429 with computed probes |
+| Capture template + fresh `-e`/`-g` | **Working** (recommended for production) |
+
+To unblock full bootstrap without Charles captures, capture real probe pairs from an iOS device:
+
+```bash
+# 1. Run Frida on a jailbroken device during Southwest login
+frida -U -f com.southwest.iphoneprod -l deploy/frida_capture_ios_probes.js
+
+# 2. Save captured pairs to data/probe_replay.json (see deploy/probe_replay.template.json)
+
+# 3. Re-run with replay mode (auto-detected when file exists)
+SW_PROBE_MODE=replay node southwest_checker/apiguard/kernel_runner.js
+```
+
+Probe modes can be tuned via env: `SW_PROBE_MODE` (`replay`, `hmac-chain`, `random`, …) and `SW_PROBE_KEY` (`sk-key`, `sk-xor`).
+
 ### Cipher details
 
 Ported from [shape-android](https://github.com/vshbnj/shape-android) APIGuard 3 reverse engineering:

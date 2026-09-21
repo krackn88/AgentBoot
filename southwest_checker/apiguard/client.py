@@ -97,12 +97,12 @@ class APIGuardClient:
 
     def _init_from_kernel(self) -> InitSession:
         """Execute init kernel JS and capture session headers via webkit bridge mock."""
+        prev_pid = self._prev_kernel_id()
         data = run_kernel_bootstrap(
             request_url=f"{BASE_URL}{TOKEN_PATH}",
             proxy=self.proxy,
         )
         headers = data.get("headers") or {}
-        prev_pid = self._prev_kernel_id()
 
         self.session = InitSession(
             kernel_id=data.get("kernelId") or headers.get(f"{HEADER_FAMILY}-f", ""),
@@ -117,6 +117,17 @@ class APIGuardClient:
         self.profile.kid = self.session.kernel_id
         self.profile.pid = prev_pid
         return self.session
+
+    def refresh_session_headers(self, request_url: str | None = None) -> None:
+        """Re-run kernel bootstrap to refresh JS session headers (-a/-c/-d)."""
+        if not self.full_bootstrap:
+            return
+        prev = self.session.kernel_id if self.session else ""
+        self.session = None
+        self.init()
+        if prev and self.session:
+            self.session.pid = prev
+            self.profile.pid = prev
 
     def _init_from_template(self) -> InitSession:
         """Use captured session headers as-is (no HTTP init / kernel rotation)."""
@@ -214,4 +225,7 @@ class APIGuardClient:
 
     def refresh_if_needed(self, force: bool = False) -> None:
         if force or not self.session:
-            self.init()
+            if self.full_bootstrap and self.session and force:
+                self.refresh_session_headers()
+            else:
+                self.init()

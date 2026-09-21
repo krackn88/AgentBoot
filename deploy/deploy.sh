@@ -28,6 +28,10 @@ elif [ -f deploy/default_sensor_config.json ]; then
   cp deploy/default_sensor_config.json data/sensor_config.json
   echo "==> Installed deploy/default_sensor_config.json for capture mode"
 fi
+if [ -f deploy/probe_replay.template.json ] && [ ! -f data/probe_replay.json ]; then
+  cp deploy/probe_replay.template.json data/probe_replay.json
+  echo "==> Installed probe_replay template (replace with captured iOS probe pairs)"
+fi
 
 sudo chown -R www-data:www-data data || true
 sudo chmod 775 data || true
