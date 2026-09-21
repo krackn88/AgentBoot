@@ -1,0 +1,8 @@
+sensor_config.json
+*.chlz
+hits.txt
+results.json
+__pycache__/
+*.pyc
+.env
+combos.txt
