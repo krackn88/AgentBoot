@@ -9,8 +9,8 @@ from fastapi.responses import FileResponse, PlainTextResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from dtv.checker import check_account, parse_combo
-from dtv.proxy import parse_proxy
+from dtv.checker import check_account, parse_combo, probe_geo_blocked
+from dtv.proxy import parse_proxy, parse_proxy_lines
 
 from .combo_store import (
     COMBOS_PATH,
@@ -215,12 +215,32 @@ async def start_job(
             _lines_from_text(PROXIES_PATH.read_text(encoding="utf-8", errors="replace"))
         )
 
+    parsed_proxies, invalid_proxies = parse_proxy_lines(proxy_lines)
     proxies_text = "\n".join(proxy_lines) if proxy_lines else proxies
     if proxy_lines:
         try:
             write_text_file(PROXIES_PATH, proxies_text)
         except OSError as exc:
             raise HTTPException(500, f"Cannot write proxy file: {exc}") from exc
+
+    if invalid_proxies and not parsed_proxies:
+        raise HTTPException(
+            400,
+            f"All {len(invalid_proxies)} proxy line(s) are invalid. "
+            "Use host:port:user:pass or http://user:pass@host:port",
+        )
+
+    if not parsed_proxies and probe_geo_blocked():
+        raise HTTPException(
+            400,
+            "DIRECTV geo-blocks this server IP. US residential proxies are required.",
+        )
+
+    if parsed_proxies and probe_geo_blocked(proxy=parsed_proxies[0]):
+        raise HTTPException(
+            400,
+            "Proxies are configured but still geo-blocked. Check proxy format and US residential IPs.",
+        )
 
     save_session(
         "" if combos_stored else combos,
@@ -233,7 +253,7 @@ async def start_job(
     result = worker.start(
         combo_lines=combo_lines,
         combo_file=combo_file_path,
-        proxies=proxy_lines,
+        proxies=[line for line in proxy_lines if line.strip()],
         threads=thread_count,
     )
     if not result.get("ok"):

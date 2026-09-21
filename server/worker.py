@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any, Iterable
 
 from dtv.checker import _UNSET, check_account, parse_combo
-from dtv.proxy import parse_proxy
+from dtv.proxy import parse_proxy_lines
 
 from .combo_store import iter_nonempty_lines
 from .db import FINAL_STATUSES, combo_key, get_checked_keys, insert_hit, mark_combo_checked
@@ -57,20 +57,17 @@ class CheckerWorker:
             if not combo_lines and (combo_file is None or not combo_file.exists()):
                 return {"ok": False, "error": "no_combos"}
 
-            parsed_proxies: list[str] = []
-            for line in proxies:
-                line = line.strip()
-                if not line or line.startswith("#"):
-                    continue
-                try:
-                    parsed_proxies.append(parse_proxy(line))
-                except ValueError:
-                    continue
+            parsed_proxies, invalid_proxies = parse_proxy_lines(proxies)
+            prep_logs = ["Preparing combo list..."]
+            if invalid_proxies:
+                prep_logs.append(
+                    f"Skipped {len(invalid_proxies)} invalid proxy line(s) — use host:port:user:pass"
+                )
 
             self.stats = JobStats(
                 running=True,
                 preparing=True,
-                logs=["Preparing combo list..."],
+                logs=prep_logs,
             )
 
         self._thread = threading.Thread(

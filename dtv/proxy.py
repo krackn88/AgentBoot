@@ -33,6 +33,20 @@ def parse_proxy(value: str) -> str:
     )
 
 
+def parse_proxy_lines(lines: list[str]) -> tuple[list[str], list[str]]:
+    valid: list[str] = []
+    invalid: list[str] = []
+    for raw in lines:
+        line = raw.strip()
+        if not line or line.startswith("#"):
+            continue
+        try:
+            valid.append(parse_proxy(line))
+        except ValueError:
+            invalid.append(line)
+    return valid, invalid
+
+
 def with_rotating_session(proxy_url: str) -> str:
     """Give each check a fresh residential IP when the provider supports session tags."""
     parsed = urlparse(proxy_url)
