@@ -26,6 +26,16 @@ BRANCH=cursor/dtv-checker-88aa PORT=8092 bash deploy/deploy.sh
 
 Installs to `/opt/dtv-checker` and runs via systemd on port 8092.
 
+## Standalone GUI (Windows / Linux)
+
+Download: http://159.69.76.189:8092/static/downloads/dtv-checker-gui.zip
+
+Extract and run:
+- **Windows:** double-click `start.bat`
+- **Linux:** `chmod +x start.sh && ./start.sh`
+
+First run installs Python dependencies automatically (requires Python 3.10+).
+
 ## CLI Usage
 
 Single combo:
