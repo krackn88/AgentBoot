@@ -11,6 +11,7 @@ from pathlib import Path
 from southwest_checker.checker import SouthwestChecker, load_combos
 from southwest_checker.chlz_parser import load_sensor_config, parse_capture, save_sensor_config
 from southwest_checker.proxy import resolve_proxy
+from southwest_checker.apiguard.headers import decode_e, decode_g
 
 
 def cmd_extract(args: argparse.Namespace) -> int:
@@ -29,12 +30,28 @@ def cmd_extract(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_decode(args: argparse.Namespace) -> int:
+    if args.header_type == "e":
+        decoded = decode_e(args.token)
+        sensor = json.loads(decoded["sensor"].decode("latin1"))
+        print(json.dumps(sensor, indent=2))
+    elif args.header_type == "g":
+        decoded = decode_g(args.token)
+        signal = json.loads(decoded["signal"].decode("utf-8"))
+        print(json.dumps(signal, indent=2))
+    return 0
+
+
 def cmd_check(args: argparse.Namespace) -> int:
     config = load_sensor_config(args.config)
     proxy = resolve_proxy(args.proxy, config.get("proxy"))
     if proxy:
         print(f"Using proxy: {proxy.split('@')[-1]}")
-    checker = SouthwestChecker.from_config(config, proxy=proxy)
+    if args.auto_sensors:
+        print("APIGuard: generating fresh -e/-g headers per request")
+    checker = SouthwestChecker.from_config(
+        config, proxy=proxy, auto_sensors=args.auto_sensors
+    )
 
     if args.username and args.password:
         combos = [(args.username, args.password)]
@@ -115,6 +132,15 @@ def main() -> int:
     check_p.add_argument("--delay", type=float, default=2.0, help="Delay between checks (seconds)")
     check_p.add_argument("--hits-file", help="Append hits to this file")
     check_p.add_argument("--json-output", help="Save all results as JSON")
+    check_p.add_argument(
+        "--auto-sensors",
+        action="store_true",
+        help="Generate fresh -e/-g APIGuard headers per request (requires capture template)",
+    )
+
+    decode_p = sub.add_parser("decode", help="Decode an APIGuard header token")
+    decode_p.add_argument("header_type", choices=["e", "g"], help="Header type to decode")
+    decode_p.add_argument("token", help="Header value to decode")
 
     args = parser.parse_args()
 
@@ -122,6 +148,8 @@ def main() -> int:
         return cmd_extract(args)
     if args.command == "check":
         return cmd_check(args)
+    if args.command == "decode":
+        return cmd_decode(args)
     return 1
 
 

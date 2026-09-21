@@ -95,6 +95,40 @@ Key response fields:
 - `customers.userInformation.nextTierTargeted`
 - `customers.userInformation.companionPassInfo.companionQualifyingPointsRemaining`
 
+## APIGuard sensor generation
+
+The checker can generate fresh `-e` and `-g` APIGuard headers per request using the reverse-engineered ChaCha-CFB cipher from APIGuard 3.
+
+```bash
+# Decode a captured header to inspect its contents
+python -m southwest_checker decode e "b;...;..."
+
+# Check with auto-generated -e/-g (session headers -a/-c/-d/-f from capture template)
+python -m southwest_checker check -c sensor_config.json -u USER -p PASS --auto-sensors
+```
+
+### How it works
+
+| Header | Source | Per-request? |
+|--------|--------|--------------|
+| `-e` | Generated (device sensor JSON + ChaCha encrypt) | Yes |
+| `-g` | Generated (iOS signal JSON + ChaCha encrypt) | Yes |
+| `-a` | Session template from Charles capture | No |
+| `-c` | Session template from Charles capture | No |
+| `-d` | Session template from Charles capture | No |
+| `-f` | kernelId from capture (or `/sw_check/ios/init`) | No |
+| `-b`, `-z` | Static constants | No |
+
+The init endpoint `/sw_check/ios/init` returns `kernelId`, `kernel` (JS), `ck` (LuaJIT modules), and `sk` (session key). Full session bootstrap (generating `-a`/`-c`/`-d` from init alone) is not yet implemented — re-capture from the app when session headers expire.
+
+### Cipher details
+
+Ported from [shape-android](https://github.com/vshbnj/shape-android) APIGuard 3 reverse engineering:
+
+- `-e`: `b;base64(ChaChaCFB(deflate(sensorJSON)))`;base64(key32)`
+- `-g`: `base64(ChaChaCFB("1;"+base64(zlib(signalJSON))))`;base64(key32)`;g`
+- Key derivation: `key32 XOR "X-dUblrIiu-"`
+
 ## Notes
 
 - **Sensor headers expire.** When you start getting 429 errors, capture a fresh login session from the app and re-run `extract`.
