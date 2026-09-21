@@ -13,18 +13,18 @@ pip install -r requirements.txt
 Start the checker UI locally:
 
 ```bash
-uvicorn server.app:app --host 0.0.0.0 --port 8091
+uvicorn server.app:app --host 0.0.0.0 --port 8092
 ```
 
-Open `http://localhost:8091` — light-themed UI with combo upload, proxy paste, configurable threads, CPM, live log, and single-line hits (select/copy/delete).
+Open `http://localhost:8092` — light-themed UI with combo upload, proxy paste, configurable threads, CPM, live log, and single-line hits (select/copy/delete).
 
 ### Deploy to dedi
 
 ```bash
-BRANCH=cursor/dtv-checker-88aa PORT=8091 bash deploy/deploy.sh
+BRANCH=cursor/dtv-checker-88aa PORT=8092 bash deploy/deploy.sh
 ```
 
-Installs to `/opt/dtv-checker` and runs via systemd on port 8091.
+Installs to `/opt/dtv-checker` and runs via systemd on port 8092.
 
 ## CLI Usage
 

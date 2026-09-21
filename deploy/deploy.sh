@@ -4,7 +4,7 @@ set -euo pipefail
 APP_DIR="${APP_DIR:-/opt/dtv-checker}"
 REPO_URL="${REPO_URL:-https://github.com/krackn88/AgentBoot.git}"
 BRANCH="${BRANCH:-cursor/dtv-checker-88aa}"
-PORT="${PORT:-8091}"
+PORT="${PORT:-8092}"
 
 echo "==> Deploying DTV Checker to ${APP_DIR}"
 
@@ -28,7 +28,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-sudo sed "s/--port 8091/--port ${PORT}/" deploy/dtv-checker.service | sudo tee /etc/systemd/system/dtv-checker.service > /dev/null
+sudo sed "s/--port [0-9]\\+/--port ${PORT}/" deploy/dtv-checker.service | sudo tee /etc/systemd/system/dtv-checker.service > /dev/null
 sudo systemctl daemon-reload
 sudo systemctl enable dtv-checker
 sudo chown -R www-data:www-data "${APP_DIR}/data"
