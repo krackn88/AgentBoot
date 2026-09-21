@@ -168,7 +168,7 @@ async def smoke_test(body: SmokeTestRequest | None = None) -> dict[str, Any]:
 
     parsed = parse_combo(combo_line)
     if not parsed:
-        raise HTTPException(400, "Combo must be username:password")
+        raise HTTPException(400, "Combo must be email:password or username:password")
 
     username, password = parsed
     proxy_value = None

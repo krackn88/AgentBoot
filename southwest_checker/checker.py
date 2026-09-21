@@ -237,15 +237,28 @@ class SouthwestChecker:
         )
 
 
+def normalize_login(login: str) -> str:
+    """Convert email:pass login part to Southwest username when needed."""
+    login = login.strip()
+    if "@" in login:
+        login = login.split("@", 1)[0].strip()
+    return login
+
+
 def parse_combo(line: str) -> tuple[str, str] | None:
-    """Parse username:password from a combo line."""
+    """Parse username:password from a combo line.
+
+    Accepts email:password combos and extracts the local part before @ as
+    the Southwest Rapid Rewards username.
+    """
     line = line.strip()
     if not line or line.startswith("#"):
         return None
     if ":" not in line:
         return None
-    username, _, password = line.partition(":")
-    username, password = username.strip(), password.strip()
+    login, _, password = line.partition(":")
+    username = normalize_login(login)
+    password = password.strip()
     if not username or not password:
         return None
     return username, password

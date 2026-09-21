@@ -60,7 +60,7 @@ Single account:
 python -m southwest_checker check -c sensor_config.json -u gulley88 -p 'YourPassword'
 ```
 
-Combo file (`username:password` per line):
+Combo file (`email:password` or `username:password` per line — emails auto-convert to username):
 
 ```bash
 python -m southwest_checker check -c sensor_config.json -f combos.txt --hits-file hits.txt
