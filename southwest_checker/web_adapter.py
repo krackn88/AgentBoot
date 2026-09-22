@@ -73,6 +73,13 @@ def reset_runtime_state() -> None:
         _backoff_until = 0.0
 
 
+def evict_checker(proxy: str | None = None) -> None:
+    """Drop a cached checker instance (e.g. after a timed-out check)."""
+    key = _proxy_key(proxy)
+    with _pool_lock:
+        _checkers.pop(key, None)
+
+
 def load_capture_config(path: Path) -> dict[str, Any] | None:
     if not path.exists():
         return None
@@ -245,10 +252,9 @@ def check_account(
     password: str,
     *,
     proxy: Any = _UNSET,
-    timeout: int = 45,
+    timeout: int = 90,
     smoke_test: bool = False,
 ) -> WebCheckResult:
-    del timeout
     settings = get_job_settings()
     proxy_url = None if proxy is _UNSET else proxy
 
@@ -280,9 +286,26 @@ def check_account(
     if settings.request_delay > 0:
         time.sleep(settings.request_delay)
 
-    checker, lock = _get_shared_checker(proxy_url)
-    with lock:
-        result = checker.check(username, password, retries=settings.max_check_retries)
+    def _run_check() -> CheckResult:
+        checker, lock = _get_shared_checker(proxy_url)
+        with lock:
+            return checker.check(username, password, retries=settings.max_check_retries)
+
+    from concurrent.futures import ThreadPoolExecutor, TimeoutError as FuturesTimeoutError
+
+    with ThreadPoolExecutor(max_workers=1) as pool:
+        future = pool.submit(_run_check)
+        try:
+            result = future.result(timeout=max(15, timeout))
+        except FuturesTimeoutError:
+            evict_checker(proxy_url)
+            return WebCheckResult(
+                status="ERROR",
+                username=username,
+                password=password,
+                line=f"[ERROR] {username} | timed out after {timeout}s",
+                data={"error": f"timed out after {timeout}s"},
+            )
 
     _note_result(result)
     return _to_web_result(username, password, result)

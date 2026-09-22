@@ -297,6 +297,11 @@ async def start_job(
         request_delay=delay_seconds,
     )
 
+    # Full bootstrap runs node kernel JS per session; shared APIGuard lock serializes
+    # checks anyway — extra threads just increase stall risk.
+    if bootstrap_enabled and not auto_sensors_enabled and thread_count > 1:
+        thread_count = 1
+
     combo_lines: list[str] | None = None
     combo_file_path: Path | None = None
     combo_count = 0

