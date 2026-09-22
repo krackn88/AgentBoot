@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Southwest Checker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">SWA</div>
+        <div>
+          <h1>Southwest Rapid Rewards</h1>
+          <p class="brand-sub">mobile.southwest.com · APIGuard bootstrap</p>
+        </div>
+      </div>
+      <div class="status-pill" id="statusPill">Idle</div>
+    </header>
+
+    <section class="stats-row stats-row-7">
+      <div class="stat-card">
+        <span class="stat-label">Progress</span>
+        <span class="stat-value" id="statProgress">0 / 0</span>
+      </div>
+      <div class="stat-card accent">
+        <span class="stat-label">Hits</span>
+        <span class="stat-value" id="statHits">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">CPM</span>
+        <span class="stat-value" id="statCpm">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Bad</span>
+        <span class="stat-value" id="statBads">0</span>
+      </div>
+      <div class="stat-card muted">
+        <span class="stat-label">Retry</span>
+        <span class="stat-value" id="statRetries">0</span>
+      </div>
+      <div class="stat-card muted">
+        <span class="stat-label">Errors</span>
+        <span class="stat-value" id="statErrors">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Current</span>
+        <span class="stat-value stat-current" id="statCurrent">—</span>
+      </div>
+    </section>
+
+    <div class="layout">
+      <section class="panel input-panel">
+        <div class="panel-title">Run checker</div>
+
+        <div class="field">
+          <label for="combosText">Combos</label>
+          <span class="field-hint">email:pass or username:pass · emails auto-convert to username</span>
+          <textarea id="combosText" rows="6" placeholder="user@gmail.com:password123"></textarea>
+          <div class="file-row">
+            <label class="file-btn">
+              <input type="file" id="comboFile" accept=".txt,.csv" hidden />
+              Choose file
+            </label>
+            <span class="file-name" id="comboFileName">No file selected</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="proxiesText">Proxies</label>
+          <span class="field-hint">US residential recommended · host:port:user:pass</span>
+          <textarea id="proxiesText" rows="4" placeholder="core-residential.evomi.com:1000:user:pass_country-US"></textarea>
+          <div class="file-row">
+            <label class="file-btn">
+              <input type="file" id="proxyFile" accept=".txt,.csv" hidden />
+              Choose file
+            </label>
+            <span class="file-name" id="proxyFileName">No file selected</span>
+          </div>
+        </div>
+
+        <div class="field mode-field">
+          <label>APIGuard mode</label>
+          <div class="mode-options">
+            <label class="radio-row">
+              <input type="radio" name="apiguardMode" id="modeBootstrap" value="bootstrap" checked />
+              Full bootstrap (no capture needed)
+            </label>
+            <label class="radio-row">
+              <input type="radio" name="apiguardMode" id="modeCapture" value="capture" />
+              Capture template + fresh -e/-g
+            </label>
+          </div>
+          <div class="file-row" id="sensorConfigRow" hidden>
+            <label class="file-btn">
+              <input type="file" id="sensorConfigFile" accept=".json" hidden />
+              Upload sensor_config.json
+            </label>
+            <span class="file-name" id="sensorConfigName">No file selected</span>
+          </div>
+        </div>
+
+        <div class="field smoke-field">
+          <label for="smokeCombo">Smoke test combo</label>
+          <span class="field-hint">email:pass or username:pass · uses proxy above</span>
+          <input type="text" id="smokeCombo" class="text-input" placeholder="user@gmail.com:password" autocomplete="off" spellcheck="false" />
+        </div>
+
+        <div class="controls">
+          <label class="threads">
+            Threads
+            <input type="number" id="threads" min="1" max="20" value="3" />
+          </label>
+          <label class="threads">
+            Delay (s)
+            <input type="number" id="requestDelay" min="0" max="5" step="0.05" value="0.35" />
+          </label>
+          <button class="btn primary" id="startBtn">Start</button>
+          <button class="btn ghost danger" id="stopBtn" disabled>Stop</button>
+          <button class="btn ghost" id="smokeTestBtn" title="Test one combo">Smoke test</button>
+          <button class="btn ghost" id="resetProgressBtn">Reset progress</button>
+        </div>
+
+        <div class="smoke-result" id="smokeResult" hidden></div>
+        <p class="resume-hint" id="resumeHint"></p>
+
+        <div class="progress-wrap">
+          <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="progress-stats" id="progressStats">Ready</div>
+        </div>
+      </section>
+
+      <section class="panel results-panel">
+        <div class="panel-head">
+          <div>
+            <div class="panel-title">Hits</div>
+            <p class="panel-sub">Points · tier · account · email</p>
+          </div>
+          <div class="toolbar">
+            <button class="btn ghost small" id="selectAllBtn">Select all</button>
+            <button class="btn ghost small" id="copySelectedBtn" disabled>Copy</button>
+            <button class="btn ghost small" id="deleteSelectedBtn" disabled>Delete</button>
+            <button class="btn ghost small" id="copyAllBtn" disabled>Copy all</button>
+            <button class="btn ghost small" id="exportHitsBtn" disabled>Download</button>
+            <button class="btn ghost small danger" id="clearHitsBtn">Clear</button>
+          </div>
+        </div>
+        <div class="hits-list" id="hitsList">
+          <div class="empty-hits">No hits yet</div>
+        </div>
+      </section>
+    </div>
+
+    <section class="panel log-panel">
+      <div class="panel-head log-head">
+        <div class="panel-title">Live log</div>
+        <button class="btn ghost small" id="clearLogBtn">Clear view</button>
+      </div>
+      <pre class="log" id="logBox"></pre>
+    </section>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+{
+  "source": "/home/ubuntu/.cursor/projects/workspace/uploads/mobile.southwest.com__3__4657.chlz",
+  "login_request_id": "446",
+  "login_success": true,
+  "sensor_header_keys": [
+    "X-dUblrIiu-a",
+    "X-dUblrIiu-b",
+    "X-dUblrIiu-c",
+    "X-dUblrIiu-d",
+    "X-dUblrIiu-e",
+    "X-dUblrIiu-f",
+    "X-dUblrIiu-g",
+    "X-dUblrIiu-z"
+  ],
+  "decoded": {
+    "e": {
+      "pid": "A-rOANGSAQAAyBOT-omyClYi8mTNXD-U5klHwlCbRjjvXzXF1AFUhmeNO3gJAdBmOKMX2tuyCT8O8YLqosIO8Q==",
+      "kid": "A3ZfBMagAQAA98xvBoE7LzqH5a3OeMEfV13q4Ra8ZmlMKXMNwXrdoLOHc64wAdBmOKMX2lFBolgO8YLqosIO8Q==",
+      "sdk": "4.7.2",
+      "uri": "https://mobile.southwest.com/sw_check/ios/init",
+      "cid": "ios_config",
+      "sig": "[\"iPhone15,3\",\"124755628032\",\"644C0AC95B27F6C4\",\"com.southwest.iphoneprod\",\"13.20.2\",6,1471,\"c69ddac3\"]"
+    },
+    "g": {
+      "kernelId": "A3ZfBMagAQAA98xvBoE7LzqH5a3OeMEfV13q4Ra8ZmlMKXMNwXrdoLOHc64wAdBmOKMX2lFBolgO8YLqosIO8Q==",
+      "nonce": "1Nei6gB4L3GvMdut",
+      "all_keys": "52ad3338",
+      "jailbreak": "0"
+    }
+  },
+  "sensor_requests": [
+    {
+      "id": "190",
+      "method": "GET",
+      "path": "/api/mobile-misc/v1/mobile-misc/page/upcoming-trips",
+      "time": "2026-09-21T18:09:43.618-04:00",
+      "sensor_keys": [
+        "X-dUblrIiu-a",
+        "X-dUblrIiu-b",
+        "X-dUblrIiu-c",
+        "X-dUblrIiu-d",
+        "X-dUblrIiu-e",
+        "X-dUblrIiu-f",
+        "X-dUblrIiu-g",
+        "X-dUblrIiu-z"
+      ],
+      "a_len": 5376,
+      "a_head": "ifakrZGycyWPTDgONJ8uG3ccNI5J4H9b"
+    },
+    {
+      "id": "211",
+      "method": "GET",
+      "path": "/api/mobile-loyalty-management/v1/accounts",
+      "time": "2026-09-21T18:09:45.436-04:00",
+      "sensor_keys": [
+        "X-dUblrIiu-a",
+        "X-dUblrIiu-b",
+        "X-dUblrIiu-c",
+        "X-dUblrIiu-d",
+        "X-dUblrIiu-e",
+        "X-dUblrIiu-f",
+        "X-dUblrIiu-g",
+        "X-dUblrIiu-z"
+      ],
+      "a_len": 5376,
+      "a_head": "ifakrZGycyWPTDgONJ8uG3ccNI5J4H9b"
+    },
+    {
+      "id": "229",
+      "method": "GET",
+      "path": "/api/mobile-loyalty-management/v1/digital-wallets",
+      "time": "2026-09-21T18:09:56.611-04:00",
+      "sensor_keys": [
+        "X-dUblrIiu-a",
+        "X-dUblrIiu-b",
+        "X-dUblrIiu-c",
+        "X-dUblrIiu-d",
+        "X-dUblrIiu-e",
+        "X-dUblrIiu-f",
+        "X-dUblrIiu-g",
+        "X-dUblrIiu-z"
+      ],
+      "a_len": 5376,
+      "a_head": "ifakrZGycyWPTDgONJ8uG3ccNI5J4H9b"
+    },
+    {
+      "id": "238",
+      "method": "GET",
+      "path": "/api/mobile-air-booking/v1/mobile-air-booking/page/view-fund",
+      "time": "2026-09-21T18:10:06.682-04:00",
+      "sensor_keys": [
+        "X-dUblrIiu-a",
+        "X-dUblrIiu-b",
+        "X-dUblrIiu-c",
+        "X-dUblrIiu-d",
+        "X-dUblrIiu-e",
+        "X-dUblrIiu-f",
+        "X-dUblrIiu-g",
+        "X-dUblrIiu-z"
+      ],
+      "a_len": 5376,
+      "a_head": "ifakrZGycyWPTDgONJ8uG3ccNI5J4H9b"
+    },
+    {
+      "id": "263",
+      "method": "POST",
+      "path": "/api/mobile-misc/v1/mobile-misc/page/my-account/promo-codes",
+      "time": "2026-09-21T18:10:13.390-04:00",
+      "sensor_keys": [
+        "X-dUblrIiu-a",
+        "X-dUblrIiu-b",
+        "X-dUblrIiu-c",
+        "X-dUblrIiu-d",
+        "X-dUblrIiu-e",
+        "X-dUblrIiu-f",
+        "X-dUblrIiu-g",
+        "X-dUblrIiu-z"
+      ],
+      "a_len": 5376,
+      "a_head": "ifakrZGycyWPTDgONJ8uG3ccNI5J4H9b"
+    },
+    {
+      "id": "376",
+      "method": "GET",
+      "path": "/api/mobile-loyalty-management/v1/accounts",
+      "time": "2026-09-21T18:10:35.322-04:00",
+      "sensor_keys": [
+        "X-dUblrIiu-a",
+        "X-dUblrIiu-b",
+        "X-dUblrIiu-c",
+        "X-dUblrIiu-d",
+        "X-dUblrIiu-e",
+        "X-dUblrIiu-f",
+        "X-dUblrIiu-g",
+        "X-dUblrIiu-z"
+      ],
+      "a_len": 5376,
+      "a_head": "ifakrZGycyWPTDgONJ8uG3ccNI5J4H9b"
+    },
+    {
+      "id": "395",
+      "method": "GET",
+      "path": "/api/mobile-loyalty-management/v1/digital-wallets",
+      "time": "2026-09-21T18:10:44.208-04:00",
+      "sensor_keys": [
+        "X-dUblrIiu-a",
+        "X-dUblrIiu-b",
+        "X-dUblrIiu-c",
+        "X-dUblrIiu-d",
+        "X-dUblrIiu-e",
+        "X-dUblrIiu-f",
+        "X-dUblrIiu-g",
+        "X-dUblrIiu-z"
+      ],
+      "a_len": 5376,
+      "a_head": "ifakrZGycyWPTDgONJ8uG3ccNI5J4H9b"
+    },
+    {
+      "id": "416",
+      "method": "POST",
+      "path": "/api/security/v4/security/logout",
+      "time": "2026-09-21T18:10:54.644-04:00",
+      "sensor_keys": [
+        "X-dUblrIiu-a",
+        "X-dUblrIiu-b",
+        "X-dUblrIiu-c",
+        "X-dUblrIiu-d",
+        "X-dUblrIiu-e",
+        "X-dUblrIiu-f",
+        "X-dUblrIiu-g",
+        "X-dUblrIiu-z"
+      ],
+      "a_len": 5376,
+      "a_head": "ifakrZGycyWPTDgONJ8uG3ccNI5J4H9b"
+    },
+    {
+      "id": "418",
+      "method": "GET",
+      "path": "/api/mobile-misc/v1/mobile-misc/page/upcoming-trips",
+      "time": "2026-09-21T18:10:54.722-04:00",
+      "sensor_keys": [
+        "X-dUblrIiu-a",
+        "X-dUblrIiu-b",
+        "X-dUblrIiu-c",
+        "X-dUblrIiu-d",
+        "X-dUblrIiu-e",
+        "X-dUblrIiu-f",
+        "X-dUblrIiu-g",
+        "X-dUblrIiu-z"
+      ],
+      "a_len": 5376,
+      "a_head": "ifakrZGycyWPTDgONJ8uG3ccNI5J4H9b"
+    },
+    {
+      "id": "446",
+      "method": "POST",
+      "path": "/api/security/v4/security/token",
+      "time": "2026-09-21T18:11:07.288-04:00",
+      "sensor_keys": [
+        "X-dUblrIiu-a",
+        "X-dUblrIiu-b",
+        "X-dUblrIiu-c",
+        "X-dUblrIiu-d",
+        "X-dUblrIiu-e",
+        "X-dUblrIiu-f",
+        "X-dUblrIiu-g",
+        "X-dUblrIiu-z"
+      ],
+      "a_len": 5376,
+      "a_head": "ifakrZGycyWPTDgONJ8uG3ccNI5J4H9b"
+    },
+    {
+      "id": "459",
+      "method": "POST",
+      "path": "/api/chase/v2/chase/offers",
+      "time": "2026-09-21T18:11:08.081-04:00",
+      "sensor_keys": [
+        "X-dUblrIiu-a",
+        "X-dUblrIiu-b",
+        "X-dUblrIiu-c",
+        "X-dUblrIiu-d",
+        "X-dUblrIiu-e",
+        "X-dUblrIiu-f",
+        "X-dUblrIiu-g",
+        "X-dUblrIiu-z"
+      ],
+      "a_len": 5376,
+      "a_head": "ifakrZGycyWPTDgONJ8uG3ccNI5J4H9b"
+    },
+    {
+      "id": "461",
+      "method": "GET",
+      "path": "/api/security/v4/security/userinfo",
+      "time": "2026-09-21T18:11:08.122-04:00",
+      "sensor_keys": [
+        "X-dUblrIiu-a",
+        "X-dUblrIiu-b",
+        "X-dUblrIiu-c",
+        "X-dUblrIiu-d",
+        "X-dUblrIiu-e",
+        "X-dUblrIiu-f",
+        "X-dUblrIiu-g",
+        "X-dUblrIiu-z"
+      ],
+      "a_len": 5376,
+      "a_head": "ifakrZGycyWPTDgONJ8uG3ccNI5J4H9b"
+    },
+    {
+      "id": "465",
+      "method": "GET",
+      "path": "/api/security/v4/security/userinfo",
+      "time": "2026-09-21T18:11:08.169-04:00",
+      "sensor_keys": [
+        "X-dUblrIiu-a",
+        "X-dUblrIiu-b",
+        "X-dUblrIiu-c",
+        "X-dUblrIiu-d",
+        "X-dUblrIiu-e",
+        "X-dUblrIiu-f",
+        "X-dUblrIiu-g",
+        "X-dUblrIiu-z"
+      ],
+      "a_len": 5376,
+      "a_head": "ifakrZGycyWPTDgONJ8uG3ccNI5J4H9b"
+    },
+    {
+      "id": "466",
+      "method": "GET",
+      "path": "/api/mobile-misc/v1/mobile-misc/page/upcoming-trips",
+      "time": "2026-09-21T18:11:08.172-04:00",
+      "sensor_keys": [
+        "X-dUblrIiu-a",
+        "X-dUblrIiu-b",
+        "X-dUblrIiu-c",
+        "X-dUblrIiu-d",
+        "X-dUblrIiu-e",
+        "X-dUblrIiu-f",
+        "X-dUblrIiu-g",
+        "X-dUblrIiu-z"
+      ],
+      "a_len": 5376,
+      "a_head": "ifakrZGycyWPTDgONJ8uG3ccNI5J4H9b"
+    },
+    {
+      "id": "468",
+      "method": "GET",
+      "path": "/api/mobile-misc/v1/mobile-misc/page/upcoming-trips",
+      "time": "2026-09-21T18:11:08.204-04:00",
+      "sensor_keys": [
+        "X-dUblrIiu-a",
+        "X-dUblrIiu-b",
+        "X-dUblrIiu-c",
+        "X-dUblrIiu-d",
+        "X-dUblrIiu-e",
+        "X-dUblrIiu-f",
+        "X-dUblrIiu-g",
+        "X-dUblrIiu-z"
+      ],
+      "a_len": 5376,
+      "a_head": "ifakrZGycyWPTDgONJ8uG3ccNI5J4H9b"
+    }
+  ],
+  "unique_a_headers": 1
+}
