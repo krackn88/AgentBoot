@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fabletics Checker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css?v=20260922main" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">F</div>
+        <div>
+          <h1>Fabletics Checker</h1>
+          <p class="brand-sub">Member credits hits only · valid logins saved separately</p>
+        </div>
+      </div>
+      <div class="status-pill" id="statusPill">Idle</div>
+    </header>
+
+    <section class="stats-row" id="statsRow">
+      <div class="stat-card">
+        <span class="stat-label">Progress</span>
+        <span class="stat-value" id="statProgress">0 / 0</span>
+      </div>
+      <div class="stat-card accent">
+        <span class="stat-label">Credit hits</span>
+        <span class="stat-value" id="statHits">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Valid saved</span>
+        <span class="stat-value" id="statValid">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Fails</span>
+        <span class="stat-value" id="statFails">0</span>
+      </div>
+      <div class="stat-card muted">
+        <span class="stat-label">Bans</span>
+        <span class="stat-value" id="statBans">0</span>
+      </div>
+      <div class="stat-card capsolver">
+        <span class="stat-label">CapSolver</span>
+        <span class="stat-value" id="statCapsolver">—</span>
+      </div>
+    </section>
+
+    <div class="layout">
+      <section class="panel input-panel">
+        <div class="panel-title">Run checker</div>
+
+        <div class="field">
+          <label for="combosText">Combos</label>
+          <span class="field-hint">email:password · large lists upload on Start</span>
+          <textarea id="combosText" rows="5" placeholder="email@example.com:password123"></textarea>
+          <div class="file-row">
+            <label class="file-btn">
+              <input type="file" id="comboFile" accept=".txt,.csv" hidden />
+              Choose file
+            </label>
+            <span class="file-name" id="comboFileName">No file selected</span>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="proxiesText">Proxies</label>
+          <span class="field-hint">host:port:user:pass</span>
+          <textarea id="proxiesText" rows="3" placeholder="core-residential.evomi.com:1000:user:pass_country-US"></textarea>
+          <div class="file-row">
+            <label class="file-btn">
+              <input type="file" id="proxyFile" accept=".txt,.csv" hidden />
+              Choose file
+            </label>
+            <span class="file-name" id="proxyFileName">No file selected</span>
+          </div>
+        </div>
+
+        <div class="controls">
+          <label class="threads">
+            Threads
+            <input type="number" id="threads" min="1" max="20" value="3" />
+          </label>
+          <button class="btn primary" id="startBtn">Start</button>
+          <button class="btn ghost danger" id="stopBtn" disabled>Stop</button>
+          <button class="btn ghost" id="smokeTestBtn" title="Full login test with configured test account">Smoke test</button>
+          <button class="btn ghost" id="resetProgressBtn">Reset progress</button>
+        </div>
+
+        <div class="smoke-result" id="smokeResult" hidden></div>
+        <p class="resume-hint" id="resumeHint"></p>
+
+        <div class="progress-wrap">
+          <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+          <div class="progress-stats" id="progressStats">Ready</div>
+        </div>
+      </section>
+
+      <section class="panel results-panel">
+        <div class="panel-head">
+          <div>
+            <div class="panel-title">Member credit hits</div>
+            <p class="panel-sub">Only accounts with credits &gt; 0</p>
+          </div>
+          <div class="toolbar">
+            <button class="btn ghost small" id="selectAllBtn">Select all</button>
+            <button class="btn ghost small" id="copySelectedBtn" disabled>Copy</button>
+            <button class="btn ghost small" id="deleteSelectedBtn" disabled>Delete</button>
+            <button class="btn ghost small danger" id="clearHitsBtn">Clear</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="data-table" id="hitsTable">
+            <thead>
+              <tr>
+                <th class="col-check"></th>
+                <th>Credits</th>
+                <th>Account</th>
+                <th>Phone</th>
+                <th>Capture</th>
+                <th class="col-actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="hitsBody">
+              <tr class="empty-row"><td colspan="6">No credit hits yet</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <section class="panel saved-panel">
+      <div class="panel-head collapsible-head" id="savedPanelToggle">
+        <div>
+          <div class="panel-title">Saved valid combos</div>
+          <p class="panel-sub">Logins without credits — reuse as combos later</p>
+        </div>
+        <div class="saved-meta">
+          <span class="badge" id="savedCountBadge">0 saved</span>
+          <span class="chevron" id="savedChevron">▼</span>
+        </div>
+      </div>
+      <div class="saved-body" id="savedBody">
+        <div class="toolbar saved-toolbar">
+          <button class="btn ghost small" id="selectAllSavedBtn">Select all</button>
+          <button class="btn ghost small" id="copySelectedSavedBtn" disabled>Copy selected</button>
+          <button class="btn ghost small" id="deleteSelectedSavedBtn" disabled>Delete selected</button>
+          <button class="btn ghost small" id="copyAllSavedBtn" disabled>Copy all</button>
+          <button class="btn ghost small" id="exportSavedBtn" disabled>Download .txt</button>
+          <button class="btn ghost small danger" id="clearSavedBtn" disabled>Clear all</button>
+        </div>
+        <div class="table-wrap compact">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th class="col-check"></th>
+                <th>email:password</th>
+                <th class="col-actions">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="savedBodyRows">
+              <tr class="empty-row"><td colspan="3">No valid combos saved yet</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel log-panel">
+      <div class="panel-title">Live log</div>
+      <pre class="log" id="logBox"></pre>
+    </section>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <script src="/static/app.js?v=20260922main"></script>
+</body>
+</html>

@@ -7,7 +7,7 @@ Account checker for **app.fabletics.com** (Fabletics iOS mobile API), built from
 On a valid login (`HIT`), output format:
 
 ```
-email:password | Points = 1299 | Member_Credits = 3 | storeCreditBalance = 0 | CC = [VISA - 426684••••••4147 exp: 07/27] | Address = [Name, Street, , US, City, ST, (555) 555-5555, 12345]
+email:password | Points = 1299 | Member_Credits = 3 | storeCreditBalance = 0 | Phone = [(555) 555-5555] | CC = [VISA - 426684••••••4147 exp: 07/27] | Address = [Name, Street, , US, City, ST, (555) 555-5555, 12345]
 ```
 
 ## API flow
@@ -22,7 +22,18 @@ Reverse-engineered from the `.chlz` capture:
    - `/api/accounts/me/addresses`
    - `/api/accounts/me/payments`
 
-## Install
+## Web UI
+
+```bash
+pip install -r requirements.txt
+./run.sh
+```
+
+Open `http://localhost:8090` — paste or upload combos/proxies, start checking, copy/delete hits from the table.
+
+**Deployed:** http://159.69.76.189:8090
+
+## CLI
 
 ```bash
 pip install -r requirements.txt
