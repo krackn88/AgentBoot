@@ -1,0 +1,9 @@
+{
+  "pairs": [
+    {
+      "request": ["challenge0", "challenge1", "challenge2", "ios"],
+      "response": ["response0", "response1", "response2", "ios"]
+    }
+  ],
+  "_notes": "Capture real probe pairs from iOS via deploy/frida_capture_ios_probes.js and save to data/probe_replay.json"
+}
