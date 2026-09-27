@@ -415,6 +415,27 @@ textarea:focus {
   font-size: 0.82rem;
 }
 
+.vip-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.78rem;
+}
+
+.vip-badge.yes {
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.vip-badge.no {
+  background: var(--warning-soft);
+  color: var(--warning);
+}
+
 .account-cell strong {
   display: block;
   font-family: var(--mono);

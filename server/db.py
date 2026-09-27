@@ -65,13 +65,17 @@ def init_db() -> None:
             CREATE INDEX IF NOT EXISTS idx_saved_combos_created ON saved_combos(created_at DESC);
             """
         )
-        _migrate_hits_phone_column(conn)
+        _migrate_hits_columns(conn)
 
 
-def _migrate_hits_phone_column(conn: sqlite3.Connection) -> None:
+def _migrate_hits_columns(conn: sqlite3.Connection) -> None:
     columns = {row[1] for row in conn.execute("PRAGMA table_info(hits)").fetchall()}
     if "phone" not in columns:
         conn.execute("ALTER TABLE hits ADD COLUMN phone TEXT")
+    if "membership_status" not in columns:
+        conn.execute("ALTER TABLE hits ADD COLUMN membership_status TEXT")
+    if "is_vip" not in columns:
+        conn.execute("ALTER TABLE hits ADD COLUMN is_vip INTEGER DEFAULT 0")
 
 
 @contextmanager
@@ -257,13 +261,15 @@ def upsert_hit(line: str, email: str, password: str, data: dict[str, Any]) -> in
             data.get("phone"),
             data.get("cc"),
             data.get("address"),
+            data.get("membership_status"),
+            1 if data.get("is_vip") else 0,
         )
         if existing:
             conn.execute(
                 """
                 UPDATE hits
                 SET line = ?, points = ?, member_credits = ?, store_credit_balance = ?,
-                    phone = ?, cc = ?, address = ?
+                    phone = ?, cc = ?, address = ?, membership_status = ?, is_vip = ?
                 WHERE id = ?
                 """,
                 (line, *capture, existing["id"]),
@@ -274,8 +280,9 @@ def upsert_hit(line: str, email: str, password: str, data: dict[str, Any]) -> in
             cur = conn.execute(
                 """
                 INSERT INTO hits (line, email, password, points, member_credits,
-                                  store_credit_balance, phone, cc, address, created_at)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                                  store_credit_balance, phone, cc, address,
+                                  membership_status, is_vip, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (line, email, password, *capture, _utc_now()),
             )

@@ -283,7 +283,7 @@ function updateSelectionButtons() {
 
 function renderHits() {
   if (!hits.length) {
-    hitsBody.innerHTML = '<tr class="empty-row"><td colspan="6">No credit hits yet</td></tr>';
+    hitsBody.innerHTML = '<tr class="empty-row"><td colspan="7">No credit hits yet</td></tr>';
     updateSelectionButtons();
     return;
   }
@@ -299,6 +299,9 @@ function renderHits() {
         .join(" · ");
 
       const phone = hit.phone && hit.phone !== "N/A" ? hit.phone : "—";
+      const vipYes = hit.is_vip === 1 || hit.is_vip === true;
+      const vipLabel = vipYes ? "Yes" : "No";
+      const membershipStatus = hit.membership_status || "Unknown";
 
       return `
     <tr data-id="${hit.id}">
@@ -306,6 +309,9 @@ function renderHits() {
         <input type="checkbox" class="hit-check" data-id="${hit.id}" ${selectedIds.has(hit.id) ? "checked" : ""} />
       </td>
       <td><span class="credit-badge">${hit.member_credits}</span></td>
+      <td class="vip-cell" title="${escapeHtml(membershipStatus)}">
+        <span class="vip-badge ${vipYes ? "yes" : "no"}">${vipLabel}</span>
+      </td>
       <td class="account-cell"><strong>${escapeHtml(hit.email)}</strong></td>
       <td class="phone-cell">${escapeHtml(phone)}</td>
       <td class="capture-cell">${escapeHtml(capture)}</td>
