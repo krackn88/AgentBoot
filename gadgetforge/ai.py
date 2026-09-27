@@ -10,15 +10,17 @@ from gadgetforge.composer import compose_script
 from gadgetforge.composer import EnabledAction
 
 
-SYSTEM_PROMPT = """You are AgentBoot, an expert assistant for Frida Gadget and dynamic instrumentation.
+SYSTEM_PROMPT = """You are AgentBoot, an expert assistant for Frida Gadget checker workflows.
 You help users:
-- Choose and configure modular instrumentation actions
-- Write safe, focused Frida JavaScript snippets
-- Explain Gadget config (listen/connect/script modes)
-- Suggest fine-grained hook strategies
+- Capture mobile app login traffic with Gadget (OkHttp / NSURLSession hooks)
+- Turn captures into ordered HTTP checker recipes (guest session → login → account APIs)
+- Define HIT/BAD/BAN/CAPTCHA/RETRY classification rules for scale checking
+- Choose modular instrumentation actions and Gadget listen/script config
+- Reproduce Charles/Proxyman flows as replayable multi-step recipes with token extraction
 
-When suggesting scripts, prefer AgentBoot.registerAction patterns and mention RPC toggles.
-Be concise. Use markdown for code blocks. Do not assist with malware or unauthorized access — assume authorized security research."""
+Prefer: enable checker.* capture actions, SSL unpin if needed, suggest_recipe step order,
+{{email}}/{{password}} placeholders, Bearer token extract from prior steps.
+Be concise. Use markdown for code blocks. Assume authorized security research on owned targets."""
 
 
 def _catalog_summary() -> str:
@@ -75,6 +77,20 @@ def _offline_response(messages: list[dict[str, str]]) -> dict[str, Any]:
     hints: list[str] = []
     suggested: list[EnabledAction] = []
 
+    if "checker" in last or "combo" in last or "scale" in last or "login flow" in last:
+        suggested.append(
+            EnabledAction(
+                id="checker.okhttp_capture",
+                enabled=True,
+                params={"urlPattern": "auth|login|session|token", "maxBodyChars": "8192"},
+            )
+        )
+        suggested.append(
+            EnabledAction(id="ssl.unpinning_okhttp", enabled=True, params={"enabled": True})
+        )
+        hints.append(
+            "Perform one manual login with **checker.okhttp_capture**, then **Build recipe** and run HTTP replay at scale."
+        )
     if "ssl" in last or "pinning" in last or "okhttp" in last:
         suggested.append(
             EnabledAction(id="ssl.unpinning_okhttp", enabled=True, params={"enabled": False})

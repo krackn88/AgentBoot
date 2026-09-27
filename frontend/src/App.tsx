@@ -11,8 +11,9 @@ import {
   fetchDevices,
   toggleRuntimeAction,
 } from "./api";
+import CheckerPanel from "./CheckerPanel";
 
-type Tab = "script" | "gadget" | "logs";
+type Tab = "script" | "gadget" | "checker" | "logs";
 
 function defaultParams(action: ActionDef): Record<string, unknown> {
   const p: Record<string, unknown> = {};
@@ -45,7 +46,7 @@ export default function App() {
     {
       role: "assistant",
       content:
-        "I'm your AgentBoot copilot. Ask me to trace Android APIs, bypass SSL pinning, hook native exports, or export a Gadget config. Set OPENAI_API_KEY on the server for full AI responses.",
+        "I'm your AgentBoot checker copilot. I help capture mobile login flows with Gadget, build multi-step HTTP recipes, and classify HIT/BAD/BAN at scale. Enable checker.okhttp_capture, log in once, then Build recipe.",
     },
   ]);
   const [busy, setBusy] = useState(false);
@@ -352,14 +353,20 @@ export default function App() {
             )}
           </div>
           <div className="tabs">
-            {(["script", "gadget", "logs"] as Tab[]).map((t) => (
+            {(["script", "gadget", "checker", "logs"] as Tab[]).map((t) => (
               <button
                 key={t}
                 type="button"
                 className={`tab ${tab === t ? "active" : ""}`}
                 onClick={() => setTab(t)}
               >
-                {t === "script" ? "Composed script" : t === "gadget" ? "Gadget config" : "Event log"}
+                {t === "script"
+                  ? "Composed script"
+                  : t === "gadget"
+                    ? "Gadget config"
+                    : t === "checker"
+                      ? "Checker"
+                      : "Event log"}
               </button>
             ))}
           </div>
@@ -448,6 +455,7 @@ export default function App() {
               )}
             </div>
           )}
+          {tab === "checker" && <CheckerPanel />}
           {tab === "logs" && (
             <div className="panel-body log-stream">
               {logs.length === 0 && (

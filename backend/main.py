@@ -23,6 +23,10 @@ from gadgetforge.gadget_config import (
     android_packaging_notes,
     default_listen_config,
 )
+from gadgetforge.checker.models import CheckerRecipe
+from gadgetforge.checker.recorder import flow_recorder
+from gadgetforge.checker.store import get_recipe, set_recipe
+from gadgetforge.checker.worker import checker_worker
 from gadgetforge.session import session_manager
 
 
@@ -51,6 +55,17 @@ class ActionToggleRequest(BaseModel):
 
 class ChatRequest(BaseModel):
     messages: list[dict[str, str]]
+
+
+class CaptureFilterRequest(BaseModel):
+    url_pattern: str = ""
+
+
+class CheckerJobRequest(BaseModel):
+    combos: list[str] = Field(default_factory=list)
+    threads: int = 5
+    proxies: list[str] = Field(default_factory=list)
+    delay_ms: int = 0
 
 
 @asynccontextmanager
@@ -208,6 +223,69 @@ def api_toggle_action(req: ActionToggleRequest) -> Any:
 @app.get("/api/session/logs")
 def api_logs(limit: int = 100) -> dict[str, Any]:
     return {"logs": session_manager.get_logs(limit)}
+
+
+@app.post("/api/checker/capture/filter")
+def api_capture_filter(req: CaptureFilterRequest) -> dict[str, str]:
+    flow_recorder.set_url_filter(req.url_pattern)
+    return {"url_pattern": flow_recorder.get_url_filter()}
+
+
+@app.get("/api/checker/capture/events")
+def api_capture_events(limit: int = 100) -> dict[str, Any]:
+    events = flow_recorder.list_events(limit)
+    return {"events": [e.model_dump() for e in events]}
+
+
+@app.post("/api/checker/capture/clear")
+def api_capture_clear() -> dict[str, bool]:
+    flow_recorder.clear()
+    return {"ok": True}
+
+
+@app.post("/api/checker/recipe/suggest")
+def api_recipe_suggest(name: str = "discovered-login-flow") -> dict[str, Any]:
+    recipe = flow_recorder.suggest_recipe(name=name)
+    set_recipe(recipe)
+    return {"recipe": recipe.model_dump(mode="json")}
+
+
+@app.get("/api/checker/recipe")
+def api_get_recipe() -> dict[str, Any]:
+    recipe = get_recipe()
+    if not recipe:
+        return {"recipe": None}
+    return {"recipe": recipe.model_dump(mode="json")}
+
+
+@app.put("/api/checker/recipe")
+def api_put_recipe(recipe: CheckerRecipe) -> dict[str, Any]:
+    set_recipe(recipe)
+    return {"recipe": recipe.model_dump(mode="json")}
+
+
+@app.post("/api/checker/jobs/start")
+def api_checker_start(req: CheckerJobRequest) -> dict[str, Any]:
+    recipe = get_recipe()
+    if not recipe:
+        raise HTTPException(400, "No checker recipe — capture login in Gadget and click Build recipe")
+    return checker_worker.start(
+        recipe,
+        req.combos,
+        threads=req.threads,
+        proxies=req.proxies,
+        delay_ms=req.delay_ms,
+    )
+
+
+@app.post("/api/checker/jobs/stop")
+def api_checker_stop() -> dict[str, Any]:
+    return checker_worker.stop()
+
+
+@app.get("/api/checker/jobs/status")
+def api_checker_status() -> dict[str, Any]:
+    return checker_worker.status()
 
 
 @app.post("/api/ai/chat")

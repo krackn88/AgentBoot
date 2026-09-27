@@ -357,6 +357,92 @@ textarea {
   text-transform: uppercase;
 }
 
+.checker-panel {
+  padding: 14px;
+  overflow: auto;
+  flex: 1;
+}
+
+.checker-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 16px;
+  min-height: 0;
+}
+
+.checker-grid h3 {
+  margin: 0 0 8px;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.checker-grid input,
+.checker-grid textarea {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  color: var(--text);
+  font-size: 0.82rem;
+}
+
+.capture-list {
+  max-height: 200px;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 0.78rem;
+}
+
+.capture-item {
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(36, 48, 68, 0.4);
+}
+
+.recipe-editor {
+  width: 100%;
+  min-height: 220px;
+  font-family: var(--mono);
+  font-size: 11px;
+  margin-bottom: 8px;
+}
+
+.combo-box {
+  width: 100%;
+  min-height: 100px;
+  font-family: var(--mono);
+  font-size: 11px;
+  margin: 4px 0 10px;
+}
+
+.job-stats {
+  margin-top: 14px;
+  font-size: 0.82rem;
+}
+
+.hits-pre {
+  background: #0a0e13;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 11px;
+  max-height: 160px;
+  overflow: auto;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+@media (max-width: 1100px) {
+  .checker-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 1100px) {
   .main-grid {
     grid-template-columns: 1fr;

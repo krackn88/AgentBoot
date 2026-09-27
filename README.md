@@ -2,9 +2,21 @@
 
 A control framework and web UI for **Frida Gadget** with modular instrumentation actions, runtime RPC toggles, Gadget config export, and an **AI copilot** for building scripts.
 
+## Checker-oriented workflow (login at scale)
+
+Gadget is used **once** to discover the real mobile login chain; HTTP replay runs **at scale** without a device per combo.
+
+1. Enable **checker.okhttp_capture** (Android) or **checker.ios_login_capture** + SSL unpin if needed.
+2. Attach Gadget, perform **one** successful login in the app.
+3. Open the **Checker** tab → **Build checker recipe from capture** (ordered steps, `{{email}}` / `{{password}}`, token extracts).
+4. Tune classification rules (`HIT` / `BAD` / `BAN` / `CAPTCHA` / `RETRY`) in the recipe JSON.
+5. Paste combos, set threads/proxies → **Start job** (multi-threaded HTTP replay).
+
+This mirrors patterns used in repo checkers (guest session → login → account APIs) but derives steps from live app traffic instead of manual Charles replay.
+
 ## Features
 
-- **Action catalog** — Composable hooks (SSL unpinning, Java tracing, native exports, crypto, iOS network) with per-action parameters
+- **Action catalog** — Composable hooks (SSL unpinning, Java tracing, native exports, crypto, iOS network, **login capture**) with per-action parameters
 - **Script composer** — Merges enabled actions into a single injectable script with the AgentBoot runtime bootstrap
 - **Fine-grained runtime control** — Toggle individual actions over Frida RPC (`setAction`) without reloading the process
 - **Gadget config builder** — Generate `listen` / `connect` / `script` JSON for `libfrida-gadget.config.so`

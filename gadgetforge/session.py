@@ -82,6 +82,9 @@ class FridaSessionManager:
         if message.get("type") == "send":
             payload = message.get("payload")
             if isinstance(payload, dict) and payload.get("type") == "agentboot":
+                from gadgetforge.checker.recorder import flow_recorder
+
+                flow_recorder.ingest_agentboot(payload)
                 self.log(
                     "event",
                     payload.get("event", "unknown"),

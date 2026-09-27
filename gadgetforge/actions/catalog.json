@@ -88,6 +88,50 @@
       "template": "aes_cipher_hook.js.tpl"
     },
     {
+      "id": "checker.okhttp_capture",
+      "name": "Login Flow Capture (OkHttp)",
+      "description": "Record auth-related HTTP requests/responses for checker recipe generation (Android).",
+      "category": "checker",
+      "platforms": ["android"],
+      "parameters": [
+        {
+          "key": "urlPattern",
+          "label": "URL filter (regex or substring)",
+          "type": "string",
+          "default": "auth|login|session|token"
+        },
+        {
+          "key": "maxBodyChars",
+          "label": "Max body chars",
+          "type": "string",
+          "default": "8192"
+        }
+      ],
+      "template": "checker_okhttp_capture.js.tpl"
+    },
+    {
+      "id": "checker.ios_login_capture",
+      "name": "Login Flow Capture (iOS)",
+      "description": "Record NSURLSession traffic during login for checker recipes.",
+      "category": "checker",
+      "platforms": ["ios"],
+      "parameters": [
+        {
+          "key": "urlPattern",
+          "label": "URL filter (regex or substring)",
+          "type": "string",
+          "default": "auth|login|session|token"
+        },
+        {
+          "key": "maxBodyChars",
+          "label": "Max body chars",
+          "type": "string",
+          "default": "8192"
+        }
+      ],
+      "template": "checker_ios_login_capture.js.tpl"
+    },
+    {
       "id": "ios.nsurlsession_log",
       "name": "NSURLSession Request Log",
       "description": "Log outgoing NSURLRequest URLs (iOS).",
