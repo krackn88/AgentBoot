@@ -1,0 +1,151 @@
+{
+  "version": 1,
+  "actions": [
+    {
+      "id": "runtime.bootstrap",
+      "name": "AgentBoot Runtime",
+      "description": "RPC bridge for toggling hooks and streaming events to the control UI.",
+      "category": "core",
+      "platforms": ["android", "ios", "generic"],
+      "required": true,
+      "parameters": [],
+      "template": "runtime_bootstrap.js"
+    },
+    {
+      "id": "trace.java_methods",
+      "name": "Trace Java Methods",
+      "description": "Log entry/exit for a Java class method pattern (Android).",
+      "category": "tracing",
+      "platforms": ["android"],
+      "parameters": [
+        {
+          "key": "className",
+          "label": "Class name",
+          "type": "string",
+          "default": "android.app.Activity"
+        },
+        {
+          "key": "methodName",
+          "label": "Method name (* for all)",
+          "type": "string",
+          "default": "onCreate"
+        }
+      ],
+      "template": "java_method_trace.js.tpl"
+    },
+    {
+      "id": "hook.native_export",
+      "name": "Hook Native Export",
+      "description": "Intercept a native module export by name.",
+      "category": "hooking",
+      "platforms": ["android", "ios", "generic"],
+      "parameters": [
+        {
+          "key": "module",
+          "label": "Module name",
+          "type": "string",
+          "default": "libc.so"
+        },
+        {
+          "key": "export",
+          "label": "Export symbol",
+          "type": "string",
+          "default": "open"
+        }
+      ],
+      "template": "native_export_hook.js.tpl"
+    },
+    {
+      "id": "ssl.unpinning_okhttp",
+      "name": "OkHttp SSL Pinning Bypass",
+      "description": "Disable certificate pinning for common OkHttp3 CertificatePinner paths.",
+      "category": "ssl",
+      "platforms": ["android"],
+      "parameters": [
+        {
+          "key": "enabled",
+          "label": "Active on load",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "template": "okhttp_ssl_unpin.js.tpl"
+    },
+    {
+      "id": "crypto.aes_hook",
+      "name": "AES Cipher Hook",
+      "description": "Log AES encrypt/decrypt key material and IV (Android javax.crypto).",
+      "category": "crypto",
+      "platforms": ["android"],
+      "parameters": [
+        {
+          "key": "enabled",
+          "label": "Active on load",
+          "type": "boolean",
+          "default": false
+        }
+      ],
+      "template": "aes_cipher_hook.js.tpl"
+    },
+    {
+      "id": "checker.okhttp_capture",
+      "name": "Login Flow Capture (OkHttp)",
+      "description": "Record auth-related HTTP requests/responses for checker recipe generation (Android).",
+      "category": "checker",
+      "platforms": ["android"],
+      "parameters": [
+        {
+          "key": "urlPattern",
+          "label": "URL filter (regex or substring)",
+          "type": "string",
+          "default": "auth|login|session|token"
+        },
+        {
+          "key": "maxBodyChars",
+          "label": "Max body chars",
+          "type": "string",
+          "default": "8192"
+        }
+      ],
+      "template": "checker_okhttp_capture.js.tpl"
+    },
+    {
+      "id": "checker.ios_login_capture",
+      "name": "Login Flow Capture (iOS)",
+      "description": "Record NSURLSession traffic during login for checker recipes.",
+      "category": "checker",
+      "platforms": ["ios"],
+      "parameters": [
+        {
+          "key": "urlPattern",
+          "label": "URL filter (regex or substring)",
+          "type": "string",
+          "default": "auth|login|session|token"
+        },
+        {
+          "key": "maxBodyChars",
+          "label": "Max body chars",
+          "type": "string",
+          "default": "8192"
+        }
+      ],
+      "template": "checker_ios_login_capture.js.tpl"
+    },
+    {
+      "id": "ios.nsurlsession_log",
+      "name": "NSURLSession Request Log",
+      "description": "Log outgoing NSURLRequest URLs (iOS).",
+      "category": "network",
+      "platforms": ["ios"],
+      "parameters": [
+        {
+          "key": "enabled",
+          "label": "Active on load",
+          "type": "boolean",
+          "default": true
+        }
+      ],
+      "template": "ios_nsurl_log.js.tpl"
+    }
+  ]
+}
