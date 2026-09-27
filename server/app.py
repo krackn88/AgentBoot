@@ -366,7 +366,12 @@ async def recapture_and_prune_non_vip() -> dict[str, Any]:
         raise HTTPException(409, "Stop the job before refreshing hits")
 
     payload = _run_hit_recapture()
-    deleted = delete_non_vip_hits()
+    prune_ids = [
+        int(item["id"])
+        for item in payload.get("results", [])
+        if item.get("ok") and not item.get("is_vip")
+    ]
+    deleted = delete_hits(prune_ids) if prune_ids else 0
     failed = payload["failed"]
     return {
         "ok": failed == 0,

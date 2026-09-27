@@ -332,13 +332,20 @@ def clear_hits() -> int:
 
 
 def delete_non_vip_hits() -> int:
-    """Remove credit hits that are not active VIP (is_vip != 1)."""
+    """Remove credit hits verified as non-VIP (has membership_status, is_vip = 0)."""
     with connect() as conn:
         cur = conn.execute(
             """
             DELETE FROM hits
             WHERE member_credits > 0
-              AND COALESCE(is_vip, 0) = 0
+              AND is_vip = 0
+              AND membership_status IS NOT NULL
+              AND membership_status != ''
+              AND membership_status != 'Unknown'
             """
         )
         return cur.rowcount
+
+
+def delete_hits_by_ids(ids: list[int]) -> int:
+    return delete_hits(ids)
