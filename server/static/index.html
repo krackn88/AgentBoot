@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/static/style.css?v=20260927vip" />
+  <link rel="stylesheet" href="/static/style.css?v=20260927vip2" />
 </head>
 <body>
   <div class="app">
@@ -106,6 +106,8 @@
             <p class="panel-sub">Only accounts with credits &gt; 0</p>
           </div>
           <div class="toolbar">
+            <button class="btn ghost small" id="refreshVipBtn" title="Re-check all hits and remove non-VIP">Refresh VIP</button>
+            <button class="btn ghost small" id="deleteNonVipBtn" title="Delete hits marked non-VIP">Drop non-VIP</button>
             <button class="btn ghost small" id="selectAllBtn">Select all</button>
             <button class="btn ghost small" id="copySelectedBtn" disabled>Copy</button>
             <button class="btn ghost small" id="deleteSelectedBtn" disabled>Delete</button>

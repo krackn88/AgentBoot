@@ -23,6 +23,8 @@ const selectAllBtn = $("#selectAllBtn");
 const copySelectedBtn = $("#copySelectedBtn");
 const deleteSelectedBtn = $("#deleteSelectedBtn");
 const clearHitsBtn = $("#clearHitsBtn");
+const refreshVipBtn = $("#refreshVipBtn");
+const deleteNonVipBtn = $("#deleteNonVipBtn");
 const selectAllSavedBtn = $("#selectAllSavedBtn");
 const copySelectedSavedBtn = $("#copySelectedSavedBtn");
 const deleteSelectedSavedBtn = $("#deleteSelectedSavedBtn");
@@ -461,6 +463,36 @@ copySelectedBtn.addEventListener("click", async () => {
 
 deleteSelectedBtn.addEventListener("click", async () => {
   await deleteHits([...selectedIds]);
+});
+
+refreshVipBtn.addEventListener("click", async () => {
+  if (!confirm("Re-login every credit hit to refresh VIP status, then remove non-VIP hits? This can take several minutes.")) {
+    return;
+  }
+  refreshVipBtn.disabled = true;
+  deleteNonVipBtn.disabled = true;
+  try {
+    const data = await api("/api/hits/recapture-vip", { method: "POST" });
+    await loadHits();
+    const msg = `Refreshed ${data.updated}/${data.total} hits · removed ${data.deleted_non_vip || 0} non-VIP`;
+    showToast(msg);
+    if (data.failed) {
+      showToast(`${data.failed} hit(s) could not be refreshed (left in list if still VIP)`);
+    }
+  } catch (err) {
+    showToast(err.message || "VIP refresh failed");
+  } finally {
+    refreshVipBtn.disabled = false;
+    deleteNonVipBtn.disabled = false;
+  }
+});
+
+deleteNonVipBtn.addEventListener("click", async () => {
+  if (!confirm("Delete all hits marked non-VIP (VIP column = No)?")) return;
+  const data = await api("/api/hits/delete-non-vip", { method: "POST" });
+  selectedIds.clear();
+  await loadHits();
+  showToast(`Removed ${data.deleted || 0} non-VIP hit(s)`);
 });
 
 clearHitsBtn.addEventListener("click", async () => {
