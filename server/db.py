@@ -370,10 +370,10 @@ def _scan_db_for_hit_combos(db_path: Path, seen: set[str], lines: list[str], *, 
     if not db_path.is_file():
         return
     if read_only:
-        conn = sqlite3.connect(f"file:{db_path.resolve()}?mode=ro", uri=True)
+        conn = sqlite3.connect(f"file:{db_path.resolve()}?mode=ro&immutable=1", uri=True)
     else:
         conn = sqlite3.connect(db_path)
-    with conn:
+    try:
         for email, password in conn.execute(
             "SELECT email, password FROM checked_combos WHERE status = 'hit'"
         ):
@@ -382,6 +382,8 @@ def _scan_db_for_hit_combos(db_path: Path, seen: set[str], lines: list[str], *, 
             "SELECT email, password FROM hits WHERE email IS NOT NULL AND password IS NOT NULL"
         ):
             _add_recheck_combo(seen, lines, email, password)
+    finally:
+        conn.close()
 
 
 def build_hits_recheck_combo_file(extra_db_paths: list[Path] | None = None) -> dict[str, Any]:
