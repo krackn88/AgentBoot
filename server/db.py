@@ -366,10 +366,14 @@ def _add_recheck_combo(seen: set[str], lines: list[str], email: str, password: s
     lines.append(f"{email}:{password}")
 
 
-def _scan_db_for_hit_combos(db_path: Path, seen: set[str], lines: list[str]) -> None:
+def _scan_db_for_hit_combos(db_path: Path, seen: set[str], lines: list[str], *, read_only: bool = False) -> None:
     if not db_path.is_file():
         return
-    with sqlite3.connect(db_path) as conn:
+    if read_only:
+        conn = sqlite3.connect(f"file:{db_path.resolve()}?mode=ro", uri=True)
+    else:
+        conn = sqlite3.connect(db_path)
+    with conn:
         for email, password in conn.execute(
             "SELECT email, password FROM checked_combos WHERE status = 'hit'"
         ):
@@ -386,7 +390,7 @@ def build_hits_recheck_combo_file(extra_db_paths: list[Path] | None = None) -> d
     lines: list[str] = []
     _scan_db_for_hit_combos(DB_PATH, seen, lines)
     for path in extra_db_paths or []:
-        _scan_db_for_hit_combos(path, seen, lines)
+        _scan_db_for_hit_combos(path, seen, lines, read_only=True)
     lines.sort(key=lambda line: line.lower())
     HITS_RECHECK_COMBOS_PATH.parent.mkdir(parents=True, exist_ok=True)
     HITS_RECHECK_COMBOS_PATH.write_text("\n".join(lines) + ("\n" if lines else ""), encoding="utf-8")
