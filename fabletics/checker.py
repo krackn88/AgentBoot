@@ -469,7 +469,8 @@ def _check_account_inner(
     if proxy is _UNSET:
         resolved_proxy = resolve_proxy()
     elif proxy:
-        resolved_proxy = resolve_proxy(str(proxy), rotate=False)
+        # Fresh Evomi session per check when FABLETICS_ROTATE_PROXY=1 (default).
+        resolved_proxy = resolve_proxy(str(proxy), rotate=True)
     else:
         resolved_proxy = None
     _pace_request()
