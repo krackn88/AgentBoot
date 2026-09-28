@@ -244,8 +244,13 @@ def resolve_proxy(proxy: str | None = None, *, rotate: bool = True) -> str | Non
 
 
 def _pace_request() -> None:
-    delay = random.uniform(CHECK_DELAY_MIN, CHECK_DELAY_MAX)
-    time.sleep(delay)
+    if CHECK_DELAY_MAX <= 0:
+        return
+    low = max(0.0, CHECK_DELAY_MIN)
+    high = max(low, CHECK_DELAY_MAX)
+    if high <= 0:
+        return
+    time.sleep(random.uniform(low, high))
 
 
 def _is_auth_failure(message: str) -> bool:

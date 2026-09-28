@@ -1,3 +1,5 @@
+import os
+
 BASE_URL = "https://app.fabletics.com"
 API_KEY = "EdbjQ1gNMv9gkvV9Km8U82Rsxzo2zJ5f9shviDGH"
 STORE_DOMAIN = "app.fabletics.com"
@@ -28,9 +30,9 @@ TURNSTILE_ACTION = "login"
 RECAPTCHA_SITE_KEY = "6LfUn5IUAAAAAM7ssrSkY6BVkNHIPaweAXxTy-eO"
 RECAPTCHA_ACTION = "login"
 
-# Per-check delay jitter (seconds) to avoid hammering the same gateway IP.
-CHECK_DELAY_MIN = 0.35
-CHECK_DELAY_MAX = 1.1
+# Per-check delay jitter (seconds). Override on dedicated checkers via env.
+CHECK_DELAY_MIN = float(os.environ.get("FABLETICS_CHECK_DELAY_MIN", "0.35"))
+CHECK_DELAY_MAX = float(os.environ.get("FABLETICS_CHECK_DELAY_MAX", "1.1"))
 
 # Evomi residential proxy (US). Override with FABLETICS_PROXY env or --proxy.
 DEFAULT_PROXY = (

