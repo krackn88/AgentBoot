@@ -59,6 +59,11 @@ def build_parser() -> argparse.ArgumentParser:
         "--output",
         help="Append hits to this output file",
     )
+    parser.add_argument(
+        "--smoke-test",
+        action="store_true",
+        help="Run connectivity smoke test (guest session + login probe)",
+    )
     return parser
 
 
@@ -118,6 +123,19 @@ def selected_proxy(args: argparse.Namespace) -> str | None:
 def main() -> None:
     parser = build_parser()
     args = parser.parse_args()
+
+    if args.smoke_test:
+        from .config import DEFAULT_PROXY
+        from .smoke_test import run_smoke_test
+
+        if args.no_proxy:
+            proxy_line = None
+        else:
+            proxy_line = args.proxy or DEFAULT_PROXY
+        result = run_smoke_test(proxy_line)
+        print(json.dumps(result, indent=2))
+        sys.exit(0 if result.get("ok") else 1)
+
     combos = load_combos(args)
     proxy = selected_proxy(args)
 

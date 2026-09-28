@@ -1,0 +1,433 @@
+from __future__ import annotations
+
+import hashlib
+import sqlite3
+from contextlib import contextmanager
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+DB_PATH = Path(__file__).resolve().parent.parent / "data" / "checker.db"
+
+FINAL_STATUSES = {"hit", "fail", "valid"}
+
+
+def _utc_now() -> str:
+    return datetime.now(timezone.utc).isoformat()
+
+
+def combo_key(email: str, password: str) -> str:
+    normalized = f"{email.strip().lower()}:{password}"
+    return hashlib.sha256(normalized.encode()).hexdigest()
+
+
+def init_db() -> None:
+    DB_PATH.parent.mkdir(parents=True, exist_ok=True)
+    with connect() as conn:
+        conn.executescript(
+            """
+            CREATE TABLE IF NOT EXISTS hits (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                line TEXT NOT NULL UNIQUE,
+                email TEXT NOT NULL,
+                password TEXT NOT NULL,
+                points INTEGER DEFAULT 0,
+                member_credits INTEGER DEFAULT 0,
+                store_credit_balance REAL DEFAULT 0,
+                cc TEXT,
+                address TEXT,
+                created_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_hits_created ON hits(created_at DESC);
+
+            CREATE TABLE IF NOT EXISTS app_state (
+                key TEXT PRIMARY KEY,
+                value TEXT NOT NULL
+            );
+
+            CREATE TABLE IF NOT EXISTS checked_combos (
+                combo_key TEXT PRIMARY KEY,
+                email TEXT NOT NULL,
+                password TEXT NOT NULL,
+                status TEXT NOT NULL,
+                checked_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_checked_at ON checked_combos(checked_at DESC);
+
+            CREATE TABLE IF NOT EXISTS saved_combos (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                combo_key TEXT NOT NULL UNIQUE,
+                email TEXT NOT NULL,
+                password TEXT NOT NULL,
+                line TEXT NOT NULL,
+                created_at TEXT NOT NULL
+            );
+            CREATE INDEX IF NOT EXISTS idx_saved_combos_created ON saved_combos(created_at DESC);
+            """
+        )
+        _migrate_hits_columns(conn)
+
+
+def _migrate_hits_columns(conn: sqlite3.Connection) -> None:
+    columns = {row[1] for row in conn.execute("PRAGMA table_info(hits)").fetchall()}
+    if "phone" not in columns:
+        conn.execute("ALTER TABLE hits ADD COLUMN phone TEXT")
+    if "membership_status" not in columns:
+        conn.execute("ALTER TABLE hits ADD COLUMN membership_status TEXT")
+    if "is_vip" not in columns:
+        conn.execute("ALTER TABLE hits ADD COLUMN is_vip INTEGER DEFAULT 0")
+
+
+@contextmanager
+def connect():
+    conn = sqlite3.connect(DB_PATH, timeout=30.0)
+    conn.row_factory = sqlite3.Row
+    conn.execute("PRAGMA journal_mode=WAL")
+    conn.execute("PRAGMA synchronous=NORMAL")
+    conn.execute("PRAGMA busy_timeout=30000")
+    try:
+        yield conn
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def get_state(key: str, default: str = "") -> str:
+    with connect() as conn:
+        row = conn.execute("SELECT value FROM app_state WHERE key = ?", (key,)).fetchone()
+        return row["value"] if row else default
+
+
+def set_state(key: str, value: str) -> None:
+    with connect() as conn:
+        conn.execute(
+            "INSERT INTO app_state (key, value) VALUES (?, ?) "
+            "ON CONFLICT(key) DO UPDATE SET value = excluded.value",
+            (key, value),
+        )
+
+
+def get_session() -> dict[str, Any]:
+    combo_count = int(get_state("combo_count", "0") or "0")
+    combos_stored = get_state("combos_stored", "0") == "1"
+    combos_text = ""
+    if not combos_stored:
+        combos_text = get_state("combos")
+    return {
+        "combos": combos_text,
+        "proxies": get_state("proxies"),
+        "threads": int(get_state("threads", "5") or "5"),
+        "checked_count": count_checked_combos(),
+        "combo_count": combo_count,
+        "combos_stored": combos_stored,
+        "start_line": int(get_state("start_line", "1") or "1"),
+    }
+
+
+def save_session(
+    combos: str,
+    proxies: str,
+    threads: int | str,
+    *,
+    combo_count: int | None = None,
+    combos_stored: bool = False,
+    start_line: int = 1,
+) -> None:
+    if combos_stored:
+        set_state("combos", "")
+        set_state("combos_stored", "1")
+        set_state("combo_count", str(combo_count or 0))
+    else:
+        set_state("combos", combos)
+        set_state("combos_stored", "0")
+        line_count = combo_count if combo_count is not None else len(
+            [line for line in combos.splitlines() if line.strip()]
+        )
+        set_state("combo_count", str(line_count))
+    set_state("proxies", proxies)
+    set_state("threads", str(threads))
+    set_state("start_line", str(max(1, int(start_line or 1))))
+
+
+def count_checked_combos() -> int:
+    with connect() as conn:
+        row = conn.execute("SELECT COUNT(*) AS n FROM checked_combos").fetchone()
+        return int(row["n"])
+
+
+def is_combo_checked(email: str, password: str) -> bool:
+    key = combo_key(email, password)
+    with connect() as conn:
+        row = conn.execute(
+            "SELECT 1 FROM checked_combos WHERE combo_key = ?",
+            (key,),
+        ).fetchone()
+        return row is not None
+
+
+def get_checked_keys() -> set[str]:
+    with connect() as conn:
+        rows = conn.execute("SELECT combo_key FROM checked_combos").fetchall()
+        return {row["combo_key"] for row in rows}
+
+
+def mark_combo_checked(email: str, password: str, status: str) -> None:
+    key = combo_key(email, password)
+    with connect() as conn:
+        conn.execute(
+            """
+            INSERT INTO checked_combos (combo_key, email, password, status, checked_at)
+            VALUES (?, ?, ?, ?, ?)
+            ON CONFLICT(combo_key) DO UPDATE SET
+                status = excluded.status,
+                checked_at = excluded.checked_at
+            """,
+            (key, email, password, status, _utc_now()),
+        )
+
+
+def clear_checked_combos() -> int:
+    with connect() as conn:
+        cur = conn.execute("DELETE FROM checked_combos")
+        return cur.rowcount
+
+
+def insert_saved_combo(email: str, password: str) -> int | None:
+    line = f"{email}:{password}"
+    key = combo_key(email, password)
+    with connect() as conn:
+        try:
+            cur = conn.execute(
+                """
+                INSERT INTO saved_combos (combo_key, email, password, line, created_at)
+                VALUES (?, ?, ?, ?, ?)
+                """,
+                (key, email, password, line, _utc_now()),
+            )
+            return cur.lastrowid
+        except sqlite3.IntegrityError:
+            return None
+
+
+def count_saved_combos() -> int:
+    with connect() as conn:
+        row = conn.execute("SELECT COUNT(*) AS n FROM saved_combos").fetchone()
+        return int(row["n"])
+
+
+def list_saved_combos(limit: int = 10000) -> list[dict[str, Any]]:
+    with connect() as conn:
+        rows = conn.execute(
+            "SELECT * FROM saved_combos ORDER BY created_at DESC, id DESC LIMIT ?",
+            (limit,),
+        ).fetchall()
+        return [dict(row) for row in rows]
+
+
+def export_saved_combos_text() -> str:
+    with connect() as conn:
+        rows = conn.execute(
+            "SELECT line FROM saved_combos ORDER BY created_at ASC, id ASC"
+        ).fetchall()
+        return "\n".join(row["line"] for row in rows)
+
+
+def delete_saved_combos(ids: list[int]) -> int:
+    if not ids:
+        return 0
+    placeholders = ",".join("?" * len(ids))
+    with connect() as conn:
+        cur = conn.execute(f"DELETE FROM saved_combos WHERE id IN ({placeholders})", ids)
+        return cur.rowcount
+
+
+def clear_saved_combos() -> int:
+    with connect() as conn:
+        cur = conn.execute("DELETE FROM saved_combos")
+        return cur.rowcount
+
+
+def insert_hit(line: str, email: str, password: str, data: dict[str, Any]) -> int | None:
+    return upsert_hit(line, email, password, data)
+
+
+def upsert_hit(line: str, email: str, password: str, data: dict[str, Any]) -> int | None:
+    with connect() as conn:
+        existing = conn.execute(
+            "SELECT id FROM hits WHERE email = ? AND password = ?",
+            (email, password),
+        ).fetchone()
+        capture = (
+            int(data.get("points") or 0),
+            int(data.get("member_credits") or 0),
+            float(data.get("store_credit_balance") or 0),
+            data.get("phone"),
+            data.get("cc"),
+            data.get("address"),
+            data.get("membership_status"),
+            1 if data.get("is_vip") else 0,
+        )
+        if existing:
+            conn.execute(
+                """
+                UPDATE hits
+                SET line = ?, points = ?, member_credits = ?, store_credit_balance = ?,
+                    phone = ?, cc = ?, address = ?, membership_status = ?, is_vip = ?
+                WHERE id = ?
+                """,
+                (line, *capture, existing["id"]),
+            )
+            return int(existing["id"])
+
+        try:
+            cur = conn.execute(
+                """
+                INSERT INTO hits (line, email, password, points, member_credits,
+                                  store_credit_balance, phone, cc, address,
+                                  membership_status, is_vip, created_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (line, email, password, *capture, _utc_now()),
+            )
+            return cur.lastrowid
+        except sqlite3.IntegrityError:
+            return None
+
+
+def list_hits_for_recapture() -> list[dict[str, Any]]:
+    with connect() as conn:
+        rows = conn.execute(
+            """
+            SELECT id, email, password
+            FROM hits
+            WHERE member_credits > 0 OR store_credit_balance > 0
+            ORDER BY id ASC
+            """
+        ).fetchall()
+        return [dict(row) for row in rows]
+
+
+def list_hits() -> list[dict[str, Any]]:
+    with connect() as conn:
+        rows = conn.execute(
+            """
+            SELECT * FROM hits
+            WHERE member_credits > 0 OR store_credit_balance > 0
+            ORDER BY store_credit_balance DESC, member_credits DESC, created_at DESC, id DESC
+            """
+        ).fetchall()
+        return [dict(row) for row in rows]
+
+
+def list_recent_hits(limit: int = 10) -> list[dict[str, Any]]:
+    limit = max(1, min(int(limit), 50))
+    with connect() as conn:
+        rows = conn.execute(
+            """
+            SELECT * FROM hits
+            WHERE member_credits > 0 OR store_credit_balance > 0
+            ORDER BY created_at DESC, id DESC
+            LIMIT ?
+            """,
+            (limit,),
+        ).fetchall()
+        return [dict(row) for row in rows]
+
+
+def export_hits_text() -> str:
+    with connect() as conn:
+        rows = conn.execute(
+            """
+            SELECT line FROM hits
+            WHERE member_credits > 0 OR store_credit_balance > 0
+            ORDER BY store_credit_balance DESC, member_credits DESC, created_at DESC, id DESC
+            """
+        ).fetchall()
+        return "\n".join(row["line"] for row in rows)
+
+
+def delete_hits(ids: list[int]) -> int:
+    if not ids:
+        return 0
+    placeholders = ",".join("?" * len(ids))
+    with connect() as conn:
+        cur = conn.execute(f"DELETE FROM hits WHERE id IN ({placeholders})", ids)
+        return cur.rowcount
+
+
+def clear_hits() -> int:
+    with connect() as conn:
+        cur = conn.execute("DELETE FROM hits")
+        return cur.rowcount
+
+
+HITS_RECHECK_COMBOS_PATH = DB_PATH.parent / "hits-recheck-combos.txt"
+
+
+def delete_non_vip_hits() -> int:
+    """Remove credit hits verified as non-VIP (has membership_status, is_vip = 0)."""
+    with connect() as conn:
+        cur = conn.execute(
+            """
+            DELETE FROM hits
+            WHERE (member_credits > 0 OR store_credit_balance > 0)
+              AND is_vip = 0
+              AND membership_status IS NOT NULL
+              AND membership_status != ''
+              AND membership_status != 'Unknown'
+            """
+        )
+        return cur.rowcount
+
+
+def delete_hits_by_ids(ids: list[int]) -> int:
+    return delete_hits(ids)
+
+
+def _add_recheck_combo(seen: set[str], lines: list[str], email: str, password: str) -> None:
+    email = (email or "").strip()
+    password = (password or "").strip()
+    if not email or not password or "@" not in email:
+        return
+    key = combo_key(email, password)
+    if key in seen:
+        return
+    seen.add(key)
+    lines.append(f"{email}:{password}")
+
+
+def _scan_db_for_hit_combos(db_path: Path, seen: set[str], lines: list[str], *, read_only: bool = False) -> None:
+    if not db_path.is_file():
+        return
+    if read_only:
+        conn = sqlite3.connect(f"file:{db_path.resolve()}?mode=ro&immutable=1", uri=True)
+    else:
+        conn = sqlite3.connect(db_path)
+    try:
+        for email, password in conn.execute(
+            "SELECT email, password FROM checked_combos WHERE status = 'hit'"
+        ):
+            _add_recheck_combo(seen, lines, email, password)
+        for email, password in conn.execute(
+            "SELECT email, password FROM hits WHERE email IS NOT NULL AND password IS NOT NULL"
+        ):
+            _add_recheck_combo(seen, lines, email, password)
+    finally:
+        conn.close()
+
+
+def build_hits_recheck_combo_file(extra_db_paths: list[Path] | None = None) -> dict[str, Any]:
+    """Merge historical hit combos into data/hits-recheck-combos.txt."""
+    seen: set[str] = set()
+    lines: list[str] = []
+    _scan_db_for_hit_combos(DB_PATH, seen, lines)
+    for path in extra_db_paths or []:
+        _scan_db_for_hit_combos(path, seen, lines, read_only=True)
+    lines.sort(key=lambda line: line.lower())
+    HITS_RECHECK_COMBOS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    HITS_RECHECK_COMBOS_PATH.write_text("\n".join(lines) + ("\n" if lines else ""), encoding="utf-8")
+    return {
+        "count": len(lines),
+        "path": str(HITS_RECHECK_COMBOS_PATH),
+        "filename": HITS_RECHECK_COMBOS_PATH.name,
+    }

@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from urllib.parse import quote
+import secrets
+from urllib.parse import quote, unquote, urlparse, urlunparse
 
 
 def parse_proxy(value: str) -> str:
@@ -30,3 +31,23 @@ def parse_proxy(value: str) -> str:
         f"http://{quote(username, safe='')}:{quote(password, safe='')}"
         f"@{host}:{port}"
     )
+
+
+def with_rotating_session(proxy_url: str) -> str:
+    """Give each check a fresh residential IP when the provider supports session tags."""
+    parsed = urlparse(proxy_url)
+    if not parsed.hostname or not parsed.username:
+        return proxy_url
+
+    password = unquote(parsed.password or "")
+    session = secrets.token_hex(4)
+    if "_country" in password:
+        password = password.replace("_country", f"_session-{session}_country", 1)
+    elif "_session-" not in password:
+        password = f"{password}_session-{session}"
+
+    user = quote(unquote(parsed.username), safe="")
+    pwd = quote(password, safe="")
+    host = parsed.hostname
+    port = f":{parsed.port}" if parsed.port else ""
+    return f"http://{user}:{pwd}@{host}{port}"
