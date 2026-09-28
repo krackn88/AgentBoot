@@ -25,6 +25,8 @@ const deleteSelectedBtn = $("#deleteSelectedBtn");
 const clearHitsBtn = $("#clearHitsBtn");
 const refreshVipBtn = $("#refreshVipBtn");
 const deleteNonVipBtn = $("#deleteNonVipBtn");
+const buildHitCombosBtn = $("#buildHitCombosBtn");
+const downloadHitCombosBtn = $("#downloadHitCombosBtn");
 const selectAllSavedBtn = $("#selectAllSavedBtn");
 const copySelectedSavedBtn = $("#copySelectedSavedBtn");
 const deleteSelectedSavedBtn = $("#deleteSelectedSavedBtn");
@@ -283,9 +285,15 @@ function updateSelectionButtons() {
   deleteSelectedBtn.disabled = count === 0;
 }
 
+function formatStoreCredit(amount) {
+  const n = Number(amount || 0);
+  if (!n) return "—";
+  return n % 1 === 0 ? `$${n}` : `$${n.toFixed(2)}`;
+}
+
 function renderHits() {
   if (!hits.length) {
-    hitsBody.innerHTML = '<tr class="empty-row"><td colspan="7">No credit hits yet</td></tr>';
+    hitsBody.innerHTML = '<tr class="empty-row"><td colspan="8">No credit hits yet</td></tr>';
     updateSelectionButtons();
     return;
   }
@@ -304,6 +312,10 @@ function renderHits() {
       const vipYes = hit.is_vip === 1 || hit.is_vip === true;
       const vipLabel = vipYes ? "Yes" : "No";
       const membershipStatus = hit.membership_status || "Unknown";
+      const storeCredit = Number(hit.store_credit_balance || 0);
+      const storeCell = storeCredit > 0
+        ? `<span class="credit-badge store">${formatStoreCredit(storeCredit)}</span>`
+        : "—";
 
       return `
     <tr data-id="${hit.id}">
@@ -311,6 +323,7 @@ function renderHits() {
         <input type="checkbox" class="hit-check" data-id="${hit.id}" ${selectedIds.has(hit.id) ? "checked" : ""} />
       </td>
       <td><span class="credit-badge">${hit.member_credits}</span></td>
+      <td class="store-cell">${storeCell}</td>
       <td class="vip-cell" title="${escapeHtml(membershipStatus)}">
         <span class="vip-badge ${vipYes ? "yes" : "no"}">${vipLabel}</span>
       </td>
@@ -493,6 +506,25 @@ deleteNonVipBtn.addEventListener("click", async () => {
   selectedIds.clear();
   await loadHits();
   showToast(`Removed ${data.deleted || 0} non-VIP hit(s)`);
+});
+
+buildHitCombosBtn?.addEventListener("click", async () => {
+  buildHitCombosBtn.disabled = true;
+  const prev = buildHitCombosBtn.textContent;
+  buildHitCombosBtn.textContent = "Building…";
+  try {
+    const data = await api("/api/hits/build-recheck-combos", { method: "POST" });
+    const count = (data.count || 0).toLocaleString();
+    showToast(`Hit combo list ready · ${count} unique combos`);
+    if (downloadHitCombosBtn) {
+      downloadHitCombosBtn.href = `/api/hits/recheck-combos?t=${Date.now()}`;
+    }
+  } catch (err) {
+    showToast(err.message || "Failed to build hit combo list");
+  } finally {
+    buildHitCombosBtn.disabled = false;
+    buildHitCombosBtn.textContent = prev;
+  }
 });
 
 clearHitsBtn.addEventListener("click", async () => {

@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/static/style.css?v=20260927vip2" />
+  <link rel="stylesheet" href="/static/style.css?v=20260928store" />
 </head>
 <body>
   <div class="app">
@@ -103,9 +103,11 @@
         <div class="panel-head">
           <div>
             <div class="panel-title">Member credit hits</div>
-            <p class="panel-sub">Only accounts with credits &gt; 0</p>
+            <p class="panel-sub">Member credits or store credit &gt; 0</p>
           </div>
           <div class="toolbar">
+            <button class="btn ghost small" id="buildHitCombosBtn" title="Export all historical hits to a combo file">Hit combo list</button>
+            <a class="btn ghost small" id="downloadHitCombosBtn" href="/api/hits/recheck-combos" download>Download</a>
             <button class="btn ghost small" id="refreshVipBtn" title="Re-check all hits and remove non-VIP">Refresh VIP</button>
             <button class="btn ghost small" id="deleteNonVipBtn" title="Delete hits marked non-VIP">Drop non-VIP</button>
             <button class="btn ghost small" id="selectAllBtn">Select all</button>
@@ -120,6 +122,7 @@
               <tr>
                 <th class="col-check"></th>
                 <th>Credits</th>
+                <th>Store $</th>
                 <th>VIP</th>
                 <th>Account</th>
                 <th>Phone</th>
@@ -128,7 +131,7 @@
               </tr>
             </thead>
             <tbody id="hitsBody">
-              <tr class="empty-row"><td colspan="7">No credit hits yet</td></tr>
+              <tr class="empty-row"><td colspan="8">No credit hits yet</td></tr>
             </tbody>
           </table>
         </div>
@@ -179,6 +182,6 @@
   </div>
 
   <div class="toast" id="toast"></div>
-  <script src="/static/app.js?v=20260927vip"></script>
+  <script src="/static/app.js?v=20260928store"></script>
 </body>
 </html>

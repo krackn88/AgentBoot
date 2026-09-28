@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import os
 from pathlib import Path
 from typing import Any
 
@@ -19,6 +20,8 @@ from .combo_store import (
     write_text_file,
 )
 from .db import (
+    HITS_RECHECK_COMBOS_PATH,
+    build_hits_recheck_combo_file,
     clear_checked_combos,
     clear_hits,
     clear_saved_combos,
@@ -358,6 +361,34 @@ async def remove_non_vip_hits() -> dict[str, int]:
         raise HTTPException(409, "Stop the job before deleting hits")
     deleted = delete_non_vip_hits()
     return {"deleted": deleted}
+
+
+def _pro_checker_db_path() -> Path | None:
+    raw = os.environ.get("FABLETICS_PRO_DB", "/opt/fabletics-checker-pro/data/checker.db")
+    path = Path(raw)
+    return path if path.is_file() else None
+
+
+@app.post("/api/hits/build-recheck-combos")
+async def build_recheck_combos() -> dict[str, Any]:
+    if worker.is_running():
+        raise HTTPException(409, "Stop the job before building the hit combo list")
+    extra: list[Path] = []
+    pro_db = _pro_checker_db_path()
+    if pro_db:
+        extra.append(pro_db)
+    return build_hits_recheck_combo_file(extra)
+
+
+@app.get("/api/hits/recheck-combos")
+async def download_recheck_combos() -> FileResponse:
+    if not HITS_RECHECK_COMBOS_PATH.is_file():
+        raise HTTPException(404, "Hit recheck combo file not built yet")
+    return FileResponse(
+        HITS_RECHECK_COMBOS_PATH,
+        media_type="text/plain",
+        filename=HITS_RECHECK_COMBOS_PATH.name,
+    )
 
 
 @app.post("/api/hits/recapture-vip")

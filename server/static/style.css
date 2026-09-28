@@ -415,6 +415,11 @@ textarea:focus {
   font-size: 0.82rem;
 }
 
+.credit-badge.store {
+  background: #e8f5e9;
+  color: #1b7a3d;
+}
+
 .vip-badge {
   display: inline-flex;
   align-items: center;

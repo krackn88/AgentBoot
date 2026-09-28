@@ -242,7 +242,8 @@ class CheckerWorker:
 
         if result.status == "HIT":
             member_credits = int(result.data.get("member_credits") or 0)
-            if member_credits > 0:
+            store_credit = float(result.data.get("store_credit_balance") or 0)
+            if member_credits > 0 or store_credit > 0:
                 line = result.format_hit()
                 hit_id = insert_hit(line, email, password, result.data)
                 with self._lock:
@@ -250,6 +251,8 @@ class CheckerWorker:
                 self._log(line)
                 if hit_id is None:
                     self._log(f"DUPLICATE CREDIT HIT | {email}")
+                if store_credit > 0 and member_credits <= 0:
+                    self._log(f"STORE CREDIT HIT | {email} | ${store_credit:.2f}")
             else:
                 saved_id = insert_saved_combo(email, password)
                 with self._lock:

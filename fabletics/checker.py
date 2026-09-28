@@ -210,6 +210,9 @@ def capture_account_data(client: FableticsClient, token: str, login_customer: di
     points = int(loyalty.get("balance") or 0)
     member_credits = int(membership.get("availableTokenQuantity") or 0)
     store_credit_balance = float(membership.get("storeCreditBalance") or 0)
+    membership_store_credit = float(membership.get("membershipStoreCreditBalance") or 0)
+    if membership_store_credit > store_credit_balance:
+        store_credit_balance = membership_store_credit
 
     phone = _extract_phone(login_customer, addresses, default_address, profile)
     vip_info = _derive_vip_info(membership if isinstance(membership, dict) else {})

