@@ -120,6 +120,7 @@ def get_session() -> dict[str, Any]:
         "checked_count": count_checked_combos(),
         "combo_count": combo_count,
         "combos_stored": combos_stored,
+        "start_line": int(get_state("start_line", "1") or "1"),
     }
 
 
@@ -130,6 +131,7 @@ def save_session(
     *,
     combo_count: int | None = None,
     combos_stored: bool = False,
+    start_line: int = 1,
 ) -> None:
     if combos_stored:
         set_state("combos", "")
@@ -144,6 +146,7 @@ def save_session(
         set_state("combo_count", str(line_count))
     set_state("proxies", proxies)
     set_state("threads", str(threads))
+    set_state("start_line", str(max(1, int(start_line or 1))))
 
 
 def count_checked_combos() -> int:
