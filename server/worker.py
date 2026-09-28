@@ -311,7 +311,7 @@ class CheckerWorker:
                 self.stats.current = email
 
             proxy = self._pick_proxy(proxies, idx) if proxy_cycle else _UNSET
-            return check_account(email, password, proxy=proxy, timeout=45)
+            return check_account(email, password, proxy=proxy, timeout=120)
 
         def submit_next(pool) -> bool:
             with self._lock:
@@ -366,7 +366,7 @@ class CheckerWorker:
                         if result is not None:
                             self._record_result(email, password, result)
                         if not stopped:
-                            time.sleep(random.uniform(0.15, 0.45))
+                            time.sleep(random.uniform(0.05, 0.15))
 
                     if not stopped:
                         submit_next(pool)
