@@ -316,6 +316,33 @@ def list_hits() -> list[dict[str, Any]]:
         return [dict(row) for row in rows]
 
 
+def list_recent_hits(limit: int = 10) -> list[dict[str, Any]]:
+    limit = max(1, min(int(limit), 50))
+    with connect() as conn:
+        rows = conn.execute(
+            """
+            SELECT * FROM hits
+            WHERE member_credits > 0 OR store_credit_balance > 0
+            ORDER BY created_at DESC, id DESC
+            LIMIT ?
+            """,
+            (limit,),
+        ).fetchall()
+        return [dict(row) for row in rows]
+
+
+def export_hits_text() -> str:
+    with connect() as conn:
+        rows = conn.execute(
+            """
+            SELECT line FROM hits
+            WHERE member_credits > 0 OR store_credit_balance > 0
+            ORDER BY store_credit_balance DESC, member_credits DESC, created_at DESC, id DESC
+            """
+        ).fetchall()
+        return "\n".join(row["line"] for row in rows)
+
+
 def delete_hits(ids: list[int]) -> int:
     if not ids:
         return 0
