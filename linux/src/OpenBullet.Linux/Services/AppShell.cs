@@ -16,10 +16,12 @@ public sealed class AppShell
     public ProxyManagerHost Proxies { get; } = new();
     public HitsDbHost Hits { get; } = new();
     public PluginUiHost PluginUi { get; } = new();
+    public LinuxApplicationBridge Application { get; private set; }
 
     public AppShell()
     {
         LinuxPaths.EnsureLayout();
+        Application = new LinuxApplicationBridge(this);
         Runner = new RunnerHost(RuriSettings, Hits, ObSettings, Stacker);
         Configs.EnsureSmokeFixtureImported();
         EnsureSmokeWordlistImported();

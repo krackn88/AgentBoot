@@ -20,6 +20,7 @@ public partial class StackerView : UserControl
     {
         _host = shell.Stacker;
         DataContext = _host;
+        BlockEditor.Attach(_host.BlockEditor);
         _host.PropertyChanged += OnHostPropertyChanged;
         _host.Debugger.PropertyChanged += OnDebuggerPropertyChanged;
         SyncEditorFromHost();

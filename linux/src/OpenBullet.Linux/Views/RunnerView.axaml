@@ -38,7 +38,11 @@
       <StackPanel Grid.Column="1" Spacing="4">
         <TextBlock Foreground="{DynamicResource ObForegroundMain}" Text="{Binding Runner.ConfigName, StringFormat=Config: {0}}" />
         <TextBlock Foreground="{DynamicResource ObForegroundMain}" Text="{Binding Runner.WordlistName, StringFormat=Wordlist: {0}}" />
-        <TextBlock Foreground="{DynamicResource ObForegroundMain}" Text="{Binding Runner.BotsAmount, StringFormat=Bots: {0}}" />
+        <StackPanel Orientation="Horizontal" Spacing="6">
+          <TextBlock Foreground="{DynamicResource ObForegroundMain}" Text="Bots" VerticalAlignment="Center" />
+          <NumericUpDown Minimum="1" Maximum="200" Width="80" Value="{Binding Runner.BotsAmount}" />
+          <CheckBox Content="Use proxies" IsChecked="{Binding Runner.UseProxies}" VerticalAlignment="Center" />
+        </StackPanel>
         <TextBlock Foreground="{DynamicResource ObForegroundMain}">
           <Run Text="Hits: " />
           <Run Text="{Binding Runner.HitCount}" Foreground="{DynamicResource ObForegroundGood}" />

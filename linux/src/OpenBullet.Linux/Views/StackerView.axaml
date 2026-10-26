@@ -1,10 +1,11 @@
 <UserControl xmlns="https://github.com/avaloniaui"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:services="clr-namespace:OpenBullet.Linux.Services"
+             xmlns:views="clr-namespace:OpenBullet.Linux.Views"
              xmlns:edit="using:AvaloniaEdit"
              x:Class="OpenBullet.Linux.Views.StackerView"
              x:DataType="services:StackerHost">
-  <Grid RowDefinitions="*,Auto" ColumnDefinitions="3*,8,2*">
+  <Grid RowDefinitions="*,Auto" ColumnDefinitions="3*,8,1.2*,8,1.6*">
     <Grid Grid.Row="0" Grid.Column="0" RowDefinitions="Auto,*,Auto">
       <TextBlock Grid.Row="0" Text="LoliScript" Foreground="{DynamicResource ObForegroundToCheck}" FontWeight="Bold"
                  HorizontalAlignment="Center" Margin="0,0,0,6" />
@@ -37,7 +38,11 @@
                Classes="ob-list" Background="{DynamicResource ObBackgroundSecondary}" />
     </Grid>
 
-    <Border Grid.Row="1" Grid.ColumnSpan="3" Margin="0,10,0,0" Padding="10"
+    <Border Grid.Row="0" Grid.Column="4" Padding="8" Background="{DynamicResource ObBackgroundSecondary}" CornerRadius="2">
+      <views:BlockPropertyEditorView x:Name="BlockEditor" />
+    </Border>
+
+    <Border Grid.Row="1" Grid.ColumnSpan="5" Margin="0,10,0,0" Padding="10"
             Background="{DynamicResource ObBackgroundSecondary}" CornerRadius="2">
       <Grid RowDefinitions="Auto,Auto,100">
         <TextBlock Text="Debugger (step-through)" Foreground="{DynamicResource ObForegroundCustom}" FontWeight="Bold" />

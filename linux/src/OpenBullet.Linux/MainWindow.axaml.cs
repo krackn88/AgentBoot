@@ -27,6 +27,7 @@ public partial class MainWindow : Window
         _proxiesView.Attach(_shell.Proxies);
         _hitsView.Attach(_shell.Hits);
         _settingsView.Attach(_shell.RuriSettings, _shell.ObSettings);
+        _shell.PluginUi.Attach(_shell.Application);
         _pluginsView.Attach(_shell.PluginUi);
         ShowRunner();
         ScreenshotCapture.Schedule(this, PageHost);

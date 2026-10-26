@@ -19,6 +19,20 @@ public sealed class ConfigManagerHost : ViewModelBase
     public string CurrentConfigName => CurrentConfig?.Name ?? "None";
     public int Total => FilteredConfigs.Count;
 
+    public ObservableCollection<string> Categories { get; } = new() { "All" };
+
+    private string _categoryFilter = "All";
+    public string CategoryFilter
+    {
+        get => _categoryFilter;
+        set
+        {
+            _categoryFilter = value ?? "All";
+            OnPropertyChanged(nameof(CategoryFilter));
+            ApplyFilter();
+        }
+    }
+
     private string _searchString = "";
     public string SearchString
     {
@@ -44,6 +58,7 @@ public sealed class ConfigManagerHost : ViewModelBase
         AllConfigs.Clear();
         foreach (var c in _repo.Get().OrderByDescending(c => c.Config.Settings.LastModified))
             AllConfigs.Add(c);
+        RebuildCategories();
         ApplyFilter();
         SetStatus($"Rescanned — {AllConfigs.Count} config(s)");
     }
@@ -125,14 +140,32 @@ public sealed class ConfigManagerHost : ViewModelBase
         }
     }
 
+    private void RebuildCategories()
+    {
+        Categories.Clear();
+        Categories.Add("All");
+        foreach (var cat in AllConfigs.Select(c => c.Category).Where(c => !string.IsNullOrEmpty(c)).Distinct().OrderBy(c => c))
+            Categories.Add(cat);
+        OnPropertyChanged(nameof(Categories));
+    }
+
     private void ApplyFilter()
     {
         FilteredConfigs.Clear();
         var q = _searchString.Trim().ToLowerInvariant();
         foreach (var c in AllConfigs)
         {
-            if (q.Length == 0 || c.Name.ToLowerInvariant().Contains(q))
-                FilteredConfigs.Add(c);
+            if (CategoryFilter != "All" && c.Category != CategoryFilter) continue;
+            if (q.Length > 0)
+            {
+                var author = c.Config?.Settings?.Author ?? "";
+                if (!c.Name.ToLowerInvariant().Contains(q) &&
+                    !c.Category.ToLowerInvariant().Contains(q) &&
+                    !author.ToLowerInvariant().Contains(q))
+                    continue;
+            }
+
+            FilteredConfigs.Add(c);
         }
 
         OnPropertyChanged(nameof(Total));

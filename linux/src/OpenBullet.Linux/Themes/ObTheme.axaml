@@ -77,4 +77,23 @@
   <Style Selector="CheckBox">
     <Setter Property="Foreground" Value="{DynamicResource ObForegroundMain}" />
   </Style>
+
+  <Style Selector="NumericUpDown">
+    <Setter Property="Background" Value="{DynamicResource ObBackgroundInput}" />
+    <Setter Property="Foreground" Value="{DynamicResource ObForegroundMain}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource ObBorder}" />
+  </Style>
+
+  <Style Selector="DataGrid">
+    <Setter Property="Background" Value="{DynamicResource ObBackgroundSecondary}" />
+    <Setter Property="Foreground" Value="{DynamicResource ObForegroundMain}" />
+    <Setter Property="GridLinesVisibility" Value="Horizontal" />
+    <Setter Property="BorderBrush" Value="{DynamicResource ObBorder}" />
+    <Setter Property="RowBackground" Value="#181818" />
+    <Setter Property="HeadersVisibility" Value="Column" />
+  </Style>
+  <Style Selector="DataGridColumnHeader">
+    <Setter Property="Background" Value="#292929" />
+    <Setter Property="Foreground" Value="{DynamicResource ObForegroundMain}" />
+  </Style>
 </Styles>

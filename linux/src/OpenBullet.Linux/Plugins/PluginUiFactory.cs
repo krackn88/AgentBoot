@@ -41,7 +41,7 @@ public static class PluginUiFactory
             panel.Children.Add(BuildField(instance, prop));
 
         foreach (var method in pluginType.GetMethods().Where(m => IsButtonMethod(m)))
-            panel.Children.Add(BuildButton(instance, method));
+            panel.Children.Add(BuildButton(instance, method, app));
 
         return (instance, panel);
     }
@@ -92,14 +92,14 @@ public static class PluginUiFactory
         return stack;
     }
 
-    private static Control BuildButton(IPlugin plugin, MethodInfo method)
+    private static Control BuildButton(IPlugin plugin, MethodInfo method, IApplication app)
     {
         var attr = method.GetCustomAttribute<PluginButton>();
         var btn = new Avalonia.Controls.Button { Content = attr?.text ?? method.Name };
         btn.Click += (_, _) =>
         {
             var args = method.GetParameters().Length == 1
-                ? new object[] { new LinuxOpenBulletApp() }
+                ? new object[] { app }
                 : Array.Empty<object>();
             method.Invoke(plugin, args);
         };

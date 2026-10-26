@@ -12,15 +12,27 @@ public sealed class PluginUiHost : ViewModelBase
     public ObservableCollection<PluginUiEntry> Plugins { get; } = new();
     public string StatusMessage { get; private set; } = "";
 
+    private LinuxApplicationBridge _app;
+
+    public void Attach(LinuxApplicationBridge app) => _app = app;
+
     public void Reload()
     {
         Plugins.Clear();
         var result = PluginLoader.Load(LinuxPaths.PluginsFolder);
+        if (_app == null)
+        {
+            StatusMessage = "Plugin host not attached to application bridge";
+            OnPropertyChanged(nameof(StatusMessage));
+            return;
+        }
+
+        var app = _app;
         foreach (var type in result.UiPluginTypes)
         {
             try
             {
-                var (_, panel) = PluginUiFactory.Build(type, new LinuxOpenBulletApp());
+                var (_, panel) = PluginUiFactory.Build(type, app);
                 Plugins.Add(new PluginUiEntry(type.Name, panel));
             }
             catch (Exception ex)

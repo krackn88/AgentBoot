@@ -39,7 +39,9 @@ public partial class WordlistManagerView : UserControl
             _host?.DeleteSelected(wl);
     }
 
-    private void OnRescan(object sender, RoutedEventArgs e) => _host?.Rescan();
+    private void OnRescan(object sender, RoutedEventArgs e) => _host?.RefreshView();
+
+    private void OnDeleteMissing(object sender, RoutedEventArgs e) => _host?.DeleteNotFound();
 
     private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {

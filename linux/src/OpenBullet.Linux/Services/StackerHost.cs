@@ -16,6 +16,7 @@ public sealed class StackerHost : ViewModelBase
 
     public ConfigViewModel Config { get; private set; }
     public StackerDebuggerHost Debugger { get; } = new();
+    public BlockPropertyEditorHost BlockEditor { get; } = new();
 
     private string _script = "";
     public string Script
@@ -39,6 +40,7 @@ public sealed class StackerHost : ViewModelBase
         {
             _selectedBlock = value;
             OnPropertyChanged(nameof(SelectedBlock));
+            BlockEditor.Bind(value?.Block, PushBlocksToScript);
         }
     }
 

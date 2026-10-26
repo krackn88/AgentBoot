@@ -35,6 +35,9 @@ jobs:
       - name: Build solution
         run: dotnet build linux/OpenBullet.Linux.sln -c Release --no-restore
 
+      - name: Parity unit tests (LoliScript round-trip)
+        run: dotnet test linux/OpenBullet.Linux.sln -c Release --no-restore --filter "FullyQualifiedName~OpenBullet.Parity"
+
       - name: CLI smoke test
         run: |
           cd linux/src/OpenBulletCLI
@@ -43,6 +46,11 @@ jobs:
             -w ../../fixtures/smoke-wordlist.txt \
             --wltype Default -b 1 -v | tee /tmp/cli-smoke.log
           grep -q "SUCCESS" /tmp/cli-smoke.log
+
+      - name: Camoufox parity smoke (optional)
+        run: |
+          chmod +x linux/scripts/parity-camoufox-smoke.sh
+          linux/scripts/parity-camoufox-smoke.sh
 
       - name: GUI Runner screenshot (RenderTargetBitmap)
         run: |
