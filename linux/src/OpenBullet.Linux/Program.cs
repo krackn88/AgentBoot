@@ -9,6 +9,7 @@ internal static class Program
     [STAThread]
     public static void Main(string[] args)
     {
+        LinuxPaths.EnsureLayout();
         ScreenshotCapture.EnableSoftwareRenderingIfNeeded();
         BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
     }
