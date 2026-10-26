@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="LiteDB" Version="4.1.4" />
     <PackageReference Include="SixLabors.ImageSharp" Version="3.1.6" />
     <PackageReference Include="Avalonia" Version="11.2.3" />
     <PackageReference Include="Avalonia.Desktop" Version="11.2.3" />
@@ -25,6 +26,12 @@
     <None Include="$(OpenBulletUpstreamRoot)/OpenBulletCLI/DefaultEnvFile.ini" Link="DefaultEnvFile.ini" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../fixtures/**" Link="fixtures/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
     <None Include="../../Plugins/**" Link="Plugins/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Extreme.Net">
+      <HintPath>$(OpenBulletUpstreamRoot)/Extreme.Net.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

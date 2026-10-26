@@ -29,8 +29,11 @@ jobs:
         with:
           global-json-file: global.json
 
+      - name: Restore solution
+        run: dotnet restore linux/OpenBullet.Linux.sln
+
       - name: Build solution
-        run: dotnet build linux/OpenBullet.Linux.sln -c Release --no-restore false
+        run: dotnet build linux/OpenBullet.Linux.sln -c Release --no-restore
 
       - name: CLI smoke test
         run: |

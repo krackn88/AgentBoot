@@ -7,14 +7,18 @@ namespace OpenBullet.Linux.Services;
 /// <summary>Shared app state for Runner, Configs, and Stacker.</summary>
 public sealed class AppShell
 {
-    public RunnerHost Runner { get; } = new();
+    public RuriLibSettingsHost RuriSettings { get; } = new();
+    public RunnerHost Runner { get; }
     public ConfigManagerHost Configs { get; } = new();
     public StackerHost Stacker { get; } = new();
     public WordlistManagerHost Wordlists { get; } = new();
+    public ProxyManagerHost Proxies { get; } = new();
+    public HitsDbHost Hits { get; } = new();
 
     public AppShell()
     {
         LinuxPaths.EnsureLayout();
+        Runner = new RunnerHost(RuriSettings);
         Configs.EnsureSmokeFixtureImported();
         EnsureSmokeWordlistImported();
         Runner.LoadDefaultSmokeFixturesIfEmpty();

@@ -26,18 +26,30 @@ public sealed class RunnerHost : ViewModelBase
     public string ConfigPath { get; set; } = "";
     public string WordlistPath { get; set; } = "";
 
-    public RunnerHost()
+    public RunnerHost(RuriLibSettingsHost sharedSettings = null)
     {
         LinuxPaths.EnsureLayout();
         EnsureSettingsFiles();
         Environment = IOManager.ParseEnvironmentSettings(LinuxPaths.EnvironmentIni);
+        if (sharedSettings != null)
+            sharedSettings.SettingsSaved += ReloadSettingsFromDisk;
+        ReloadSettingsFromDisk();
+        ReloadPlugins();
+    }
+
+    public void ReloadSettingsFromDisk()
+    {
         Settings = File.Exists(LinuxPaths.RlSettingsJson)
             ? IOManager.LoadSettings<RLSettingsViewModel>(LinuxPaths.RlSettingsJson)
             : new RLSettingsViewModel();
 
+        if (Runner?.Master?.Status == RuriLib.Runner.WorkerStatus.Running)
+            return;
+
         Runner = new RunnerViewModel(Environment, Settings, _random);
         WireRunner();
-        ReloadPlugins();
+        OnPropertyChanged(nameof(Runner));
+        OnPropertyChanged(nameof(Settings));
     }
 
     public void ReloadPlugins()

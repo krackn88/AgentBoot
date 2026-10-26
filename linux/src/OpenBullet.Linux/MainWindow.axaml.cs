@@ -11,12 +11,18 @@ public partial class MainWindow : Window
     private readonly AppShell _shell = new();
     private readonly ConfigsSectionView _configsSection = new();
     private readonly WordlistManagerView _wordlistsView = new();
+    private readonly ProxyManagerView _proxiesView = new();
+    private readonly HitsDbView _hitsView = new();
+    private readonly RuriLibSettingsView _settingsView = new();
 
     public MainWindow()
     {
         InitializeComponent();
         _configsSection.Attach(_shell, ShowRunner);
         _wordlistsView.Attach(_shell.Wordlists);
+        _proxiesView.Attach(_shell.Proxies);
+        _hitsView.Attach(_shell.Hits);
+        _settingsView.Attach(_shell.RuriSettings);
         ShowRunner();
         ScreenshotCapture.Schedule(this, PageHost);
     }
@@ -69,13 +75,25 @@ public partial class MainWindow : Window
         HighlightTab(WordlistsTab);
     }
 
-    private void OnProxiesTab(object sender, RoutedEventArgs e) => ShowPlaceholder("Proxies — Phase 4", ProxiesTab);
+    private void OnProxiesTab(object sender, RoutedEventArgs e)
+    {
+        PageHost.Content = _proxiesView;
+        HighlightTab(ProxiesTab);
+    }
 
-    private void OnHitsTab(object sender, RoutedEventArgs e) => ShowPlaceholder("Hits DB — Phase 4", HitsTab);
+    private void OnHitsTab(object sender, RoutedEventArgs e)
+    {
+        PageHost.Content = _hitsView;
+        HighlightTab(HitsTab);
+    }
 
     private void OnToolsTab(object sender, RoutedEventArgs e) => ShowTools();
 
-    private void OnSettingsTab(object sender, RoutedEventArgs e) => ShowPlaceholder("Settings — Phase 4", SettingsTab);
+    private void OnSettingsTab(object sender, RoutedEventArgs e)
+    {
+        PageHost.Content = _settingsView;
+        HighlightTab(SettingsTab);
+    }
 
     private void OnAboutTab(object sender, RoutedEventArgs e) => ShowAbout();
 }

@@ -1,0 +1,57 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:services="clr-namespace:OpenBullet.Linux.Services"
+             xmlns:models="clr-namespace:RuriLib.Models;assembly=RuriLib"
+             x:Class="OpenBullet.Linux.Views.ProxyManagerView"
+             x:DataType="services:ProxyManagerHost">
+  <Grid RowDefinitions="Auto,Auto,*,Auto">
+    <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="6" Margin="0,0,0,6">
+      <Button Content="Import file" Click="OnImport" />
+      <Button x:Name="CheckButton" Content="CHECK" Click="OnCheck" />
+      <Button Content="Delete" Click="OnDelete" />
+      <Button Content="Delete all" Click="OnDeleteAll" />
+      <Button Content="Delete not working" Click="OnDeleteBad" />
+      <Button Content="Export selected" Click="OnExport" />
+      <Button Content="Refresh" Click="OnRefresh" />
+    </StackPanel>
+    <Grid Grid.Row="1" ColumnDefinitions="*,*" Margin="0,0,0,6">
+      <StackPanel Spacing="4">
+        <TextBlock Foreground="#DCDCDC" Text="{Binding Total, StringFormat=Total: {0}}" />
+        <TextBlock Foreground="#ADFF2F" Text="{Binding Working, StringFormat=Working: {0}}" />
+        <TextBlock Foreground="#FF6347" Text="{Binding NotWorking, StringFormat=Not working: {0}}" />
+        <ProgressBar Minimum="0" Maximum="100" Value="{Binding CheckProgress}" Height="10" />
+      </StackPanel>
+      <StackPanel Grid.Column="1" Spacing="4">
+        <StackPanel Orientation="Horizontal" Spacing="6">
+          <TextBlock Foreground="#DCDCDC" Text="Test URL" VerticalAlignment="Center" />
+          <TextBox Width="220" Text="{Binding TestSite}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="6">
+          <TextBlock Foreground="#DCDCDC" Text="Success key" VerticalAlignment="Center" />
+          <TextBox Width="120" Text="{Binding SuccessKey}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="6">
+          <TextBlock Foreground="#DCDCDC" Text="Bots" VerticalAlignment="Center" />
+          <TextBox Width="50" Text="{Binding BotsAmount}" />
+          <TextBlock Foreground="#DCDCDC" Text="Timeout (s)" VerticalAlignment="Center" Margin="12,0,0,0" />
+          <TextBox Width="50" Text="{Binding TimeoutSeconds}" />
+        </StackPanel>
+        <CheckBox Content="Only untested" IsChecked="{Binding OnlyUntested}" Foreground="#DCDCDC" />
+      </StackPanel>
+    </Grid>
+    <ListBox Grid.Row="2" x:Name="ProxyList" ItemsSource="{Binding Proxies}" SelectionMode="Multiple"
+             Background="#1a1a1a" Foreground="#DCDCDC">
+      <ListBox.ItemTemplate>
+        <DataTemplate x:DataType="models:CProxy">
+          <Grid ColumnDefinitions="*,Auto,Auto,Auto">
+            <TextBlock Grid.Column="0" Text="{Binding Proxy}" />
+            <TextBlock Grid.Column="1" Margin="8,0" Text="{Binding Type}" Foreground="#888" />
+            <TextBlock Grid.Column="2" Margin="8,0" Text="{Binding Working}" />
+            <TextBlock Grid.Column="3" Margin="8,0" Text="{Binding Ping, StringFormat={}{0} ms}" />
+          </Grid>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    <TextBlock Grid.Row="3" Margin="0,8,0,0" Foreground="#ADFF2F" Text="{Binding StatusMessage}" />
+  </Grid>
+</UserControl>

@@ -10,6 +10,7 @@ public static class LinuxPaths
     public static string ConfigsFolder => Path.Combine(AppContext.BaseDirectory, "Configs");
     public static string WordlistsFolder => Path.Combine(AppContext.BaseDirectory, "Wordlists");
     public static string HitsFolder => Path.Combine(AppContext.BaseDirectory, "DB");
+    public static string DatabaseFile => Path.Combine(HitsFolder, "OpenBullet.db");
     public static string EnvironmentIni => Path.Combine(SettingsFolder, "Environment.ini");
     public static string RlSettingsJson => Path.Combine(SettingsFolder, "RLSettings.json");
 

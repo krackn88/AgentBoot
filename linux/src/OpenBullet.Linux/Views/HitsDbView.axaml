@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:services="clr-namespace:OpenBullet.Linux.Services"
+             xmlns:models="clr-namespace:RuriLib.Models;assembly=RuriLib"
+             x:Class="OpenBullet.Linux.Views.HitsDbView"
+             x:DataType="services:HitsDbHost">
+  <Grid RowDefinitions="Auto,Auto,*,Auto">
+    <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="6" Margin="0,0,0,6">
+      <Button Content="Refresh" Click="OnRefresh" />
+      <Button Content="Delete selected" Click="OnDelete" />
+      <Button Content="Delete all" Click="OnDeleteAll" />
+      <Button Content="Export selected" Click="OnExport" />
+      <Button Content="Export full" Click="OnExportFull" />
+    </StackPanel>
+    <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="8" Margin="0,0,0,6">
+      <ComboBox Width="120" ItemsSource="{Binding TypeOptions}" SelectedItem="{Binding TypeFilter}" />
+      <ComboBox Width="160" ItemsSource="{Binding ConfigOptions}" SelectedItem="{Binding ConfigFilter}" />
+      <TextBox Width="200" Watermark="Search capture/data" Text="{Binding SearchString}" />
+      <TextBlock Foreground="#DCDCDC" VerticalAlignment="Center"
+                 Text="{Binding Filtered, StringFormat=Showing {0}}" />
+      <TextBlock Foreground="#888" VerticalAlignment="Center"
+                 Text="{Binding Total, StringFormat=/ {0} total}" />
+    </StackPanel>
+    <ListBox Grid.Row="2" x:Name="HitsList" ItemsSource="{Binding FilteredHits}" SelectionMode="Multiple"
+             Background="#1a1a1a" Foreground="#DCDCDC">
+      <ListBox.ItemTemplate>
+        <DataTemplate x:DataType="models:Hit">
+          <StackPanel>
+            <TextBlock FontWeight="Bold" Text="{Binding Data}" />
+            <TextBlock Foreground="#ADFF2F" Text="{Binding CapturedString}" TextWrapping="Wrap" />
+            <TextBlock Foreground="#888" FontSize="11">
+              <Run Text="{Binding Type}" />
+              <Run Text=" | " />
+              <Run Text="{Binding ConfigName}" />
+              <Run Text=" | " />
+              <Run Text="{Binding Date}" />
+            </TextBlock>
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    <TextBlock Grid.Row="3" Margin="0,8,0,0" Foreground="#ADFF2F" Text="{Binding StatusMessage}" />
+  </Grid>
+</UserControl>
