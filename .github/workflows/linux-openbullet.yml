@@ -40,3 +40,14 @@ jobs:
             -w ../../fixtures/smoke-wordlist.txt \
             --wltype Default -b 1 -v | tee /tmp/cli-smoke.log
           grep -q "SUCCESS" /tmp/cli-smoke.log
+
+      - name: GUI Runner screenshot (RenderTargetBitmap)
+        run: |
+          pip install pillow
+          export OPENBULLET_SCREENSHOT=1
+          export OPENBULLET_SCREENSHOT_PATH=/tmp/openbullet-runner.png
+          export OPENBULLET_SCREENSHOT_STATS=/tmp/openbullet-runner-stats.txt
+          xvfb-run -a --server-args="-screen 0 960x700x24" \
+            dotnet linux/src/OpenBullet.Linux/bin/Release/net8.0/OpenBullet.Linux.dll
+          python3 linux/scripts/verify-screenshot-brightness.py /tmp/openbullet-runner.png
+          cat /tmp/openbullet-runner-stats.txt

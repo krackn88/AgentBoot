@@ -8,6 +8,8 @@ public static class LinuxPaths
     public static string PluginsFolder => Path.Combine(AppContext.BaseDirectory, "Plugins");
     public static string SettingsFolder => Path.Combine(AppContext.BaseDirectory, "Settings");
     public static string ConfigsFolder => Path.Combine(AppContext.BaseDirectory, "Configs");
+    public static string WordlistsFolder => Path.Combine(AppContext.BaseDirectory, "Wordlists");
+    public static string HitsFolder => Path.Combine(AppContext.BaseDirectory, "DB");
     public static string EnvironmentIni => Path.Combine(SettingsFolder, "Environment.ini");
     public static string RlSettingsJson => Path.Combine(SettingsFolder, "RLSettings.json");
 
@@ -16,6 +18,8 @@ public static class LinuxPaths
         Directory.CreateDirectory(PluginsFolder);
         Directory.CreateDirectory(SettingsFolder);
         Directory.CreateDirectory(ConfigsFolder);
+        Directory.CreateDirectory(WordlistsFolder);
+        Directory.CreateDirectory(HitsFolder);
     }
 
     public static string FindRepoLinuxDir()

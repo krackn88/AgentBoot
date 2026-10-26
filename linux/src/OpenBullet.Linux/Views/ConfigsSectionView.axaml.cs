@@ -16,9 +16,12 @@ public partial class ConfigsSectionView : UserControl
         ShowManager();
     }
 
-    public void Attach(AppShell shell)
+    private System.Action _navigateRunner;
+
+    public void Attach(AppShell shell, System.Action navigateRunner = null)
     {
-        _manager.Attach(shell);
+        _navigateRunner = navigateRunner;
+        _manager.Attach(shell, navigateRunner);
         _stacker.Attach(shell);
     }
 

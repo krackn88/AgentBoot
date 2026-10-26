@@ -1,12 +1,6 @@
-using System;
-using System.IO;
-using System.Threading.Tasks;
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
-using Avalonia.Media.Imaging;
-using Avalonia.Threading;
 using OpenBullet.Linux.Services;
 using OpenBullet.Linux.Views;
 
@@ -16,32 +10,15 @@ public partial class MainWindow : Window
 {
     private readonly AppShell _shell = new();
     private readonly ConfigsSectionView _configsSection = new();
+    private readonly WordlistManagerView _wordlistsView = new();
 
     public MainWindow()
     {
         InitializeComponent();
-        _configsSection.Attach(_shell);
+        _configsSection.Attach(_shell, ShowRunner);
+        _wordlistsView.Attach(_shell.Wordlists);
         ShowRunner();
-        Opened += OnOpenedCaptureScreenshot;
-    }
-
-    private void OnOpenedCaptureScreenshot(object sender, EventArgs e)
-    {
-        var path = Environment.GetEnvironmentVariable("OPENBULLET_SCREENSHOT");
-        if (string.IsNullOrWhiteSpace(path)) return;
-
-        Dispatcher.UIThread.Post(async () =>
-        {
-            await Task.Delay(800);
-            var width = Math.Max(1, (int)Bounds.Width);
-            var height = Math.Max(1, (int)Bounds.Height);
-            var bmp = new RenderTargetBitmap(new PixelSize(width, height), new Vector(96, 96));
-            bmp.Render(this);
-            Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(path)) ?? ".");
-            await using var fs = File.Create(path);
-            bmp.Save(fs);
-            Environment.Exit(0);
-        });
+        ScreenshotCapture.Schedule(this, PageHost);
     }
 
     private void HighlightTab(Button active)
@@ -86,7 +63,11 @@ public partial class MainWindow : Window
 
     private void OnConfigsTab(object sender, RoutedEventArgs e) => ShowConfigs();
 
-    private void OnWordlistsTab(object sender, RoutedEventArgs e) => ShowPlaceholder("Wordlists — Phase 4", WordlistsTab);
+    private void OnWordlistsTab(object sender, RoutedEventArgs e)
+    {
+        PageHost.Content = _wordlistsView;
+        HighlightTab(WordlistsTab);
+    }
 
     private void OnProxiesTab(object sender, RoutedEventArgs e) => ShowPlaceholder("Proxies — Phase 4", ProxiesTab);
 

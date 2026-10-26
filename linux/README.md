@@ -19,6 +19,17 @@ dotnet run -c Release -- \
   -b 1 -v
 ```
 
+### Headless Runner screenshot (CI / docs)
+
+```bash
+pip install pillow
+export OPENBULLET_SCREENSHOT=1
+export OPENBULLET_SCREENSHOT_PATH=/path/to/openbullet-linux-runner.png
+bash linux/scripts/capture-runner-screenshot.sh
+```
+
+Uses Avalonia `RenderTargetBitmap` (not X11 window grab). Dark Metro UI has ~29 average luminance but &lt;5% near-black pixels when valid.
+
 ## Run GUI (`OpenBullet.Linux`)
 
 ```bash

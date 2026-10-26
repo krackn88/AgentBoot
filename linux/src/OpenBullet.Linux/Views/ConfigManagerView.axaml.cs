@@ -9,15 +9,17 @@ namespace OpenBullet.Linux.Views;
 public partial class ConfigManagerView : UserControl
 {
     private AppShell _shell;
+    private System.Action _navigateRunner;
 
     public ConfigManagerView()
     {
         InitializeComponent();
     }
 
-    public void Attach(AppShell shell)
+    public void Attach(AppShell shell, System.Action navigateRunner = null)
     {
         _shell = shell;
+        _navigateRunner = navigateRunner;
         DataContext = shell.Configs;
     }
 
@@ -41,6 +43,14 @@ public partial class ConfigManagerView : UserControl
     }
 
     private void OnRescan(object sender, RoutedEventArgs e) => Host?.Rescan();
+
+    private void OnOpenInRunner(object sender, RoutedEventArgs e)
+    {
+        var vm = ConfigList.SelectedItem as ConfigViewModel ?? Host?.CurrentConfig;
+        if (vm == null) return;
+        _shell?.LoadConfigIntoRunner(vm);
+        _navigateRunner?.Invoke();
+    }
 
     private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {

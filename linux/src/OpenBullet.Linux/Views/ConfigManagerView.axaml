@@ -23,6 +23,7 @@
       <Button Content="Delete" Click="OnDelete" />
       <TextBox Width="140" Watermark="Filter" Text="{Binding SearchString}" />
       <Button Content="Rescan" Click="OnRescan" />
+      <Button Content="Open in Runner" Click="OnOpenInRunner" />
     </StackPanel>
 
     <ListBox Grid.Row="2" x:Name="ConfigList" ItemsSource="{Binding FilteredConfigs}"
