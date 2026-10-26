@@ -28,9 +28,9 @@ public partial class RunnerView : UserControl
         }
     }
 
-    private void OnKillChromedriver(object sender, RoutedEventArgs e) => SeleniumProcessHelper.KillChromedriver();
+    private void OnStopCamoufoxServer(object sender, RoutedEventArgs e) => CamoufoxProcessHelper.StopOwnedServer();
 
-    private void OnKillGeckodriver(object sender, RoutedEventArgs e) => SeleniumProcessHelper.KillGeckodriver();
+    private void OnKillCamoufox(object sender, RoutedEventArgs e) => CamoufoxProcessHelper.KillCamoufoxPython();
 
     private void OnReloadPlugins(object sender, RoutedEventArgs e) => Host?.ReloadPlugins();
 }

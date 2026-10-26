@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:services="clr-namespace:OpenBullet.Linux.Services"
+             x:Class="OpenBullet.Linux.Views.StackerView"
+             x:DataType="services:StackerHost">
+  <Grid ColumnDefinitions="3*,2*">
+    <Grid Grid.Column="0" RowDefinitions="Auto,*,Auto">
+      <TextBlock Grid.Row="0" Text="LoliScript Code" Foreground="#7FFFD4" FontWeight="Bold"
+                 HorizontalAlignment="Center" Margin="0,0,0,6" />
+      <TextBox Grid.Row="1" x:Name="ScriptEditor" AcceptsReturn="True" TextWrapping="NoWrap"
+               FontFamily="Consolas,Courier New,monospace" FontSize="12"
+               Background="#111111" Foreground="#DCDCDC" BorderBrush="#333"
+               Text="{Binding Script, Mode=TwoWay}" LostFocus="OnScriptLostFocus" />
+      <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
+        <Button Content="Apply script to config" Click="OnApply" />
+        <TextBlock VerticalAlignment="Center" Foreground="#888" Text="{Binding ConfigTitle}" />
+      </StackPanel>
+    </Grid>
+
+    <Grid Grid.Column="1" Margin="12,0,0,0" RowDefinitions="Auto,*">
+      <TextBlock Text="Block stack (parsed)" Foreground="#ADFF2F" FontWeight="Bold" Margin="0,0,0,6" />
+      <ListBox Grid.Row="1" ItemsSource="{Binding BlockLines}" Background="#1a1a1a" Foreground="#DCDCDC" />
+    </Grid>
+  </Grid>
+</UserControl>

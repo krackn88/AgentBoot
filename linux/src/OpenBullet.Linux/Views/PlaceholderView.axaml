@@ -1,0 +1,9 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="OpenBullet.Linux.Views.PlaceholderView">
+  <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="8">
+    <TextBlock x:Name="TitleText" FontSize="18" FontWeight="Bold" Foreground="#1E90FF" HorizontalAlignment="Center" />
+    <TextBlock Text="This section is planned for Phase 4 parity port." Foreground="#AAAAAA" TextWrapping="Wrap"
+               MaxWidth="420" HorizontalAlignment="Center" TextAlignment="Center" />
+  </StackPanel>
+</UserControl>

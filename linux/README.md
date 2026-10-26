@@ -25,7 +25,7 @@ dotnet run -c Release -- \
 dotnet run --project linux/src/OpenBullet.Linux/OpenBullet.Linux.csproj -c Release
 ```
 
-The **Runner** tab loads smoke fixtures when present, supports **START / STOP / HARD ABORT**, and shows progress, CPM, and a log pane. The **About** tab matches upstream copy.
+The shell includes **Runner**, **Configs** (Manager + Stacker), **Camoufox Tools**, and **About**. Runner supports **START / STOP / HARD ABORT**, progress, CPM, and a log pane.
 
 ### Plugins
 
@@ -33,24 +33,39 @@ Place plugin DLLs under `Plugins/` next to the app binary (same layout as Window
 
 Block plugins are loaded at startup; the Runner checks `RequiredPlugins` before start.
 
-## Selenium on Linux
+## Browser automation: Camoufox (not Selenium)
 
-Upstream WPF **Selenium Tools** used `cmd.exe` / `taskkill`. On Linux use the Runner toolbar buttons (**Kill chromedriver** / **Kill geckodriver**) or:
+On Linux, **browser blocks** (`BROWSERACTION`, `NAVIGATE`, `ELEMENTACTION`, `EXECUTEJS`) use **Camoufox** through **Microsoft Playwright** (`RuriLib.Camoufox`). Upstream Selenium WebDriver is not started for `OpenBrowser` on this port.
+
+`Selenium.WebDriver` NuGet packages remain referenced only for shared types and legacy code paths; **chromedriver / geckodriver are not used** on Linux.
+
+### Install (Dustin / dev machine)
 
 ```bash
-pkill -f chromedriver
-pkill -f geckodriver
+# Python Camoufox + browser bundle
+pip install camoufox
+python3 -m camoufox fetch
+
+# Playwright Firefox driver (used to connect to Camoufox WS)
+cd linux/src/RuriLib.Camoufox
+dotnet build -c Release
+pwsh bin/Release/net8.0/playwright.ps1 install firefox
+# or: npx playwright install firefox  (if you use Node playwright CLI)
 ```
 
-### Driver setup
+### Runtime configuration
 
-1. Install a browser (Chromium or Firefox).
-2. Install a matching driver and ensure it is on `PATH`:
-   - **Chrome/Chromium:** [Chrome for Testing](https://googlechromelabs.github.io/chrome-for-testing/) or distro `chromium-chromedriver`
-   - **Firefox:** `geckodriver` from [Mozilla releases](https://github.com/mozilla/geckodriver/releases)
-3. In `Settings/RLSettings.json` (auto-created beside the app), set Selenium paths if needed — same keys as upstream RuriLib settings.
+| Variable | Purpose |
+|----------|---------|
+| `CAMOUFOX_WS` or `CAMOUFOX_SERVER_WS` | WebSocket URL of an existing Camoufox server (skip auto-start) |
+| (auto) | If unset, the runner tries `python3 -m camoufox server --port <free> --ws-path openbullet` |
+| (fallback) | If Camoufox is missing, Playwright launches stock **Firefox** (still headless-friendly, not anti-detect) |
 
-Configs that spawn Selenium still require a working driver + browser on the host. OB 1.2.2 does not bundle Linux drivers in NuGet (Win64 packages are Windows-only).
+RLSettings / config flags still apply where relevant: **Headless**, **ForceHeadless**, **CustomUserAgent**, **RandomUA**, **proxy** on the browser context.
+
+### Cleanup
+
+Use **Camoufox Tools** in the app (or Runner toolbar): stop owned server, kill Camoufox/python processes, clear Firefox temp profiles.
 
 ## Layout
 
@@ -58,9 +73,10 @@ Configs that spawn Selenium still require a working driver + browser on the host
 |---------|---------|
 | `ObMedia` | `BlockColor` + WPF `System.Windows.Media` shim |
 | `PluginFramework` | net8 compile of upstream plugin contracts |
-| `RuriLib` | net8 upstream sources + Linux overrides (`Overrides/`, ImageSharp) |
+| `RuriLib.Camoufox` | Playwright session + Camoufox launcher |
+| `RuriLib` | net8 upstream sources + Linux overrides (`Overrides/`, ImageSharp, Camoufox blocks) |
 | `OpenBulletCLI` | net8 CLI |
-| `OpenBullet.Linux` | Avalonia 11 UI (Runner + About) |
+| `OpenBullet.Linux` | Avalonia 11 UI |
 
 ## CI
 

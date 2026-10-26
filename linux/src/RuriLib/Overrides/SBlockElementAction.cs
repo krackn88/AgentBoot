@@ -1,5 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using Microsoft.Playwright;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using RuriLib.Camoufox;
 using RuriLib.Functions.Files;
 using RuriLib.LS;
 using System;
@@ -230,10 +232,16 @@ namespace RuriLib
         {
             base.Process(data);
 
-            if (data.Driver == null)
+            if (!BrowserSession.IsOpen(data))
             {
                 data.Log(new LogEntry("Open a browser first!", Colors.White));
                 throw new Exception("Browser not open");
+            }
+
+            if (CamoufoxBotBridge.TryGet(data, out var camSession))
+            {
+                ProcessCamoufox(data, camSession);
+                return;
             }
 
             // Find the element
@@ -264,12 +272,12 @@ namespace RuriLib
 
                     case ElementAction.Click:
                         element.Click();
-                        UpdateSeleniumData(data);
+                        BrowserSession.UpdateData(data);
                         break;
 
                     case ElementAction.Submit:
                         element.Submit();
-                        UpdateSeleniumData(data);
+                        BrowserSession.UpdateData(data);
                         break;
 
                     case ElementAction.SelectOptionByText:
@@ -391,6 +399,137 @@ namespace RuriLib
                 element.Size.Width,
                 element.Size.Height);
         }
+
+        private void ProcessCamoufox(BotData data, CamoufoxSession session)
+        {
+            var kind = ToCamoufoxKind(locator);
+            var selector = ReplaceValues(elementString, data);
+            List<string> outputs = new List<string>();
+
+            try
+            {
+                switch (action)
+                {
+                    case ElementAction.WaitForElement:
+                        var max = 10000;
+                        try { max = int.Parse(input) * 1000; } catch { }
+                        try
+                        {
+                            session.First(selector, kind).WaitForAsync(new LocatorWaitForOptions { Timeout = max })
+                                .GetAwaiter().GetResult();
+                        }
+                        catch
+                        {
+                            data.Log(new LogEntry("Timeout while waiting for element", Colors.White));
+                        }
+                        break;
+
+                    default:
+                        var pw = session.Page.Locator(CamoufoxSession.ToPlaywrightSelector(selector, kind)).Nth(elementIndex);
+
+                        switch (action)
+                        {
+                            case ElementAction.Clear:
+                                pw.ClearAsync().GetAwaiter().GetResult();
+                                break;
+                            case ElementAction.SendKeys:
+                                pw.FillAsync(ReplaceValues(input, data)).GetAwaiter().GetResult();
+                                break;
+                            case ElementAction.SendKeysHuman:
+                                pw.PressSequentiallyAsync(ReplaceValues(input, data)).GetAwaiter().GetResult();
+                                break;
+                            case ElementAction.Click:
+                                pw.ClickAsync().GetAwaiter().GetResult();
+                                BrowserSession.UpdateData(data);
+                                break;
+                            case ElementAction.Submit:
+                                pw.PressAsync("Enter").GetAwaiter().GetResult();
+                                BrowserSession.UpdateData(data);
+                                break;
+                            case ElementAction.SelectOptionByText:
+                                pw.SelectOptionAsync(new SelectOptionValue { Label = ReplaceValues(input, data) }).GetAwaiter().GetResult();
+                                break;
+                            case ElementAction.SelectOptionByIndex:
+                                pw.SelectOptionAsync(new[] { ReplaceValues(input, data) }).GetAwaiter().GetResult();
+                                break;
+                            case ElementAction.SelectOptionByValue:
+                                pw.SelectOptionAsync(new SelectOptionValue { Value = ReplaceValues(input, data) }).GetAwaiter().GetResult();
+                                break;
+                            case ElementAction.GetText:
+                                if (recursive)
+                                {
+                                    foreach (var loc in session.FindAll(selector, kind))
+                                        outputs.Add(loc.InnerTextAsync().GetAwaiter().GetResult());
+                                }
+                                else
+                                    outputs.Add(pw.InnerTextAsync().GetAwaiter().GetResult());
+                                break;
+                            case ElementAction.GetAttribute:
+                                if (recursive)
+                                {
+                                    foreach (var loc in session.FindAll(selector, kind))
+                                        outputs.Add(loc.GetAttributeAsync(ReplaceValues(input, data)).GetAwaiter().GetResult());
+                                }
+                                else
+                                    outputs.Add(pw.GetAttributeAsync(ReplaceValues(input, data)).GetAwaiter().GetResult());
+                                break;
+                            case ElementAction.IsDisplayed:
+                                outputs.Add(pw.IsVisibleAsync().GetAwaiter().GetResult().ToString());
+                                break;
+                            case ElementAction.IsEnabled:
+                                outputs.Add(pw.IsEnabledAsync().GetAwaiter().GetResult().ToString());
+                                break;
+                            case ElementAction.IsSelected:
+                                outputs.Add(pw.IsCheckedAsync().GetAwaiter().GetResult().ToString());
+                                break;
+                            case ElementAction.LocationX:
+                                outputs.Add(pw.BoundingBoxAsync().GetAwaiter().GetResult()?.X.ToString() ?? "0");
+                                break;
+                            case ElementAction.LocationY:
+                                outputs.Add(pw.BoundingBoxAsync().GetAwaiter().GetResult()?.Y.ToString() ?? "0");
+                                break;
+                            case ElementAction.SizeX:
+                                outputs.Add(pw.BoundingBoxAsync().GetAwaiter().GetResult()?.Width.ToString() ?? "0");
+                                break;
+                            case ElementAction.SizeY:
+                                outputs.Add(pw.BoundingBoxAsync().GetAwaiter().GetResult()?.Height.ToString() ?? "0");
+                                break;
+                            case ElementAction.Screenshot:
+                                Files.SaveScreenshot(pw.ScreenshotAsync(new LocatorScreenshotOptions { Type = ScreenshotType.Png }).GetAwaiter().GetResult(), data);
+                                break;
+                            case ElementAction.ScreenshotBase64:
+                                var png = pw.ScreenshotAsync(new LocatorScreenshotOptions { Type = ScreenshotType.Png }).GetAwaiter().GetResult();
+                                outputs.Add(Convert.ToBase64String(CrossPlatformImages.EncodeJpeg(png)));
+                                break;
+                            case ElementAction.SwitchToFrame:
+                                var frame = pw.ElementHandleAsync().GetAwaiter().GetResult()?.ContentFrameAsync().GetAwaiter().GetResult();
+                                if (frame != null)
+                                    session.SetActiveFrame(frame);
+                                break;
+                        }
+                        break;
+                }
+            }
+            catch
+            {
+                data.Log(new LogEntry("Cannot execute action on the element", Colors.White));
+            }
+
+            data.Log(new LogEntry(string.Format("Executed action {0} on the element with input {1}", action, ReplaceValues(input, data)), Colors.White));
+            if (outputs.Count != 0)
+                InsertVariable(data, isCapture, recursive, outputs, outputVariable, "", "", false, true);
+        }
+
+        private static CamoufoxLocatorKind ToCamoufoxKind(ElementLocator loc) => loc switch
+        {
+            ElementLocator.Id => CamoufoxLocatorKind.Id,
+            ElementLocator.Class => CamoufoxLocatorKind.Class,
+            ElementLocator.Name => CamoufoxLocatorKind.Name,
+            ElementLocator.Tag => CamoufoxLocatorKind.Tag,
+            ElementLocator.Selector => CamoufoxLocatorKind.Css,
+            ElementLocator.XPath => CamoufoxLocatorKind.XPath,
+            _ => CamoufoxLocatorKind.Css
+        };
 
         private ReadOnlyCollection<IWebElement> FindElements(BotData data)
         {
