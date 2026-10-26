@@ -1,0 +1,14 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Style>
+    <Style.Resources>
+      <Color x:Key="ObThemeMain">#1E90FF</Color>
+      <Color x:Key="ObBackgroundMain">#222222</Color>
+      <Color x:Key="ObBackgroundSecondary">#111111</Color>
+      <Color x:Key="ObForegroundMain">#DCDCDC</Color>
+      <Color x:Key="ObForegroundGood">#ADFF2F</Color>
+      <Color x:Key="ObForegroundBad">#FF6347</Color>
+      <Color x:Key="ObForegroundMenuSelected">#1E90FF</Color>
+    </Style.Resources>
+  </Style>
+</Styles>

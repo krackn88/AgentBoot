@@ -1,0 +1,13 @@
+[SETTINGS]
+{
+  "Name": "LinuxSmoke",
+  "SuggestedBots": 1,
+  "NeedsProxies": false
+}
+
+[SCRIPT]
+REQUEST GET "https://example.com"
+
+KEYCHECK
+  KEYCHAIN Success OR
+    KEY "<title>Example Domain</title>"

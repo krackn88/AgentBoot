@@ -1,15 +1,9 @@
 # OpenBullet Linux port spikes
 
-Proof-of-concept UI shell for the OpenBullet 1.2.2 Linux port assessment.
-
-## OpenBulletLinuxShell
-
-Avalonia 11 + .NET 8 app that mimics the dark palette and custom title bar layout from upstream `OpenBullet/App.xaml` and `MainWindow.xaml`.
+Early Avalonia shell (superseded for feature work by `linux/src/OpenBullet.Linux`, which includes the ported **About** screen).
 
 ```bash
-export PATH="$HOME/.dotnet:$PATH"   # if SDK not on PATH
-cd OpenBulletLinuxShell
-dotnet run
+dotnet run --project OpenBulletLinuxShell
 ```
 
-Full port plan: Project store `internal/openbullet-assessment.md`.
+Active port: see `linux/README.md` and Project store `docs/linux-port-decisions.md`.

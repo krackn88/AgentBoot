@@ -1,0 +1,14 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="OpenBullet.Linux.App"
+             RequestedThemeVariant="Dark">
+  <Application.Resources>
+    <SolidColorBrush x:Key="ObForegroundMain" Color="#DCDCDC" />
+    <SolidColorBrush x:Key="ObForegroundGood" Color="#ADFF2F" />
+    <SolidColorBrush x:Key="ObForegroundBad" Color="#FF6347" />
+  </Application.Resources>
+  <Application.Styles>
+    <FluentTheme />
+    <StyleInclude Source="avares://OpenBullet.Linux/Themes/ObTheme.axaml" />
+  </Application.Styles>
+</Application>

@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>OpenBulletCLI</RootNamespace>
+    <AssemblyName>OpenBulletCLI</AssemblyName>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="$(OpenBulletUpstreamRoot)/OpenBulletCLI/Program.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Settings/**" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="$(OpenBulletUpstreamRoot)/OpenBulletCLI/DefaultEnvFile.ini" Link="DefaultEnvFile.ini" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../RuriLib/RuriLib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Extreme.Net">
+      <HintPath>$(OpenBulletUpstreamRoot)/Extreme.Net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Colorful.Console" Version="1.2.15" />
+    <PackageReference Include="CommandLineParser" Version="2.7.82" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.10" />
+  </ItemGroup>
+</Project>

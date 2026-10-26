@@ -1,0 +1,48 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="OpenBullet.Linux.Views.AboutView">
+  <Grid RowDefinitions="Auto,*,Auto">
+    <TextBlock Grid.Row="0" FontSize="14" TextWrapping="Wrap" Foreground="{DynamicResource ObForegroundMain}">
+      <Run FontStyle="Italic" Text="OpenBullet" />
+      <Run Text=" is a webtesting suite that can be used for " />
+      <Run FontWeight="Bold" Text="scraping" />
+      <Run Text=" and " />
+      <Run FontWeight="Bold" Text="parsing" />
+      <Run Text=" data, automated " />
+      <Run FontWeight="Bold" Text="pentesting" />
+      <Run Text=", selenium " />
+      <Run FontWeight="Bold" Text="unit testing" />
+      <Run Text=" and much more.." />
+      <LineBreak /><LineBreak />
+      <Run Foreground="{DynamicResource ObForegroundBad}" FontWeight="Bold" Text="IT IS ILLEGAL" />
+      <Run Foreground="{DynamicResource ObForegroundBad}" Text=" to use this program to perform (D)DoS or credential stuffing attacks on sites you don't own!" />
+      <LineBreak /><LineBreak />
+      <Run Text="Special thanks to my collaborators:" />
+      <LineBreak /><LineBreak />
+      <Run Text="• demiurgo" />
+      <LineBreak />
+      <Run Text="• meinname" />
+      <LineBreak /><LineBreak />
+      <Run Foreground="{DynamicResource ObForegroundGood}" Text="This software is " />
+      <Run Foreground="{DynamicResource ObForegroundGood}" FontStyle="Italic" Text="Open Source" />
+      <Run Foreground="{DynamicResource ObForegroundGood}" Text=" and licensed under the MIT license. Please visit the " />
+      <Run Foreground="{DynamicResource ObForegroundGood}" FontWeight="Bold" Text="repository" />
+      <Run Foreground="{DynamicResource ObForegroundGood}" Text=" using the button below." />
+    </TextBlock>
+
+    <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="8" Margin="0,8,0,0">
+      <Button Click="OnRepositoryClick">
+        <StackPanel Orientation="Horizontal" Spacing="6">
+          <Image Source="avares://OpenBullet.Linux/Assets/git.png" Width="20" Height="20" />
+          <TextBlock VerticalAlignment="Center" Text="Repository" />
+        </StackPanel>
+      </Button>
+      <Button Click="OnUsageGuideClick">
+        <StackPanel Orientation="Horizontal" Spacing="6">
+          <Image Source="avares://OpenBullet.Linux/Assets/book.png" Width="20" Height="20" />
+          <TextBlock VerticalAlignment="Center" Text="Usage Guide" />
+        </StackPanel>
+      </Button>
+    </StackPanel>
+  </Grid>
+</UserControl>
