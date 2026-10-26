@@ -14,22 +14,27 @@ public partial class MainWindow : Window
     private readonly ProxyManagerView _proxiesView = new();
     private readonly HitsDbView _hitsView = new();
     private readonly SettingsHubView _settingsView = new();
+    private readonly PluginsView _pluginsView = new();
+    private readonly RunnerView _runnerView = new();
 
     public MainWindow()
     {
         InitializeComponent();
+        _shell.Runner.SetUiOwner(this);
+        _runnerView.DataContext = _shell.Runner;
         _configsSection.Attach(_shell, ShowRunner);
         _wordlistsView.Attach(_shell.Wordlists);
         _proxiesView.Attach(_shell.Proxies);
         _hitsView.Attach(_shell.Hits);
         _settingsView.Attach(_shell.RuriSettings, _shell.ObSettings);
+        _pluginsView.Attach(_shell.PluginUi);
         ShowRunner();
         ScreenshotCapture.Schedule(this, PageHost);
     }
 
     private void HighlightTab(Button active)
     {
-        foreach (var tab in new[] { RunnerTab, ConfigsTab, WordlistsTab, ProxiesTab, HitsTab, ToolsTab, SettingsTab, AboutTab })
+        foreach (var tab in new[] { RunnerTab, ConfigsTab, WordlistsTab, ProxiesTab, HitsTab, PluginsTab, ToolsTab, SettingsTab, AboutTab })
         {
             tab.Foreground = new SolidColorBrush(tab == active ? Color.Parse("#1E90FF") : Color.Parse("#DCDCDC"));
         }
@@ -37,7 +42,7 @@ public partial class MainWindow : Window
 
     private void ShowRunner()
     {
-        PageHost.Content = new RunnerView { DataContext = _shell.Runner };
+        PageHost.Content = _runnerView;
         HighlightTab(RunnerTab);
     }
 
@@ -85,6 +90,12 @@ public partial class MainWindow : Window
     {
         PageHost.Content = _hitsView;
         HighlightTab(HitsTab);
+    }
+
+    private void OnPluginsTab(object sender, RoutedEventArgs e)
+    {
+        PageHost.Content = _pluginsView;
+        HighlightTab(PluginsTab);
     }
 
     private void OnToolsTab(object sender, RoutedEventArgs e) => ShowTools();

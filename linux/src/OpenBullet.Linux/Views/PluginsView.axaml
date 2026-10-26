@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:services="clr-namespace:OpenBullet.Linux.Services"
+             x:Class="OpenBullet.Linux.Views.PluginsView"
+             x:DataType="services:PluginUiHost">
+  <Grid RowDefinitions="Auto,*">
+    <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
+      <Button Content="Reload plugins" Click="OnReload" />
+      <TextBlock VerticalAlignment="Center" Foreground="{DynamicResource ObForegroundGood}" Text="{Binding StatusMessage}" />
+    </StackPanel>
+    <ScrollViewer Grid.Row="1">
+      <ItemsControl ItemsSource="{Binding Plugins}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <Border Margin="0,0,0,12" Padding="10" Background="{DynamicResource ObBackgroundSecondary}" CornerRadius="4">
+              <StackPanel Spacing="8">
+                <TextBlock Text="{Binding Name}" FontWeight="Bold" Foreground="{DynamicResource ObForegroundToCheck}" />
+                <ContentControl Content="{Binding Content}" />
+              </StackPanel>
+            </Border>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+  </Grid>
+</UserControl>

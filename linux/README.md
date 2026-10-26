@@ -78,6 +78,10 @@ RLSettings / config flags still apply where relevant: **Headless**, **ForceHeadl
 
 Use **Camoufox Tools** in the app (or Runner toolbar): stop owned server, kill Camoufox/python processes, clear Firefox temp profiles.
 
+### MOUSEACTION (known gap)
+
+Upstream `MOUSEACTION` LoliScript uses Selenium `Actions` (synthetic mouse). The Linux port does **not** implement this on Camoufox. **Workaround:** use `ELEMENTACTION` Click / Type / coordinates via Playwright-backed blocks, or rewrite configs to avoid `MOUSEACTION`.
+
 ## Layout
 
 | Project | Purpose |

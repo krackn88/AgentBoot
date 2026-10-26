@@ -15,11 +15,12 @@ public sealed class AppShell
     public WordlistManagerHost Wordlists { get; } = new();
     public ProxyManagerHost Proxies { get; } = new();
     public HitsDbHost Hits { get; } = new();
+    public PluginUiHost PluginUi { get; } = new();
 
     public AppShell()
     {
         LinuxPaths.EnsureLayout();
-        Runner = new RunnerHost(RuriSettings, Hits);
+        Runner = new RunnerHost(RuriSettings, Hits, ObSettings, Stacker);
         Configs.EnsureSmokeFixtureImported();
         EnsureSmokeWordlistImported();
         Runner.LoadDefaultSmokeFixturesIfEmpty();

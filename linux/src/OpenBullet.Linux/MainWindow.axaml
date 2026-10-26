@@ -24,6 +24,7 @@
         <Button x:Name="WordlistsTab" Content="Wordlists" Click="OnWordlistsTab" Background="Transparent" BorderThickness="0" Foreground="#DCDCDC" FontWeight="Bold" />
         <Button x:Name="ProxiesTab" Content="Proxies" Click="OnProxiesTab" Background="Transparent" BorderThickness="0" Foreground="#DCDCDC" FontWeight="Bold" />
         <Button x:Name="HitsTab" Content="Hits DB" Click="OnHitsTab" Background="Transparent" BorderThickness="0" Foreground="#DCDCDC" FontWeight="Bold" />
+        <Button x:Name="PluginsTab" Content="Plugins" Click="OnPluginsTab" Background="Transparent" BorderThickness="0" Foreground="#DCDCDC" FontWeight="Bold" />
         <Button x:Name="ToolsTab" Content="Camoufox Tools" Click="OnToolsTab" Background="Transparent" BorderThickness="0" Foreground="#DCDCDC" FontWeight="Bold" />
         <Button x:Name="SettingsTab" Content="Settings" Click="OnSettingsTab" Background="Transparent" BorderThickness="0" Foreground="#DCDCDC" FontWeight="Bold" />
         <Button x:Name="AboutTab" Content="About" Click="OnAboutTab" Background="Transparent" BorderThickness="0" Foreground="#DCDCDC" FontWeight="Bold" />

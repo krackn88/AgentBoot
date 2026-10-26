@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Avalonia.Controls;
 using Avalonia.Threading;
 using OpenBullet.Linux.Plugins;
+using OpenBullet.Linux.Views;
 using RuriLib;
 using RuriLib.Functions.Files;
 using RuriLib.Models;
@@ -16,6 +18,9 @@ public sealed class RunnerHost : ViewModelBase
 {
     private readonly Random _random = new();
     private readonly HitsDbHost _hitsDb;
+    private readonly ObSettingsHost _obSettings;
+    private readonly StackerHost _stacker;
+    private Window _inputOwner;
     private PluginLoadResult _plugins = new();
 
     public RunnerViewModel Runner { get; private set; }
@@ -49,9 +54,17 @@ public sealed class RunnerHost : ViewModelBase
     public bool FilterCustomActive => HitsFilter == RunnerHitsFilter.Custom;
     public bool FilterToCheckActive => HitsFilter == RunnerHitsFilter.ToCheck;
 
-    public RunnerHost(RuriLibSettingsHost sharedSettings = null, HitsDbHost hitsDb = null)
+    public void SetUiOwner(Window owner) => _inputOwner = owner;
+
+    public RunnerHost(
+        RuriLibSettingsHost sharedSettings = null,
+        HitsDbHost hitsDb = null,
+        ObSettingsHost obSettings = null,
+        StackerHost stacker = null)
     {
         _hitsDb = hitsDb;
+        _obSettings = obSettings;
+        _stacker = stacker;
         LinuxPaths.EnsureLayout();
         EnsureSettingsFiles();
         Environment = IOManager.ParseEnvironmentSettings(LinuxPaths.EnvironmentIni);
@@ -170,6 +183,7 @@ public sealed class RunnerHost : ViewModelBase
         {
             AppendLog($"[HIT][{hit.Type}] {hit.Data}");
             PersistHit(hit);
+            TryPlayHitSound(hit);
             OnPropertyChanged(nameof(DisplayedHits));
         };
         Runner.PropertyChanged += (_, e) =>
@@ -190,11 +204,41 @@ public sealed class RunnerHost : ViewModelBase
                 AppendLog("Runner idle.");
             }
         };
-        Runner.AskCustomInputs += _ =>
+        Runner.AskCustomInputs += _ => Dispatcher.UIThread.Invoke(CollectCustomInputs);
+    }
+
+    public void SendHitToDebugger(ValidData hit)
+    {
+        if (hit == null) return;
+        _stacker?.ReceiveFromRunner(hit.Data, hit.Proxy, hit.ProxyType);
+        AppendLog("Sent selected hit to Stacker debugger");
+    }
+
+    private void CollectCustomInputs()
+    {
+        Runner.CustomInputs = new List<KeyValuePair<string, string>>();
+        if (Runner.Config?.Settings?.CustomInputs == null)
         {
-            // Phase 2: no modal custom-input UI yet — skip unless configs define inputs.
             Runner.CustomInputsInitialized = true;
-        };
+            return;
+        }
+
+        foreach (var input in Runner.Config.Settings.CustomInputs)
+        {
+            var dlg = CustomInputWindow.Create(input.Description);
+            var ok = dlg.ShowDialog<bool>(_inputOwner).GetAwaiter().GetResult();
+            if (ok)
+                Runner.CustomInputs.Add(new KeyValuePair<string, string>(input.VariableName, dlg.Answer));
+        }
+
+        Runner.CustomInputsInitialized = true;
+    }
+
+    private void TryPlayHitSound(Hit hit)
+    {
+        if (_obSettings?.Settings?.Sounds?.EnableSounds != true || hit.Type != "SUCCESS")
+            return;
+        RunnerSoundPlayer.TryPlay(Path.Combine("Sounds", _obSettings.Settings.Sounds.OnHitSound));
     }
 
     public void AppendLog(string line)

@@ -12,6 +12,7 @@ public sealed class PluginLoadResult
 {
     public IReadOnlyList<IBlockPlugin> BlockPlugins { get; init; } = Array.Empty<IBlockPlugin>();
     public IReadOnlyList<string> PluginNames { get; init; } = Array.Empty<string>();
+    public IReadOnlyList<Type> UiPluginTypes { get; init; } = Array.Empty<Type>();
     public IReadOnlyList<string> Errors { get; init; } = Array.Empty<string>();
 }
 
@@ -22,6 +23,7 @@ public static class PluginLoader
     {
         var blockPlugins = new List<IBlockPlugin>();
         var pluginNames = new List<string>();
+        var uiTypes = new List<Type>();
         var errors = new List<string>();
 
         if (!Directory.Exists(folder))
@@ -43,7 +45,10 @@ public static class PluginLoader
                 foreach (var type in asm.GetTypes())
                 {
                     if (type.GetInterface(nameof(IPlugin)) == typeof(IPlugin))
+                    {
                         pluginNames.Add(type.Name);
+                        uiTypes.Add(type);
+                    }
 
                     if (type.GetInterface(nameof(IBlockPlugin)) == typeof(IBlockPlugin)
                         && type.IsSubclassOf(typeof(BlockBase)))
@@ -63,6 +68,7 @@ public static class PluginLoader
         {
             BlockPlugins = blockPlugins,
             PluginNames = pluginNames,
+            UiPluginTypes = uiTypes,
             Errors = errors
         };
     }

@@ -62,7 +62,13 @@
 
       <Grid Grid.Column="2" RowDefinitions="*,Auto">
         <Border Grid.Row="0" Background="{DynamicResource ObBackgroundSecondary}" Padding="4" CornerRadius="2">
-          <ListBox ItemsSource="{Binding DisplayedHits}" SelectionMode="Multiple">
+          <ListBox x:Name="HitsList" ItemsSource="{Binding DisplayedHits}" SelectionMode="Single"
+                   DoubleTapped="OnHitDoubleTapped">
+            <ListBox.ContextMenu>
+              <ContextMenu>
+                <MenuItem Header="Send to Stacker debugger" Click="OnSendToDebugger" />
+              </ContextMenu>
+            </ListBox.ContextMenu>
             <ListBox.ItemTemplate>
               <DataTemplate x:DataType="models:ValidData">
                 <Grid ColumnDefinitions="72,*,56,48" Margin="0,2">

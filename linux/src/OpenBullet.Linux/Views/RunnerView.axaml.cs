@@ -1,7 +1,9 @@
 using System;
+using System.Linq;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using OpenBullet.Linux.Services;
+using RuriLib.Models;
 
 namespace OpenBullet.Linux.Views;
 
@@ -39,4 +41,10 @@ public partial class RunnerView : UserControl
     private void OnKillCamoufox(object sender, RoutedEventArgs e) => CamoufoxProcessHelper.KillCamoufoxPython();
 
     private void OnReloadPlugins(object sender, RoutedEventArgs e) => Host?.ReloadPlugins();
+
+    private void OnSendToDebugger(object sender, RoutedEventArgs e) =>
+        Host?.SendHitToDebugger(HitsList.SelectedItem as ValidData);
+
+    private void OnHitDoubleTapped(object sender, RoutedEventArgs e) =>
+        Host?.SendHitToDebugger(HitsList.SelectedItem as ValidData);
 }

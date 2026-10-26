@@ -1,0 +1,16 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="OpenBullet.Linux.Views.CustomInputWindow"
+        Title="Custom Input"
+        Width="420" Height="180"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False">
+  <StackPanel Margin="16" Spacing="10">
+    <TextBlock x:Name="PromptText" TextWrapping="Wrap" Foreground="{DynamicResource ObForegroundMain}" />
+    <TextBox x:Name="AnswerBox" />
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+      <Button Content="OK" Click="OnOk" Classes="ob-primary" MinWidth="80" />
+      <Button Content="Cancel" Click="OnCancel" MinWidth="80" />
+    </StackPanel>
+  </StackPanel>
+</Window>

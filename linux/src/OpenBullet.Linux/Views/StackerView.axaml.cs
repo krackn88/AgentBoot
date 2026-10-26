@@ -21,7 +21,14 @@ public partial class StackerView : UserControl
         _host = shell.Stacker;
         DataContext = _host;
         _host.PropertyChanged += OnHostPropertyChanged;
+        _host.Debugger.PropertyChanged += OnDebuggerPropertyChanged;
         SyncEditorFromHost();
+    }
+
+    private void OnDebuggerPropertyChanged(object sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(StackerDebuggerHost.IsRunning))
+            DebuggerButton.Content = _host.Debugger.IsRunning ? "Abort" : "Start";
     }
 
     private void OnHostPropertyChanged(object sender, PropertyChangedEventArgs e)
@@ -45,4 +52,27 @@ public partial class StackerView : UserControl
     }
 
     private void OnApply(object sender, RoutedEventArgs e) => _host?.ApplyScriptToConfig();
+
+    private async void OnAddBlock(object sender, RoutedEventArgs e)
+    {
+        var win = new AddBlockWindow();
+        var owner = TopLevel.GetTopLevel(this) as Window;
+        if (owner == null) return;
+        var ok = await win.ShowDialog<bool>(owner);
+        if (ok && win.SelectedBlock != null)
+            _host?.AddBlock(win.SelectedBlock);
+    }
+
+    private void OnRemoveBlock(object sender, RoutedEventArgs e) => _host?.RemoveSelectedBlocks();
+
+    private void OnMoveUp(object sender, RoutedEventArgs e) => _host?.MoveSelectedUp();
+
+    private void OnMoveDown(object sender, RoutedEventArgs e) => _host?.MoveSelectedDown();
+
+    private async void OnDebuggerToggle(object sender, RoutedEventArgs e)
+    {
+        if (_host == null) return;
+        await _host.Debugger.ToggleRunAsync(_host);
+        DebuggerButton.Content = _host.Debugger.IsRunning ? "Abort" : "Start";
+    }
 }
