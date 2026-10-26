@@ -28,6 +28,12 @@ public partial class RunnerView : UserControl
         }
     }
 
+    private void OnFilterHits(object sender, RoutedEventArgs e) => Host?.SetHitsFilter(RunnerHitsFilter.Hits);
+
+    private void OnFilterCustom(object sender, RoutedEventArgs e) => Host?.SetHitsFilter(RunnerHitsFilter.Custom);
+
+    private void OnFilterToCheck(object sender, RoutedEventArgs e) => Host?.SetHitsFilter(RunnerHitsFilter.ToCheck);
+
     private void OnStopCamoufoxServer(object sender, RoutedEventArgs e) => CamoufoxProcessHelper.StopOwnedServer();
 
     private void OnKillCamoufox(object sender, RoutedEventArgs e) => CamoufoxProcessHelper.KillCamoufoxPython();

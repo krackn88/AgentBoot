@@ -13,7 +13,7 @@ public partial class MainWindow : Window
     private readonly WordlistManagerView _wordlistsView = new();
     private readonly ProxyManagerView _proxiesView = new();
     private readonly HitsDbView _hitsView = new();
-    private readonly RuriLibSettingsView _settingsView = new();
+    private readonly SettingsHubView _settingsView = new();
 
     public MainWindow()
     {
@@ -22,7 +22,7 @@ public partial class MainWindow : Window
         _wordlistsView.Attach(_shell.Wordlists);
         _proxiesView.Attach(_shell.Proxies);
         _hitsView.Attach(_shell.Hits);
-        _settingsView.Attach(_shell.RuriSettings);
+        _settingsView.Attach(_shell.RuriSettings, _shell.ObSettings);
         ShowRunner();
         ScreenshotCapture.Schedule(this, PageHost);
     }

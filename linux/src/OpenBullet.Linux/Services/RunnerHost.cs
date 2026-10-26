@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Avalonia.Threading;
 using OpenBullet.Linux.Plugins;
 using RuriLib;
+using RuriLib.Functions.Files;
 using RuriLib.Models;
 using RuriLib.Runner;
 using RuriLib.ViewModels;
@@ -13,6 +15,7 @@ namespace OpenBullet.Linux.Services;
 public sealed class RunnerHost : ViewModelBase
 {
     private readonly Random _random = new();
+    private readonly HitsDbHost _hitsDb;
     private PluginLoadResult _plugins = new();
 
     public RunnerViewModel Runner { get; private set; }
@@ -26,8 +29,29 @@ public sealed class RunnerHost : ViewModelBase
     public string ConfigPath { get; set; } = "";
     public string WordlistPath { get; set; } = "";
 
-    public RunnerHost(RuriLibSettingsHost sharedSettings = null)
+    public RunnerHitsFilter HitsFilter { get; private set; } = RunnerHitsFilter.Hits;
+
+    public IEnumerable<ValidData> DisplayedHits
     {
+        get
+        {
+            if (Runner == null) return Array.Empty<ValidData>();
+            return HitsFilter switch
+            {
+                RunnerHitsFilter.Custom => Runner.CustomList,
+                RunnerHitsFilter.ToCheck => Runner.ToCheckList,
+                _ => Runner.HitsList
+            };
+        }
+    }
+
+    public bool FilterHitsActive => HitsFilter == RunnerHitsFilter.Hits;
+    public bool FilterCustomActive => HitsFilter == RunnerHitsFilter.Custom;
+    public bool FilterToCheckActive => HitsFilter == RunnerHitsFilter.ToCheck;
+
+    public RunnerHost(RuriLibSettingsHost sharedSettings = null, HitsDbHost hitsDb = null)
+    {
+        _hitsDb = hitsDb;
         LinuxPaths.EnsureLayout();
         EnsureSettingsFiles();
         Environment = IOManager.ParseEnvironmentSettings(LinuxPaths.EnvironmentIni);
@@ -35,6 +59,16 @@ public sealed class RunnerHost : ViewModelBase
             sharedSettings.SettingsSaved += ReloadSettingsFromDisk;
         ReloadSettingsFromDisk();
         ReloadPlugins();
+    }
+
+    public void SetHitsFilter(RunnerHitsFilter filter)
+    {
+        HitsFilter = filter;
+        OnPropertyChanged(nameof(HitsFilter));
+        OnPropertyChanged(nameof(DisplayedHits));
+        OnPropertyChanged(nameof(FilterHitsActive));
+        OnPropertyChanged(nameof(FilterCustomActive));
+        OnPropertyChanged(nameof(FilterToCheckActive));
     }
 
     public void ReloadSettingsFromDisk()
@@ -132,7 +166,20 @@ public sealed class RunnerHost : ViewModelBase
     {
         Runner.DispatchAction += (_, action) => Dispatcher.UIThread.Post(action);
         Runner.MessageArrived += (_, level, message, _, _) => AppendLog($"[{level}] {message}");
-        Runner.FoundHit += (_, hit) => AppendLog($"[HIT][{hit.Type}] {hit.Data}");
+        Runner.FoundHit += (_, hit) =>
+        {
+            AppendLog($"[HIT][{hit.Type}] {hit.Data}");
+            PersistHit(hit);
+            OnPropertyChanged(nameof(DisplayedHits));
+        };
+        Runner.PropertyChanged += (_, e) =>
+        {
+            if (e.PropertyName is "HitsList" or "CustomList" or "ToCheckList" or "HitCount" or "CustomCount" or "ToCheckCount")
+            {
+                OnPropertyChanged(nameof(DisplayedHits));
+                OnPropertyChanged(nameof(Runner));
+            }
+        };
         Runner.WorkerStatusChanged += _ =>
         {
             OnPropertyChanged(nameof(Runner));
@@ -156,6 +203,29 @@ public sealed class RunnerHost : ViewModelBase
         if (LogText.Length > 12000)
             LogText = LogText[..12000];
         OnPropertyChanged(nameof(LogText));
+    }
+
+    private void PersistHit(Hit hit)
+    {
+        if (Runner?.Config?.Settings?.SaveHitsToTextFile == true)
+        {
+            try
+            {
+                var folderName = Path.Combine(AppContext.BaseDirectory, "Hits",
+                    Files.MakeValidFileName(Runner.Config.Settings.Name));
+                Directory.CreateDirectory(folderName);
+                var fileName = Path.Combine(folderName, $"{hit.Type}.txt");
+                File.AppendAllText(fileName, $"{hit.Data} | {hit.CapturedString}{System.Environment.NewLine}");
+            }
+            catch (Exception ex)
+            {
+                AppendLog($"Failed to write hit file: {ex.Message}");
+            }
+
+            return;
+        }
+
+        _hitsDb?.AddFromRunner(hit);
     }
 
     private static void EnsureSettingsFiles()

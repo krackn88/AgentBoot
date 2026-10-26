@@ -13,6 +13,7 @@ public static class LinuxPaths
     public static string DatabaseFile => Path.Combine(HitsFolder, "OpenBullet.db");
     public static string EnvironmentIni => Path.Combine(SettingsFolder, "Environment.ini");
     public static string RlSettingsJson => Path.Combine(SettingsFolder, "RLSettings.json");
+    public static string ObSettingsJson => Path.Combine(SettingsFolder, "OBSettings.json");
 
     public static void EnsureLayout()
     {

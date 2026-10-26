@@ -1,0 +1,55 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:services="clr-namespace:OpenBullet.Linux.Services"
+             x:Class="OpenBullet.Linux.Views.OpenBulletSettingsView"
+             x:DataType="services:ObSettingsHost">
+  <ScrollViewer>
+    <StackPanel Spacing="10" MaxWidth="760">
+      <TextBlock Text="OpenBullet — General" Foreground="{DynamicResource ObForegroundToCheck}" FontWeight="Bold" FontSize="16" />
+      <StackPanel Spacing="4" DataContext="{Binding Settings.General}">
+        <CheckBox Content="Display LoliScript on config load" IsChecked="{Binding DisplayLoliScriptOnLoad}" />
+        <CheckBox Content="Recommended bots on config load" IsChecked="{Binding RecommendedBots}" />
+        <CheckBox Content="Disable config not-saved warning" IsChecked="{Binding DisableNotSavedWarning}" />
+        <CheckBox Content="Backup database on start" IsChecked="{Binding BackupDB}" />
+        <CheckBox Content="Ignore wordlist on hit dedupe" IsChecked="{Binding IgnoreWordlistOnHitDedupe}" />
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <TextBlock Width="140" VerticalAlignment="Center" Text="Default author" />
+          <TextBox Width="240" Text="{Binding DefaultAuthor}" />
+        </StackPanel>
+      </StackPanel>
+
+      <TextBlock Text="Sounds" Foreground="{DynamicResource ObForegroundToCheck}" FontWeight="Bold" FontSize="16" Margin="0,12,0,0" />
+      <StackPanel Spacing="4" DataContext="{Binding Settings.Sounds}">
+        <CheckBox Content="Enable sounds" IsChecked="{Binding EnableSounds}" />
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <TextBlock Width="140" VerticalAlignment="Center" Text="On hit" />
+          <TextBox Width="240" Text="{Binding OnHitSound}" />
+        </StackPanel>
+      </StackPanel>
+
+      <TextBlock Text="Theme colors (MetroDark)" Foreground="{DynamicResource ObForegroundToCheck}" FontWeight="Bold" FontSize="16" Margin="0,12,0,0" />
+      <StackPanel Spacing="4" DataContext="{Binding Settings.Themes}">
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <TextBlock Width="180" VerticalAlignment="Center" Text="Background main" />
+          <TextBox Width="100" Text="{Binding BackgroundMain}" />
+          <TextBlock Width="180" VerticalAlignment="Center" Text="Background secondary" />
+          <TextBox Width="100" Text="{Binding BackgroundSecondary}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <TextBlock Width="180" VerticalAlignment="Center" Text="Foreground main" />
+          <TextBox Width="100" Text="{Binding ForegroundMain}" />
+          <TextBlock Width="180" VerticalAlignment="Center" Text="Menu selected" />
+          <TextBox Width="100" Text="{Binding ForegroundMenuSelected}" />
+        </StackPanel>
+      </StackPanel>
+
+      <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,16,0,0">
+        <Button Classes="ob-primary" Content="Save" Click="OnSave" MinWidth="100" />
+        <Button Content="Reload" Click="OnReload" MinWidth="100" />
+        <Button Content="Reset defaults" Click="OnReset" MinWidth="120" />
+      </StackPanel>
+      <TextBlock Foreground="{DynamicResource ObForegroundGood}" Text="{Binding StatusMessage}" TextWrapping="Wrap" />
+      <TextBlock Foreground="#888" Text="Saved to Settings/OBSettings.json (same path as upstream WPF)." TextWrapping="Wrap" />
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

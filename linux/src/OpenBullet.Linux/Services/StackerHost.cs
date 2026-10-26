@@ -52,7 +52,13 @@ public sealed class StackerHost : ViewModelBase
         {
             var blocks = new LoliScript(Script).ToBlocks();
             foreach (var block in blocks)
-                BlockLines.Add(block.Disabled ? $"[DISABLED] {block.Label}" : block.Label);
+            {
+                var kind = block.GetType().Name;
+                if (kind.StartsWith("Block", StringComparison.Ordinal))
+                    kind = kind["Block".Length..];
+                var line = block.Disabled ? $"[OFF] {kind}: {block.Label}" : $"{kind}: {block.Label}";
+                BlockLines.Add(line);
+            }
         }
         catch (Exception ex)
         {

@@ -5,10 +5,76 @@
       <Color x:Key="ObThemeMain">#1E90FF</Color>
       <Color x:Key="ObBackgroundMain">#222222</Color>
       <Color x:Key="ObBackgroundSecondary">#111111</Color>
+      <Color x:Key="ObBackgroundInput">#181818</Color>
+      <Color x:Key="ObBorder">#333333</Color>
       <Color x:Key="ObForegroundMain">#DCDCDC</Color>
       <Color x:Key="ObForegroundGood">#ADFF2F</Color>
       <Color x:Key="ObForegroundBad">#FF6347</Color>
+      <Color x:Key="ObForegroundCustom">#FF8C00</Color>
+      <Color x:Key="ObForegroundRetry">#FFFF00</Color>
+      <Color x:Key="ObForegroundToCheck">#7FFFD4</Color>
       <Color x:Key="ObForegroundMenuSelected">#1E90FF</Color>
+      <Color x:Key="ObAccent">#00AADE</Color>
     </Style.Resources>
+  </Style>
+
+  <Style Selector="Window">
+    <Setter Property="Background" Value="{DynamicResource ObBackgroundMain}" />
+    <Setter Property="FontFamily" Value="Inter,Segoe UI,sans-serif" />
+  </Style>
+
+  <Style Selector="Button">
+    <Setter Property="Background" Value="#292929" />
+    <Setter Property="Foreground" Value="{DynamicResource ObForegroundMain}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource ObBorder}" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="CornerRadius" Value="2" />
+    <Setter Property="Padding" Value="10,6" />
+  </Style>
+  <Style Selector="Button:pointerover /template/ ContentPresenter">
+    <Setter Property="Background" Value="#333333" />
+  </Style>
+  <Style Selector="Button.ob-primary">
+    <Setter Property="Background" Value="{DynamicResource ObAccent}" />
+    <Setter Property="Foreground" Value="#111111" />
+    <Setter Property="FontWeight" Value="Bold" />
+  </Style>
+  <Style Selector="Button.ob-active">
+    <Setter Property="BorderBrush" Value="{DynamicResource ObForegroundMenuSelected}" />
+    <Setter Property="BorderThickness" Value="2" />
+  </Style>
+
+  <Style Selector="TextBox">
+    <Setter Property="Background" Value="{DynamicResource ObBackgroundInput}" />
+    <Setter Property="Foreground" Value="{DynamicResource ObForegroundMain}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource ObBorder}" />
+    <Setter Property="CaretBrush" Value="{DynamicResource ObForegroundMain}" />
+    <Setter Property="SelectionBrush" Value="#4000AADE" />
+    <Setter Property="Padding" Value="6,4" />
+  </Style>
+  <Style Selector="TextBox.ob-input">
+    <Setter Property="MinHeight" Value="28" />
+  </Style>
+
+  <Style Selector="ListBox.ob-list">
+    <Setter Property="Foreground" Value="{DynamicResource ObForegroundMain}" />
+    <Setter Property="BorderBrush" Value="{DynamicResource ObBorder}" />
+  </Style>
+  <Style Selector="ListBoxItem">
+    <Setter Property="Padding" Value="6,4" />
+  </Style>
+  <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+    <Setter Property="Background" Value="#333333" />
+  </Style>
+
+  <Style Selector="TabItem">
+    <Setter Property="Foreground" Value="{DynamicResource ObForegroundMain}" />
+  </Style>
+  <Style Selector="TabItem:selected">
+    <Setter Property="Foreground" Value="{DynamicResource ObForegroundMenuSelected}" />
+  </Style>
+
+  <Style Selector="CheckBox">
+    <Setter Property="Foreground" Value="{DynamicResource ObForegroundMain}" />
   </Style>
 </Styles>

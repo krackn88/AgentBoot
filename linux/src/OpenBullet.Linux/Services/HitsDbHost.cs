@@ -81,6 +81,18 @@ public sealed class HitsDbHost : ViewModelBase
         SetStatus($"Loaded {Total} hits");
     }
 
+    /// <summary>Persist a runner hit to LiteDB (same store as Hits DB view).</summary>
+    public void AddFromRunner(Hit hit)
+    {
+        if (hit == null) return;
+        _repo.Add(hit);
+        _all.Insert(0, hit);
+        if (!string.IsNullOrEmpty(hit.ConfigName) && !ConfigOptions.Contains(hit.ConfigName))
+            ConfigOptions.Add(hit.ConfigName);
+        OnPropertyChanged(nameof(Total));
+        SetStatus($"Recorded {hit.Type} hit");
+    }
+
     public void DeleteSelected(IEnumerable<Hit> hits)
     {
         var list = hits.ToList();

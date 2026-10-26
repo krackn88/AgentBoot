@@ -8,6 +8,7 @@ namespace OpenBullet.Linux.Services;
 public sealed class AppShell
 {
     public RuriLibSettingsHost RuriSettings { get; } = new();
+    public ObSettingsHost ObSettings { get; } = new();
     public RunnerHost Runner { get; }
     public ConfigManagerHost Configs { get; } = new();
     public StackerHost Stacker { get; } = new();
@@ -18,7 +19,7 @@ public sealed class AppShell
     public AppShell()
     {
         LinuxPaths.EnsureLayout();
-        Runner = new RunnerHost(RuriSettings);
+        Runner = new RunnerHost(RuriSettings, Hits);
         Configs.EnsureSmokeFixtureImported();
         EnsureSmokeWordlistImported();
         Runner.LoadDefaultSmokeFixturesIfEmpty();
