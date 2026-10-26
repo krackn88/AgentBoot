@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>OpenBullet.Linux</RootNamespace>
+    <AssemblyName>OpenBullet.Linux</AssemblyName>
+    <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AvaloniaResource Include="Assets/**" />
+    <AvaloniaResource Include="Themes/ObTheme.axaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia.AvaloniaEdit" Version="11.2.0" />
+    <PackageReference Include="Avalonia.Controls.DataGrid" Version="11.2.3" />
+    <PackageReference Include="LiteDB" Version="4.1.4" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.6" />
+    <PackageReference Include="Avalonia" Version="11.2.3" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.2.3" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="11.2.3" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="11.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="$(OpenBulletUpstreamRoot)/OpenBulletCLI/DefaultEnvFile.ini" Link="DefaultEnvFile.ini" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="$(OpenBulletUpstreamRoot)/OpenBullet/Sounds/*.wav" Link="Sounds/%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../fixtures/**" Link="fixtures/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../Plugins/**" Link="Plugins/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Extreme.Net">
+      <HintPath>$(OpenBulletUpstreamRoot)/Extreme.Net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../ObMedia/ObMedia.csproj" />
+    <ProjectReference Include="../PluginFramework/PluginFramework.csproj" />
+    <ProjectReference Include="../RuriLib/RuriLib.csproj" />
+  </ItemGroup>
+</Project>

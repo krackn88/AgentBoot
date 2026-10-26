@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:services="clr-namespace:OpenBullet.Linux.Services"
+             x:Class="OpenBullet.Linux.Views.RuriLibSettingsView"
+             x:DataType="services:RuriLibSettingsHost">
+  <ScrollViewer>
+    <StackPanel Spacing="10" MaxWidth="720">
+      <TextBlock Text="RuriLib — General" Foreground="#7FFFD4" FontWeight="Bold" FontSize="16" />
+      <StackPanel Spacing="6" DataContext="{Binding Settings.General}">
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <TextBlock Width="260" Foreground="#DCDCDC" Text="Wait after bot end (ms)" VerticalAlignment="Center" />
+          <TextBox Width="80" Text="{Binding WaitTime}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <TextBlock Width="260" Foreground="#DCDCDC" Text="Request timeout (seconds)" VerticalAlignment="Center" />
+          <TextBox Width="80" Text="{Binding RequestTimeout}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <TextBlock Width="260" Foreground="#DCDCDC" Text="Max hits (0 = unlimited)" VerticalAlignment="Center" />
+          <TextBox Width="80" Text="{Binding MaxHits}" />
+        </StackPanel>
+        <CheckBox Content="Enable bot log" IsChecked="{Binding EnableBotLog}" Foreground="#DCDCDC" />
+        <CheckBox Content="Save last response source" IsChecked="{Binding SaveLastSource}" Foreground="#DCDCDC" />
+        <CheckBox Content="Send data to ToCheck on abort" IsChecked="{Binding SendToCheckOnAbort}" Foreground="#DCDCDC" />
+        <TextBlock Foreground="#DCDCDC" Text="Hits webhook URL" />
+        <TextBox Text="{Binding WebhookURL}" />
+        <CheckBox Content="Webhook enabled" IsChecked="{Binding WebhookEnabled}" Foreground="#DCDCDC" />
+      </StackPanel>
+
+      <TextBlock Text="Browser (Camoufox uses Selenium settings)" Foreground="#7FFFD4" FontWeight="Bold" FontSize="16" Margin="0,12,0,0" />
+      <StackPanel Spacing="6" DataContext="{Binding Settings.Selenium}">
+        <CheckBox Content="Headless" IsChecked="{Binding Headless}" Foreground="#DCDCDC" />
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <TextBlock Width="260" Foreground="#DCDCDC" Text="Page load timeout (seconds)" VerticalAlignment="Center" />
+          <TextBox Width="80" Text="{Binding PageLoadTimeout}" />
+        </StackPanel>
+      </StackPanel>
+
+      <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,16,0,0">
+        <Button Content="Save" Click="OnSave" MinWidth="100" />
+        <Button Content="Reload" Click="OnReload" MinWidth="100" />
+        <Button Content="Reset defaults" Click="OnReset" MinWidth="120" />
+      </StackPanel>
+      <TextBlock Foreground="#ADFF2F" Text="{Binding StatusMessage}" TextWrapping="Wrap" />
+      <TextBlock Foreground="#888" TextWrapping="Wrap"
+                 Text="Saved to Settings/RLSettings.json beside the app. Runner reloads when idle." />
+    </StackPanel>
+  </ScrollViewer>
+</UserControl>

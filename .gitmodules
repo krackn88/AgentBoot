@@ -1,0 +1,3 @@
+[submodule "upstream/openbullet"]
+	path = upstream/openbullet
+	url = https://github.com/openbullet/openbullet.git

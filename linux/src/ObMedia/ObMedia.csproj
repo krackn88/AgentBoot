@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>ObMedia</RootNamespace>
+    <AssemblyName>ObMedia</AssemblyName>
+    <Description>Cross-platform color abstraction for the OpenBullet Linux port.</Description>
+  </PropertyGroup>
+</Project>

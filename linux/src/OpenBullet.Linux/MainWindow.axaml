@@ -1,0 +1,38 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="OpenBullet.Linux.MainWindow"
+        Title="Open Bullet"
+        Width="960" Height="700"
+        MinWidth="800" MinHeight="600"
+        Background="#222222"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
+        SystemDecorations="BorderOnly">
+  <Grid RowDefinitions="30,30,*">
+    <Grid Grid.Row="0" Background="#111111" ColumnDefinitions="Auto,*,Auto">
+      <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="6" Margin="4,0">
+        <Border Width="22" Height="22" Background="#1E90FF" CornerRadius="2" />
+        <TextBlock Text="Open Bullet" Foreground="#DCDCDC" FontSize="14" VerticalAlignment="Center" />
+      </StackPanel>
+      <Panel Grid.Column="1" Background="#111111" />
+    </Grid>
+
+    <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+      <StackPanel Orientation="Horizontal" Spacing="12" Margin="10,0">
+        <Button x:Name="RunnerTab" Content="Runner" Click="OnRunnerTab" Background="Transparent" BorderThickness="0" Foreground="#1E90FF" FontWeight="Bold" />
+        <Button x:Name="ConfigsTab" Content="Configs" Click="OnConfigsTab" Background="Transparent" BorderThickness="0" Foreground="#DCDCDC" FontWeight="Bold" />
+        <Button x:Name="WordlistsTab" Content="Wordlists" Click="OnWordlistsTab" Background="Transparent" BorderThickness="0" Foreground="#DCDCDC" FontWeight="Bold" />
+        <Button x:Name="ProxiesTab" Content="Proxies" Click="OnProxiesTab" Background="Transparent" BorderThickness="0" Foreground="#DCDCDC" FontWeight="Bold" />
+        <Button x:Name="HitsTab" Content="Hits DB" Click="OnHitsTab" Background="Transparent" BorderThickness="0" Foreground="#DCDCDC" FontWeight="Bold" />
+        <Button x:Name="PluginsTab" Content="Plugins" Click="OnPluginsTab" Background="Transparent" BorderThickness="0" Foreground="#DCDCDC" FontWeight="Bold" />
+        <Button x:Name="ToolsTab" Content="Camoufox Tools" Click="OnToolsTab" Background="Transparent" BorderThickness="0" Foreground="#DCDCDC" FontWeight="Bold" />
+        <Button x:Name="SettingsTab" Content="Settings" Click="OnSettingsTab" Background="Transparent" BorderThickness="0" Foreground="#DCDCDC" FontWeight="Bold" />
+        <Button x:Name="AboutTab" Content="About" Click="OnAboutTab" Background="Transparent" BorderThickness="0" Foreground="#DCDCDC" FontWeight="Bold" />
+      </StackPanel>
+    </ScrollViewer>
+
+    <Border Grid.Row="2" Margin="10" Background="#111111" CornerRadius="2" Padding="12">
+      <ContentControl x:Name="PageHost" />
+    </Border>
+  </Grid>
+</Window>

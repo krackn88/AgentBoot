@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>RuriLib</RootNamespace>
+    <AssemblyName>RuriLib</AssemblyName>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="$(OpenBulletUpstreamRoot)/RuriLib/**/*.cs"
+               Exclude="$(OpenBulletUpstreamRoot)/RuriLib/Properties/AssemblyInfo.cs;
+                        $(OpenBulletUpstreamRoot)/RuriLib/Functions/Files/Files.cs;
+                        $(OpenBulletUpstreamRoot)/RuriLib/Blocks/BlockImageCaptcha.cs;
+                        $(OpenBulletUpstreamRoot)/RuriLib/Blocks/SBlockElementAction.cs;
+                        $(OpenBulletUpstreamRoot)/RuriLib/Blocks/SBlockBrowserAction.cs;
+                        $(OpenBulletUpstreamRoot)/RuriLib/Blocks/SBlockNavigate.cs;
+                        $(OpenBulletUpstreamRoot)/RuriLib/Blocks/SBlockExecuteJS.cs;
+                        $(OpenBulletUpstreamRoot)/RuriLib/Runner/RunnerViewModel.cs;
+                        $(OpenBulletUpstreamRoot)/RuriLib/Runner/RunnerBotViewModel.cs" />
+    <Compile Include="CrossPlatformImages.cs" />
+    <Compile Include="Overrides/**/*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../ObMedia/ObMedia.csproj" />
+    <ProjectReference Include="../RuriLib.Camoufox/RuriLib.Camoufox.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="CloudflareSolverRe">
+      <HintPath>$(OpenBulletUpstreamRoot)/CloudflareSolverRe.dll</HintPath>
+    </Reference>
+    <Reference Include="Extreme.Net">
+      <HintPath>$(OpenBulletUpstreamRoot)/Extreme.Net.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="0.13.0" />
+    <PackageReference Include="CaptchaSharp" Version="1.0.4" />
+    <PackageReference Include="CaptchaSharp.Services.More" Version="1.0.0" />
+    <PackageReference Include="DynamicLanguageRuntime" Version="1.2.2" />
+    <PackageReference Include="Esprima" Version="1.0.1258" />
+    <PackageReference Include="IronPython" Version="2.7.9" />
+    <PackageReference Include="Jint" Version="3.0.0-beta-1715" />
+    <PackageReference Include="LiteDB" Version="4.1.4" />
+    <PackageReference Include="Microsoft.Owin" Version="4.1.0" />
+    <PackageReference Include="Microsoft.Owin.Security" Version="4.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Owin" Version="1.0.0" />
+    <PackageReference Include="ProxySocket" Version="1.1.2" />
+    <PackageReference Include="Selenium.Support" Version="3.141.0" />
+    <PackageReference Include="Selenium.WebDriver" Version="3.141.0" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.1.6" />
+    <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="8.0.0" />
+  </ItemGroup>
+</Project>

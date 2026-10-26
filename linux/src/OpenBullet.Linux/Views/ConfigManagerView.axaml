@@ -1,0 +1,44 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:services="clr-namespace:OpenBullet.Linux.Services"
+             xmlns:vm="clr-namespace:RuriLib.ViewModels;assembly=RuriLib"
+             xmlns:dg="using:Avalonia.Controls"
+             x:Class="OpenBullet.Linux.Views.ConfigManagerView"
+             x:DataType="services:ConfigManagerHost">
+  <Grid RowDefinitions="Auto,Auto,*,Auto">
+    <Grid ColumnDefinitions="*,*" Grid.Row="0" Margin="0,0,0,6">
+      <StackPanel Orientation="Horizontal" Spacing="6">
+        <TextBlock Text="Current Config:" FontWeight="Bold" Foreground="{DynamicResource ObForegroundMain}" />
+        <TextBlock Text="{Binding CurrentConfigName}" FontWeight="Bold" Foreground="{DynamicResource ObForegroundMenuSelected}" />
+      </StackPanel>
+      <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="6">
+        <TextBlock Text="Total Configs:" FontWeight="Bold" Foreground="{DynamicResource ObForegroundMain}" />
+        <TextBlock Text="{Binding Total}" Foreground="{DynamicResource ObForegroundMain}" />
+      </StackPanel>
+    </Grid>
+
+    <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="6" Margin="0,0,0,8">
+      <Button Content="New" Click="OnNew" />
+      <Button Content="Edit" Click="OnEdit" />
+      <Button Content="Save" Click="OnSave" />
+      <Button Content="Delete" Click="OnDelete" />
+      <ComboBox Width="120" ItemsSource="{Binding Categories}" SelectedItem="{Binding CategoryFilter}" />
+      <TextBox Width="180" Watermark="Search name/category/author" Text="{Binding SearchString}" />
+      <Button Content="Rescan" Click="OnRescan" />
+      <Button Content="Open in Runner" Click="OnOpenInRunner" />
+    </StackPanel>
+
+    <DataGrid Grid.Row="2" x:Name="ConfigGrid" ItemsSource="{Binding FilteredConfigs}"
+              AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
+              CanUserReorderColumns="True" CanUserResizeColumns="True">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
+        <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="120" />
+        <DataGridTextColumn Header="Author" Binding="{Binding Config.Settings.Author}" Width="120" />
+        <DataGridTextColumn Header="Modified" Binding="{Binding Config.Settings.LastModified}" Width="160" />
+      </DataGrid.Columns>
+    </DataGrid>
+
+    <TextBlock Grid.Row="3" Margin="0,8,0,0" Foreground="{DynamicResource ObForegroundGood}" Text="{Binding StatusMessage}" TextWrapping="Wrap" />
+  </Grid>
+</UserControl>

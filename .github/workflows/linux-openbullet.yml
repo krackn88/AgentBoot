@@ -1,0 +1,64 @@
+name: Linux OpenBullet port
+
+on:
+  push:
+    branches: [main, 'cursor/**']
+    paths:
+      - 'linux/**'
+      - 'upstream/**'
+      - 'global.json'
+      - 'Directory.Build.props'
+      - '.github/workflows/linux-openbullet.yml'
+  pull_request:
+    paths:
+      - 'linux/**'
+      - 'upstream/**'
+      - 'global.json'
+      - 'Directory.Build.props'
+      - '.github/workflows/linux-openbullet.yml'
+
+jobs:
+  build-and-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore solution
+        run: dotnet restore linux/OpenBullet.Linux.sln
+
+      - name: Build solution
+        run: dotnet build linux/OpenBullet.Linux.sln -c Release --no-restore
+
+      - name: Parity unit tests (LoliScript round-trip)
+        run: dotnet test linux/OpenBullet.Linux.sln -c Release --no-restore --filter "FullyQualifiedName~OpenBullet.Parity"
+
+      - name: CLI smoke test
+        run: |
+          cd linux/src/OpenBulletCLI
+          printf '\n' | dotnet run -c Release --no-build -- \
+            -c ../../fixtures/smoke.loli \
+            -w ../../fixtures/smoke-wordlist.txt \
+            --wltype Default -b 1 -v | tee /tmp/cli-smoke.log
+          grep -q "SUCCESS" /tmp/cli-smoke.log
+
+      - name: Camoufox parity smoke (optional)
+        run: |
+          chmod +x linux/scripts/parity-camoufox-smoke.sh
+          linux/scripts/parity-camoufox-smoke.sh
+
+      - name: GUI Runner screenshot (RenderTargetBitmap)
+        run: |
+          pip install pillow
+          export OPENBULLET_SCREENSHOT=1
+          export OPENBULLET_SCREENSHOT_PATH=/tmp/openbullet-runner.png
+          export OPENBULLET_SCREENSHOT_STATS=/tmp/openbullet-runner-stats.txt
+          xvfb-run -a --server-args="-screen 0 960x700x24" \
+            dotnet linux/src/OpenBullet.Linux/bin/Release/net8.0/OpenBullet.Linux.dll
+          python3 linux/scripts/verify-screenshot-brightness.py /tmp/openbullet-runner.png
+          cat /tmp/openbullet-runner-stats.txt

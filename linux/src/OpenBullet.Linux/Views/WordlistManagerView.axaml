@@ -1,0 +1,33 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:services="clr-namespace:OpenBullet.Linux.Services"
+             xmlns:models="clr-namespace:RuriLib.Models;assembly=RuriLib"
+             x:Class="OpenBullet.Linux.Views.WordlistManagerView"
+             x:DataType="services:WordlistManagerHost">
+  <Grid RowDefinitions="Auto,*,Auto">
+    <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="6" Margin="0,0,0,8">
+      <Button Content="Refresh" Click="OnRescan" />
+      <Button Content="Delete missing" Click="OnDeleteMissing" />
+      <Button Content="Add file" Click="OnAdd" />
+      <Button Content="Delete" Click="OnDelete" />
+      <TextBox Width="160" Watermark="Filter" Text="{Binding SearchString}" />
+    </StackPanel>
+    <ListBox Grid.Row="1" x:Name="WordlistList" ItemsSource="{Binding Wordlists}"
+             SelectionChanged="OnSelectionChanged" Background="#1a1a1a" Foreground="#DCDCDC">
+      <ListBox.ItemTemplate>
+        <DataTemplate x:DataType="models:Wordlist">
+          <StackPanel>
+            <TextBlock Text="{Binding Name}" FontWeight="Bold" />
+            <TextBlock Foreground="#888" FontSize="11" TextTrimming="CharacterEllipsis">
+              <Run Text="{Binding Type}" />
+              <Run Text=" · " />
+              <Run Text="{Binding Total}" />
+              <Run Text=" lines" />
+            </TextBlock>
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    <TextBlock Grid.Row="2" Margin="0,8,0,0" Foreground="#ADFF2F" Text="{Binding StatusMessage}" />
+  </Grid>
+</UserControl>

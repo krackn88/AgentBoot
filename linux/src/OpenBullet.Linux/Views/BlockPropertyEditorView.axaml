@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:services="clr-namespace:OpenBullet.Linux.Services"
+             x:Class="OpenBullet.Linux.Views.BlockPropertyEditorView"
+             x:DataType="services:BlockPropertyEditorHost">
+  <Grid RowDefinitions="Auto,*">
+    <TextBlock Text="{Binding BlockTypeName, StringFormat=Block: {0}}"
+               Foreground="{DynamicResource ObForegroundCustom}" FontWeight="Bold" Margin="0,0,0,6" />
+    <ScrollViewer Grid.Row="1">
+      <ItemsControl ItemsSource="{Binding Rows}">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate x:DataType="services:BlockPropertyRow">
+            <Grid ColumnDefinitions="110,*" Margin="0,3">
+              <TextBlock Grid.Column="0" Text="{Binding Name}" VerticalAlignment="Center" FontSize="11" />
+              <TextBox Grid.Column="1" Text="{Binding Value}" IsVisible="{Binding IsStringField}"
+                       LostFocus="OnFieldLostFocus" />
+              <CheckBox Grid.Column="1" IsChecked="{Binding BoolValue}" IsVisible="{Binding IsBoolean}"
+                        Checked="OnBoolChanged" Unchecked="OnBoolChanged" />
+              <ComboBox Grid.Column="1" ItemsSource="{Binding EnumOptions}" SelectedItem="{Binding Value}"
+                        IsVisible="{Binding IsEnum}" SelectionChanged="OnEnumChanged" />
+            </Grid>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+    </ScrollViewer>
+  </Grid>
+</UserControl>

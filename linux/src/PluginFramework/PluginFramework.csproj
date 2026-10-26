@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>PluginFramework</RootNamespace>
+    <AssemblyName>PluginFramework</AssemblyName>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="$(OpenBulletUpstreamRoot)/PluginFramework/**/*.cs"
+               Exclude="$(OpenBulletUpstreamRoot)/PluginFramework/Properties/AssemblyInfo.cs" />
+  </ItemGroup>
+</Project>

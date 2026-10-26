@@ -1,0 +1,5 @@
+bin/
+obj/
+*.user
+.vs/
+linux/src/OpenBulletCLI/Settings/RLSettings.json

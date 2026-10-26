@@ -1,0 +1,38 @@
+using System;
+using System.IO;
+
+namespace OpenBullet.Linux.Services;
+
+public static class LinuxPaths
+{
+    public static string PluginsFolder => Path.Combine(AppContext.BaseDirectory, "Plugins");
+    public static string SettingsFolder => Path.Combine(AppContext.BaseDirectory, "Settings");
+    public static string ConfigsFolder => Path.Combine(AppContext.BaseDirectory, "Configs");
+    public static string WordlistsFolder => Path.Combine(AppContext.BaseDirectory, "Wordlists");
+    public static string HitsFolder => Path.Combine(AppContext.BaseDirectory, "DB");
+    public static string DatabaseFile => Path.Combine(HitsFolder, "OpenBullet.db");
+    public static string EnvironmentIni => Path.Combine(SettingsFolder, "Environment.ini");
+    public static string RlSettingsJson => Path.Combine(SettingsFolder, "RLSettings.json");
+    public static string ObSettingsJson => Path.Combine(SettingsFolder, "OBSettings.json");
+
+    public static void EnsureLayout()
+    {
+        Directory.CreateDirectory(PluginsFolder);
+        Directory.CreateDirectory(SettingsFolder);
+        Directory.CreateDirectory(ConfigsFolder);
+        Directory.CreateDirectory(WordlistsFolder);
+        Directory.CreateDirectory(HitsFolder);
+    }
+
+    public static string FindRepoLinuxDir()
+    {
+        var dir = new DirectoryInfo(AppContext.BaseDirectory);
+        for (var i = 0; i < 8 && dir != null; i++, dir = dir.Parent)
+        {
+            if (Directory.Exists(Path.Combine(dir.FullName, "fixtures")))
+                return dir.FullName;
+        }
+
+        return null;
+    }
+}

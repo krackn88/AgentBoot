@@ -1,0 +1,17 @@
+[SETTINGS]
+{
+  "Name": "CamoufoxSmoke",
+  "SuggestedBots": 1,
+  "NeedsProxies": false
+}
+
+[SCRIPT]
+BROWSERACTION Open
+
+NAVIGATE "https://example.com"
+
+KEYCHECK
+  KEYCHAIN Success OR
+    KEY "Example Domain"
+
+BROWSERACTION Quit
