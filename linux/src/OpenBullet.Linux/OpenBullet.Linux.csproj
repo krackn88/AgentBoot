@@ -21,6 +21,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="$(OpenBulletUpstreamRoot)/OpenBulletCLI/DefaultEnvFile.ini" Link="DefaultEnvFile.ini" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../fixtures/**" Link="fixtures/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../../Plugins/**" Link="Plugins/%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="../ObMedia/ObMedia.csproj" />
+    <ProjectReference Include="../PluginFramework/PluginFramework.csproj" />
+    <ProjectReference Include="../RuriLib/RuriLib.csproj" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,42 @@
+name: Linux OpenBullet port
+
+on:
+  push:
+    branches: [main, 'cursor/**']
+    paths:
+      - 'linux/**'
+      - 'upstream/**'
+      - 'global.json'
+      - 'Directory.Build.props'
+      - '.github/workflows/linux-openbullet.yml'
+  pull_request:
+    paths:
+      - 'linux/**'
+      - 'upstream/**'
+      - 'global.json'
+      - 'Directory.Build.props'
+      - '.github/workflows/linux-openbullet.yml'
+
+jobs:
+  build-and-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Build solution
+        run: dotnet build linux/OpenBullet.Linux.sln -c Release --no-restore false
+
+      - name: CLI smoke test
+        run: |
+          cd linux/src/OpenBulletCLI
+          printf '\n' | dotnet run -c Release --no-build -- \
+            -c ../../fixtures/smoke.loli \
+            -w ../../fixtures/smoke-wordlist.txt \
+            --wltype Default -b 1 -v | tee /tmp/cli-smoke.log
+          grep -q "SUCCESS" /tmp/cli-smoke.log

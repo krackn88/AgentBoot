@@ -1,0 +1,65 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="OpenBullet.Linux.Views.RunnerView"
+             x:DataType="services:RunnerHost"
+             xmlns:services="clr-namespace:OpenBullet.Linux.Services">
+  <Grid RowDefinitions="Auto,Auto,*,Auto">
+    <Grid ColumnDefinitions="*,Auto" Grid.Row="0">
+      <StackPanel Spacing="6">
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <TextBlock Text="Config:" Foreground="#DCDCDC" VerticalAlignment="Center" />
+          <TextBox Width="320" Text="{Binding ConfigPath}" Watermark="path/to/config.loli" />
+          <Button Content="Load" Click="OnLoadClicked" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Spacing="8">
+          <TextBlock Text="Wordlist:" Foreground="#DCDCDC" VerticalAlignment="Center" />
+          <TextBox Width="320" Text="{Binding WordlistPath}" Watermark="path/to/wordlist.txt" />
+        </StackPanel>
+      </StackPanel>
+      <Button Grid.Column="1" MinWidth="90" MinHeight="60" Content="{Binding StartButtonLabel}"
+              Click="OnStartClicked" VerticalAlignment="Center" />
+    </Grid>
+
+    <Grid Grid.Row="1" ColumnDefinitions="*,300" Margin="0,8,0,0">
+      <StackPanel Spacing="4">
+        <TextBlock Foreground="#DCDCDC">
+          <Run Text="Progress: " />
+          <Run Text="{Binding Runner.ProgressCount}" />
+          <Run Text=" / " />
+          <Run Text="{Binding Runner.WordlistSize}" />
+          <Run Text=" (" />
+          <Run Text="{Binding Runner.Progress}" />
+          <Run Text="%)" />
+        </TextBlock>
+        <ProgressBar Minimum="0" Maximum="100" Value="{Binding Runner.Progress}" Height="14" />
+        <TextBlock Foreground="#ADFF2F" Text="{Binding Runner.Master.Status}" />
+      </StackPanel>
+      <StackPanel Grid.Column="1" Spacing="4">
+        <TextBlock Foreground="#DCDCDC" Text="{Binding Runner.ConfigName, StringFormat=Config: {0}}" />
+        <TextBlock Foreground="#DCDCDC" Text="{Binding Runner.WordlistName, StringFormat=Wordlist: {0}}" />
+        <TextBlock Foreground="#DCDCDC" Text="{Binding Runner.BotsAmount, StringFormat=Bots: {0}}" />
+        <TextBlock Foreground="#DCDCDC">
+          <Run Text="Hits: " />
+          <Run Text="{Binding Runner.HitCount}" />
+          <Run Text="  CPM: " />
+          <Run Text="{Binding Runner.CPM}" />
+        </TextBlock>
+        <TextBlock Foreground="#AAAAAA" Text="{Binding PluginSummary}" TextWrapping="Wrap" />
+      </StackPanel>
+    </Grid>
+
+    <Border Grid.Row="2" Background="#1a1a1a" Padding="8" CornerRadius="2">
+      <ScrollViewer>
+        <TextBox Text="{Binding LogText}" IsReadOnly="True" AcceptsReturn="True"
+                 TextWrapping="Wrap" Background="Transparent" BorderThickness="0"
+                 Foreground="#DCDCDC" FontFamily="Consolas,Courier New,monospace" />
+      </ScrollViewer>
+    </Border>
+
+    <StackPanel Grid.Row="3" Orientation="Horizontal" Spacing="8">
+      <Button Content="Kill chromedriver" Click="OnKillChromedriver" />
+      <Button Content="Kill geckodriver" Click="OnKillGeckodriver" />
+      <Button Content="Reload plugins" Click="OnReloadPlugins" />
+    </StackPanel>
+  </Grid>
+</UserControl>
