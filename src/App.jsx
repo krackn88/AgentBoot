@@ -1,15 +1,18 @@
 import React, { useMemo, useState } from 'react'
 import { useStore, streakOf, todayKey } from './lib/store'
 import { useEffect } from 'react'
-import { pdfUrlForChapter, introPdfUrl } from './lib/pdfs'
+import { pdfUrlForChapter, manualIdForChapter } from './lib/pdfs'
 import Reader, { Blocks } from './components/Reader.jsx'
 import Quiz from './components/Quiz.jsx'
 import Flashcards, { buildDecks } from './components/Flashcards.jsx'
 import Planner from './components/Planner.jsx'
+import Manuals from './components/Manuals.jsx'
+import { House, Library, BookOpen, ClipboardCheck, Layers3, Zap, CalendarDays, Gem } from 'lucide-react'
 
 const NAV = [
-  ['dashboard', '🏠', 'Dashboard'], ['library', '📚', 'Study Guide'], ['quiz', '✎', 'Practice & Exam'],
-  ['flashcards', '🃏', 'Flashcards'], ['quickref', '⚡', 'High-Yield'], ['planner', '🗓', 'Study Planner'], ['pricing', '◆', 'Go Pro'],
+  ['dashboard', House, 'Dashboard'], ['library', Library, 'Study Guide'], ['manuals', BookOpen, 'Full Manuals'],
+  ['quiz', ClipboardCheck, 'Practice & Exam'], ['flashcards', Layers3, 'Flashcards'], ['quickref', Zap, 'High-Yield'],
+  ['planner', CalendarDays, 'Study Planner'], ['pricing', Gem, 'Go Pro'],
 ]
 
 export default function App() {
@@ -19,13 +22,29 @@ export default function App() {
     fetch(`${import.meta.env.BASE_URL}data/guide.json`).then(r => { if (!r.ok) throw new Error(r.status); return r.json() })
       .then(setGuide).catch(e => setLoadErr('Could not load study data (' + e.message + '). Check your connection and refresh.'))
   }, [])
+  if (loadErr) return <div className="boot-screen"><div className="card boot-card"><p className="eyebrow">APEA 2026 FNP Study Hub</p><h2>Couldn't load study data</h2><p>{loadErr}</p><button className="btn" onClick={() => location.reload()}>Retry</button></div></div>
+  if (!guide) return <div className="boot-screen"><div className="boot-card"><p className="eyebrow">APEA 2026</p><h1 className="serif">FNP Study Hub</h1><div className="boot-bar"><i/></div><p className="muted">Loading 21 chapters · 278 questions · 22 original manuals…</p></div></div>
+  return <StudyApp guide={guide} />
+}
+
+function StudyApp({ guide }) {
   const [store, update] = useStore()
-  if (loadErr) return <div style={{ maxWidth: 520, margin: '80px auto', padding: 20 }} className="card"><h2>Something went wrong</h2><p>{loadErr}</p><button className="btn" onClick={() => location.reload()}>Retry</button></div>
-  if (!guide) return <div style={{ textAlign: 'center', padding: '90px 20px' }}><p className="serif" style={{ fontSize: 28 }}>APEA 2026 FNP Study Hub</p><p className="muted">Loading all 21 chapters, 278 questions and flashcards…</p></div>
-  const [view, setView] = useState('dashboard')
-  const [chapterId, setChapterId] = useState(null)
+  const [view, setView] = useState(() => (location.hash.match(/^#\/([\w-]+)/)?.[1] || 'dashboard'))
+  const [chapterId, setChapterId] = useState(() => location.hash.match(/^#\/reader\/([^/]+)/)?.[1] || null)
+  const [manualId, setManualId] = useState(() => location.hash.match(/^#\/manuals\/(\d+)/)?.[1] || null)
   const [quizPreset, setQuizPreset] = useState(null)
   const [query, setQuery] = useState('')
+  useEffect(() => {
+    function sync() {
+      const h = location.hash || '#/dashboard'
+      const m = h.match(/^#\/([^/?]+)/)
+      const v = m?.[1] || 'dashboard'
+      if (v === 'reader') { setView('reader'); setChapterId(h.match(/^#\/reader\/([^/]+)/)?.[1] || null) }
+      else if (v === 'manuals') { setView('manuals'); setManualId(h.match(/^#\/manuals\/(\d+)/)?.[1] || null) }
+      else { setView(v); setManualId(null) }
+    }
+    window.addEventListener('hashchange', sync); return () => window.removeEventListener('hashchange', sync)
+  }, [])
   const chapters = guide.chapters
   const chapter = chapters.find(c => c.id === chapterId)
   const totalQ = guide.meta.questions
@@ -50,32 +69,40 @@ export default function App() {
     return out
   }, [query])
 
-  function openQuiz(chId) { setQuizPreset(chId ? { mode: 'practice', chapterId: chId } : null); setView('quiz') }
-  function go(v) { setView(v); if (v !== 'quiz') setQuizPreset(null); window.scrollTo(0, 0) }
+  function openQuiz(chId) { setQuizPreset(chId ? { mode: 'practice', chapterId: chId } : null); go('quiz') }
+  function openChapter(id) { setChapterId(id); setView('reader'); location.hash = `#/reader/${id}`; window.scrollTo(0, 0) }
+  function openManual(id) { setManualId(id); go('manuals'); location.hash = id ? `#/manuals/${id}` : '#/manuals' }
+  function go(v) {
+    setView(v); if (v !== 'quiz') setQuizPreset(null); if (v !== 'manuals') setManualId(null)
+    if (v !== 'reader') location.hash = `#/${v}`
+    window.scrollTo(0, 0)
+  }
 
   return (
     <div className="layout">
       <aside className="sidebar">
         <div className="logo">APEA 2026<br /><span>FNP Study Hub</span></div>
         <p className="tagline">The all-in-one board-prep system: full guide, questions, flashcards, exam simulator & planner.</p>
-        {NAV.map(([k, icon, label]) => <button key={k} className={`navbtn ${view === k ? 'active' : ''}`} onClick={() => go(k)}><span>{icon}</span>{label}</button>)}
+        {NAV.map(([k, Icon, label]) => <button key={k} className={`navbtn ${view === k ? 'active' : ''}`} onClick={() => go(k)}><Icon size={18} strokeWidth={2} />{label}</button>)}
         <div className="sidefoot">
-          <strong style={{ color: '#fff' }}>Board readiness: {readiness}%</strong>
-          <div className="bar" style={{ background: 'rgba(255,255,255,.15)', margin: '6px 0' }}><i style={{ width: `${readiness}%`, background: 'var(--gold)' }} /></div>
-          {doneCh}/{chapters.length} chapters · {answered}/{totalQ} questions · {streak}-day streak
+          <p className="sidefoot-label">Board readiness</p>
+          <strong>{readiness}%</strong>
+          <div className="bar side-bar"><i style={{ width: `${readiness}%` }} /></div>
+          <p>{doneCh}/{chapters.length} chapters · {answered}/{totalQ} Qs</p>
+          <p>{streak}-day streak</p>
         </div>
       </aside>
 
       <main>
-        {view !== 'reader' && (
-          <div style={{ display: 'flex', gap: 8, marginBottom: 18 }}>
-            <input type="text" placeholder="Search the entire guide — try “torsades”, “CURB-65”, “metformin”…" value={query} onChange={e => setQuery(e.target.value)} />
+        {['dashboard', 'library', 'quickref'].includes(view) && (
+          <div className="top-search">
+            <input id="guide-search" name="guide-search" type="text" aria-label="Search the complete study guide" placeholder="Search the study guide — torsades, CURB-65, metformin…" value={query} onChange={e => setQuery(e.target.value)} />
             {query && <button className="btn ghost" onClick={() => setQuery('')}>Clear</button>}
           </div>
         )}
         {query.trim().length >= 3 ? (
           <div><h2>Search results ({searchResults.length})</h2>
-            {searchResults.map((r, i) => <div className="card" key={i} style={{ margin: '10px 0', cursor: 'pointer' }} onClick={() => { setChapterId(r.chapter.id); setView('reader'); setQuery('') }}>
+            {searchResults.map((r, i) => <div className="card" key={i} style={{ margin: '10px 0', cursor: 'pointer' }} onClick={() => { openChapter(r.chapter.id); setQuery('') }}>
               <p className="label">{r.chapter.number}. {r.chapter.shortTitle} · {r.section}</p><p className="small">{r.text.slice(0, 320)}…</p></div>)}
             {!searchResults.length && <div className="card">No matches. Try a shorter term.</div>}
           </div>
@@ -85,11 +112,11 @@ export default function App() {
               <div className="hero">
                 <p className="pill gold">APEA 2026 · FNP / AGPCNP · AANP + ANCC</p>
                 <h1>Pass your FNP boards.<br />One hub, everything you need.</h1>
-                <p>All 21 chapters of the APEA 2026 review manual — readable, searchable, and turned into {totalQ} graded practice questions, flashcards, a timed exam simulator and a day-by-day study plan. No more juggling 22 PDFs.</p>
+                <p>All 21 study-guide chapters plus every page of the 22 original APEA 2026 manuals — searchable and turned into {totalQ} practice questions, flashcards, a timed exam simulator and a day-by-day study plan. No more juggling 1.2 GB of PDFs.</p>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 16 }}>
-                  <button className="btn gold" onClick={() => { if (lastChapter) { setChapterId(lastChapter.id); setView('reader') } }}>{store.lastChapter ? 'Continue studying →' : 'Start Chapter 1 →'}</button>
+                  <button className="btn gold" onClick={() => { if (lastChapter) openChapter(lastChapter.id) }}>{store.lastChapter ? 'Continue studying →' : 'Start Chapter 1 →'}</button>
                   <button className="btn" onClick={() => openQuiz()}>Take a practice quiz</button>
-                  <a className="btn ghost" href={introPdfUrl} target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>Course introduction PDF</a>
+                  <button className="btn ghost" onClick={() => go('manuals')}>Browse all 22 full manuals</button>
                 </div>
               </div>
               <div className="grid cols4" style={{ marginTop: 16 }}>
@@ -99,7 +126,7 @@ export default function App() {
                 <div className="card"><p className="label">Study streak</p><p className="stat">{streak} day{streak === 1 ? '' : 's'}</p><p className="small muted">{mastered} flashcards mastered · {store.studyDates.length} total study days</p></div>
               </div>
               <TodayReview store={store} decks={decks} guide={guide} go={go} openQuiz={openQuiz} />
-              <WeakAreas guide={guide} store={store} onQuiz={(id) => openQuiz(id)} onRead={(id) => { setChapterId(id); setView('reader') }} />
+              <WeakAreas guide={guide} store={store} onQuiz={(id) => openQuiz(id)} onRead={(id) => openChapter(id)} />
               <Blueprint guide={guide} />
               <div className="grid cols2" style={{ marginTop: 16 }}>
                 <div className="card"><h3 style={{ marginTop: 0 }}>Your fastest path to ready</h3>
@@ -122,7 +149,7 @@ export default function App() {
                 </div>
               </div>
               <h2 style={{ marginTop: 28 }}>Chapters</h2>
-              <div className="card">{chapters.slice(0, 6).map(c => <ChapterRow key={c.id} c={c} store={store} onOpen={() => { setChapterId(c.id); setView('reader') }} />)}
+              <div className="card">{chapters.slice(0, 6).map(c => <ChapterRow key={c.id} c={c} store={store} onOpen={() => openChapter(c.id)} />)}
                 <button className="btn ghost" style={{ marginTop: 12 }} onClick={() => go('library')}>View all {chapters.length} chapters →</button></div>
             </div>
           )}
@@ -130,14 +157,18 @@ export default function App() {
           {view === 'library' && (
             <div><h1>Study Guide — all {chapters.length} chapters</h1>
               <p className="muted">In manual order, with the original course PDF for every chapter. Mark chapters complete to build your readiness score.</p>
-              <div className="card">{chapters.map(c => <ChapterRow key={c.id} c={c} store={store} onOpen={() => { setChapterId(c.id); setView('reader') }} />)}</div>
+              <div className="card">{chapters.map(c => <ChapterRow key={c.id} c={c} store={store} onOpen={() => openChapter(c.id)} />)}</div>
             </div>
           )}
 
+
           {view === 'reader' && chapter && (
             <Reader chapter={chapter} store={store} update={update} onBack={() => go('library')} onQuiz={openQuiz}
-              onNext={() => { const n = chapters[chapters.indexOf(chapter) + 1]; if (n) setChapterId(n.id) }} />
+              onOpenManual={() => openManual(manualIdForChapter(chapter))}
+              onNext={() => { const n = chapters[chapters.indexOf(chapter) + 1]; if (n) openChapter(n.id) }} />
           )}
+
+          {view === 'manuals' && <Manuals key={manualId || 'list'} initialId={manualId} />}
 
           {view === 'quiz' && <Quiz key={quizPreset ? quizPreset.chapterId + quizPreset.mode : 'setup'} guide={guide} store={store} update={update} preset={quizPreset} />}
           {view === 'flashcards' && <Flashcards guide={guide} store={store} update={update} />}
@@ -158,7 +189,7 @@ export default function App() {
       </main>
 
       <nav className="bottomnav">
-        {NAV.slice(0, 5).map(([k, icon, label]) => <button key={k} className={view === k ? 'active' : ''} onClick={() => go(k)}>{icon}<br />{label.split(' ')[0]}</button>)}
+        {NAV.slice(0, 5).map(([k, Icon, label]) => <button key={k} className={view === k ? 'active' : ''} onClick={() => go(k)}><Icon size={19} /><br />{label.split(' ')[0]}</button>)}
       </nav>
     </div>
   )
@@ -260,7 +291,7 @@ function ChapterRow({ c, store, onOpen }) {
 
 function Pricing({ store, update, totalQ, totalCards, chapters }) {
   const [email, setEmail] = useState(''); const [joined, setJoined] = useState(false)
-  const features = ['Complete 21-chapter APEA 2026 study guide (searchable)', `${totalQ} practice questions with rationales`, 'Timed AANP-pace exam simulator', `${totalCards}+ high-yield & lab flashcards`, 'Missed-question smart deck', 'Original course-manual PDFs for every chapter', 'Personal study planner + readiness score', 'New 2026 guideline updates included']
+  const features = ['Complete 21-chapter APEA 2026 study guide (searchable)', `${totalQ} practice questions with rationales`, 'Timed AANP-pace exam simulator', `${totalCards}+ high-yield & lab flashcards`, 'Missed-question smart deck', 'All 22 original manuals (full searchable text + PDFs)', 'Personal study planner + readiness score', 'New 2026 guideline updates included']
   return (
     <div style={{ maxWidth: 860, margin: '0 auto' }}>
       <h1 style={{ textAlign: 'center' }}>Study like you mean it.</h1>

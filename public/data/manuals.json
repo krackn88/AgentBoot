@@ -1,0 +1,226 @@
+{
+  "course": "Unlimited 2026 FNP Video Review Course",
+  "year": 2026,
+  "modules": [
+    {
+      "id": "01",
+      "slug": "introduction",
+      "title": "Introduction",
+      "pdf_file": "pdf/01-introduction-course-manual.pdf",
+      "text_file": "text/01-introduction-course-manual.md",
+      "pdf_bytes": 324986,
+      "text_bytes": 17137,
+      "text_chars": 16918
+    },
+    {
+      "id": "02",
+      "slug": "exam-prep",
+      "title": "Exam Prep",
+      "pdf_file": "pdf/02-exam-prep-course-manual.pdf",
+      "text_file": "text/02-exam-prep-course-manual.md",
+      "pdf_bytes": 7719127,
+      "text_bytes": 10681,
+      "text_chars": 10398
+    },
+    {
+      "id": "03",
+      "slug": "antibiotics",
+      "title": "Antibiotics",
+      "pdf_file": "pdf/03-antibiotics-course-manual.pdf",
+      "text_file": "text/03-antibiotics-course-manual.md",
+      "pdf_bytes": 54701151,
+      "text_bytes": 27997,
+      "text_chars": 27539
+    },
+    {
+      "id": "04",
+      "slug": "pulmonary-disorders",
+      "title": "Pulmonary Disorders",
+      "pdf_file": "pdf/04-pulmonary-disorders-course-manual.pdf",
+      "text_file": "text/04-pulmonary-disorders-course-manual.md",
+      "pdf_bytes": 20084791,
+      "text_bytes": 42058,
+      "text_chars": 41435
+    },
+    {
+      "id": "05",
+      "slug": "hematology",
+      "title": "Hematology",
+      "pdf_file": "pdf/05-hematology-course-manual.pdf",
+      "text_file": "text/05-hematology-course-manual.md",
+      "pdf_bytes": 77652374,
+      "text_bytes": 29114,
+      "text_chars": 28452
+    },
+    {
+      "id": "06",
+      "slug": "neurologic-disorders",
+      "title": "Neurologic Disorders",
+      "pdf_file": "pdf/06-neurologic-disorders-course-manual.pdf",
+      "text_file": "text/06-neurologic-disorders-course-manual.md",
+      "pdf_bytes": 15668999,
+      "text_bytes": 40608,
+      "text_chars": 39969
+    },
+    {
+      "id": "07",
+      "slug": "mental-health",
+      "title": "Mental Health",
+      "pdf_file": "pdf/07-mental-health-course-manual.pdf",
+      "text_file": "text/07-mental-health-course-manual.md",
+      "pdf_bytes": 13786716,
+      "text_bytes": 36359,
+      "text_chars": 35753
+    },
+    {
+      "id": "08",
+      "slug": "gastrointestinal-disorders",
+      "title": "Gastrointestinal Disorders",
+      "pdf_file": "pdf/08-gastrointestinal-disorders-course-manual.pdf",
+      "text_file": "text/08-gastrointestinal-disorders-course-manual.md",
+      "pdf_bytes": 42714996,
+      "text_bytes": 28711,
+      "text_chars": 28060
+    },
+    {
+      "id": "09",
+      "slug": "urology-and-sti",
+      "title": "Urology and STI",
+      "pdf_file": "pdf/09-urology-and-sti-course-manual.pdf",
+      "text_file": "text/09-urology-and-sti-course-manual.md",
+      "pdf_bytes": 82739019,
+      "text_bytes": 43099,
+      "text_chars": 42309
+    },
+    {
+      "id": "10",
+      "slug": "cardiovascular-disorders",
+      "title": "Cardiovascular Disorders",
+      "pdf_file": "pdf/10-cardiovascular-disorders-course-manual.pdf",
+      "text_file": "text/10-cardiovascular-disorders-course-manual.md",
+      "pdf_bytes": 33372153,
+      "text_bytes": 32743,
+      "text_chars": 32231
+    },
+    {
+      "id": "11",
+      "slug": "endocrine-disorders",
+      "title": "Endocrine Disorders",
+      "pdf_file": "pdf/11-endocrine-disorders-course-manual.pdf",
+      "text_file": "text/11-endocrine-disorders-course-manual.md",
+      "pdf_bytes": 25663590,
+      "text_bytes": 45675,
+      "text_chars": 44967
+    },
+    {
+      "id": "12",
+      "slug": "womens-health",
+      "title": "Women's Health",
+      "pdf_file": "pdf/12-womens-health-course-manual.pdf",
+      "text_file": "text/12-womens-health-course-manual.md",
+      "pdf_bytes": 53868545,
+      "text_bytes": 36815,
+      "text_chars": 36094
+    },
+    {
+      "id": "13",
+      "slug": "mens-health",
+      "title": "Men's Health",
+      "pdf_file": "pdf/13-mens-health-course-manual.pdf",
+      "text_file": "text/13-mens-health-course-manual.md",
+      "pdf_bytes": 100349658,
+      "text_bytes": 26270,
+      "text_chars": 25787
+    },
+    {
+      "id": "14",
+      "slug": "orthopedic-disorders",
+      "title": "Orthopedic Disorders",
+      "pdf_file": "pdf/14-orthopedic-disorders-course-manual.pdf",
+      "text_file": "text/14-orthopedic-disorders-course-manual.md",
+      "pdf_bytes": 143846556,
+      "text_bytes": 32287,
+      "text_chars": 31780
+    },
+    {
+      "id": "15",
+      "slug": "dermatological-disorders",
+      "title": "Dermatological Disorders",
+      "pdf_file": "pdf/15-dermatological-disorders-course-manual.pdf",
+      "text_file": "text/15-dermatological-disorders-course-manual.md",
+      "pdf_bytes": 141385832,
+      "text_bytes": 32191,
+      "text_chars": 31686
+    },
+    {
+      "id": "16",
+      "slug": "eye-ear-nose-throat",
+      "title": "Eye, Ear, Nose and Throat Disorders",
+      "pdf_file": "pdf/16-eye-ear-nose-throat-course-manual.pdf",
+      "text_file": "text/16-eye-ear-nose-throat-course-manual.md",
+      "pdf_bytes": 61328453,
+      "text_bytes": 33076,
+      "text_chars": 32324
+    },
+    {
+      "id": "17",
+      "slug": "care-of-aging-adult",
+      "title": "Care of Aging Adult",
+      "pdf_file": "pdf/17-care-of-aging-adult-course-manual.pdf",
+      "text_file": "text/17-care-of-aging-adult-course-manual.md",
+      "pdf_bytes": 40718079,
+      "text_bytes": 45478,
+      "text_chars": 44740
+    },
+    {
+      "id": "18",
+      "slug": "pregnancy-primary-care",
+      "title": "Pregnancy in Primary Care",
+      "pdf_file": "pdf/18-pregnancy-primary-care-course-manual.pdf",
+      "text_file": "text/18-pregnancy-primary-care-course-manual.md",
+      "pdf_bytes": 33499010,
+      "text_bytes": 38390,
+      "text_chars": 37701
+    },
+    {
+      "id": "19",
+      "slug": "pediatrics",
+      "title": "Pediatrics",
+      "pdf_file": "pdf/19-pediatrics-course-manual.pdf",
+      "text_file": "text/19-pediatrics-course-manual.md",
+      "pdf_bytes": 178475935,
+      "text_bytes": 105507,
+      "text_chars": 104100
+    },
+    {
+      "id": "20",
+      "slug": "pediatric-growth-development",
+      "title": "Pediatric Growth and Development",
+      "pdf_file": "pdf/20-pediatric-growth-development-course-manual.pdf",
+      "text_file": "text/20-pediatric-growth-development-course-manual.md",
+      "pdf_bytes": 90802715,
+      "text_bytes": 40749,
+      "text_chars": 39910
+    },
+    {
+      "id": "21",
+      "slug": "entry-into-practice",
+      "title": "Entry Into Practice",
+      "pdf_file": "pdf/21-entry-into-practice-course-manual.pdf",
+      "text_file": "text/21-entry-into-practice-course-manual.md",
+      "pdf_bytes": 21963970,
+      "text_bytes": 31460,
+      "text_chars": 30797
+    },
+    {
+      "id": "22",
+      "slug": "professional-issues",
+      "title": "Professional Issues",
+      "pdf_file": "pdf/22-professional-issues-course-manual.pdf",
+      "text_file": "text/22-professional-issues-course-manual.md",
+      "pdf_bytes": 13440479,
+      "text_bytes": 138144,
+      "text_chars": 136413
+    }
+  ]
+}

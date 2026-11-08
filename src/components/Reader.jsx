@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { pdfUrlForChapter } from '../lib/pdfs'
 
 export function Blocks({ blocks }) {
   return blocks.map((b, i) => {
@@ -11,7 +12,7 @@ export function Blocks({ blocks }) {
   })
 }
 
-export default function Reader({ chapter, store, update, onBack, onQuiz, onNext }) {
+export default function Reader({ chapter, store, update, onBack, onQuiz, onNext, onOpenManual }) {
   const done = !!store.completed[chapter.id]
   const ref = useRef(null)
   const [progress, setProgress] = useState(0)
@@ -39,6 +40,8 @@ export default function Reader({ chapter, store, update, onBack, onQuiz, onNext 
         <button className="btn" onClick={toggleDone}>{done ? '✓ Completed — tap to undo' : 'Mark chapter complete'}</button>
         <button className="btn ghost" onClick={() => update(s => ({ ...s, bookmarks: bookmarked ? s.bookmarks.filter(b => b !== chapter.id) : [...s.bookmarks, chapter.id] }))}>{bookmarked ? '★ Bookmarked' : '☆ Bookmark'}</button>
         {chapter.questions.length > 0 && <button className="btn gold" onClick={() => onQuiz(chapter.id)}>Practice this chapter →</button>}
+        {onOpenManual && <button className="btn ghost" onClick={onOpenManual}>Open full original manual</button>}
+        <a className="btn ghost" href={pdfUrlForChapter(chapter)} target="_blank" rel="noreferrer">Open chapter PDF</a>
         <select style={{ width: 'auto' }} value={store.fontSize} onChange={e => update({ fontSize: Number(e.target.value) })} aria-label="Text size">
           <option value={15}>Text S</option><option value={17}>Text M</option><option value={19}>Text L</option>
         </select>
