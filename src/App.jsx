@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
-import guide from './data/guide.json'
 import { useStore, streakOf, todayKey } from './lib/store'
+import { useEffect } from 'react'
 import { pdfUrlForChapter, introPdfUrl } from './lib/pdfs'
 import Reader, { Blocks } from './components/Reader.jsx'
 import Quiz from './components/Quiz.jsx'
@@ -13,7 +13,15 @@ const NAV = [
 ]
 
 export default function App() {
+  const [guide, setGuide] = useState(null)
+  const [loadErr, setLoadErr] = useState('')
+  useEffect(() => {
+    fetch(`${import.meta.env.BASE_URL}data/guide.json`).then(r => { if (!r.ok) throw new Error(r.status); return r.json() })
+      .then(setGuide).catch(e => setLoadErr('Could not load study data (' + e.message + '). Check your connection and refresh.'))
+  }, [])
   const [store, update] = useStore()
+  if (loadErr) return <div style={{ maxWidth: 520, margin: '80px auto', padding: 20 }} className="card"><h2>Something went wrong</h2><p>{loadErr}</p><button className="btn" onClick={() => location.reload()}>Retry</button></div>
+  if (!guide) return <div style={{ textAlign: 'center', padding: '90px 20px' }}><p className="serif" style={{ fontSize: 28 }}>APEA 2026 FNP Study Hub</p><p className="muted">Loading all 21 chapters, 278 questions and flashcards…</p></div>
   const [view, setView] = useState('dashboard')
   const [chapterId, setChapterId] = useState(null)
   const [quizPreset, setQuizPreset] = useState(null)
@@ -90,6 +98,9 @@ export default function App() {
                 <div className="card"><p className="label">Question accuracy</p><p className="stat">{answered ? accuracy + '%' : '—'}</p><p className="small muted">{correctCount}/{answered} correct · {totalQ - answered} untouched<br />75%+ is board-ready pace</p></div>
                 <div className="card"><p className="label">Study streak</p><p className="stat">{streak} day{streak === 1 ? '' : 's'}</p><p className="small muted">{mastered} flashcards mastered · {store.studyDates.length} total study days</p></div>
               </div>
+              <TodayReview store={store} decks={decks} guide={guide} go={go} openQuiz={openQuiz} />
+              <WeakAreas guide={guide} store={store} onQuiz={(id) => openQuiz(id)} onRead={(id) => { setChapterId(id); setView('reader') }} />
+              <Blueprint guide={guide} />
               <div className="grid cols2" style={{ marginTop: 16 }}>
                 <div className="card"><h3 style={{ marginTop: 0 }}>Your fastest path to ready</h3>
                   <ol style={{ lineHeight: 2, color: 'var(--ink2)', paddingLeft: 20 }}>
@@ -149,6 +160,85 @@ export default function App() {
       <nav className="bottomnav">
         {NAV.slice(0, 5).map(([k, icon, label]) => <button key={k} className={view === k ? 'active' : ''} onClick={() => go(k)}>{icon}<br />{label.split(' ')[0]}</button>)}
       </nav>
+    </div>
+  )
+}
+
+function TodayReview({ store, decks, guide, go, openQuiz }) {
+  const due = [...decks.highyield.cards, ...decks.labs.cards].filter(c => (store.cardBox[c.id] || 0) < 3).length
+  const missed = Object.values(store.answers).filter(a => !a.correct).length
+  const today = (store.daily || {})[todayKey()] || {}
+  return (
+    <div className="card" style={{ marginTop: 16, border: '2px solid var(--brand)' }}>
+      <h3 style={{ marginTop: 0 }}>Today's Review — your smart session</h3>
+      <p className="muted" style={{ lineHeight: 1.6 }}>Today: <strong>{today.answered || 0}</strong> questions answered · <strong>{today.cards || 0}</strong> flashcards rated · <strong>{missed}</strong> missed questions waiting · <strong>{due}</strong> high-yield/lab cards not yet mastered. Ten focused minutes here beats an hour of re-reading.</p>
+      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        <button className="btn" onClick={() => go('flashcards')}>Review flashcards ({due} due)</button>
+        <button className="btn gold" disabled={!missed} onClick={() => openQuiz()}>Drill missed questions ({missed})</button>
+        <button className="btn ghost" onClick={() => go('quickref')}>⚡ High-yield cram sheet</button>
+      </div>
+      {!store.examDate && <p className="small" style={{ marginTop: 10 }}>No exam date set — <a href="#" onClick={e => { e.preventDefault(); go('planner') }}>set one in the Study Planner</a> to get your day-by-day countdown plan.</p>}
+      {store.examDate && <p className="small" style={{ marginTop: 10 }}>Exam: <strong>{new Date(store.examDate + 'T00:00:00').toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}</strong> — {Math.max(0, Math.round((new Date(store.examDate) - Date.now()) / 86400000))} days to go.</p>}
+    </div>
+  )
+}
+
+function WeakAreas({ guide, store, onQuiz, onRead }) {
+  const qChapter = useMemo(() => { const m = {}; guide.chapters.forEach(c => c.questions.forEach(q => { m[q.id] = c })); return m }, [guide])
+  const rows = useMemo(() => {
+    const by = {}
+    Object.entries(store.answers).forEach(([qid, a]) => { const c = qChapter[qid]; if (!c) return; by[c.id] = by[c.id] || { chapter: c, t: 0, ok: 0 }; by[c.id].t++; if (a.correct) by[c.id].ok++ })
+    return Object.values(by).map(r => ({ ...r, pct: Math.round(r.ok / r.t * 100) })).sort((a, b) => a.pct - b.pct)
+  }, [store.answers, qChapter])
+  if (!rows.length) return (
+    <div className="card" style={{ marginTop: 16 }}><h3 style={{ marginTop: 0 }}>Weak-area radar</h3>
+      <p className="muted">Answer practice questions and this fills in with your accuracy by chapter — so you always know exactly what to study next instead of guessing.</p></div>
+  )
+  return (
+    <div className="card" style={{ marginTop: 16 }}><h3 style={{ marginTop: 0 }}>Weak-area radar — study what you're actually missing</h3>
+      {rows.map(r => (
+        <div key={r.chapter.id} style={{ display: 'flex', gap: 10, alignItems: 'center', margin: '10px 0', flexWrap: 'wrap' }}>
+          <div style={{ flex: '1 1 220px' }}><strong>{r.chapter.shortTitle}</strong><span className="muted small"> · {r.ok}/{r.t} correct</span>
+            <div className="bar"><i style={{ width: r.pct + '%', background: r.pct >= 75 ? 'var(--green)' : r.pct >= 55 ? 'var(--gold)' : 'var(--red)' }} /></div></div>
+          <span className="pill" style={r.pct < 55 ? { background: '#fdecec', color: 'var(--red)' } : {}}>{r.pct}%</span>
+          {r.pct < 75 && <><button className="btn ghost" onClick={() => onRead(r.chapter.id)}>Re-read</button><button className="btn" onClick={() => onQuiz(r.chapter.id)}>Quiz it</button></>}
+        </div>
+      ))}
+      <DataTools store={store} />
+    </div>
+  )
+}
+
+function DataTools({ store }) {
+  function exportData() {
+    const blob = new Blob([JSON.stringify(store, null, 2)], { type: 'application/json' })
+    const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'apea-study-progress.json'; a.click(); URL.revokeObjectURL(a.href)
+  }
+  function importData(e) {
+    const f = e.target.files[0]; if (!f) return
+    f.text().then(txt => { try { const data = JSON.parse(txt); localStorage.setItem('apea-hub-v2', JSON.stringify(data)); location.reload() } catch { alert('That file is not a valid progress backup.') } })
+  }
+  return (
+    <div style={{ borderTop: '1px solid var(--line)', marginTop: 14, paddingTop: 12, display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+      <span className="label">Your data</span>
+      <button className="btn ghost" onClick={exportData}>Export progress</button>
+      <label className="btn ghost" style={{ cursor: 'pointer' }}>Import progress<input type="file" accept="application/json" hidden onChange={importData} /></label>
+      <button className="btn ghost" onClick={() => { if (confirm('Reset ALL progress, bookmarks and quiz history on this device?')) { localStorage.removeItem('apea-hub-v2'); location.reload() } }}>Reset everything</button>
+      <span className="small muted">Progress lives on this device — export before switching phones/computers.</span>
+    </div>
+  )
+}
+
+function Blueprint({ guide }) {
+  const ch1 = guide.chapters[0]
+  const tables = []
+  ch1?.sections.forEach(s => s.blocks.forEach(b => { if (b.type === 'table' && tables.length < 3) tables.push({ section: s.title, ...b }) }))
+  if (!tables.length) return null
+  return (
+    <div className="card" style={{ marginTop: 16 }}><h3 style={{ marginTop: 0 }}>Know your exam — AANP vs ANCC blueprint</h3>
+      <p className="muted small">Straight from Chapter 1 of your manual. Pick one exam, study to its blueprint.</p>
+      {tables.map((tb, i) => <div key={i}><p className="label" style={{ marginTop: 12 }}>{tb.section}</p>
+        <div className="tablewrap"><table><thead><tr>{tb.headers.map((h, j) => <th key={j}>{h}</th>)}</tr></thead><tbody>{tb.rows.map((r, j) => <tr key={j}>{r.map((c, k) => <td key={k}>{c}</td>)}</tr>)}</tbody></table></div></div>)}
     </div>
   )
 }

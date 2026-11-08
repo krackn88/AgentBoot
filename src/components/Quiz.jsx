@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useEffect } from 'react'
-import { shuffle, todayKey } from '../lib/store'
+import { shuffle, todayKey, bumpDaily } from '../lib/store'
 
 export default function Quiz({ guide, store, update, preset, onDone }) {
   const allQ = useMemo(() => guide.chapters.flatMap(c => c.questions.map(q => ({ ...q, chapterTitle: c.shortTitle }))), [guide])
@@ -16,6 +16,23 @@ export default function Quiz({ guide, store, update, preset, onDone }) {
     if (!session || result) return
     const t = setInterval(() => setSeconds(s => s + 1), 1000); return () => clearInterval(t)
   }, [session, result])
+  useEffect(() => { if (session?.mode === 'exam' && seconds >= 3600 && !result) finish() }, [seconds, session, result])
+  // Keyboard: 1-4 / A-D pick, Enter checks in practice, arrows navigate
+  useEffect(() => {
+    if (!session || result) return
+    function onKey(e) {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return
+      const q = session.questions[idx]; if (!q) return
+      const n = ['1','2','3','4'].indexOf(e.key); const l = ['a','b','c','d'].indexOf(e.key.toLowerCase())
+      const pick = n >= 0 ? n : l
+      if (pick >= 0 && q.options[pick] != null && !(session.mode === 'practice' && revealed[q.id])) setPicked(p => ({ ...p, [q.id]: pick }))
+      if (e.key === 'Enter' && session.mode === 'practice' && !revealed[q.id] && picked[q.id] != null) setRevealed(r => ({ ...r, [q.id]: true }))
+      if (e.key === 'ArrowRight' && idx < session.questions.length - 1) setIdx(idx + 1)
+      if (e.key === 'ArrowLeft' && idx > 0) setIdx(idx - 1)
+      if (e.key.toLowerCase() === 'f') setFlags(f => ({ ...f, [q.id]: !f[q.id] }))
+    }
+    window.addEventListener('keydown', onKey); return () => window.removeEventListener('keydown', onKey)
+  }, [session, result, idx, picked, revealed])
 
   function pool(m, ch) {
     let p = ch === 'all' ? allQ : allQ.filter(q => q.chapterId === ch)
@@ -38,18 +55,18 @@ export default function Quiz({ guide, store, update, preset, onDone }) {
     })
     const res = { correct, graded, total: qs.length, byChapter, seconds, date: todayKey(), mode: session.mode }
     setResult(res)
-    update(s => ({
+    update(s => bumpDaily({
       ...s,
-      answers: { ...s.answers, ...Object.fromEntries(qs.filter(q => q.correctIndex != null).map(q => [q.id, { correct: picked[q.id] === q.correctIndex, chosen: picked[q.id] }])) },
+      answers: { ...s.answers, ...Object.fromEntries(qs.filter(q => q.correctIndex != null).map(q => [q.id, { correct: picked[q.id] === q.correctIndex, chosen: picked[q.id], chapterId: q.chapterId }])) },
       quizHistory: [...s.quizHistory, res], studyDates: [...new Set([...s.studyDates, todayKey()])],
-    }))
+    }, 'answered', qs.length))
     onDone?.(res)
   }
 
   if (setup) return (
     <div style={{ maxWidth: 720, margin: '0 auto' }}>
       <h1>Practice & Exam Simulator</h1>
-      <p className="muted">All {allQ.length} questions come straight from your APEA manual chapters, graded against the Answer Key with rationales. Exam mode mirrors AANP pacing (150 questions / 3 hours ≈ 72 seconds per question).</p>
+      <p className="muted">Keyboard: <strong>1–4</strong> answer · <strong>Enter</strong> check · <strong>←/→</strong> navigate · <strong>F</strong> flag. All {allQ.length} questions come straight from your APEA manual chapters, graded against the Answer Key with rationales. Exam mode mirrors AANP pacing (150 questions / 3 hours ≈ 72 seconds per question).</p>
       <div className="card">
         <p className="label">Mode</p>
         {[['practice', 'Practice — instant rationale after each question'], ['mixed', 'Mixed quiz — answers at the end'], ['exam', 'Timed exam simulator — 50 questions, 60 minutes, flag & review'], ['missed', 'Missed questions — only questions you have gotten wrong']].map(([v, l]) => (
@@ -118,11 +135,11 @@ export default function Quiz({ guide, store, update, preset, onDone }) {
         <button className="btn ghost" disabled={idx === 0} onClick={() => setIdx(idx - 1)}>← Prev</button>
         <button className="btn ghost" onClick={() => setFlags(f => ({ ...f, [q.id]: !f[q.id] }))}>{flags[q.id] ? '⚑ Flagged' : 'Flag for review'}</button>
         {idx < session.questions.length - 1 ? <button className="btn" onClick={() => setIdx(idx + 1)}>Next →</button>
-          : <button className="btn gold" onClick={finish}>Finish & grade →</button>}
+          : <button className="btn gold" onClick={() => { const un = session.questions.filter(q => picked[q.id] == null && q.options.length >= 2).length; if (un && !confirm(`You still have ${un} unanswered question${un>1?'s':''}. Submit anyway?`)) return; finish() }}>Finish & grade →</button>}
       </div>
       {(session.mode !== 'practice') && <div className="card" style={{ marginTop: 16 }}><p className="label">Question navigator</p>
         <div className="qgrid">{session.questions.map((qq, i) => <button key={qq.id} className={`${picked[qq.id] != null ? 'ans' : ''} ${flags[qq.id] ? 'flag' : ''}`} onClick={() => setIdx(i)}>{i + 1}</button>)}</div>
-        <button className="btn gold" style={{ marginTop: 14 }} onClick={finish}>Submit exam</button></div>}
+        <button className="btn gold" style={{ marginTop: 14 }} onClick={() => { const un = session.questions.filter(q => picked[q.id] == null).length; if (un && !confirm(`You still have ${un} unanswered question${un>1?'s':''}. Submit anyway?`)) return; finish() }}>Submit exam</button></div>}
     </div>
   )
 }

@@ -1,5 +1,5 @@
-import React, { useMemo, useState } from 'react'
-import { shuffle } from '../lib/store'
+import React, { useMemo, useState, useEffect } from 'react'
+import { shuffle, bumpDaily } from '../lib/store'
 
 export function buildDecks(guide, store) {
   const high = []
@@ -26,15 +26,23 @@ export default function Flashcards({ guide, store, update }) {
   const cards = order && order.deck === deckId ? order.cards : deck.cards
   const card = cards[i % Math.max(1, cards.length)]
   const mastered = deck.cards.filter(c => (store.cardBox[c.id] || 0) >= 3).length
+  useEffect(() => {
+    function onKey(e) {
+      if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); setFlip(f => !f) }
+      if (e.key === '1') rate(false); if (e.key === '2') rate(true)
+      if (e.key === 'ArrowRight') { setFlip(false); setI(v => v + 1) }
+    }
+    window.addEventListener('keydown', onKey); return () => window.removeEventListener('keydown', onKey)
+  })
   function rate(known) {
     if (!card) return
-    update(s => ({ ...s, cardBox: { ...s.cardBox, [card.id]: Math.max(0, Math.min(3, (s.cardBox[card.id] || 0) + (known ? 1 : -1))) } }))
+    update(s => bumpDaily({ ...s, cardBox: { ...s.cardBox, [card.id]: Math.max(0, Math.min(3, (s.cardBox[card.id] || 0) + (known ? 1 : -1))) } }, 'cards', 1))
     setFlip(false); setI(v => v + 1)
   }
   return (
     <div style={{ maxWidth: 720, margin: '0 auto' }}>
       <h1>Flashcards</h1>
-      <p className="muted">Real cards built from your manual — the High-Yield Quick Reference table, the labs you must memorize, and every graded practice question. Rate each card; cards you know 3 times are marked mastered (Leitner boxes).</p>
+      <p className="muted">Real cards built from your manual — the High-Yield Quick Reference table, the labs you must memorize, and every graded practice question. Rate each card; cards you know 3 times are marked mastered (Leitner boxes). Keyboard: Space flips, 1 = still learning, 2 = I know this.</p>
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', margin: '16px 0' }}>
         {Object.entries(decks).map(([k, d]) => <button key={k} className={k === deckId ? 'btn' : 'btn ghost'} onClick={() => { setDeckId(k); setI(0); setFlip(false); setOrder(null) }}>{d.label}</button>)}
       </div>

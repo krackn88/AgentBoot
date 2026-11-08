@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 export function Blocks({ blocks }) {
   return blocks.map((b, i) => {
@@ -14,7 +14,12 @@ export function Blocks({ blocks }) {
 export default function Reader({ chapter, store, update, onBack, onQuiz, onNext }) {
   const done = !!store.completed[chapter.id]
   const ref = useRef(null)
+  const [progress, setProgress] = useState(0)
   useEffect(() => { window.scrollTo(0, 0) }, [chapter.id])
+  useEffect(() => {
+    function onScroll() { const h = document.documentElement; const max = h.scrollHeight - h.clientHeight; setProgress(max > 0 ? Math.min(100, Math.round(h.scrollTop / max * 100)) : 0) }
+    window.addEventListener('scroll', onScroll, { passive: true }); onScroll(); return () => window.removeEventListener('scroll', onScroll)
+  }, [chapter.id])
   const toggleDone = () => update(s => ({
     ...s, lastChapter: chapter.id,
     completed: { ...s.completed, [chapter.id]: !done },
@@ -23,7 +28,11 @@ export default function Reader({ chapter, store, update, onBack, onQuiz, onNext 
   const bookmarked = store.bookmarks.includes(chapter.id)
   return (
     <div className="reader" ref={ref} style={{ fontSize: store.fontSize }}>
-      <button className="btn ghost" onClick={onBack}>← All chapters</button>
+      <div style={{ position: 'sticky', top: 0, zIndex: 5, background: 'var(--bg)', padding: '8px 0' }}>
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}><button className="btn ghost" onClick={onBack}>← All chapters</button>
+        <button className="btn ghost" onClick={() => window.print()}>Print / save PDF</button><span className="small muted">{progress}% read</span></div>
+        <div className="bar" style={{ marginTop: 8 }}><i style={{ width: progress + '%' }} /></div>
+      </div>
       <p className="label" style={{ marginTop: 20 }}>Chapter {chapter.number} · ~{Math.max(1, Math.round(chapter.wordCount / 200))} min read · {chapter.questions.length} practice questions</p>
       <h1 style={{ fontSize: 34, margin: '6px 0' }}>{chapter.shortTitle}</h1>
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', margin: '14px 0 6px' }}>

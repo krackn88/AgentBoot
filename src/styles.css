@@ -39,3 +39,5 @@ input[type=text],input[type=email],input[type=date],select{padding:11px 13px;bor
 .bottomnav button{background:none;border:0;font-size:11px;font-weight:700;color:var(--muted);padding:6px}.bottomnav button.active{color:var(--brand)}}
 .qgrid{display:grid;grid-template-columns:repeat(10,1fr);gap:6px}.qgrid button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 0;font-weight:700}.qgrid button.ans{background:var(--brand);color:#fff}.qgrid button.flag{outline:2px solid var(--gold)}
 .price{font-size:38px;font-family:'Fraunces',serif;font-weight:900}
+
+@media print { .sidebar,.bottomnav{display:none!important} .layout{grid-template-columns:1fr} main{padding:10px} .btn{display:none!important} body{background:#fff} }

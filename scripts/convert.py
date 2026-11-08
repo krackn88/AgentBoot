@@ -7,7 +7,7 @@ from docx.table import Table
 from docx.text.paragraph import Paragraph
 
 SRC = sys.argv[1] if len(sys.argv)>1 else "/home/ubuntu/.cursor/projects/workspace/uploads/APEA_2026_FNP_Complete_Study_Guide_a015.docx"
-OUT = Path(__file__).resolve().parent.parent / "src/data/guide.json"
+OUT = Path(__file__).resolve().parent.parent / "public/data/guide.json"
 
 def slug(s):
     return re.sub(r'[^a-z0-9]+','-', s.lower()).strip('-')[:60]

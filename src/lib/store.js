@@ -4,7 +4,7 @@ const KEY = 'apea-hub-v2'
 const DEFAULTS = {
   completed: {}, bookmarks: [], quizHistory: [], answers: {},
   cardBox: {}, studyDates: [], plan: null, planDone: {}, deck: 'highyield',
-  examDate: '', waitlist: [], lastChapter: null, fontSize: 17,
+  examDate: '', waitlist: [], lastChapter: null, fontSize: 17, daily: {},
 }
 export function loadStore() {
   try { return { ...DEFAULTS, ...JSON.parse(localStorage.getItem(KEY) || '{}') } }
@@ -27,4 +27,10 @@ export function shuffle(arr, seed) {
   const a = [...arr]; let s = seed ?? Math.floor(Math.random() * 1e9)
   for (let i = a.length - 1; i > 0; i--) { s = (s * 1103515245 + 12345) % 2147483648; const j = s % (i + 1);[a[i], a[j]] = [a[j], a[i]] }
   return a
+}
+
+export function bumpDaily(store, field, n = 1) {
+  const k = todayKey(); const d = { ...(store.daily || {}) }
+  d[k] = { ...(d[k] || {}), [field]: ((d[k] || {})[field] || 0) + n }
+  return { ...store, daily: d }
 }
