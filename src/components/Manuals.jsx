@@ -22,22 +22,31 @@ export default function Manuals({ initialId }) {
   const [embedTried, setEmbedTried] = useState(false)
 
   useEffect(() => {
+    let cancelled = false
     fetch(`${BASE}data/manuals.json`).then(r => {
       if (!r.ok) throw new Error(`HTTP ${r.status}`)
       return r.json()
     }).then(data => {
+      if (cancelled) return
       setManifest(data)
-      if (initialId) {
-        const found = data.modules.find(m => m.id === initialId)
-        if (found) openModule(found, 'text')
-      }
     }).catch(e => setError(`Could not load the manual catalog: ${e.message}`))
-  }, [initialId])
+    return () => { cancelled = true }
+  }, [])
 
-  async function openModule(m, mode = 'text') {
-    setModule(m); setTab(mode); setText(''); setError(''); setEmbedTried(false); setResults([]); window.scrollTo(0, 0)
+  useEffect(() => {
+    if (!manifest) return
+    if (!initialId) { setModule(null); setText(''); return }
+    const found = manifest.modules.find(m => m.id === initialId)
+    if (found && module?.id !== found.id) openModule(found, 'text', false)
+  }, [manifest, initialId])
+
+  async function openModule(m, mode = 'text', scroll = true) {
+    setModule(m); setTab(mode); setError(''); setEmbedTried(false); setResults([])
+    if (scroll) window.scrollTo(0, 0)
     if (typeof history !== 'undefined') history.replaceState(null, '', `#/manuals/${m.id}`)
     if (mode === 'text') {
+      if (module?.id === m.id && text) return
+      setText('')
       const filename = m.text_file.split('/').pop()
       try {
         const r = await fetch(`${BASE}data/manuals/${filename}`)
@@ -45,6 +54,11 @@ export default function Manuals({ initialId }) {
         setText(await r.text())
       } catch (e) { setError(`Could not load ${m.title}: ${e.message}`) }
     }
+  }
+
+  function openPdf(url) {
+    const w = window.open(url, '_blank', 'noopener,noreferrer')
+    if (!w) window.location.href = url
   }
 
   async function searchAll(e) {
@@ -93,13 +107,13 @@ export default function Manuals({ initialId }) {
             <p className="muted">{module.text_chars.toLocaleString()} searchable characters · Original PDF {bytes(module.pdf_bytes)}</p>
           </div>
           <div className="manual-head-actions">
-            <a className="btn" href={pdf} target="_blank" rel="noreferrer"><ExternalLink size={17} /> Open original PDF</a>
-            <a className="btn ghost" href={pdf} download><Download size={17} /> Download</a>
+            <button type="button" className="btn" onClick={() => openPdf(pdf)}><ExternalLink size={17} /> Open original PDF</button>
+            <a className="btn ghost" href={pdf} download={`${module.slug}.pdf`}><Download size={17} /> Download</a>
           </div>
         </div>
-        <div className="segmented">
-          <button className={tab === 'text' ? 'active' : ''} onClick={() => { setTab('text'); if (!text) openModule(module, 'text') }}><FileText size={17} /> Full searchable text</button>
-          <button className={tab === 'pdf' ? 'active' : ''} onClick={() => setTab('pdf')}><BookOpen size={17} /> Original PDF</button>
+        <div className="segmented" role="tablist">
+          <button type="button" role="tab" aria-selected={tab === 'text'} className={tab === 'text' ? 'active' : ''} onClick={() => { setTab('text'); if (!text) openModule(module, 'text', false) }}><FileText size={17} /> Full searchable text</button>
+          <button type="button" role="tab" aria-selected={tab === 'pdf'} className={tab === 'pdf' ? 'active' : ''} onClick={() => setTab('pdf')}><BookOpen size={17} /> Original PDF</button>
         </div>
         {error && <div className="card warn"><AlertTriangle size={16} /> {error}</div>}
         {tab === 'text' ? (
@@ -116,9 +130,9 @@ export default function Manuals({ initialId }) {
                 </p>
               </div>
               <div className="manual-head-actions">
-                <a className="btn" href={pdf} target="_blank" rel="noreferrer"><ExternalLink size={17} /> Open in new tab</a>
-                <a className="btn ghost" href={pdf} download><Download size={17} /> Download PDF</a>
-                {!embedTried && <button className="btn ghost" onClick={() => setEmbedTried(true)}>Try in-page embed</button>}
+                <button type="button" className="btn" onClick={() => openPdf(pdf)}><ExternalLink size={17} /> Open in new tab</button>
+                <a className="btn ghost" href={pdf} download={`${module.slug}.pdf`}><Download size={17} /> Download PDF</a>
+                {!embedTried && <button type="button" className="btn ghost" onClick={() => setEmbedTried(true)}>Try in-page embed</button>}
               </div>
             </div>
             {embedTried && (
@@ -126,7 +140,7 @@ export default function Manuals({ initialId }) {
                 <object data={pdf} type="application/pdf" aria-label={`${module.title} PDF`}>
                   <div className="pdf-fallback">
                     <p>Your browser blocked the in-page PDF viewer.</p>
-                    <a className="btn" href={pdf} target="_blank" rel="noreferrer">Open {module.title} PDF</a>
+                    <button type="button" className="btn" onClick={() => openPdf(pdf)}>Open {module.title} PDF</button>
                   </div>
                 </object>
               </div>
@@ -184,8 +198,8 @@ export default function Manuals({ initialId }) {
               <p>{(m.text_chars / 1000).toFixed(0)}K characters · {bytes(m.pdf_bytes)} PDF</p>
             </div>
             <div className="manual-actions">
-              <button onClick={() => openModule(m, 'text')}><FileText size={16} /> Read full text</button>
-              <a href={`${PDF_BASE}${m.pdf_file}`} target="_blank" rel="noreferrer"><BookOpen size={16} /> Open PDF</a>
+              <button type="button" onClick={() => openModule(m, 'text')}><FileText size={16} /> Read full text</button>
+              <button type="button" onClick={() => openPdf(`${PDF_BASE}${m.pdf_file}`)}><BookOpen size={16} /> Open PDF</button>
             </div>
           </article>
         ))}

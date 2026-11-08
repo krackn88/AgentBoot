@@ -168,7 +168,7 @@ function StudyApp({ guide }) {
               onNext={() => { const n = chapters[chapters.indexOf(chapter) + 1]; if (n) openChapter(n.id) }} />
           )}
 
-          {view === 'manuals' && <Manuals key={manualId || 'list'} initialId={manualId} />}
+          {view === 'manuals' && <Manuals initialId={manualId} />}
 
           {view === 'quiz' && <Quiz key={quizPreset ? quizPreset.chapterId + quizPreset.mode : 'setup'} guide={guide} store={store} update={update} preset={quizPreset} />}
           {view === 'flashcards' && <Flashcards guide={guide} store={store} update={update} />}

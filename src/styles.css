@@ -85,7 +85,7 @@ input[type=text],input[type=email],input[type=date],select{padding:11px 13px;bor
 .manual-card h3{font-family:'DM Sans',sans-serif;font-size:15px;margin:2px 0 5px}.manual-card p{font-size:12px;color:var(--muted);margin:0}
 .manual-actions{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:7px;border-top:1px solid var(--line);padding-top:11px}
 .manual-actions button,.manual-actions a{display:flex;align-items:center;justify-content:center;gap:6px;border:0;background:#e7f3f0;color:var(--brand2);border-radius:8px;padding:9px;font-size:12px;font-weight:700;text-decoration:none}
-.manual-actions a{background:#0b2340;color:#fff}.manual-actions button:hover,.manual-actions a:hover{filter:brightness(.96)}
+.manual-actions button:last-child{background:#0b2340;color:#fff}.manual-actions button:hover{filter:brightness(.96)}
 .manual-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin:22px 0 12px}.manual-head h1{font-size:34px;margin:3px 0}.manual-head p{margin:0}
 .manual-head-actions{display:flex;gap:8px;flex-wrap:wrap}
 .segmented{display:inline-flex;background:#e7ecf3;border-radius:11px;padding:4px;margin:8px 0 16px}
