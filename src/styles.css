@@ -109,7 +109,31 @@ input[type=text],input[type=email],input[type=date],select{padding:11px 13px;bor
 @keyframes shimmer{to{background-position:-200% 0}}
 
 .bottomnav{display:none}
-@media(max-width:980px){
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.test-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:8px;box-shadow:var(--shadow)}
+.test-card.full{background:linear-gradient(160deg,#fff 60%,#fdf4e3);border-color:#f0d9ad}
+.test-card h3{margin:2px 0 0;font-size:20px}.test-card p{margin:0;color:var(--ink2);font-size:14px;line-height:1.5;flex:1}
+.test-top{display:flex;justify-content:space-between;align-items:center;color:var(--brand2)}.test-card.full .test-top{color:#a86b0c}
+.test-meta{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted);font-weight:700}.test-meta span{display:inline-flex;gap:4px;align-items:center}
+.test-card .btn{justify-content:center;margin-top:4px}
+.score-chip{padding:4px 10px;border-radius:99px;font-size:12px;font-weight:800}.score-chip.good{background:#e3f4ea;color:var(--green)}.score-chip.close{background:#fdf0d8;color:#8a5c10}.score-chip.low{background:#fdecec;color:var(--red)}
+.chapter-test-row{display:flex;gap:12px;align-items:center;padding:13px 18px;border-bottom:1px solid var(--line)}.chapter-test-row:last-child{border:0}
+.readiness-banner{display:flex;gap:12px;align-items:flex-start;margin-top:16px;line-height:1.5}.readiness-banner.good{border-color:#a8dcbd;background:#f1faf4}.readiness-banner.close{border-color:#f0d3a0;background:#fffaf0}.readiness-banner.low{border-color:#f2c0c0;background:#fff6f6}
+.workbook-card{cursor:pointer}.wb-progress{grid-column:1/-1;display:grid;gap:6px;border-top:1px solid var(--line);padding-top:10px}
+.workbook{max-width:900px;margin:0 auto}
+.drill-card{max-width:760px}.drill-row{font-family:'Fraunces',serif;font-size:24px;font-weight:700;margin:10px 0 2px;line-height:1.25}.drill-col{color:var(--brand2);font-weight:800;margin:0 0 14px;font-size:15px;text-transform:uppercase;letter-spacing:.04em}
+.drill-input,.notes-area{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font:inherit;resize:vertical;margin-bottom:10px;background:#fbfcfe}
+.drill-input:focus,.notes-area:focus{outline:2px solid #bfe3db;border-color:var(--brand)}
+.drill-answer{background:#eef7f4;border:1px solid #bfe3db;border-radius:12px;padding:14px 16px;margin:6px 0 12px;line-height:1.6;color:var(--ink)}
+.drill-foot{display:flex;gap:16px;margin-top:16px;padding-top:12px;border-top:1px solid var(--line);flex-wrap:wrap}
+.linkbtn{background:none;border:0;color:var(--brand);font-weight:700;padding:0;font-size:13px}
+.drill-context{margin-top:12px;font-size:14px}.drill-context summary{cursor:pointer;color:var(--muted);font-weight:700}
+.case-card{margin:12px 0}.case-stem{font-size:17px;line-height:1.6;font-weight:600}
+.worksheet{background:#fff;border:1px solid var(--line);border-radius:16px;padding:32px}.worksheet h2{margin-top:28px;font-size:22px}
+.ws-table{margin:14px 0;break-inside:avoid}.blank{display:inline-block;min-width:120px;border-bottom:1px solid #9aa6b8}
+.ws-case{margin:16px 0;break-inside:avoid}.ws-lines{height:72px;background:repeating-linear-gradient(transparent,transparent 23px,#c7d0dc 24px)}
+.page-break{break-after:page;height:1px}
+@media(max-width:980px){.test-grid{grid-template-columns:1fr 1fr}
   .layout{grid-template-columns:1fr}.sidebar{display:none}main{padding:18px 16px 110px}
   .cols4,.cols3{grid-template-columns:1fr 1fr}.cols2{grid-template-columns:1fr}
   .hero h1{font-size:28px}.manual-grid{grid-template-columns:1fr 1fr}
@@ -122,12 +146,13 @@ input[type=text],input[type=email],input[type=date],select{padding:11px 13px;bor
   .bottomnav button{background:none;border:0;font-size:11px;font-weight:700;color:var(--muted);padding:6px}
   .bottomnav button.active{color:var(--brand)}
 }
-@media(max-width:600px){
+@media(max-width:600px){.test-grid{grid-template-columns:1fr}.worksheet{padding:16px}
   .manual-grid,.cols4,.cols3,.cols2{grid-template-columns:1fr}
   .source-proof{grid-template-columns:1fr}.segmented{display:grid}.manual-actions{grid-template-columns:1fr}
   .section-title{align-items:start;flex-direction:column}
 }
 @media print{
-  .sidebar,.bottomnav,.top-search{display:none!important}
+  .sidebar,.bottomnav,.top-search,.no-print{display:none!important}
+  .worksheet{border:0;padding:0}
   .layout{grid-template-columns:1fr}main{padding:10px}.btn{display:none!important}body{background:#fff}
 }

@@ -7,11 +7,14 @@ import Quiz from './components/Quiz.jsx'
 import Flashcards, { buildDecks } from './components/Flashcards.jsx'
 import Planner from './components/Planner.jsx'
 import Manuals from './components/Manuals.jsx'
-import { House, Library, BookOpen, ClipboardCheck, Layers3, Zap, CalendarDays, Gem } from 'lucide-react'
+import Tests from './components/Tests.jsx'
+import Workbook from './components/Workbook.jsx'
+import { House, Library, BookOpen, ClipboardCheck, Layers3, Zap, CalendarDays, Gem, Trophy, NotebookPen } from 'lucide-react'
 
 const NAV = [
-  ['dashboard', House, 'Dashboard'], ['library', Library, 'Study Guide'], ['manuals', BookOpen, 'Full Manuals'],
-  ['quiz', ClipboardCheck, 'Practice & Exam'], ['flashcards', Layers3, 'Flashcards'], ['quickref', Zap, 'High-Yield'],
+  ['dashboard', House, 'Dashboard'], ['library', Library, 'Study Guide'], ['workbooks', NotebookPen, 'Workbooks'],
+  ['tests', Trophy, 'Tests'], ['quiz', ClipboardCheck, 'Practice'], ['flashcards', Layers3, 'Flashcards'],
+  ['manuals', BookOpen, 'Full Manuals'], ['quickref', Zap, 'High-Yield'],
   ['planner', CalendarDays, 'Study Planner'], ['pricing', Gem, 'Go Pro'],
 ]
 
@@ -170,8 +173,10 @@ function StudyApp({ guide }) {
 
           {view === 'manuals' && <Manuals initialId={manualId} />}
 
-          {view === 'quiz' && <Quiz key={quizPreset ? quizPreset.chapterId + quizPreset.mode : 'setup'} guide={guide} store={store} update={update} preset={quizPreset} />}
+          {view === 'quiz' && <Quiz key={quizPreset ? (quizPreset.testId || quizPreset.chapterId + quizPreset.mode) : 'setup'} guide={guide} store={store} update={update} preset={quizPreset} />}
           {view === 'flashcards' && <Flashcards guide={guide} store={store} update={update} />}
+          {view === 'tests' && <Tests guide={guide} store={store} onStart={(p) => { setQuizPreset(p); setView('quiz'); location.hash = '#/quiz'; window.scrollTo(0, 0) }} />}
+          {view === 'workbooks' && <Workbook guide={guide} store={store} update={update} />}
 
           {view === 'quickref' && (
             <div style={{ maxWidth: 860, margin: '0 auto' }}><h1>⚡ High-Yield Quick Reference</h1>
@@ -189,7 +194,7 @@ function StudyApp({ guide }) {
       </main>
 
       <nav className="bottomnav">
-        {NAV.slice(0, 5).map(([k, Icon, label]) => <button key={k} className={view === k ? 'active' : ''} onClick={() => go(k)}><Icon size={19} /><br />{label.split(' ')[0]}</button>)}
+        {NAV.filter(([k]) => ['dashboard', 'library', 'workbooks', 'tests', 'flashcards'].includes(k)).map(([k, Icon, label]) => <button key={k} className={view === k ? 'active' : ''} onClick={() => go(k)}><Icon size={19} /><br />{label.split(' ')[0]}</button>)}
       </nav>
     </div>
   )

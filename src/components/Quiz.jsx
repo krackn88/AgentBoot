@@ -11,25 +11,26 @@ export default function Quiz({ guide, store, update, preset, onDone }) {
   const [idx, setIdx] = useState(0); const [picked, setPicked] = useState({}); const [flags, setFlags] = useState({})
   const [revealed, setRevealed] = useState({}); const [seconds, setSeconds] = useState(0); const [result, setResult] = useState(null)
 
-  useEffect(() => { if (preset) start(preset.mode, preset.chapterId, preset.mode === 'exam' ? 50 : 15) }, [])
+  const limit = (preset?.minutes ?? 60) * 60
+  useEffect(() => { if (preset) start(preset.mode, preset.chapterId, preset.count ?? (preset.mode === 'exam' ? 50 : 15), preset.seed, preset.ids) }, [])
   useEffect(() => {
     if (!session || result) return
     const t = setInterval(() => setSeconds(s => s + 1), 1000); return () => clearInterval(t)
   }, [session, result])
-  useEffect(() => { if (session?.mode === 'exam' && seconds >= 3600 && !result) finish() }, [seconds, session, result])
+  useEffect(() => { if (session?.mode === 'exam' && seconds >= limit && !result) finish() }, [seconds, session, result])
   // Keyboard: 1-4 / A-D pick, Enter checks in practice, arrows navigate
   useEffect(() => {
     if (!session || result) return
     function onKey(e) {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return
       const q = session.questions[idx]; if (!q) return
-      const n = ['1','2','3','4'].indexOf(e.key); const l = ['a','b','c','d'].indexOf(e.key.toLowerCase())
+      const n = ['1','2','3','4','5','6'].indexOf(e.key); const l = ['a','b','c','d','e','f'].indexOf(e.key.toLowerCase())
       const pick = n >= 0 ? n : l
       if (pick >= 0 && q.options[pick] != null && !(session.mode === 'practice' && revealed[q.id])) setPicked(p => ({ ...p, [q.id]: pick }))
       if (e.key === 'Enter' && session.mode === 'practice' && !revealed[q.id] && picked[q.id] != null) setRevealed(r => ({ ...r, [q.id]: true }))
       if (e.key === 'ArrowRight' && idx < session.questions.length - 1) setIdx(idx + 1)
       if (e.key === 'ArrowLeft' && idx > 0) setIdx(idx - 1)
-      if (e.key.toLowerCase() === 'f') setFlags(f => ({ ...f, [q.id]: !f[q.id] }))
+      if (e.key === 'F' || (e.key === 'f' && !(q.options.length > 5))) setFlags(f => ({ ...f, [q.id]: !f[q.id] }))
     }
     window.addEventListener('keydown', onKey); return () => window.removeEventListener('keydown', onKey)
   }, [session, result, idx, picked, revealed])
@@ -40,10 +41,10 @@ export default function Quiz({ guide, store, update, preset, onDone }) {
     if (m === 'missed') p = p.filter(q => store.answers[q.id] && !store.answers[q.id].correct)
     return p
   }
-  function start(m = mode, ch = chapterId, n = count) {
-    const p = shuffle(pool(m, ch)).slice(0, n)
+  function start(m = mode, ch = chapterId, n = count, seed, ids) {
+    const p = ids ? ids.map(id => allQ.find(q => q.id === id)).filter(Boolean) : shuffle(pool(m, ch), seed).slice(0, n)
     if (!p.length) return alert('No questions in that set yet — answer some practice questions first (Missed set builds from your attempts).')
-    setSession({ questions: p, mode: m, chapterId: ch }); setIdx(0); setPicked({}); setFlags({}); setRevealed({}); setSeconds(0); setResult(null); setSetup(false)
+    setSession({ questions: p, mode: m, chapterId: ch, title: preset?.title }); setIdx(0); setPicked({}); setFlags({}); setRevealed({}); setSeconds(0); setResult(null); setSetup(false)
   }
   function finish() {
     const qs = session.questions
@@ -53,7 +54,7 @@ export default function Quiz({ guide, store, update, preset, onDone }) {
       const a = picked[q.id]; const isG = q.correctIndex != null && q.options.length >= 2
       if (isG) { graded++; const ok = a === q.correctIndex; if (ok) correct++; byChapter[q.chapterTitle] = byChapter[q.chapterTitle] || { t: 0, c: 0 }; byChapter[q.chapterTitle].t++; if (ok) byChapter[q.chapterTitle].c++ }
     })
-    const res = { correct, graded, total: qs.length, byChapter, seconds, date: todayKey(), mode: session.mode }
+    const res = { correct, graded, total: qs.length, byChapter, seconds, date: todayKey(), mode: session.mode, testId: preset?.testId, title: session.title }
     setResult(res)
     update(s => bumpDaily({
       ...s,
@@ -112,11 +113,11 @@ export default function Quiz({ guide, store, update, preset, onDone }) {
   }
   const q = session.questions[idx]; const isGraded = q.correctIndex != null && q.options.length >= 2
   const showAns = session.mode === 'practice' && revealed[q.id]
-  const timeLeft = session.mode === 'exam' ? 3600 - seconds : null
+  const timeLeft = session.mode === 'exam' ? limit - seconds : null
   return (
     <div style={{ maxWidth: 760, margin: '0 auto' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
-        <p className="label">Question {idx + 1} / {session.questions.length} · {q.chapterTitle}</p>
+        <p className="label">{session.title ? `${session.title} · ` : ''}Question {idx + 1} / {session.questions.length} · {q.chapterTitle}</p>
         <p className="label">{session.mode === 'exam' ? `⏱ ${Math.max(0, Math.floor(timeLeft / 60))}:${String(Math.max(0, timeLeft % 60)).padStart(2, '0')} left` : `⏱ ${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`}</p>
       </div>
       <div className="bar"><i style={{ width: `${(idx + 1) / session.questions.length * 100}%` }} /></div>
