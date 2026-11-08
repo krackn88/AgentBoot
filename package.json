@@ -1,0 +1,14 @@
+{
+  "name": "apea-2026-fnp-study-hub",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "convert": "python3 scripts/convert.py"
+  },
+  "dependencies": { "react": "^19.1.0", "react-dom": "^19.1.0" },
+  "devDependencies": { "@vitejs/plugin-react": "^4.4.1", "vite": "^6.3.5" }
+}
