@@ -56,7 +56,7 @@ for child in doc.element.body.iterchildren():
             s["blocks"].append({"type":"table","headers":rows[0],"rows":rows[1:]})
 
 # ---- parse questions + answers ----
-QRE=re.compile(r'^Q(\d+)\s*[.\u2013-]\s*(.*)$', re.S)
+QRE=re.compile(r'^Q(\d+)(?:\.\d+)?\s*[.\u2013-]?\s*(.*)$', re.S)
 OPTRE=re.compile(r'\((\d+)\)\s*')
 def parse_question(text, ch, n_fallback):
     m=QRE.match(text.strip())
@@ -64,7 +64,7 @@ def parse_question(text, ch, n_fallback):
     body=m.group(2)
     parts=OPTRE.split(body)
     # parts: [stem, num, opt, num, opt...]
-    stem=parts[0].strip()
+    stem=re.sub(r'^\d+\.\s+','',parts[0].strip())
     options=[]
     if len(parts)>=5:
         for i in range(1,len(parts)-1,2):
@@ -79,13 +79,21 @@ for ch in chapters:
             for b in sec["blocks"]:
                 if b["type"]=="list": ans.extend(b["items"])
                 elif b["type"]=="p" and not b["text"].startswith("Answers give"): ans.append(b["text"])
-            answer_map[sec["title"]]=ans
+            split=[]
+            for a in ans:
+                m=re.search(r'\s\d+[\u2013-]\d+\.\s+(.*?)\u2192\s*\((\d)\)\s*(.*)$', a)
+                if m:
+                    split.append(a[:m.start()].strip())
+                    split.append(f"({m.group(2)}) {m.group(1).strip()}: {m.group(3).strip()}")
+                else: split.append(a)
+            answer_map[sec["title"]]=split
 
 # map chapter title -> answer heading (fuzzy by keywords)
-ALIASES={"neurologic":"Neurology","orthopedic":"Orthopedics","eye, ear":"EENT","urology":"Urology & STI"}
+ALIASES=[("women","Women's Health"),("men's","Men's Health"),("mental","Mental Health"),("neurologic","Neurology"),
+         ("orthopedic","Orthopedics"),("eye, ear","EENT"),("urology","Urology & STI"),("growth","Pediatric Growth & Development")]
 def find_answers(ch):
     title=ch["title"].lower()
-    for frag,heading in ALIASES.items():
+    for frag,heading in ALIASES:
         if frag in title and heading in answer_map: return answer_map[heading]
     for k,v in answer_map.items():
         kl=k.lower()
@@ -103,7 +111,17 @@ for ch in chapters:
                 texts = b["items"] if b["type"]=="list" else [b["text"]] if b["type"]=="p" else []
                 for t in texts:
                     q=parse_question(t, ch, len(raw)+1)
-                    if q: raw.append(q)
+                    if q: raw.append(q); continue
+                    # Word-numbered option list following a "Q18.1 stem" paragraph:
+                    # "opt1. 2. opt2. 3. opt3. 4. opt4."
+                    if raw and not raw[-1]["options"] and b["type"]=="list":
+                        opts=[o.strip().rstrip('.') for o in re.split(r'\s+\d\.\s+', t) if o.strip()]
+                        if len(opts)>=2: raw[-1]["options"]=opts
+                        elif opts: raw[-1]["listOpts"]=raw[-1].get("listOpts",[])+opts
+            for q in raw:
+                if not q["options"] and len(q.get("listOpts",[]))>=2: q["options"]=q["listOpts"]
+                q.pop("listOpts",None)
+    raw=[q for q in raw if not re.match(r'^\d+\.\s+\w+( that condition)?:?$', q["stem"]) and len(q["stem"])>12]
     answers=find_answers(ch)
     questions=[]
     for i,q in enumerate(raw):
