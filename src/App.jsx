@@ -9,14 +9,8 @@ import Planner from './components/Planner.jsx'
 import Manuals from './components/Manuals.jsx'
 import Tests from './components/Tests.jsx'
 import Workbook from './components/Workbook.jsx'
-import { House, Library, BookOpen, ClipboardCheck, Layers3, Zap, CalendarDays, Gem, Trophy, NotebookPen } from 'lucide-react'
-
-const NAV = [
-  ['dashboard', House, 'Dashboard'], ['library', Library, 'Study Guide'], ['workbooks', NotebookPen, 'Workbooks'],
-  ['tests', Trophy, 'Tests'], ['quiz', ClipboardCheck, 'Practice'], ['flashcards', Layers3, 'Flashcards'],
-  ['manuals', BookOpen, 'Full Manuals'], ['quickref', Zap, 'High-Yield'],
-  ['planner', CalendarDays, 'Study Planner'], ['pricing', Gem, 'Go Pro'],
-]
+import { Sidebar, PageHeader, MobileNav } from './components/AppShell.jsx'
+import { BETA_OPEN } from './lib/config'
 
 export default function App() {
   const [guide, setGuide] = useState(null)
@@ -44,6 +38,7 @@ function StudyApp({ guide }) {
       const v = m?.[1] || 'dashboard'
       if (v === 'reader') { setView('reader'); setChapterId(h.match(/^#\/reader\/([^/]+)/)?.[1] || null) }
       else if (v === 'manuals') { setView('manuals'); setManualId(h.match(/^#\/manuals\/(\d+)/)?.[1] || null) }
+      else if (v === 'pricing') { setView('about'); history.replaceState(null, '', '#/about') }
       else { setView(v); setManualId(null) }
     }
     window.addEventListener('hashchange', sync); return () => window.removeEventListener('hashchange', sync)
@@ -83,20 +78,14 @@ function StudyApp({ guide }) {
 
   return (
     <div className="layout">
-      <aside className="sidebar">
-        <div className="logo">APEA 2026<br /><span>FNP Study Hub</span></div>
-        <p className="tagline">The all-in-one board-prep system: full guide, questions, flashcards, exam simulator & planner.</p>
-        {NAV.map(([k, Icon, label]) => <button key={k} className={`navbtn ${view === k ? 'active' : ''}`} onClick={() => go(k)}><Icon size={18} strokeWidth={2} />{label}</button>)}
-        <div className="sidefoot">
-          <p className="sidefoot-label">Board readiness</p>
-          <strong>{readiness}%</strong>
-          <div className="bar side-bar"><i style={{ width: `${readiness}%` }} /></div>
-          <p>{doneCh}/{chapters.length} chapters · {answered}/{totalQ} Qs</p>
-          <p>{streak}-day streak</p>
-        </div>
-      </aside>
+      <Sidebar view={view} go={go} readiness={readiness} doneCh={doneCh} totalCh={chapters.length} answered={answered} totalQ={totalQ} streak={streak} />
 
-      <main>
+      <main className="main-shell">
+        {BETA_OPEN && view === 'dashboard' && (
+          <div className="beta-banner no-print">
+            <strong>Open beta.</strong> Every chapter, workbook, mock exam, flashcard deck, and manual is unlocked while we finish polishing the platform. Your progress still saves on this device.
+          </div>
+        )}
         {['dashboard', 'library', 'quickref'].includes(view) && (
           <div className="top-search">
             <input id="guide-search" name="guide-search" type="text" aria-label="Search the complete study guide" placeholder="Search the study guide — torsades, CURB-65, metformin…" value={query} onChange={e => setQuery(e.target.value)} />
@@ -113,8 +102,8 @@ function StudyApp({ guide }) {
           {view === 'dashboard' && (
             <div>
               <div className="hero">
-                <p className="pill gold">APEA 2026 · FNP / AGPCNP · AANP + ANCC</p>
-                <h1>Pass your FNP boards.<br />One hub, everything you need.</h1>
+                <p className="pill gold">Board certification prep</p>
+                <h1>Your complete FNP study platform.</h1>
                 <p>All 21 study-guide chapters plus every page of the 22 original APEA 2026 manuals — searchable and turned into {totalQ} practice questions, flashcards, a timed exam simulator and a day-by-day study plan. No more juggling 1.2 GB of PDFs.</p>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 16 }}>
                   <button className="btn gold" onClick={() => { if (lastChapter) openChapter(lastChapter.id) }}>{store.lastChapter ? 'Continue studying →' : 'Start Chapter 1 →'}</button>
@@ -141,14 +130,15 @@ function StudyApp({ guide }) {
                   </ol>
                   <button className="btn" onClick={() => go('planner')}>Build my study plan →</button>
                 </div>
-                <div className="card"><h3 style={{ marginTop: 0 }}>What's inside Pro</h3>
-                  <ul style={{ lineHeight: 2, color: 'var(--ink2)', paddingLeft: 20 }}>
-                    <li><strong>{chapters.length} chapters</strong> — the complete APEA 2026 manual, fully searchable</li>
-                    <li><strong>{totalQ} practice questions</strong> with Answer-Key rationales</li>
-                    <li><strong>{totalCards}+ flashcards</strong> (High-Yield + Labs) plus question cards</li>
-                    <li>Timed exam simulator, missed-question deck, original PDFs, planner</li>
+                <div className="card platform-card">
+                  <h3 style={{ marginTop: 0 }}>Everything in one place</h3>
+                  <ul className="feature-list">
+                    <li><strong>{chapters.length} chapters</strong> — searchable study guide with original PDFs</li>
+                    <li><strong>22 manuals</strong> — full text + source PDFs from the APEA course</li>
+                    <li><strong>1,720+ workbook drills</strong> — active recall from clinical tables</li>
+                    <li><strong>{totalQ} questions</strong> — graded with Answer Key rationales</li>
+                    <li><strong>Mock exams</strong> — AANP, ANCC, and chapter tests</li>
                   </ul>
-                  <button className="btn gold" onClick={() => go('pricing')}>See Pro pricing →</button>
                 </div>
               </div>
               <h2 style={{ marginTop: 28 }}>Chapters</h2>
@@ -158,8 +148,8 @@ function StudyApp({ guide }) {
           )}
 
           {view === 'library' && (
-            <div><h1>Study Guide — all {chapters.length} chapters</h1>
-              <p className="muted">In manual order, with the original course PDF for every chapter. Mark chapters complete to build your readiness score.</p>
+            <div>
+              <PageHeader eyebrow="Study guide" title={`All ${chapters.length} chapters`} subtitle="Manual order, section navigation, bookmarks, and the original course PDF on every chapter." />
               <div className="card">{chapters.map(c => <ChapterRow key={c.id} c={c} store={store} onOpen={() => openChapter(c.id)} />)}</div>
             </div>
           )}
@@ -189,13 +179,11 @@ function StudyApp({ guide }) {
 
           {view === 'planner' && <Planner guide={guide} store={store} update={update} />}
 
-          {view === 'pricing' && <Pricing store={store} update={update} totalQ={totalQ} totalCards={totalCards} chapters={chapters.length} />}
+          {view === 'about' && <AboutAccess totalQ={totalQ} totalCards={totalCards} chapters={chapters.length} store={store} update={update} />}
         </>)}
       </main>
 
-      <nav className="bottomnav">
-        {NAV.filter(([k]) => ['dashboard', 'library', 'workbooks', 'tests', 'flashcards'].includes(k)).map(([k, Icon, label]) => <button key={k} className={view === k ? 'active' : ''} onClick={() => go(k)}><Icon size={19} /><br />{label.split(' ')[0]}</button>)}
-      </nav>
+<MobileNav view={view} go={go} />
     </div>
   )
 }
@@ -294,28 +282,45 @@ function ChapterRow({ c, store, onOpen }) {
   )
 }
 
-function Pricing({ store, update, totalQ, totalCards, chapters }) {
+function AboutAccess({ totalQ, totalCards, chapters, store, update }) {
   const [email, setEmail] = useState(''); const [joined, setJoined] = useState(false)
-  const features = ['Complete 21-chapter APEA 2026 study guide (searchable)', `${totalQ} practice questions with rationales`, 'Timed AANP-pace exam simulator', `${totalCards}+ high-yield & lab flashcards`, 'Missed-question smart deck', 'All 22 original manuals (full searchable text + PDFs)', 'Personal study planner + readiness score', 'New 2026 guideline updates included']
+  const unlocked = [
+    'All study-guide chapters and section search',
+    'All 22 original course manuals (text + PDF)',
+    'Workbooks, mock exams, question bank, and flashcards',
+    'Study planner, readiness score, and progress export',
+  ]
   return (
-    <div style={{ maxWidth: 860, margin: '0 auto' }}>
-      <h1 style={{ textAlign: 'center' }}>Study like you mean it.</h1>
-      <p className="muted" style={{ textAlign: 'center' }}>One hub instead of 22 PDFs, random Quizlet decks and guesswork.</p>
-      <div className="grid cols2" style={{ marginTop: 20 }}>
-        <div className="card"><p className="label">Free</p><p className="price">$0</p>
-          <ul style={{ lineHeight: 2, color: 'var(--ink2)' }}>{features.slice(0, 3).map(f => <li key={f}>{f}</li>)}<li className="muted">Dashboard preview & Chapter 1</li></ul>
-          <button className="btn ghost" onClick={() => window.scrollTo(0, 0)}>You're using it now</button></div>
-        <div className="card" style={{ border: '2px solid var(--gold)' }}><p className="pill gold">Most popular · Pro</p><p className="price">$39<span style={{ fontSize: 16 }}>/exam season</span></p>
-          <ul style={{ lineHeight: 2, color: 'var(--ink2)' }}>{features.map(f => <li key={f}>{f}</li>)}</ul>
-          {joined ? <p style={{ background: '#e6f5ec', padding: 12, borderRadius: 10 }}><strong>You're on the list.</strong> We'll email your Pro invite the moment checkout opens.</p>
-            : <form onSubmit={e => { e.preventDefault(); if (!email.includes('@')) return; update(s => ({ ...s, waitlist: [...s.waitlist, { email, at: todayKey() }] })); setJoined(true) }}>
-              <input type="email" required placeholder="you@example.com" value={email} onChange={e => setEmail(e.target.value)} />
-              <button className="btn gold" style={{ width: '100%', marginTop: 10 }}>Join the Pro waitlist →</button>
-              <p className="small muted">Checkout opens soon. Waitlist members lock the $39 launch price (regular $59).</p></form>}
+    <div className="about-page">
+      <PageHeader eyebrow="Access" title="About this platform" subtitle="Built from the APEA 2026 FNP review content on your server — structured for reading, recall, and testing." />
+      {BETA_OPEN && (
+        <div className="card access-open">
+          <p className="label">Testing phase</p>
+          <h2 style={{ marginTop: 4 }}>Full access — nothing locked</h2>
+          <p className="muted" style={{ lineHeight: 1.65, marginBottom: 12 }}>During open beta you can use every feature with no chapter limits, no paywalls, and no “preview only” sections. We are still improving layout and question coverage; your feedback shapes what ships for paid launch.</p>
+          <ul className="feature-list">{unlocked.map(f => <li key={f}>{f}</li>)}</ul>
+        </div>
+      )}
+      <div className="grid cols2" style={{ marginTop: 16 }}>
+        <div className="card">
+          <p className="label">Content</p>
+          <ul className="feature-list">
+            <li>{chapters} searchable guide chapters</li>
+            <li>{totalQ} practice items with Answer Key rationales</li>
+            <li>{totalCards}+ high-yield & lab flashcards</li>
+            <li>1,720+ workbook recall drills</li>
+          </ul>
+        </div>
+        <div className="card">
+          <p className="label">After launch (planned)</p>
+          <p className="muted" style={{ lineHeight: 1.6 }}>Paid access may bundle hosting, updates, and support. <strong>Today, everything stays open</strong> while you test. Optional: leave an email if you want notice before pricing goes live.</p>
+          {joined ? <p className="small" style={{ background: '#e6f5ec', padding: 12, borderRadius: 10, marginTop: 12 }}><strong>Thanks.</strong> We will only email about launch — not marketing spam.</p>
+            : <form onSubmit={e => { e.preventDefault(); if (!email.includes('@')) return; update(s => ({ ...s, waitlist: [...(s.waitlist || []), { email, at: todayKey() }] })); setJoined(true) }}>
+              <input type="email" required placeholder="Email (optional)" value={email} onChange={e => setEmail(e.target.value)} />
+              <button className="btn ghost" type="submit" style={{ width: '100%', marginTop: 10 }}>Notify me at launch</button>
+            </form>}
         </div>
       </div>
-      <div className="card" style={{ marginTop: 16 }}><h3 style={{ marginTop: 0 }}>Why students pay for this</h3>
-        <p style={{ lineHeight: 1.7, color: 'var(--ink2)' }}>The APEA review manual is excellent — and unusable as 22 giant PDFs the month before your exam. This hub turns that exact trusted content into a system: read a chapter, get quizzed on it instantly, watch your misses become flashcards, and know — with a real readiness score — whether you're going to pass before you sit down. That's the difference between hoping and knowing.</p></div>
     </div>
   )
 }
