@@ -50,6 +50,7 @@ function StudyApp({ guide }) {
   const [chapterId, setChapterId] = useState(() => location.hash.match(/^#\/reader\/([^/]+)/)?.[1] || null)
   const [manualId, setManualId] = useState(() => location.hash.match(/^#\/manuals\/(\d+)/)?.[1] || null)
   const [quizPreset, setQuizPreset] = useState(null)
+  const [searchSeed, setSearchSeed] = useState('')
   const [contentMeta, setContentMeta] = useState(null)
   const [pearlCards, setPearlCards] = useState([])
   const [manualBank, setManualBank] = useState(null)
@@ -76,7 +77,7 @@ function StudyApp({ guide }) {
   const questionPool = useMemo(() => flattenQuestions(guide, manualBank), [guide, manualBank])
   const gradedQ = useMemo(() => gradable(questionPool).length, [questionPool])
   const chapter = chapters.find(c => c.id === chapterId)
-  const guideQCount = guide.meta.questions
+  const guideQCount = useMemo(() => guide.chapters.reduce((a, c) => a + c.questions.length, 0), [guide])
   const manualQCount = manualBank?.meta?.graded ?? 0
   const totalQ = gradedQ || guideQCount + manualQCount
   const answered = Object.keys(store.answers).length
@@ -142,6 +143,8 @@ function StudyApp({ guide }) {
           </div>
         )}
         <SearchPanel
+          key={searchSeed}
+          seedQuery={searchSeed}
           autoFocus={false}
           onOpenChapter={(id) => openChapter(id)}
           onOpenManual={(chapterId) => { const c = chapters.find(x => x.id === chapterId); openManual(c ? manualIdForChapter(c) : null) }}
@@ -229,7 +232,7 @@ function StudyApp({ guide }) {
             </Suspense>
           )}
 
-          {view === 'quiz' && <Quiz key={quizPreset ? (quizPreset.testId || quizPreset.chapterId + quizPreset.mode) : 'setup'} guide={guide} store={store} update={update} preset={quizPreset} questionPool={questionPool} />}
+          {view === 'quiz' && <Quiz key={quizPreset ? (quizPreset.testId || quizPreset.chapterId + quizPreset.mode) : 'setup'} guide={guide} store={store} update={update} preset={quizPreset} questionPool={questionPool} onSearch={(term) => { setSearchSeed(term); go('dashboard') }} />}
           {view === 'flashcards' && <Flashcards guide={guide} store={store} update={update} pearlCards={pearlCards} questionPool={questionPool} />}
           {view === 'tests' && (
             <Suspense fallback={<ViewSkeleton label="Loading mock exams" />}>

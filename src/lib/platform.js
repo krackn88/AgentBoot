@@ -25,7 +25,10 @@ export function loadGuide() {
     fetchJson('data/guide.json'),
     fetchJson('data/question-quality.json', null),
     fetchJson('data/rationale-upgrades.json', null),
-  ]).then(([guide, overlay, rationales]) => applyGuideQuality(guide, overlay, rationales))
+    fetchJson('data/professional-questions.json', null),
+  ]).then(([guide, overlay, rationales, professional]) =>
+    applyGuideQuality(guide, overlay, rationales, professional),
+  )
 }
 
 export function loadPlatformBundle() {

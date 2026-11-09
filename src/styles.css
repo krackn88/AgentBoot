@@ -432,3 +432,15 @@ input[type=text],input[type=email],input[type=date],select{padding:11px 13px;bor
 .search-item-section{font-size:11.5px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.03em}
 .search-item-text{font-size:14px;line-height:1.5;color:var(--ink2)}
 .search-item-text mark{background:#fdf0c9;color:inherit;padding:1px 2px;border-radius:3px;font-weight:700}
+
+/* ---------- Verify in source ---------- */
+.verify-source{margin-top:12px;border-top:1px solid rgba(15,23,42,.08);padding-top:10px}
+.verify-toggle{display:inline-flex;align-items:center;gap:7px;background:none;border:0;padding:2px 0;font-size:13px;font-weight:700;color:var(--brand)}
+.verify-toggle svg.rot{transform:rotate(180deg)}
+.verify-body{margin-top:10px}
+.verify-anchor{display:flex;flex-direction:column;gap:3px;margin:0 0 10px;font-size:13.5px}
+.verify-anchor .label{margin:0}
+.verify-quote{color:var(--ink2);font-style:italic;line-height:1.5}
+.verify-actions{display:flex;gap:8px;flex-wrap:wrap}
+.verify-btn{font-size:13px;padding:7px 12px}
+.verify-note{margin:10px 0 0;line-height:1.5}

@@ -18,24 +18,33 @@ function withAnchor(q, overlay) {
   return anchor ? { ...q, anchor } : q
 }
 
-export function applyGuideQuality(guide, overlay, rationales) {
+export function applyGuideQuality(guide, overlay, rationales, extraBank) {
   if (!guide) return guide
   const hasQuality = overlay?.meta
   const hasRationales = rationales?.questions && Object.keys(rationales.questions).length
-  if (!hasQuality && !hasRationales) return guide
+  const extras = extraBank?.extra || []
+  if (!hasQuality && !hasRationales && !extras.length) return guide
+
+  const byChapter = {}
+  extras.forEach(q => {
+    ;(byChapter[q.chapterId] = byChapter[q.chapterId] || []).push(q)
+  })
 
   return {
     ...guide,
     chapters: guide.chapters.map(ch => ({
       ...ch,
-      questions: ch.questions.map(q => {
-        let next = hasQuality ? withAnchor(withOptionFix(q, overlay), overlay) : q
-        const upgrade = rationales?.questions?.[q.id]
-        if (upgrade?.explanation) {
-          next = { ...next, explanation: upgrade.explanation, rationaleSource: 'manual' }
-        }
-        return next
-      }),
+      questions: [
+        ...ch.questions.map(q => {
+          let next = hasQuality ? withAnchor(withOptionFix(q, overlay), overlay) : q
+          const upgrade = rationales?.questions?.[q.id]
+          if (upgrade?.explanation) {
+            next = { ...next, explanation: upgrade.explanation, rationaleSource: 'manual' }
+          }
+          return next
+        }),
+        ...(byChapter[ch.id] || []),
+      ],
     })),
   }
 }

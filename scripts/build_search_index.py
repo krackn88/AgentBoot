@@ -80,12 +80,25 @@ def main() -> int:
     docs = []
 
     guide = json.loads((DATA / "guide.json").read_text())
+    extra_bank = {}
+    pq = DATA / "professional-questions.json"
+    if pq.exists():
+        extra_bank = json.loads(pq.read_text())
+    extras = {}
+    for q in extra_bank.get("extra", []):
+        extras.setdefault(q.get("chapterId"), []).append(q)
     for ch in guide["chapters"]:
         title = ch.get("shortTitle") or ch.get("title")
         for sec in ch.get("sections", []):
             for text in block_texts(sec.get("blocks", [])):
                 add(docs, ch["id"], title, sec.get("title", ""), text, "guide")
         for q in ch.get("questions", []):
+            add(docs, ch["id"], title, "Practice question", q.get("stem", ""), "question")
+            for opt in q.get("options", []):
+                add(docs, ch["id"], title, "Answer choice", opt, "question")
+            if q.get("explanation"):
+                add(docs, ch["id"], title, "Answer rationale", q["explanation"], "rationale")
+        for q in extras.get(ch["id"], []):
             add(docs, ch["id"], title, "Practice question", q.get("stem", ""), "question")
             for opt in q.get("options", []):
                 add(docs, ch["id"], title, "Answer choice", opt, "question")

@@ -92,6 +92,78 @@ def terms(text: str) -> set:
     return {w for w in re.findall(r"[a-z]{4,}", (text or "").lower()) if w not in STOP}
 
 
+JUNK_SECTION = re.compile(
+    r"(let.s take care|question\s*#|check your knowledge|exam checklist|content overview|"
+    r"^notes$|^\d+$|objectives?$|introduction$|^overview$)",
+    re.I,
+)
+
+
+def section_quality_weight(title: str) -> float:
+    """Penalise generic slide titles; a real topic name is worth citing."""
+    t = (title or "").strip()
+    if not t or len(t) < 4:
+        return 0.2
+    if JUNK_SECTION.search(t):
+        return 0.1
+    if len(t.split()) <= 2 and t.islower():
+        return 0.4
+    # a slide caption like "Ex: Influenza Positive Negative Disease" is not a topic
+    if re.match(r"^(ex[:.]|eg[:.]|e\.g\.|example|fig)", t, re.I):
+        return 0.25
+    return 1.0
+
+
+def section_body(section: dict) -> str:
+    return " ".join(
+        b.get("text", "")
+        if b.get("type") == "p"
+        else " ".join(b.get("items", []))
+        if b.get("type") in ("list", "manual-list")
+        else " ".join(" ".join(r) for r in b.get("rows", []))
+        for b in section.get("blocks", [])
+    )
+
+
+def best_sentence(body: str, answer_terms: set, stem_terms: set) -> str:
+    """The single line in a section that best states the answer."""
+    best = (0.0, "")
+    for s in re.split(r"(?<=[.!?])\\s+", re.sub(r"\\s+", " ", body)):
+        s = s.strip()
+        if len(s) < 30 or len(s) > 320:
+            continue
+        t = terms(s)
+        if not t:
+            continue
+        ans = len(answer_terms & t) / max(1, len(answer_terms)) if answer_terms else 0
+        stem = len(stem_terms & t) / max(1, len(stem_terms)) if stem_terms else 0
+        score = 0.7 * ans + 0.3 * stem
+        if score > best[0]:
+            best = (score, s)
+    return best[1] if best[0] >= 0.2 else ""
+
+
+def anchor_score(q: dict, section: dict):
+    """How well a manual section supports a question.
+
+    Weighted toward the correct answer's own wording — an anchor is only useful
+    if the section actually states the right answer.
+    """
+    body = section_body(section)
+    body_terms = terms(body) | terms(section.get("title", ""))
+    if not body_terms:
+        return 0.0, ""
+    stem = terms(q.get("stem", ""))
+    ci = q.get("correctIndex")
+    correct = q["options"][ci] if isinstance(ci, int) and ci < len(q.get("options", [])) else ""
+    ans = terms(correct)
+
+    stem_hit = len(stem & body_terms) / max(1, len(stem)) if stem else 0
+    ans_hit = len(ans & body_terms) / max(1, len(ans)) if ans else 0
+    raw = 0.35 * stem_hit + 0.65 * ans_hit
+    return round(raw * section_quality_weight(section.get("title", "")), 3), best_sentence(body, ans, stem)
+
+
 def load(path: Path, default=None):
     try:
         return json.loads(path.read_text())
@@ -140,29 +212,19 @@ def main() -> int:
         mod = modules.get(q.get("chapterId"))
         if not mod:
             continue
-        target = terms(q.get("stem", "")) | terms(
-            q.get("options", [])[q["correctIndex"]] if isinstance(q.get("correctIndex"), int)
-            and q.get("correctIndex") < len(q.get("options", [])) else ""
-        )
-        best = (0.0, None)
+        best = (0.0, None, None)
         for sec in mod.get("sections", []):
-            body = " ".join(
-                b.get("text", "")
-                if b.get("type") == "p"
-                else " ".join(b.get("items", []))
-                if b.get("type") in ("list", "manual-list")
-                else " ".join(" ".join(r) for r in b.get("rows", []))
-                for b in sec.get("blocks", [])
-            )
-            score = jaccard(target, terms(body + " " + sec.get("title", "")))
+            score, snippet = anchor_score(q, sec)
             if score > best[0]:
-                best = (score, sec)
-        if best[1] and best[0] >= 0.08:
+                best = (score, sec, snippet)
+        # Only cite a section that demonstrably supports the correct answer.
+        if best[1] and best[0] >= 0.18 and not JUNK_SECTION.search(best[1].get("title", "")):
             anchors[q["id"]] = {
                 "manualId": mod.get("manualId"),
                 "manualTitle": mod.get("manualTitle") or mod.get("title"),
                 "section": best[1].get("title"),
-                "score": round(best[0], 3),
+                "snippet": best[2],
+                "score": best[0],
             }
 
     payload = {

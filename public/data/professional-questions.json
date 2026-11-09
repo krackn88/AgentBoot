@@ -1,0 +1,526 @@
+{
+ "meta": {
+  "source": "Written from the APEA 2026 Entry Into Practice / Professional Issues chapters on this server. Every item is answerable from that text.",
+  "note": "Chapters 20 and 21 carry ~10% of the AANP blueprint but the source manuals contain no slide MCQs for them. These items close that gap."
+ },
+ "extra": [
+  {
+   "id": "entry-into-practice-q1",
+   "chapterId": "entry-into-practice",
+   "n": 1,
+   "stem": "An NP graduate is ready to begin practicing and asks which credential number to apply for first. The correct first step is:",
+   "options": [
+    "DEA registration",
+    "State controlled dangerous substance (CDS) license",
+    "National Provider Identifier (NPI)",
+    "Medicare enrollment through PECOS"
+   ],
+   "correctIndex": 2,
+   "explanation": "Apply for the NPI first — it is issued through NPPES, is mandated by HIPAA, and is required by payers, pharmacies and credentialing bodies. The state CDS license must be obtained before DEA registration, and Medicare enrollment follows once licensure and the NPI are in place."
+  },
+  {
+   "id": "entry-into-practice-q2",
+   "chapterId": "entry-into-practice",
+   "n": 2,
+   "stem": "Regarding ordering a state CDS license and a DEA registration, which statement is correct?",
+   "options": [
+    "The state CDS license must be obtained before DEA registration.",
+    "Either may be obtained first; they are independent.",
+    "DEA registration must be obtained before the state CDS license.",
+    "Neither is required if the NP holds a compact RN license."
+   ],
+   "correctIndex": 0,
+   "explanation": "The state CDS license is issued by the Board of Pharmacy and must be obtained before DEA registration. DEA requires state licensure and, in some states, a CDS license — and the DEA registration does not supersede state requirements."
+  },
+  {
+   "id": "entry-into-practice-q3",
+   "chapterId": "entry-into-practice",
+   "n": 3,
+   "stem": "A candidate wants to cancel a scheduled certification exam without paying a fee. How far in advance must they cancel?",
+   "options": [
+    "Any time before the test; cancellation is always free",
+    "Within 24 hours of the test",
+    "31 or more days before the test, within the authorization window",
+    "30 days to 24 hours before the test"
+   ],
+   "correctIndex": 2,
+   "explanation": "Cancelling or rescheduling is free when done 31 or more days before the test within the authorization window. From 30 days to 24 hours before, a fee is required; within 24 hours no changes are allowed. Hardship extensions of the 120-day window are possible."
+  },
+  {
+   "id": "entry-into-practice-q4",
+   "chapterId": "entry-into-practice",
+   "n": 4,
+   "stem": "On the day of a certification exam, a candidate arrives late and presents an acceptable photo ID. What is the consequence?",
+   "options": [
+    "They may test if a staff member vouches for them",
+    "They forfeit the fee and must submit a new registration",
+    "They are allowed to test but receive a provisional score",
+    "They are rescheduled automatically to the next window"
+   ],
+   "correctIndex": 1,
+   "explanation": "Arrive 30 minutes early with two signed IDs (one photo) whose names match the application, plus the eligibility letter or authorization to test. Late arrival or improper ID means forfeiting the fee and needing a new registration."
+  },
+  {
+   "id": "entry-into-practice-q5",
+   "chapterId": "entry-into-practice",
+   "n": 5,
+   "stem": "The correct postnominal order for an NP credential is:",
+   "options": [
+    "Highest earned degree, licensure (APRN), area of preparation (FNP), national certification (C or BC)",
+    "Licensure, certification, degree, awards and honors",
+    "Area of preparation, certification, licensure, degree",
+    "Certification, degree, licensure, area of preparation"
+   ],
+   "correctIndex": 0,
+   "explanation": "Order runs highest earned degree (PhD, DNP), then non-nursing degrees, licensure (APRN), area of preparation (FNP), national certification (C or BC), then awards and honors — e.g., Kathy Baldridge, DNP, APRN, FNP-BC, FAANP."
+  },
+  {
+   "id": "entry-into-practice-q6",
+   "chapterId": "entry-into-practice",
+   "n": 6,
+   "stem": "An RN transitioning to NP reports feeling uncertain and insecure, questioning their identity after leaving a familiar role. Which stage of Bridges' transition model is this?",
+   "options": [
+    "Beginnings",
+    "Neutral zone",
+    "Endings",
+    "Integration"
+   ],
+   "correctIndex": 2,
+   "explanation": "Bridges' model describes transition as a time of chaos and confusion. Endings bring changing identity, uncertainty and insecurity; the neutral zone brings reflection, reinvention and growth; beginnings bring new relationships and adjustment."
+  },
+  {
+   "id": "entry-into-practice-q7",
+   "chapterId": "entry-into-practice",
+   "n": 7,
+   "stem": "Which statement about collaborative practice agreements (CPAs) is correct?",
+   "options": [
+    "A CPA replaces the need for state licensure.",
+    "CPAs are required identically in all states.",
+    "A CPA is the same document as an employment contract.",
+    "A CPA is a practice agreement, not an employment agreement."
+   ],
+   "correctIndex": 3,
+   "explanation": "CPA requirements depend on state law — standard forms, renewal, filing with the state and keeping a copy on site. A CPA governs collaborative practice and is not an employment agreement."
+  },
+  {
+   "id": "entry-into-practice-q8",
+   "chapterId": "entry-into-practice",
+   "n": 8,
+   "stem": "An NP is covered by a claims-made malpractice policy and is leaving the practice. What is required to remain covered for incidents during that period?",
+   "options": [
+    "NPDB registration",
+    "A new occurrence policy for the prior period",
+    "Nothing; claims-made policies cover all past incidents automatically",
+    "Tail coverage"
+   ],
+   "correctIndex": 3,
+   "explanation": "An occurrence policy covers incidents that happened during the policy period whenever a claim is filed. A claims-made policy covers only claims filed while it is active, so tail coverage is needed after leaving."
+  },
+  {
+   "id": "entry-into-practice-q9",
+   "chapterId": "entry-into-practice",
+   "n": 9,
+   "stem": "Typical malpractice coverage limits quoted in the course material are:",
+   "options": [
+    "$3 million per claim / $5 million annual aggregate",
+    "$1 million per claim / $3 million annual aggregate",
+    "$100,000 per claim / $300,000 aggregate",
+    "$500,000 per claim / $1 million aggregate"
+   ],
+   "correctIndex": 1,
+   "explanation": "$1 million per claim / $3 million annual aggregate is the typical structure. Coverage pays defense attorney fees, lost wages, court costs and licensing board representation; employer-provided policies may have limits that are too low or that exclude board hearings and post-employment suits."
+  },
+  {
+   "id": "entry-into-practice-q10",
+   "chapterId": "entry-into-practice",
+   "n": 10,
+   "stem": "How often must a provider re-attest their CAQH profile?",
+   "options": [
+    "Every 120 days",
+    "Every 12 months",
+    "Every 60 days",
+    "Every 30 days"
+   ],
+   "correctIndex": 0,
+   "explanation": "CAQH is a free, universal provider data source that simplifies credentialing. Register after the first insurer issues your provider number and re-attest every 120 days."
+  },
+  {
+   "id": "entry-into-practice-q11",
+   "chapterId": "entry-into-practice",
+   "n": 11,
+   "stem": "Which body established the National Practitioner Data Bank, and what does it record?",
+   "options": [
+    "The DEA; it records controlled-substance prescriptions",
+    "Congress in 1986; it records adverse actions and malpractice payments",
+    "CMS; it records Medicare billing",
+    "The state Board of Nursing; it records CE hours"
+   ],
+   "correctIndex": 1,
+   "explanation": "Congress established the NPDB in 1986. It records adverse actions and malpractice payments. You may submit a statement or dispute a report, and you should keep your address current."
+  },
+  {
+   "id": "entry-into-practice-q12",
+   "chapterId": "entry-into-practice",
+   "n": 12,
+   "stem": "An NP is negotiating a first contract and wants to estimate the revenue they will generate. Which method does the course material describe?",
+   "options": [
+    "Use the state Medicaid fee schedule for a single visit type",
+    "Patients per day multiplied by average E/M reimbursement, projected at start, 6 months and 1 year",
+    "Divide the practice's annual revenue by the number of physicians",
+    "Compare only against the salary of the supervising physician"
+   ],
+   "correctIndex": 1,
+   "explanation": "Estimate revenue as patients per day × average E/M reimbursement, projected at start, 6 months and 1 year, then compare to fair market value for the specialty, education, role and geography. Negotiable items include CE, memberships, license and prescribing fees, malpractice and professional needs."
+  },
+  {
+   "id": "professional-role-competencies-issues-q1",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 1,
+   "stem": "An NP is asked to perform joint injections. Using the four scope-of-practice questions, which consideration is part of the test?",
+   "options": [
+    "Whether the procedure is billable to Medicare",
+    "Whether the patient can pay for the procedure",
+    "Whether the NP is educated for the role and population, permitted by state law, competent, and allowed by the facility",
+    "Whether a physician is physically on site at all times"
+   ],
+   "correctIndex": 2,
+   "explanation": "Scope is tested with four questions: am I educated (role and population) to do it; is it restricted by state law or the Board of Nursing; am I competent and comfortable; and does the facility allow it. Scope is shaped by education, training and certification, the state Nurse Practice Act as interpreted by the BON, and facility policy."
+  },
+  {
+   "id": "professional-role-competencies-issues-q2",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 2,
+   "stem": "A patient with a new diagnosis asks a question the NP cannot answer, and the NP wants another clinician's advice on the plan while keeping the patient. This is:",
+   "options": [
+    "Collaboration",
+    "A collaborative practice agreement",
+    "A referral",
+    "A consultation"
+   ],
+   "correctIndex": 3,
+   "explanation": "Consultation means asking for advice on a diagnosis or plan while you keep the patient. A referral transfers ongoing treatment of a specific problem to another provider; collaboration is joint communication and decision-making."
+  },
+  {
+   "id": "professional-role-competencies-issues-q3",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 3,
+   "stem": "In the LACE model of regulation, which component grants the authority to practice?",
+   "options": [
+    "Accreditation",
+    "Licensure",
+    "Certification",
+    "Education"
+   ],
+   "correctIndex": 1,
+   "explanation": "LACE: Licensure grants the authority to practice; Accreditation is a recognized agency approving the education program or certification; Certification recognizes knowledge, skills and achievement of professional standards; Education is formal graduate or postgraduate preparation."
+  },
+  {
+   "id": "professional-role-competencies-issues-q4",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 4,
+   "stem": "A plaintiff is suing an NP for negligence. Which element must the plaintiff establish in addition to duty, breach and harm?",
+   "options": [
+    "That the NP failed to document the visit",
+    "That the NP was supervised at the time",
+    "That the NP carried inadequate malpractice coverage",
+    "That the negligence caused or contributed to the harm"
+   ],
+   "correctIndex": 3,
+   "explanation": "All four elements are required: duty, breach of the standard, harm, and causation. The standard of care is judged against a similarly credentialed and experienced provider with the same resources."
+  },
+  {
+   "id": "professional-role-competencies-issues-q5",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 5,
+   "stem": "A patient with decision-making capacity refuses a treatment the NP believes is clearly beneficial. The most appropriate response is to:",
+   "options": [
+    "Respect the refusal, because autonomy permits a patient to refuse beneficial treatment",
+    "Proceed with treatment because the NP is acting in the patient's best interest",
+    "Document that the patient is incompetent",
+    "Obtain consent from the patient's adult child instead"
+   ],
+   "correctIndex": 0,
+   "explanation": "Autonomy lets a patient refuse even beneficial treatment. Beneficence does not override a capable patient's refusal. A provider may separately decline to give a treatment they believe does more harm than good, a situational decision regulated by the state."
+  },
+  {
+   "id": "professional-role-competencies-issues-q6",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 6,
+   "stem": "Which legal standard for informed-consent disclosure is most commonly used?",
+   "options": [
+    "The institutional standard - whatever the facility's form contains",
+    "The subjective standard - what this particular patient needs to know",
+    "The reasonable patient standard - what an average patient would need to know",
+    "The reasonable provider standard - what a typical provider would disclose"
+   ],
+   "correctIndex": 2,
+   "explanation": "The reasonable patient standard is most commonly used. The subjective standard asks what this patient needs to know; the reasonable provider standard asks what a typical provider would disclose. Document the procedure, risks and benefits, reasonable alternatives with their risks and benefits, and the patient's understanding."
+  },
+  {
+   "id": "professional-role-competencies-issues-q7",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 7,
+   "stem": "An unemancipated 15-year-old presents for care. Which statement about consent is correct?",
+   "options": [
+    "The minor may consent independently for all care",
+    "Consent is unnecessary because the patient is a minor",
+    "Informed permission must be obtained from a parent or guardian",
+    "Only a court can authorize treatment"
+   ],
+   "correctIndex": 2,
+   "explanation": "Unemancipated minors cannot consent; obtain informed permission from a parent or guardian. Emancipated minors - married, in the military, financially independent, or parents themselves - can consent. Always check state law."
+  },
+  {
+   "id": "professional-role-competencies-issues-q8",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 8,
+   "stem": "Institutional review boards were established by which law, and in response to which event?",
+   "options": [
+    "The National Research Act of 1974, after the Tuskegee syphilis study",
+    "The HITECH Act of 2009, after an EHR error",
+    "HIPAA of 1996, after a privacy breach",
+    "The Affordable Care Act of 2010, after disparities research"
+   ],
+   "correctIndex": 0,
+   "explanation": "The National Research Act of 1974 established IRBs following the Tuskegee syphilis study. Valid research consent requires disclosure, competency and voluntariness; consent may be waived for minimal-risk studies such as retrospective chart reviews."
+  },
+  {
+   "id": "professional-role-competencies-issues-q9",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 9,
+   "stem": "A patient arrives at an emergency department with an emergency condition and no insurance. Under EMTALA, the hospital must:",
+   "options": [
+    "Transfer the patient to a public facility before screening",
+    "Screen and stabilize the patient regardless of ability to pay",
+    "Treat only if the patient signs a waiver",
+    "Require a deposit before treatment"
+   ],
+   "correctIndex": 1,
+   "explanation": "EMTALA (42 U.S.C. 1395dd, part of COBRA) requires hospitals to screen and stabilize emergency patients regardless of ability to pay. It derives from beneficence and justice; the practical difficulties lie in defining what counts as an emergency and when a patient is stable."
+  },
+  {
+   "id": "professional-role-competencies-issues-q10",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 10,
+   "stem": "An NP notices a colleague documenting by copying and pasting another patient's note. Which risk does this create?",
+   "options": [
+    "A HIPAA exception for treatment purposes",
+    "No risk if the provider later edits the note",
+    "Only a billing concern",
+    "Inaccurate documentation with legal liability"
+   ],
+   "correctIndex": 3,
+   "explanation": "Copy-and-paste (content importing) from other providers, other patients or prior visits causes inaccuracy and legal liability. Other EHR risks include incomplete structured data and over-reliance on decision support, which does not replace critical thinking."
+  },
+  {
+   "id": "professional-role-competencies-issues-q11",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 11,
+   "stem": "Which level of prevention is immunizing a child against measles?",
+   "options": [
+    "Secondary",
+    "Primordial",
+    "Tertiary",
+    "Primary"
+   ],
+   "correctIndex": 3,
+   "explanation": "Primary prevention prevents disease onset - immunizations, exercise, seatbelts, healthy-habit education. Primordial prevention keeps risk factors from developing at all; secondary is early diagnosis and treatment; tertiary limits disability from established disease."
+  },
+  {
+   "id": "professional-role-competencies-issues-q12",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 12,
+   "stem": "Which statement about mandatory reporting of suspected abuse is correct?",
+   "options": [
+    "Reporting requires patient consent in all states",
+    "Only physicians are mandatory reporters",
+    "Reporters must confirm the abuse before reporting",
+    "Mandatory reporters must report suspicion; the burden of proof is not on the reporter"
+   ],
+   "correctIndex": 3,
+   "explanation": "Mandatory reporters must report a reasonable suspicion - the burden of proof is not on the reporter. Reporters include health care providers, childcare workers, clergy, coaches and educators, counselors and law enforcement. Laws are state-specific."
+  },
+  {
+   "id": "professional-role-competencies-issues-q13",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 13,
+   "stem": "A group of immigrants adopts some practices of the host culture while keeping identifiable differences from it. This is:",
+   "options": [
+    "Assimilation",
+    "Ethnocentrism",
+    "Acculturation",
+    "Cultural awareness"
+   ],
+   "correctIndex": 2,
+   "explanation": "Acculturation is adopting some practices of the host culture while keeping identifiable differences. Assimilation is when one culture fully absorbs the other. Cultural awareness is the cognitive component of culturally congruent care."
+  },
+  {
+   "id": "professional-role-competencies-issues-q14",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 14,
+   "stem": "A patient says, 'I know I should check my sugar, but I don't see the point - nothing I do matters.' Which stage of change is this?",
+   "options": [
+    "Action",
+    "Precontemplation",
+    "Preparation",
+    "Contemplation"
+   ],
+   "correctIndex": 3,
+   "explanation": "The patient is aware of the problem and weighing it but has not committed - contemplation. The strategy is to motivate and encourage specific plans. In precontemplation there is no intention to change, so the strategy is education that personalizes risks and benefits."
+  },
+  {
+   "id": "professional-role-competencies-issues-q15",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 15,
+   "stem": "Which of the following is one of the OARS skills used in motivational interviewing?",
+   "options": [
+    "Confronting resistance",
+    "Advising and directing",
+    "Reflective listening",
+    "Setting the agenda for the patient"
+   ],
+   "correctIndex": 2,
+   "explanation": "OARS: Open questions, Affirmations, Reflective listening, Summarizing. Reflective listening shows empathy and respect but does not necessarily signal agreement. MI is a guiding style built on partnership, acceptance, compassion and evocation."
+  },
+  {
+   "id": "professional-role-competencies-issues-q16",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 16,
+   "stem": "A family assessment tool that maps at least three generations with ages, sex, and medical, genetic, behavioral and social information is a:",
+   "options": [
+    "Family APGAR",
+    "Genogram",
+    "Pedigree",
+    "Ecomap"
+   ],
+   "correctIndex": 1,
+   "explanation": "A genogram covers at least three generations with ages, sex, and medical, genetic, behavioral and social information, looking for red flags such as suicide, alcohol use or early deaths. An ecomap pictures the family's ties to outside systems."
+  },
+  {
+   "id": "professional-role-competencies-issues-q17",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 17,
+   "stem": "In Bronfenbrenner's ecological model, a parent's workplace, which affects the child indirectly, belongs to the:",
+   "options": [
+    "Microsystem",
+    "Exosystem",
+    "Macrosystem",
+    "Mesosystem"
+   ],
+   "correctIndex": 1,
+   "explanation": "The exosystem contains settings that affect the child indirectly, such as a parent's workplace. The microsystem is the child's immediate settings; the mesosystem is the links between microsystems; the macrosystem is culture and societal norms."
+  },
+  {
+   "id": "professional-role-competencies-issues-q18",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 18,
+   "stem": "Which study design sits at the top of the evidence hierarchy?",
+   "options": [
+    "Systematic review or meta-analysis",
+    "Randomized controlled trial",
+    "Cohort study",
+    "Case study"
+   ],
+   "correctIndex": 0,
+   "explanation": "A systematic review or meta-analysis is level 1, followed by randomized controlled trials, then cohort studies. A meta-analysis counts as level 1 only when paired with a systematic review. GRADE then rates the quality of that evidence and the strength of the recommendation."
+  },
+  {
+   "id": "professional-role-competencies-issues-q19",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 19,
+   "stem": "A qualitative design that uses constant comparison of data to develop a theory, such as why patients miss follow-up visits, is:",
+   "options": [
+    "Phenomenology",
+    "Grounded theory",
+    "Ethnography",
+    "Historical research"
+   ],
+   "correctIndex": 1,
+   "explanation": "Grounded theory uses constant comparison of data to develop a theory. Phenomenology studies lived experience; ethnography studies cultural groups in their natural setting; historical research checks authenticity (external) and accuracy (internal)."
+  },
+  {
+   "id": "professional-role-competencies-issues-q20",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 20,
+   "stem": "Which set of terms describes the five steps of evidence-based practice, in order?",
+   "options": [
+    "Ask, acquire, appraise, apply, assess",
+    "Acquire, appraise, ask, assess, apply",
+    "Ask, appraise, acquire, assess, apply",
+    "Assess, ask, apply, appraise, acquire"
+   ],
+   "correctIndex": 0,
+   "explanation": "Ask a clinical question using PICO-T, obtain the best literature, appraise study design and quality, integrate the evidence with clinical expertise and patient preferences and values, then evaluate the outcomes."
+  },
+  {
+   "id": "professional-role-competencies-issues-q21",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 21,
+   "stem": "An NP wants to advocate for full practice authority. Which statement reflects the evidence described in the course material?",
+   "options": [
+    "States with full practice authority have about 40% more NPs in rural areas",
+    "Full practice authority has been repealed in several states",
+    "States with full practice authority have fewer NPs in rural areas",
+    "Full practice authority increases system costs by about $70,000 per year"
+   ],
+   "correctIndex": 0,
+   "explanation": "Full-practice-authority states have about 40% more NPs in rural areas, and VA wait times fell from 16 to 3 days. Moving to FPA in one state saved about $70,000 a year. Twenty-six states plus DC have FPA, some for over 30 years, and none has repealed it."
+  },
+  {
+   "id": "professional-role-competencies-issues-q22",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 22,
+   "stem": "Which agency is responsible for Medicare, Medicaid, CHIP and HIPAA compliance?",
+   "options": [
+    "CDC",
+    "AHRQ",
+    "HRSA",
+    "CMS"
+   ],
+   "correctIndex": 3,
+   "explanation": "CMS administers Medicare, Medicaid and CHIP and oversees HIPAA compliance. AHRQ conducts research on quality, cost, patient safety and errors; CDC handles public health surveillance, vaccines, and environmental and travel health."
+  },
+  {
+   "id": "professional-role-competencies-issues-q23",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 23,
+   "stem": "A disease that is constantly present in a population over an extended period is described as:",
+   "options": [
+    "Pandemic",
+    "Epidemic",
+    "Endemic",
+    "Sporadic"
+   ],
+   "correctIndex": 2,
+   "explanation": "Endemic means constantly present over an extended period. An epidemic is limited in time and place; a pandemic spreads over a larger area or many countries."
+  },
+  {
+   "id": "professional-role-competencies-issues-q24",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 24,
+   "stem": "According to the course material, which nursing leader founded the first nurse practitioner program, and where?",
+   "options": [
+    "Loretta Ford, at the University of Colorado in 1965",
+    "Jean Watson, at the University of Colorado in 1979",
+    "Madeleine Leininger, at the University of Utah in 1970",
+    "Virginia Henderson, at Yale in 1955"
+   ],
+   "correctIndex": 0,
+   "explanation": "Loretta Ford, EdD, PNP, FAAN, founded the first NP program in 1965 with Dr. Henry Silver at the University of Colorado - a pediatric program. The role met resistance from nurses over the title and from other professionals over practice without physician supervision."
+  },
+  {
+   "id": "professional-role-competencies-issues-q25",
+   "chapterId": "professional-role-competencies-issues",
+   "n": 25,
+   "stem": "Under the Privacy Act, which exception to written consent for disclosure is described as the most litigated?",
+   "options": [
+    "Need to know within the agency",
+    "Court order",
+    "Census reporting",
+    "FOIA-required disclosure"
+   ],
+   "correctIndex": 0,
+   "explanation": "Disclosure on a need-to-know basis within the agency is the most litigated of the Privacy Act's twelve exceptions. Others include FOIA-required disclosure, routine uses such as during an outbreak, census, statistical research, law enforcement, health or safety of an individual, Congress, GAO, court order and the Debt Collection Act."
+  }
+ ]
+}
