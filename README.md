@@ -20,7 +20,8 @@ npm run convert -- /path/to/APEA_2026_FNP_Complete_Study_Guide_a015.docx  # rege
 npm run sync:manuals # refreshes the complete 22-manual text corpus + metadata from the dedi
 npm run enrich       # builds per-chapter manual depth, clinical pearls, search corpus, pearl flashcards
 npm run extract:questions # mines slide MCQs from manuals into manual-questions.json
-npm run content:build  # enrich + extract (run after sync:manuals / convert)
+npm run sync:manual-answers # maps Answer Key items onto manual slide MCQs when stems align
+npm run content:build  # enrich → extract → sync → extract (after sync:manuals / convert)
 npm run dev        # local dev
 npm run build      # -> dist/ (base /apea/study/)
 ```

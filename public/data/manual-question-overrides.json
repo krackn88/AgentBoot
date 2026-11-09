@@ -1,15 +1,274 @@
 {
   "set": [
-    { "id": "manual-03-q1", "correctIndex": 2, "explanation": "Penicillins and cephalosporins commonly cause morbilliform (maculopapular) drug eruptions." },
-    { "id": "manual-03-q2", "correctIndex": 3, "explanation": "Recent amoxicillin raises beta-lactamase–producing organism risk in sinusitis." },
-    { "id": "manual-03-q3", "correctIndex": 0, "explanation": "Clindamycin has high C. difficile risk." },
-    { "id": "manual-03-q4", "correctIndex": 2, "explanation": "Doxycycline causes photosensitivity — use sunscreen." },
-    { "id": "manual-03-q5", "correctIndex": 1, "explanation": "Azithromycin can prolong QT → torsades de pointes." },
-    { "id": "manual-04-q1", "correctIndex": 3, "explanation": "Acute bronchitis in a healthy adult: supportive care (rest, fluids); antibiotics are not indicated." },
-    { "id": "manual-04-q2", "correctIndex": 0, "explanation": "Screening tests (rule out disease) should have high sensitivity." },
-    { "id": "manual-04-q3", "correctIndex": 2, "explanation": "Typical bacterial CAP often shows lobar infiltrates on chest imaging." },
-    { "id": "manual-04-q4", "correctIndex": 1, "explanation": "Healthy outpatient CAP without comorbidities: macrolide such as azithromycin is first-line." },
-    { "id": "manual-04-q5", "correctIndex": 3, "explanation": "PCN allergy (hives): azithromycin is an appropriate respiratory fluoroquinolone/macrolide alternative." },
-    { "id": "manual-05-q1", "correctIndex": 3, "explanation": "Anemia = reduction in at least one RBC measure (Hgb, Hct, or RBC count)." }
+    {
+      "id": "manual-03-q1",
+      "correctIndex": 2,
+      "explanation": "Penicillins and cephalosporins commonly cause morbilliform (maculopapular) drug eruptions."
+    },
+    {
+      "id": "manual-03-q2",
+      "correctIndex": 3,
+      "explanation": "Recent amoxicillin raises beta-lactamase–producing organism risk in sinusitis."
+    },
+    {
+      "id": "manual-03-q3",
+      "correctIndex": 0,
+      "explanation": "Clindamycin has high C. difficile risk."
+    },
+    {
+      "id": "manual-03-q4",
+      "correctIndex": 2,
+      "explanation": "Doxycycline causes photosensitivity — use sunscreen."
+    },
+    {
+      "id": "manual-03-q5",
+      "correctIndex": 1,
+      "explanation": "Azithromycin can prolong QT → torsades de pointes."
+    },
+    {
+      "id": "manual-04-q1",
+      "correctIndex": 3,
+      "explanation": "Acute bronchitis: supportive care (rest, fluids); antibiotics not indicated."
+    },
+    {
+      "id": "manual-04-q2",
+      "correctIndex": 0,
+      "explanation": "Screening tests should have high sensitivity."
+    },
+    {
+      "id": "manual-04-q3",
+      "correctIndex": 2,
+      "explanation": "Typical bacterial CAP often shows lobar infiltrates."
+    },
+    {
+      "id": "manual-04-q4",
+      "correctIndex": 1,
+      "explanation": "Healthy outpatient CAP: macrolide such as azithromycin."
+    },
+    {
+      "id": "manual-04-q5",
+      "correctIndex": 3,
+      "explanation": "PCN allergy (hives): azithromycin appropriate."
+    },
+    {
+      "id": "manual-05-q1",
+      "correctIndex": 3,
+      "explanation": "Anemia = reduction in at least one RBC measure."
+    },
+    {
+      "id": "manual-19-q4",
+      "correctIndex": 3,
+      "explanation": "CDC: do not exclude; schedule child and defer vaccine discussion until therapeutic relationship."
+    },
+    {
+      "id": "manual-19-q8",
+      "correctIndex": 1,
+      "explanation": "Victims of bullying often have low self-esteem (not 'thinks badly of others')."
+    },
+    {
+      "id": "manual-19-q10",
+      "correctIndex": 2,
+      "explanation": "First focal seizure without cause: MRI and neurology referral."
+    },
+    {
+      "id": "manual-19-q21",
+      "correctIndex": 3,
+      "explanation": "Egg allergy of any severity: give routine influenza vaccine per CDC."
+    },
+    {
+      "id": "manual-19-q25",
+      "correctIndex": 1,
+      "explanation": "Inhaled corticosteroids rarely inhibit growth."
+    },
+    {
+      "id": "manual-19-q53",
+      "correctIndex": 0,
+      "explanation": "Adolescent female with 10° curve during growth — highest concern for progression."
+    },
+    {
+      "id": "manual-04-q7",
+      "correctIndex": 1,
+      "explanation": "A history of torsades is an absolute contraindication to fluoroquinolones.",
+      "source": "guide-sync r=0.47"
+    },
+    {
+      "id": "manual-04-q13",
+      "correctIndex": 2,
+      "explanation": "MART: budesonide/formoterol as maintenance and reliever.",
+      "source": "guide-sync r=0.54"
+    },
+    {
+      "id": "manual-04-q14",
+      "correctIndex": 0,
+      "explanation": "Step up to moderate-dose MART.",
+      "source": "guide-sync r=0.48"
+    },
+    {
+      "id": "manual-05-q5",
+      "correctIndex": 0,
+      "explanation": "IV iron may be needed after bariatric surgery (malabsorption).",
+      "source": "guide-sync r=0.51"
+    },
+    {
+      "id": "manual-06-q6",
+      "correctIndex": 1,
+      "explanation": "Severe headache on an anticoagulant: image to rule out a bleed.",
+      "source": "guide-sync r=0.48"
+    },
+    {
+      "id": "manual-06-q7",
+      "correctIndex": 2,
+      "explanation": "SQ sumatriptan is recommended for cluster headache.",
+      "source": "guide-sync r=0.50"
+    },
+    {
+      "id": "manual-06-q12",
+      "correctIndex": 2,
+      "explanation": "A thorough medication review.",
+      "source": "guide-sync r=0.49"
+    },
+    {
+      "id": "manual-08-q4",
+      "correctIndex": 2,
+      "explanation": "Appendicitis (Markle/heel-drop sign).",
+      "source": "guide-sync r=0.56"
+    },
+    {
+      "id": "manual-08-q9",
+      "correctIndex": 0,
+      "explanation": "Uncomplicated diverticulitis. Confirm with CT abdomen/pelvis with contrast.",
+      "source": "guide-sync r=0.52"
+    },
+    {
+      "id": "manual-09-q14",
+      "correctIndex": 0,
+      "explanation": "Everyone aged 13–64 at least once.",
+      "source": "guide-sync r=0.56"
+    },
+    {
+      "id": "manual-10-q1",
+      "correctIndex": 3,
+      "explanation": "Chlorthalidone (thiazide-type) is first-line for uncomplicated HTN.",
+      "source": "guide-sync r=0.56"
+    },
+    {
+      "id": "manual-10-q10",
+      "correctIndex": 0,
+      "explanation": "Switch to an ACE inhibitor for HF (GDMT).",
+      "source": "guide-sync r=0.48"
+    },
+    {
+      "id": "manual-10-q16",
+      "correctIndex": 2,
+      "explanation": "Diastolic murmur at the 2nd right ICS / left sternal border.",
+      "source": "guide-sync r=0.56"
+    },
+    {
+      "id": "manual-10-q18",
+      "correctIndex": 1,
+      "explanation": "A 14-year-old athlete: young, thin chest, high flow.",
+      "source": "guide-sync r=0.48"
+    },
+    {
+      "id": "manual-11-q8",
+      "correctIndex": 2,
+      "explanation": "An SGLT2 inhibitor for HF. Avoid TZDs.",
+      "source": "guide-sync r=0.53"
+    },
+    {
+      "id": "manual-12-q2",
+      "correctIndex": 2,
+      "explanation": "Secondary dysmenorrhea suggests a structural cause.",
+      "source": "guide-sync r=0.60"
+    },
+    {
+      "id": "manual-12-q3",
+      "correctIndex": 3,
+      "explanation": "Meets PCOS criteria (Rotterdam).",
+      "source": "guide-sync r=0.57"
+    },
+    {
+      "id": "manual-12-q7",
+      "correctIndex": 2,
+      "explanation": "A prior fragility fracture is a major risk factor.",
+      "source": "guide-sync r=0.51"
+    },
+    {
+      "id": "manual-13-q12",
+      "correctIndex": 2,
+      "explanation": "Reducible inguinal hernia.",
+      "source": "guide-sync r=0.53"
+    },
+    {
+      "id": "manual-13-q13",
+      "correctIndex": 1,
+      "explanation": "Refer to a general surgeon.",
+      "source": "guide-sync r=0.52"
+    },
+    {
+      "id": "manual-13-q14",
+      "correctIndex": 2,
+      "explanation": "Delayed puberty: refer.",
+      "source": "guide-sync r=0.48"
+    },
+    {
+      "id": "manual-15-q16",
+      "correctIndex": 1,
+      "explanation": "Excisional biopsy referral",
+      "source": "guide-sync r=0.47"
+    },
+    {
+      "id": "manual-06-q1",
+      "correctIndex": 3,
+      "explanation": "Inability to walk or keep balance means central vertigo.",
+      "source": "guide-sync r=0.46"
+    },
+    {
+      "id": "manual-08-q5",
+      "correctIndex": 3,
+      "explanation": "GERD.",
+      "source": "guide-sync r=0.46"
+    },
+    {
+      "id": "manual-08-q6",
+      "correctIndex": 1,
+      "explanation": "Barrett esophagus or esophageal cancer: refer for endoscopy.",
+      "source": "guide-sync r=0.44"
+    },
+    {
+      "id": "manual-11-q11",
+      "correctIndex": 1,
+      "explanation": "4 units of rapid-acting insulin with the largest meal.",
+      "source": "guide-sync r=0.44"
+    },
+    {
+      "id": "manual-11-q12",
+      "correctIndex": 1,
+      "explanation": "Subclinical hypothyroidism: repeat TSH in 6–12 months.",
+      "source": "guide-sync r=0.43"
+    },
+    {
+      "id": "manual-12-q5",
+      "correctIndex": 3,
+      "explanation": "Need more information: exam, pH, wet mount.",
+      "source": "guide-sync r=0.44"
+    },
+    {
+      "id": "manual-13-q11",
+      "correctIndex": 3,
+      "explanation": "Hernia repair.",
+      "source": "guide-sync r=0.44"
+    },
+    {
+      "id": "manual-20-q2",
+      "correctIndex": 1,
+      "explanation": "CNS damage",
+      "source": "guide-sync r=0.45"
+    },
+    {
+      "id": "manual-19-q31",
+      "correctIndex": 1,
+      "explanation": "Colic symptoms typically peak around 4–6 weeks of age (Rule of 3 in infants <3 months)."
+    }
   ]
 }

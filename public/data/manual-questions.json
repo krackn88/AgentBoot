@@ -1,12 +1,12 @@
 {
   "meta": {
     "total": 262,
-    "graded": 180,
+    "graded": 220,
     "methods": {
-      "override": 11,
-      "guide-match": 89,
-      "ambiguous": 82,
+      "override": 48,
+      "guide-match": 92,
       "inferred": 79,
+      "ambiguous": 42,
       "corpus-rescore": 1
     },
     "source": "APEA course manual slide questions"
@@ -117,7 +117,7 @@
         "Encourage rest and fluids."
       ],
       "correctIndex": 3,
-      "explanation": "Acute bronchitis in a healthy adult: supportive care (rest, fluids); antibiotics are not indicated.",
+      "explanation": "Acute bronchitis: supportive care (rest, fluids); antibiotics not indicated.",
       "grading": "override"
     },
     {
@@ -135,7 +135,7 @@
         "low specificity."
       ],
       "correctIndex": 0,
-      "explanation": "Screening tests (rule out disease) should have high sensitivity.",
+      "explanation": "Screening tests should have high sensitivity.",
       "grading": "override"
     },
     {
@@ -153,7 +153,7 @@
         "Hilar enlargement"
       ],
       "correctIndex": 2,
-      "explanation": "Typical bacterial CAP often shows lobar infiltrates on chest imaging.",
+      "explanation": "Typical bacterial CAP often shows lobar infiltrates.",
       "grading": "override"
     },
     {
@@ -171,7 +171,7 @@
         "Amoxicillin 1000 mg po three times daily"
       ],
       "correctIndex": 1,
-      "explanation": "Healthy outpatient CAP without comorbidities: macrolide such as azithromycin is first-line.",
+      "explanation": "Healthy outpatient CAP: macrolide such as azithromycin.",
       "grading": "override"
     },
     {
@@ -189,7 +189,7 @@
         "azithromycin 500 mg ×1 dose, then 250 mg daily."
       ],
       "correctIndex": 3,
-      "explanation": "PCN allergy (hives): azithromycin is an appropriate respiratory fluoroquinolone/macrolide alternative.",
+      "explanation": "PCN allergy (hives): azithromycin appropriate.",
       "grading": "override"
     },
     {
@@ -224,9 +224,9 @@
         "History of tendon rupture",
         "Creatinine clearance of 50 mL/min Fluoroquinolone Prescribing Considerations Absolute Contraindications Relative Contraindications Potential Adverse Effects Pregnancy Age under 18 years Altered mental status Prolonged QT interval History of tendon rupture Hyperglycemia Hypoglycemia CrCl under 10 mL/min C. difficile G6PD deficiency"
       ],
-      "correctIndex": null,
-      "explanation": "Absolute: Relative: NEVER give; risks always outweigh ONLY if benefits outweigh risks and no benefits alternative is available What Is the Duration of Antibiotics for CAP? Duration varies • 5–7 days + Clinical improvement Afebrile ≥48 h Clinically stable Follow-up 24–48 h clinical improvement 1–4 weeks, symptom resolution/comorbid conditions CXR NOT INDICATED Common Antibiotics for CAP NOTES Antibiotic Class Generic Names Brand Example Respiratory fluoroquinolones Moxifloxacin Avelox* “floxacin” Levofloxacin Levaquin* Macrolides Azithromycin Zithromax “mycin” Clarithromycin Biaxin* Tetracyclines Doxycycline Doryx Beta-lactams Amoxicillin Amox…",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "A history of torsades is an absolute contraindication to fluoroquinolones.",
+      "grading": "override"
     },
     {
       "id": "manual-04-q8",
@@ -314,9 +314,9 @@
         "Stop albuterol, add formoterol/budesonide BID and PRN.",
         "Continue albuterol, add tiotropium BID."
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "MART: budesonide/formoterol as maintenance and reliever.",
+      "grading": "override"
     },
     {
       "id": "manual-04-q14",
@@ -332,9 +332,9 @@
         "Add levalbuterol PRN up 8 puffs daily.",
         "Discontinue formoterol/budesonide, add tiotropium BID and PRN. CARE: Asthma Management"
       ],
-      "correctIndex": null,
-      "explanation": "CONTROL ADHERENCE • Symptoms • Inhaler technique • Triggers • How many days/week • Stepping up/stepping used? down • Concerns (side effects) ESTABLISH/ EVALUATE REVIEW • Action plan • Treatment goals • Revise as needed • Understanding of action • GOAL: good symptom plan control/minimal • When/how to access exacerbations medical care Vaccinations COPD & ASTHMA Influenza (Annual) RSV • Pregnant individuals 32–36 weeks • ≥ 60 years (at risk) • ≥ 75 years Pneumococcal Tdap • Every 10 years Covid-19 LUNG CANCER SCREENING Who to screen Screening is what type of prevention? • Generally healthy • Aged 50–80 What test is used for screening? • 20 pack-…",
-      "grading": "ambiguous"
+      "correctIndex": 0,
+      "explanation": "Step up to moderate-dose MART.",
+      "grading": "override"
     },
     {
       "id": "manual-05-q1",
@@ -351,7 +351,7 @@
         "Either low hemoglobin, hematocrit, or red blood cells ANEMIA • Reduction in at least one RBC measure RBC count Hemoglobin Hematocrit"
       ],
       "correctIndex": 3,
-      "explanation": "Anemia = reduction in at least one RBC measure (Hgb, Hct, or RBC count).",
+      "explanation": "Anemia = reduction in at least one RBC measure.",
       "grading": "override"
     },
     {
@@ -404,9 +404,9 @@
         "IV iron may be necessary for patients who have a history of bariatric surgery.",
         "Sustained-release oral capsules will improve iron absorption."
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 0,
+      "explanation": "IV iron may be needed after bariatric surgery (malabsorption).",
+      "grading": "override"
     },
     {
       "id": "manual-05-q6",
@@ -458,9 +458,9 @@
         "The patient’s neurologic exam is normal.",
         "The patient is unable to maintain balance while walking."
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "Inability to walk or keep balance means central vertigo.",
+      "grading": "override"
     },
     {
       "id": "manual-06-q2",
@@ -512,9 +512,9 @@
         "when the headache has resolved completely.",
         "after a 6-day return-to-play protocol without recurrent symptoms. Graduated Return to Play Full Non- Full-Contact Activity Contact Training Practice Sport- Day 6 Specific Drills Light Day 5 Aerobic Exercise Day 4 Exercise Restore Day 3 confidence; ADL Exercise, assess functional Day 2 Add coordination, skills (coach) Day 1 movement thinking Increase Increase in HR activity"
       ],
-      "correctIndex": null,
+      "correctIndex": 3,
       "explanation": "If symptoms recur, must go back to previous step for minimum of 24 hours. Do not advance until resolution of symptoms.",
-      "grading": "ambiguous"
+      "grading": "guide-match"
     },
     {
       "id": "manual-06-q5",
@@ -548,9 +548,9 @@
         "Associated with nausea and vomiting",
         "Visual distortion occurred pre-headache Headache Red Flags SNOOP-10 Headache Red Flags Suggest a secondary or emergent cause of headache S Systemic symptoms Secondary risk factors"
       ],
-      "correctIndex": null,
-      "explanation": "N Neurologic symptoms (altered mental status) O Onset is abrupt (thunderclap) O Older (new or progressive in adults >50 years of age) P Pattern change Pregnancy Papilledema Posttraumatic Positional Painful eye Precipitated by Valsalva Pathology of immune system Progressive Painkiller use 10 10/10 in severity Papilledema Swelling of the optic disc due to increased intracranial pressure TIP: Papilledema is almost always bilateral NOTES Etiologies of Secondary Headaches Etiology Key History/Characteristics Cerebrovascular accident (CVA) • History of cardiovascular disease or transient ischemic attack • Sudden onset of focal neurologic change; he…",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "Severe headache on an anticoagulant: image to rule out a bleed.",
+      "grading": "override"
     },
     {
       "id": "manual-06-q7",
@@ -566,9 +566,9 @@
         "Sumatriptan SQ is recommended for cluster headaches.",
         "Triptans may never be given at the same time as NSAID."
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "SQ sumatriptan is recommended for cluster headache.",
+      "grading": "override"
     },
     {
       "id": "manual-06-q8",
@@ -638,9 +638,9 @@
         "A thorough medication review should be completed.",
         "Determine if the family member has medical power of attorney. Dementia: Approach to Workup • Thorough history from patient and significant other, if possible • Cognitive testing Montreal Cognitive Assessment (MoCA) • ≥94% sensitivity, ≤60% specificity • Free, online, several languages MMSE: sensitive and reliable, but not free • Diagnostics Laboratory testing to rule out look-alikes (CBC, B12, TSH) Identified biomarkers (CSF, serum, PET): Research is ongoing! Consider referral if diagnosis is unclear or atypical features!"
       ],
-      "correctIndex": null,
-      "explanation": "Always screen for depression! NOTES Depression can worsen cognitive impairment. PHQ-2 In the past 2 weeks, how often have you: 1. had little interest in doing things? 2. felt down, depressed, or hopeless? Presumptive Alzheimer Disease Diagnosis 1. Cognitive impairment in more than one domain 2. Significant, insidious decline from previous level of function 3. Pattern and severity of decline in cognitive function impairs ability to perform ADLs 4. Delirium and other mental disorders (depression, schizophrenia, etc.) have been excluded Domains of Cognition Learning and Language Executive Complex Perceptual Social Cognition Memory Function Atten…",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "A thorough medication review.",
+      "grading": "override"
     },
     {
       "id": "manual-06-q13",
@@ -908,9 +908,9 @@
         "Acute appendicitis",
         "Small bowel obstruction"
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "Appendicitis (Markle/heel-drop sign).",
+      "grading": "override"
     },
     {
       "id": "manual-08-q5",
@@ -926,9 +926,9 @@
         "Gastroesophageal reflux disease",
         "Cholelithiasis Pathophysiology of GERD • Retrograde flow of gastric contents into esophagus Poor esophageal motility Dysfunctional lower esophageal sphincter (LES) Increased volume and pressure in the stomach"
       ],
-      "correctIndex": null,
-      "explanation": "Gastroesophageal Reflux Disease NOTES Reflux can be physiologic or pathologic. GERD: Diagnosis Presumptive diagnosis • Pathologic symptoms • Symptoms occur ≥2 days per week • Absence of alarm features Treatment: • Weight loss (if appropriate) • Dietary Modifications • First-Line: PPIs GERD: Alarm Symptoms • New onset age—60 years or older • Evidence of GI bleeding (or new IDA) REFER! • Anorexia/weight loss • Dysphagia/odynophagia • Vomiting (obstruction) • GI cancer in first-degree relative",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "GERD.",
+      "grading": "override"
     },
     {
       "id": "manual-08-q6",
@@ -944,9 +944,9 @@
         "Refer the patient for an endoscopy to confirm the diagnosis of GERD.",
         "Ensure that a pregnancy test is completed before initiating GERD treatment."
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "Barrett esophagus or esophageal cancer: refer for endoscopy.",
+      "grading": "override"
     },
     {
       "id": "manual-08-q7",
@@ -998,9 +998,9 @@
         "Testicular torsion",
         "Colorectal cancer What test should be ordered to confirm?"
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 0,
+      "explanation": "Uncomplicated diverticulitis. Confirm with CT abdomen/pelvis with contrast.",
+      "grading": "override"
     },
     {
       "id": "manual-08-q10",
@@ -1108,9 +1108,9 @@
         "Treat the patient with ciprofloxacin for a complicated UTI.",
         "Refer the patient to the ED for an urgent nephrology consult."
       ],
-      "correctIndex": null,
+      "correctIndex": 3,
       "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "grading": "guide-match"
     },
     {
       "id": "manual-09-q5",
@@ -1252,9 +1252,9 @@
         "Patients who have recurrent urinary tract infections",
         "More than one sex partner since last HIV test HIV: Screening Per CDC Average risk: one-time screening between 13 and 64 years"
       ],
-      "correctIndex": null,
-      "explanation": "High risk: at least annual testing • MSM • Anal/vaginal sex with a partner who has HIV • More than one sex partner since last HIV test • Sharing needles, syringes, or other drug equipment • Exchanged sex for drugs or money • Diagnosed or treated for another STI • Diagnosed or treated for hepatitis or tuberculosis • Had sex with any of the above",
-      "grading": "ambiguous"
+      "correctIndex": 0,
+      "explanation": "Everyone aged 13–64 at least once.",
+      "grading": "override"
     },
     {
       "id": "manual-09-q15",
@@ -1306,9 +1306,9 @@
         "75 mg losartan daily (50–100 mg daily)",
         "12.5 mg chlorthalidone daily (12.5–25 mg daily)"
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "Chlorthalidone (thiazide-type) is first-line for uncomplicated HTN.",
+      "grading": "override"
     },
     {
       "id": "manual-10-q2",
@@ -1468,9 +1468,9 @@
         "Add chlorthalidone to the amlodipine.",
         "Stop amlodipine, initiate a beta-blocker. TIP: CCBs are used cautiously in heart failure because they decrease cardiac contractility."
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 0,
+      "explanation": "Switch to an ACE inhibitor for HF (GDMT).",
+      "grading": "override"
     },
     {
       "id": "manual-10-q11",
@@ -1576,9 +1576,9 @@
         "Diastolic murmur near the RSB, second ICS",
         "Systolic murmur with wide fixed split S2, LSB, second ICS Aortic Regurgitation Use APEA’s three easy steps. Step Question Answer 1 Systolic or diastolic Diastolic"
       ],
-      "correctIndex": null,
-      "explanation": "2 Where do I hear it the loudest? Aortic listening point; Erbs point 3 Associated findings Angina, dizziness, CHF",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "Diastolic murmur at the 2nd right ICS / left sternal border.",
+      "grading": "override"
     },
     {
       "id": "manual-10-q17",
@@ -1612,9 +1612,9 @@
         "A 75-year-old patient with HF",
         "A 33-year-old marathoner Why?"
       ],
-      "correctIndex": null,
-      "explanation": "MURMURS: IN SUMMARY The murmur is identified. Now what? Mr. Peyton Manning is the GOAT! G: Who GOES? ➔ Cardiology referral for all diastolic murmurs, systolic murmurs grade 4 to 6 and any murmur that keeps “bad company” O: Observe ➔ Monitor asymptomatic patients in primary care if stable and otherwise healthy. A: Assessment ➔ History, physical examination, ECG, 2D echocardiogram T: Time ➔ Understand most murmurs are asymptomatic until 40–60 years of age when heart failure develops.",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "A 14-year-old athlete: young, thin chest, high flow.",
+      "grading": "override"
     },
     {
       "id": "manual-10-q19",
@@ -1756,9 +1756,9 @@
         "Dapagliflozin (Farxiga)",
         "Regular insulin at meals"
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "An SGLT2 inhibitor for HF. Avoid TZDs.",
+      "grading": "override"
     },
     {
       "id": "manual-11-q9",
@@ -1810,9 +1810,9 @@
         "Add 4 units basal insulin with every meal.",
         "Add 4 units rapid-acting insulin with the largest meal of the day."
       ],
-      "correctIndex": null,
-      "explanation": "THYROID DISORDERS Thyroid Pathophysiology Functional problems • Hypothyroidism Primary Subclinical Secondary • Hyperthyroidism Primary Subclinical Secondary Structural problems • Goiter—enlargement • Thyroiditis—inflammation • Nodules Benign Toxic nodules Thyroid cancer Joshua Lanclos/APEA TIP: Structural thyroid problems can cause functional problems! NOTES Thyroid Hormones • TSH Released by anterior pituitary, stimulates the thyroid to make thyroid hormones • T4 and T3 Thyroid hormones Can be free or bound Responsible for metabolism Normal Thyroid Function Serum T3/T4 Levels restored Serum T3/T4 for organ use levels decreased TSH stimulates…",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "4 units of rapid-acting insulin with the largest meal.",
+      "grading": "override"
     },
     {
       "id": "manual-11-q12",
@@ -1828,9 +1828,9 @@
         "Subclinical hypothyroidism; initiate levothyroxine",
         "Subclinical hypothyroidism; initiate Armour Thyroid"
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "Subclinical hypothyroidism: repeat TSH in 6–12 months.",
+      "grading": "override"
     },
     {
       "id": "manual-11-q13",
@@ -1900,9 +1900,9 @@
         "Symptoms suggest that there may be an underlying structural problem.",
         "This pain can be managed with lifestyle modifications. Dysmenorrhea Workup • History • Physical exam Rule out abdominal/pelvic abnormalities (secondary causes) Pelvic exam may be deferred if young, no sexual activity • Labs: STI, pregnancy, UTI • Transvaginal ultrasound (or refer): if pathology suspected"
       ],
-      "correctIndex": null,
-      "explanation": "Primary Dysmenorrhea Management NOTES • Nonpharmacologic: heat and exercise • Pharmacologic: NSAIDs: initiated at onset (or a few days prior) to menses Hormonal contraceptives • Combined hormonal contraceptives: pill, patch, ring • Progestin injections: medroxyprogesterone acetate (Depo-Provera) (q3 months) • Progestin IUDs: Mirena and Liletta (8 years), Kyleena (5 years), and Skyla (3 years); all release levonorgestrel • No relief? Not following expected course? Look for secondary cause and refer! Normal Menstrual Cycle Hormone Function Follicle-stimulating hormone Follicular growth & development Estrogen Endometrium preparation Luteinizing …",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "Secondary dysmenorrhea suggests a structural cause.",
+      "grading": "override"
     },
     {
       "id": "manual-12-q3",
@@ -1918,9 +1918,9 @@
         "An androgen producing tumor is most likely the cause of symptoms.",
         "Polycystic ovarian syndrome diagnostic criteria has been met. PCOS: Diagnosis Complex endocrinopathy Pathophysiology is unclear."
       ],
-      "correctIndex": null,
-      "explanation": "In most cases, PCOS is a clinical diagnosis. Rotterdam criteria (2 of 3 required): irregular menses, hyperandrogenism, cystic ovaries If diagnosis is unclear Pelvic ultrasound Hormone testing NOTES PCOS Differential Diagnosis Differential Diagnosis Characteristic Workup Nonclassic congenital • Hyperandrogenism, • 17-hydroxyprogesterone at 8 a.m. adrenal hyperplasia oligomenorrhea, polycystic ovaries, (NCCAH) possible premature pubarche • Increased risk: Mediterranean, Hispanic, Ashkenazi Jewish females Androgen-secreting • Recent onset of severe hirsutism, • Serum testosterone tumors progressive worsening, signs of • Serum DHEAS virilization …",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "Meets PCOS criteria (Rotterdam).",
+      "grading": "override"
     },
     {
       "id": "manual-12-q4",
@@ -1954,9 +1954,9 @@
         "Sexually transmitted diseases are not likely due to the report of itching.",
         "Further information is required to determine the etiology. Vulvovaginitis Inflammation causing change in odor or discharge, associated itching and discomfort • Differential diagnosis Bacterial vaginosis (BV) Vulvovaginal candidiasis Trichomonas vaginalis infection Other STIs causing cervicitis and discharge Self-diagnosis often inaccurate!"
       ],
-      "correctIndex": null,
-      "explanation": "Vulvovaginitis Assessment DIFFERENTIAL DIAGNOSIS Bacterial Vaginosis Vulvovaginal Candidiasis Trichomoniasis Patients most Multiple partners, no Pregnancy, CHC use, diabetes, Multiple sex partners, no condom susceptible condoms, douching, weakened immune system, use, HIV infection, teens, and older HSV-2 infection recent antibiotic use females Organisms Aerobe overgrowth Candida albicans Trichomonas vaginalis Discharge Thin, milky, Thick, cheesy or curd-like, Malodorous, yellow-green, malodorous white or yellow copious, frothy Coats walls of vagina Vaginal pH >4.5 (elevated) <4.5 (normal) >4.5 (elevated) Testing Positive KOH whiff NAAT NAAT t…",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "Need more information: exam, pH, wet mount.",
+      "grading": "override"
     },
     {
       "id": "manual-12-q6",
@@ -1990,9 +1990,9 @@
         "“Your history of having a spontaneous fracture puts you at higher risk.”",
         "“Your current weight of 120 pounds is protective against osteoporosis.”"
       ],
-      "correctIndex": null,
-      "explanation": "Bone Health NOTES • Calcium Ensure sufficient intake (≥1,200 mg daily) • Vitamin D Ensure sufficient intake (800–1,000 IU daily) Supplement with vitamin D3 (cholecalciferol) • Modifiable risk factors for osteoporosis Reduce smoking, alcohol, medications/oral steroids Weight-bearing, balance, and resistance exercises Fall prevention Osteoporosis Screening Risk factors • Advanced age • Previous fragility fracture • Low body weight • Parental history of hip fracture • Rheumatoid arthritis • Cigarette smoking • Excess alcohol intake • Early menopause • Long-term glucocorticoid therapy Risk factor assessment (FRAX tool) • 10-year probability of os…",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "A prior fragility fracture is a major risk factor.",
+      "grading": "override"
     },
     {
       "id": "manual-12-q8",
@@ -2206,9 +2206,9 @@
         "History of cryptorchidism",
         "History of hernia repair surgery Testicular Cancer Testicular Cancer Males 15–35 years old Hx of cryptorchidism (even with orchiopexy) Either testis affected Risk is greater in undescended one. • Encourage testicular self-examination. • Diagnostics Scrotal ultrasound • Refer to Urology. Cryopreservation of sperm"
       ],
-      "correctIndex": null,
-      "explanation": "Other Scrotal Concerns VARICOCELE • Swelling of VEINS • “Bag of worms” • May be painful or asymptomatic • Can lead to low sperm count/quality or BPH HYDROCELE • Fluid around testicle • Common in infants—will resolve spontaneously • If present in adults, may be benign or pathologic • Transillumination",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "Hernia repair.",
+      "grading": "override"
     },
     {
       "id": "manual-13-q12",
@@ -2224,9 +2224,9 @@
         "Inguinal hernia",
         "Incarcerated hernia Inguinal Hernias • Two-thirds of inguinal hernias are on the right side. • Inguinal hernias are the most common hernia type. • Inguinal hernias are more common in males."
       ],
-      "correctIndex": null,
-      "explanation": "Joshua Lanclos/APEA",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "Reducible inguinal hernia.",
+      "grading": "override"
     },
     {
       "id": "manual-13-q13",
@@ -2242,9 +2242,9 @@
         "The patient should be prescribed a truss.",
         "Surgical repair should be deferred unless the hernia entrapped. Hernia Diagnosis • Clinical diagnosis • Ultrasound, if diagnosis is unclear"
       ],
-      "correctIndex": null,
-      "explanation": "Gynecomastia Benign proliferation of glandular tissue of male breast • Symptoms: asymptomatic or painful tender breast • Differential diagnosis: Pseudogynecomastia • Associated with obesity • No well-defined rubbery mass Breast cancer • Unilateral, nontender, hard, immobile mass, off-center from nipple",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "Refer to a general surgeon.",
+      "grading": "override"
     },
     {
       "id": "manual-13-q14",
@@ -2260,9 +2260,9 @@
         "Refer the patient for evaluation of delayed puberty.",
         "Ask the patient about previous sexual activity. Tanner Stages"
       ],
-      "correctIndex": null,
-      "explanation": "Joshua Lanclos/APEA EXAM CHECKLIST ✓ Prostate pathology: benign prostatic hyperplasia, infection, cancer ✓ Male sexual wellness concerns ✓ Epididymitis ✓ Testicular torsion ✓ Testicular cancer ✓ Hydrocele ✓ Varicocele ✓ Hernias ✓ Gynecomastia ✓ Tanner stages • Clinical presentation (subjective, objective findings) • How to diagnose? • What’s in differential diagnosis? • Pharmacologic, nonpharmacologic management • Follow-up care • Recognize normal course • When to refer?",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "Delayed puberty: refer.",
+      "grading": "override"
     },
     {
       "id": "manual-14-q1",
@@ -2676,9 +2676,9 @@
         "Apply cryotherapy to the lesion.",
         "Perform a skin scraping for microscopy."
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "Excisional biopsy referral",
+      "grading": "override"
     },
     {
       "id": "manual-15-q17",
@@ -3578,9 +3578,9 @@
         "Schedule the child and note on the chart that vaccines should not be discussed.",
         "Schedule the child and defer vaccine discussion until a therapeutic relationship is established."
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "CDC: do not exclude; schedule child and defer vaccine discussion until therapeutic relationship.",
+      "grading": "override"
     },
     {
       "id": "manual-19-q5",
@@ -3650,9 +3650,9 @@
         "Thinks badly of others",
         "Easily frustrated"
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "Victims of bullying often have low self-esteem (not 'thinks badly of others').",
+      "grading": "override"
     },
     {
       "id": "manual-19-q9",
@@ -3686,9 +3686,9 @@
         "Order an MRI and refer to neurology.",
         "Order an EEG to rule out epilepsy. HEMATOLOGY"
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "First focal seizure without cause: MRI and neurology referral.",
+      "grading": "override"
     },
     {
       "id": "manual-19-q11",
@@ -3866,9 +3866,9 @@
         "The child will not be able to receive the influenza vaccination because it is contraindicated.",
         "The child can get the routine influenza vaccination."
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "Egg allergy of any severity: give routine influenza vaccine per CDC.",
+      "grading": "override"
     },
     {
       "id": "manual-19-q22",
@@ -3938,9 +3938,9 @@
         "Inhaled steroids can increase the rate of growth.",
         "The child will not be shorter than their peers, but they may get diabetes."
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "Inhaled corticosteroids rarely inhibit growth.",
+      "grading": "override"
     },
     {
       "id": "manual-19-q26",
@@ -4046,9 +4046,9 @@
         "3 months",
         "6 months"
       ],
-      "correctIndex": null,
-      "explanation": "Colic NOTES No standard definition but most agree on “The Rule of 3” Crying for no apparent reason that lasts 3 hours/d or more Occurs 3 days/week or more Otherwise, healthy infant younger than 3 months old Unknown etiology: improves with time",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "Colic symptoms typically peak around 4–6 weeks of age (Rule of 3 in infants <3 months).",
+      "grading": "override"
     },
     {
       "id": "manual-19-q32",
@@ -4442,9 +4442,9 @@
         "12-year-old male who has a 5° curve",
         "18-year-old male who has a 5° curve"
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 0,
+      "explanation": "Adolescent female with 10° curve during growth — highest concern for progression.",
+      "grading": "override"
     },
     {
       "id": "manual-19-q54",
@@ -4532,9 +4532,9 @@
         "Rules out neurologic disorders",
         "Assesses the gestational age of the infant Newborn: Reflexes Present at Birth Temporary Permanent Moro Blink Stepping Cough Palmar Gag Plantar Sneeze Rooting Yawn Sucking Galant Tonic neck"
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "CNS damage",
+      "grading": "override"
     },
     {
       "id": "manual-20-q3",
@@ -4730,9 +4730,9 @@
         "Conventional level—Stage 3: good interpersonal relationships",
         "Postconventional level—Stage 5: social contract and individual rights Progression of Moral Reasoning Kohlberg stages of moral development"
       ],
-      "correctIndex": null,
-      "explanation": "Kohlberg stages of moral development Step 6 Principle Postconventional Step 5 Social Contract (Adulthood) Step 4 Conventional Law and Order Morality (8–13 years) Step 3 Good Boy Attitude Step 2 Self-Interest Preconventional (3–7 years) Step 1 Avoiding Punishment SPORTS PREPARTICIPATION EVALUATION (PPE) Sports PPE • Most children participate in a sport at some point during their school years. • Perform 4–6 weeks before participation. • Provide age-appropriate anticipatory guidance. Visit Goals • Preparticipation evaluations (PPE) have several goals: primary goal is safe participation! Recognize children who might experience life- threatening c…",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "Preconventional stage 2",
+      "grading": "guide-match"
     }
   ]
 }

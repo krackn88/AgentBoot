@@ -156,7 +156,7 @@ def guide_match(guide_questions: list[dict], stem: str, options: list[str]) -> t
         if gq.get("correctIndex") is None or len(gq.get("options", [])) < 2:
             continue
         r = SequenceMatcher(None, stem[:160].lower(), gq["stem"][:160].lower()).ratio()
-        if r < 0.55:
+        if r < 0.46:
             continue
         if len(gq["options"]) == len(options):
             if r > best_r:
