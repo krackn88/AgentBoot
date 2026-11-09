@@ -9,7 +9,7 @@ const GROUPS = [
   { label: 'Plan', items: [['planner', CalendarDays, 'Study planner']] },
 ]
 
-export function Sidebar({ view, go, readiness, doneCh, totalCh, answered, totalQ, streak }) {
+export function Sidebar({ view, go, readiness, doneCh, totalCh, answered, totalQ, guideQ, manualQ, streak }) {
   const active = (k) => view === k || (view === 'reader' && k === 'library')
   return (
     <aside className="sidebar pro">
@@ -39,7 +39,8 @@ export function Sidebar({ view, go, readiness, doneCh, totalCh, answered, totalQ
         <p className="sidefoot-label">Exam readiness</p>
         <strong>{readiness}%</strong>
         <div className="bar side-bar"><i style={{ width: `${readiness}%` }} /></div>
-        <p>{doneCh}/{totalCh} chapters · {answered}/{totalQ} questions</p>
+        <p>{doneCh}/{totalCh} chapters · {answered}/{totalQ} Q tried</p>
+        {(guideQ > 0 || manualQ > 0) && <p className="sidefoot-detail">{guideQ} guide + {manualQ || 0} manual keyed</p>}
         <p>{streak}-day streak</p>
       </div>
       <button type="button" className="navbtn subtle" onClick={() => go('about')}><Info size={16} /> About & access</button>

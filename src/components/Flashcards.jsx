@@ -1,5 +1,6 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import { shuffle, bumpDaily } from '../lib/store'
+import { PageHeader } from './AppShell.jsx'
 
 export function buildDecks(guide, store, pearlCards = [], questionPool = null) {
   const high = []
@@ -44,8 +45,7 @@ export default function Flashcards({ guide, store, update, pearlCards = [], ques
   }
   return (
     <div style={{ maxWidth: 720, margin: '0 auto' }}>
-      <h1>Flashcards</h1>
-      <p className="muted">Real cards built from your manual — the High-Yield Quick Reference table, the labs you must memorize, and every graded practice question. Rate each card; cards you know 3 times are marked mastered (Leitner boxes). Keyboard: Space flips, 1 = still learning, 2 = I know this.</p>
+      <PageHeader eyebrow="Active recall" title="Flashcards" subtitle="High-yield tables, labs, clinical pearls, and graded question cards. Space to flip; rate cards until mastered (3× correct). Keyboard: 1 = still learning, 2 = I know this." />
       <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', margin: '16px 0' }}>
         {Object.entries(decks).map(([k, d]) => <button key={k} className={k === deckId ? 'btn' : 'btn ghost'} onClick={() => { setDeckId(k); setI(0); setFlip(false); setOrder(null) }}>{d.label}</button>)}
       </div>

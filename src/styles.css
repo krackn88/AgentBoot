@@ -43,7 +43,14 @@ button{font:inherit;cursor:pointer}input,select{font:inherit}a{color:var(--brand
 .sidefoot{margin-top:auto;padding:14px 12px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:12px;color:#b7c9e0;line-height:1.45}
 .sidefoot-label{margin:0 0 2px;text-transform:uppercase;letter-spacing:.08em;font-size:10px;font-weight:800;color:#8fa6c4}
 .sidefoot strong{color:#fff;font-size:22px;font-family:'Fraunces',serif}
-.sidefoot p{margin:4px 0 0}.side-bar{background:rgba(255,255,255,.15);margin:8px 0}.side-bar>i{background:var(--gold)}
+.sidefoot p{margin:4px 0 0}.sidefoot-detail{font-size:11px;color:#8fa6c4;margin-top:4px!important}
+.side-bar{background:rgba(255,255,255,.15);margin:8px 0}.side-bar>i{background:var(--gold)}
+.platform-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 4px}
+.platform-stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+.platform-stat-val{font-family:'Fraunces',serif;font-size:26px;font-weight:800;margin:6px 0 0;line-height:1.1}
+.chapter-row-pro{align-items:flex-start;padding:16px 0}
+:focus-visible{outline:2px solid var(--brand);outline-offset:2px}
+.test-card.manual-mock{background:linear-gradient(165deg,#fff 55%,#eef7f4);border-color:#b8dfd5}
 
 main{padding:28px 32px 100px;max-width:1280px;width:100%;margin:0 auto}
 .top-search{display:flex;gap:8px;margin-bottom:18px}
@@ -153,7 +160,7 @@ input[type=text],input[type=email],input[type=date],select{padding:11px 13px;bor
 .page-break{break-after:page;height:1px}
 @media(max-width:980px){.test-grid{grid-template-columns:1fr 1fr}
   .layout{grid-template-columns:1fr}.sidebar{display:none}main{padding:18px 16px 110px}
-  .cols4,.cols3{grid-template-columns:1fr 1fr}.cols2{grid-template-columns:1fr}
+  .cols4,.cols3,.platform-stats{grid-template-columns:1fr 1fr}.cols2{grid-template-columns:1fr}
   .hero h1{font-size:28px}.manual-grid{grid-template-columns:1fr 1fr}
   .manual-hero{grid-template-columns:1fr;padding:22px}.manual-hero h1{font-size:28px}
   .source-proof{grid-template-columns:repeat(3,1fr)}.source-proof span{display:block}
@@ -166,7 +173,7 @@ input[type=text],input[type=email],input[type=date],select{padding:11px 13px;bor
   .beta-banner{font-size:13px}
 }
 @media(max-width:600px){.test-grid{grid-template-columns:1fr}.worksheet{padding:16px}
-  .manual-grid,.cols4,.cols3,.cols2{grid-template-columns:1fr}
+  .manual-grid,.cols4,.cols3,.cols2,.platform-stats{grid-template-columns:1fr}
   .source-proof{grid-template-columns:1fr}.segmented{display:grid}.manual-actions{grid-template-columns:1fr}
   .section-title{align-items:start;flex-direction:column}
 }

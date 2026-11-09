@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
-import { Timer, Trophy, ClipboardList, Target, RotateCcw } from 'lucide-react'
+import { Timer, Trophy, ClipboardList, Target, RotateCcw, Layers } from 'lucide-react'
+import { PageHeader } from './AppShell.jsx'
 import { shuffle } from '../lib/store'
 
 const PASS_TARGET = 75
@@ -75,9 +76,12 @@ export default function Tests({ guide, store, onStart, questionPool }) {
   const trend = last3.length ? Math.round(last3.reduce((a, b) => a + b, 0) / last3.length) : null
 
   const start = t => onStart({ mode: 'exam', chapterId: 'all', count: t.count, minutes: t.minutes, ids: t.ids, testId: t.testId, title: t.title })
+  const boardTests = tests.filter(t => !t.testId.startsWith('manual-'))
+  const manualTests = tests.filter(t => t.testId.startsWith('manual-'))
 
   return (
     <div>
+      <PageHeader eyebrow="Testing center" title="Mock boards under exam conditions" subtitle="Timed, graded, and rationales after every run. Aim for 75%+ on full-length simulations before exam day." />
       <div className="manual-hero compact">
         <div>
           <p className="eyebrow">Testing center</p>
@@ -99,9 +103,9 @@ export default function Tests({ guide, store, onStart, questionPool }) {
         </div>
       )}
 
-      <div className="section-title"><div><p className="eyebrow">Full-length and mock boards</p><h2>Exam simulations</h2></div></div>
+      <div className="section-title"><div><p className="eyebrow">Answer Key bank</p><h2>Full-length & study-guide mocks</h2></div></div>
       <div className="test-grid">
-        {tests.map(t => {
+        {boardTests.filter(t => t.kind === 'full' || t.testId.startsWith('mock-') || t.testId === 'combo-mega').map(t => {
           const a = attemptsFor(store, t.testId)
           const bestT = a.length ? Math.max(...a.map(pct)) : null
           return (
@@ -118,6 +122,26 @@ export default function Tests({ guide, store, onStart, questionPool }) {
           )
         })}
       </div>
+
+      {manualTests.length > 0 && (
+        <>
+          <div className="section-title" style={{ marginTop: 28 }}><div><p className="eyebrow">Course manuals</p><h2>Slide MCQ mocks (unique bank)</h2></div><p className="muted">Fresh stems from the original APEA slides — does not overlap the study-guide Answer Key mocks.</p></div>
+          <div className="test-grid">
+            {manualTests.map(t => {
+              const a = attemptsFor(store, t.testId)
+              const bestT = a.length ? Math.max(...a.map(pct)) : null
+              return (
+                <article key={t.testId} className="test-card manual-mock">
+                  <div className="test-top"><Layers size={20} />{bestT != null && <span className={`score-chip ${bestT >= PASS_TARGET ? 'good' : bestT >= 65 ? 'close' : 'low'}`}>Best {bestT}%</span>}</div>
+                  <h3>{t.title}</h3><p>{t.blurb}</p>
+                  <div className="test-meta"><span><ClipboardList size={14} /> {t.count} questions</span><span><Timer size={14} /> {t.minutes} min</span></div>
+                  <button className="btn" onClick={() => start(t)}>{a.length ? 'Retake test' : 'Start test'}</button>
+                </article>
+              )
+            })}
+          </div>
+        </>
+      )}
 
       <div className="section-title"><div><p className="eyebrow">Targeted practice</p><h2>Chapter tests</h2></div><p className="muted">Every graded question in the chapter, timed at 72 seconds each.</p></div>
       <div className="card" style={{ padding: 0 }}>

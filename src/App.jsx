@@ -10,6 +10,8 @@ import Manuals from './components/Manuals.jsx'
 import Tests from './components/Tests.jsx'
 import Workbook from './components/Workbook.jsx'
 import { Sidebar, PageHeader, MobileNav } from './components/AppShell.jsx'
+import PlatformStats from './components/PlatformStats.jsx'
+import { usePageTitle } from './lib/usePageTitle'
 import { BETA_OPEN } from './lib/config'
 import { flattenQuestions, gradable } from './lib/questions'
 
@@ -21,7 +23,7 @@ export default function App() {
       .then(setGuide).catch(e => setLoadErr('Could not load study data (' + e.message + '). Check your connection and refresh.'))
   }, [])
   if (loadErr) return <div className="boot-screen"><div className="card boot-card"><p className="eyebrow">APEA 2026 FNP Study Hub</p><h2>Couldn't load study data</h2><p>{loadErr}</p><button className="btn" onClick={() => location.reload()}>Retry</button></div></div>
-  if (!guide) return <div className="boot-screen"><div className="boot-card"><p className="eyebrow">APEA 2026</p><h1 className="serif">FNP Study Hub</h1><div className="boot-bar"><i/></div><p className="muted">Loading 21 chapters · 278 questions · 22 original manuals…</p></div></div>
+  if (!guide) return <div className="boot-screen"><div className="boot-card"><p className="eyebrow">APEA 2026</p><h1 className="serif">FNP Board Prep</h1><div className="boot-bar"><i/></div><p className="muted">Loading study guide, manuals, workbooks, and question banks…</p></div></div>
   return <StudyApp guide={guide} />
 }
 
@@ -58,7 +60,9 @@ function StudyApp({ guide }) {
   const questionPool = useMemo(() => flattenQuestions(guide, manualBank), [guide, manualBank])
   const gradedQ = useMemo(() => gradable(questionPool).length, [questionPool])
   const chapter = chapters.find(c => c.id === chapterId)
-  const totalQ = gradedQ || guide.meta.questions
+  const guideQCount = guide.meta.questions
+  const manualQCount = manualBank?.meta?.graded ?? 0
+  const totalQ = gradedQ || guideQCount + manualQCount
   const answered = Object.keys(store.answers).length
   const correctCount = Object.values(store.answers).filter(a => a.correct).length
   const accuracy = answered ? Math.round(correctCount / answered * 100) : 0
@@ -96,9 +100,16 @@ function StudyApp({ guide }) {
     window.scrollTo(0, 0)
   }
 
+  const titles = {
+    dashboard: 'Dashboard', library: 'Study guide', manuals: 'Full manuals', reader: chapter?.shortTitle,
+    quiz: 'Question bank', tests: 'Mock exams', workbooks: 'Workbooks', flashcards: 'Flashcards',
+    quickref: 'High-yield', planner: 'Study planner', about: 'About',
+  }
+  usePageTitle(titles[view] || null)
+
   return (
     <div className="layout">
-      <Sidebar view={view} go={go} readiness={readiness} doneCh={doneCh} totalCh={chapters.length} answered={answered} totalQ={totalQ} streak={streak} manualQ={manualBank?.meta?.graded} />
+      <Sidebar view={view} go={go} readiness={readiness} doneCh={doneCh} totalCh={chapters.length} answered={answered} totalQ={totalQ} guideQ={guideQCount} manualQ={manualQCount} streak={streak} />
 
       <main className="main-shell">
         {BETA_OPEN && view === 'dashboard' && (
@@ -131,6 +142,7 @@ function StudyApp({ guide }) {
                   <button className="btn ghost" onClick={() => go('manuals')}>Browse all 22 full manuals</button>
                 </div>
               </div>
+              <PlatformStats guide={guide} contentMeta={contentMeta} manualBank={manualBank} questionTotal={totalQ} />
               <div className="grid cols4" style={{ marginTop: 16 }}>
                 <div className="card"><p className="label">Board readiness</p><p className="stat">{readiness}%</p><div className="bar"><i style={{ width: `${readiness}%` }} /></div><p className="small muted">Chapters 40% · questions 30% · flashcards 30%</p></div>
                 <div className="card"><p className="label">Chapters complete</p><p className="stat">{doneCh}/{chapters.length}</p><div className="bar"><i style={{ width: `${doneCh / chapters.length * 100}%` }} /></div><p className="small muted">{chapters.reduce((a, c) => a + c.wordCount, 0).toLocaleString()} words of guide</p></div>
@@ -211,7 +223,7 @@ function StudyApp({ guide }) {
 
           {view === 'planner' && <Planner guide={guide} store={store} update={update} />}
 
-          {view === 'about' && <AboutAccess totalQ={totalQ} totalCards={totalCards} chapters={chapters.length} store={store} update={update} />}
+          {view === 'about' && <AboutAccess totalQ={totalQ} totalCards={totalCards} chapters={chapters.length} store={store} update={update} guide={guide} contentMeta={contentMeta} manualBank={manualBank} />}
         </>)}
       </main>
 
@@ -302,12 +314,13 @@ function Blueprint({ guide }) {
 function ChapterRow({ c, store, onOpen, contentMeta }) {
   const done = !!store.completed[c.id]
   const depth = contentMeta?.chapters?.find(x => x.id === c.id)
+  const graded = c.questions.filter(q => q.correctIndex != null && q.options?.length >= 2).length
   return (
-    <div className="chapter">
+    <div className="chapter chapter-row-pro">
       <div className={`num ${done ? 'done' : ''}`}>{done ? '✓' : c.number}</div>
       <div style={{ flex: 1, cursor: 'pointer' }} onClick={onOpen}>
         <strong>{c.shortTitle}</strong>
-        <p className="small muted" style={{ margin: 2 }}>{c.sections.length} sections · ~{Math.max(1, Math.round(c.wordCount / 200))} min · {c.questions.length} questions{depth ? ` · ${depth.pearls} pearls` : ''} {store.bookmarks.includes(c.id) ? '· ★ bookmarked' : ''}</p>
+        <p className="small muted" style={{ margin: 2 }}>{c.sections.length} sections · ~{Math.max(1, Math.round(c.wordCount / 200))} min · {graded} Q{depth ? ` · ${depth.pearls} pearls · ${(depth.words / 1000).toFixed(1)}k manual depth` : ''} {store.bookmarks.includes(c.id) ? '· ★ saved' : ''}</p>
       </div>
       <a className="pill" href={pdfUrlForChapter(c)} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}>PDF</a>
       <button className="btn ghost" onClick={onOpen}>Study →</button>
@@ -315,7 +328,7 @@ function ChapterRow({ c, store, onOpen, contentMeta }) {
   )
 }
 
-function AboutAccess({ totalQ, totalCards, chapters, store, update }) {
+function AboutAccess({ totalQ, totalCards, chapters, store, update, guide, contentMeta, manualBank }) {
   const [email, setEmail] = useState(''); const [joined, setJoined] = useState(false)
   const unlocked = [
     'All study-guide chapters and section search',
@@ -326,6 +339,7 @@ function AboutAccess({ totalQ, totalCards, chapters, store, update }) {
   return (
     <div className="about-page">
       <PageHeader eyebrow="Access" title="About this platform" subtitle="Built from the APEA 2026 FNP review content on your server — structured for reading, recall, and testing." />
+      <PlatformStats guide={guide} contentMeta={contentMeta} manualBank={manualBank} questionTotal={totalQ} />
       {BETA_OPEN && (
         <div className="card access-open">
           <p className="label">Testing phase</p>

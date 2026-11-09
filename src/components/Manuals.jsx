@@ -18,8 +18,26 @@ export default function Manuals({ initialId }) {
   const [query, setQuery] = useState('')
   const [searching, setSearching] = useState(false)
   const [results, setResults] = useState([])
+  const [corpus, setCorpus] = useState(null)
+  const [chapterIndex, setChapterIndex] = useState(null)
   const [error, setError] = useState('')
   const [embedTried, setEmbedTried] = useState(false)
+
+  useEffect(() => {
+    fetch(`${BASE}data/search-corpus.json`).then(r => r.ok ? r.json() : []).then(setCorpus).catch(() => setCorpus([]))
+    fetch(`${BASE}data/content-index.json`).then(r => r.ok ? r.json() : null).then(setChapterIndex).catch(() => {})
+  }, [])
+
+  const moduleForChapterId = useMemo(() => {
+    if (!manifest || !chapterIndex?.chapters) return {}
+    const map = {}
+    chapterIndex.chapters.forEach(ch => {
+      const mid = String(ch.number + 1).padStart(2, '0')
+      const m = manifest.modules.find(x => x.id === mid)
+      if (m) map[ch.id] = m
+    })
+    return map
+  }, [manifest, chapterIndex])
 
   useEffect(() => {
     let cancelled = false
@@ -61,29 +79,29 @@ export default function Manuals({ initialId }) {
     if (!w) window.location.href = url
   }
 
-  async function searchAll(e) {
+  function searchAll(e) {
     e?.preventDefault()
     const term = query.trim().toLowerCase()
     if (term.length < 3 || !manifest) return
-    setSearching(true); setResults([])
-    try {
+    setSearching(true); setResults([]); setError('')
+    window.setTimeout(() => {
+      const seen = new Set()
       const found = []
-      await Promise.all(manifest.modules.map(async m => {
-        const filename = m.text_file.split('/').pop()
-        const body = await fetch(`${BASE}data/manuals/${filename}`).then(r => r.text())
-        const lower = body.toLowerCase()
-        let from = 0
-        while (found.length < 80) {
-          const at = lower.indexOf(term, from)
-          if (at < 0) break
-          const start = Math.max(0, body.lastIndexOf('\n', Math.max(0, at - 180)))
-          const end = Math.min(body.length, body.indexOf('\n', at + term.length + 260) || body.length)
-          found.push({ module: m, excerpt: body.slice(start, end).replace(/\s+/g, ' ').trim(), at })
-          from = at + term.length
-        }
-      }))
-      setResults(found.slice(0, 80))
-    } finally { setSearching(false) }
+      for (const h of corpus || []) {
+        if (!h.text?.toLowerCase().includes(term)) continue
+        const mod = moduleForChapterId[h.chapterId] || manifest.modules.find(m => m.title === h.chapter)
+        if (!mod) continue
+        const excerpt = `${h.section}: ${h.text}`.replace(/\s+/g, ' ').trim().slice(0, 300)
+        const key = `${mod.id}-${excerpt.slice(0, 48)}`
+        if (seen.has(key)) continue
+        seen.add(key)
+        found.push({ module: mod, excerpt })
+        if (found.length >= 60) break
+      }
+      setResults(found)
+      if (!found.length) setError('No matches in the search index — try another term or browse manuals below.')
+      setSearching(false)
+    }, 0)
   }
 
   const cleanText = useMemo(() => text.replace(/^---[\s\S]*?---\s*/, ''), [text])
@@ -168,7 +186,7 @@ export default function Manuals({ initialId }) {
 
       <form className="source-search" onSubmit={searchAll}>
         <Search size={20} />
-        <input id="manual-search" name="manual-search" aria-label="Search all original manuals" value={query} onChange={e => setQuery(e.target.value)} placeholder="Search all 22 manuals: diagnoses, doses, criteria…" />
+        <input id="manual-search" name="manual-search" aria-label="Search all original manuals" value={query} onChange={e => setQuery(e.target.value)} placeholder="Search 4,000+ indexed manual snippets: doses, criteria, diagnoses…" />
         <button className="btn" disabled={query.trim().length < 3 || searching}>{searching ? 'Searching…' : 'Search library'}</button>
       </form>
 

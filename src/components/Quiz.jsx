@@ -1,5 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import { shuffle, todayKey, bumpDaily } from '../lib/store'
+import { PageHeader } from './AppShell.jsx'
+import { gradable } from '../lib/questions'
 
 export default function Quiz({ guide, store, update, preset, onDone, questionPool }) {
   const allQ = useMemo(
@@ -67,10 +69,12 @@ export default function Quiz({ guide, store, update, preset, onDone, questionPoo
     onDone?.(res)
   }
 
+  const poolSize = gradable(allQ).length
+  const manualInPool = allQ.filter(q => q.source === 'manual' && q.correctIndex != null).length
+
   if (setup) return (
     <div style={{ maxWidth: 720, margin: '0 auto' }}>
-      <h1>Practice & Exam Simulator</h1>
-      <p className="muted">Keyboard: <strong>1–4</strong> answer · <strong>Enter</strong> check · <strong>←/→</strong> navigate · <strong>F</strong> flag. Pool includes the study guide Answer Key items plus slide questions mined from the course manuals. Exam mode mirrors AANP pacing (150 questions / 3 hours ≈ 72 seconds per question).</p>
+      <PageHeader eyebrow="Question bank" title="Practice & exam simulator" subtitle={`${poolSize} graded items (${manualInPool} from course-manual slides). Keyboard: 1–4 answer · Enter check · ←/→ navigate · F flag.`} />
       <div className="card">
         <p className="label">Mode</p>
         {[['practice', 'Practice — instant rationale after each question'], ['mixed', 'Mixed quiz — answers at the end'], ['exam', 'Timed exam simulator — 50 questions, 60 minutes, flag & review'], ['missed', 'Missed questions — only questions you have gotten wrong']].map(([v, l]) => (
@@ -91,7 +95,8 @@ export default function Quiz({ guide, store, update, preset, onDone, questionPoo
     const pct = result.graded ? Math.round(result.correct / result.graded * 100) : 0
     return (
       <div style={{ maxWidth: 720, margin: '0 auto' }}>
-        <h1>{pct >= 75 ? 'Board-ready pace 🎉' : pct >= 60 ? 'Getting close — keep drilling' : 'Keep going — review and retry'}</h1>
+        <h1>{pct >= 75 ? 'Board-ready pace' : pct >= 60 ? 'Close to passing range' : 'Review rationales and retry'}</h1>
+        <p className="muted" style={{ marginTop: -8 }}>{session.title || 'Practice session'} · {result.mode} mode</p>
         <div className="grid cols3">
           <div className="card"><p className="label">Score</p><p className="stat">{pct}%</p><p className="small muted">{result.correct}/{result.graded} graded correct</p></div>
           <div className="card"><p className="label">Time</p><p className="stat">{Math.floor(result.seconds / 60)}:{String(result.seconds % 60).padStart(2, '0')}</p><p className="small muted">{result.graded ? Math.round(result.seconds / result.graded) : 0}s per question (AANP pace: 72s)</p></div>
