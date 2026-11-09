@@ -10,11 +10,12 @@ import { Blocks } from './Reader.jsx'
  * in. Options are now printed, and the page shows a short-answer space for the
  * rationale rather than pretending this is a bubble sheet.
  */
-export default function ChapterPrintPacket({ chapter, module }) {
+export default function ChapterPrintPacket({ chapter, module, pearls: reviewedPearls = [] }) {
   const graded = chapter.questions.filter(q => q.correctIndex != null && q.options?.length >= 2)
   const practice = graded.slice(0, 12)
   const tables = module?.reference?.tables ?? []
-  const pearls = module?.pearls ?? []
+  // reviewed deck only; module.pearls is the old keyword extraction
+  const pearls = reviewedPearls.map(p => p.front || p)
 
   return (
     <div className="chapter-print-packet">

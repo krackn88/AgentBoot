@@ -131,7 +131,11 @@ def main() -> int:
                     section = line
             add(docs, ch["id"], title, section or title, line, "manual")
 
-    pearls = json.loads((DATA / "pearls.json").read_text())
+    # use the reviewed deck; pearls.json is the old keyword extraction full of
+    # slide artefacts and must not be indexed as content
+    clean_path = DATA / "pearls-clean.json"
+    pearl_bank = json.loads(clean_path.read_text()) if clean_path.exists() else {"pearls": []}
+    pearls = pearl_bank.get("pearls", [])
     chapter_titles = {c["id"]: (c.get("shortTitle") or c.get("title")) for c in guide["chapters"]}
     for p in pearls:
         cid = p.get("chapterId", "")

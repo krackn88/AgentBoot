@@ -121,6 +121,11 @@ export function StudyApp({ guide }) {
       .sort((a, b) => a.pct - b.pct)
   }, [chapters, store.answers])
   const milestoneStats = { doneCh, totalCh: chapters.length, answered, accuracy, mastered, streak, readiness }
+  const pearlsByChapter = useMemo(() => {
+    const m = {}
+    pearlCards.forEach(p => { if (p.chapterId) m[p.chapterId] = (m[p.chapterId] || 0) + 1 })
+    return m
+  }, [pearlCards])
   const stats = useMemo(
     () => contentStats({ guide, manualBank, pearls: pearlCards, questionPool }),
     [guide, manualBank, pearlCards, questionPool],
@@ -188,7 +193,7 @@ export function StudyApp({ guide }) {
               <ReadinessPanel model={readinessModel} onGo={go} />
               <ReadinessCertificate readiness={readiness} doneCh={doneCh} totalCh={chapters.length} accuracy={accuracy} streak={streak} examDate={store.examDate} />
               <SourceTrust guide={guide} manualBank={manualBank} totalQ={totalQ} guideQ={guideQCount} manualQ={manualQCount} />
-              <PlatformStats guide={guide} contentMeta={contentMeta} manualBank={manualBank} questionTotal={totalQ} />
+              <PlatformStats guide={guide} contentMeta={contentMeta} manualBank={manualBank} questionTotal={totalQ} pearlTotal={stats.pearlsTotal} />
               <OnboardingCard onGo={go} />
               <ReadinessReportCard guide={guide} store={store} readiness={readiness} doneCh={doneCh} totalCh={chapters.length} answered={answered} totalQ={totalQ} accuracy={accuracy} mastered={mastered} streak={streak} />
               <Milestones store={store} stats={milestoneStats} weeksComplete={weeksComplete} />
@@ -218,7 +223,7 @@ export function StudyApp({ guide }) {
                 </div>
               </div>
               <h2 style={{ marginTop: 28 }}>Chapters</h2>
-              <div className="card">{chapters.slice(0, 6).map(c => <ChapterRow key={c.id} c={c} store={store} contentMeta={contentMeta} onOpen={() => openChapter(c.id)} />)}
+              <div className="card">{chapters.slice(0, 6).map(c => <ChapterRow key={c.id} c={c} store={store} contentMeta={contentMeta} pearlCount={pearlsByChapter[c.id] || 0} onOpen={() => openChapter(c.id)} />)}
                 <button className="btn ghost" style={{ marginTop: 12 }} onClick={() => go('library')}>View all {chapters.length} chapters →</button></div>
             </div>
           )}
@@ -226,13 +231,13 @@ export function StudyApp({ guide }) {
           {view === 'library' && (
             <div>
               <PageHeader eyebrow="Study guide" title={`All ${chapters.length} chapters`} subtitle="Condensed guide plus Course manual depth and Clinical pearls tabs in each chapter — sourced from the full APEA manuals on your server." />
-              <div className="card">{chapters.map(c => <ChapterRow key={c.id} c={c} store={store} contentMeta={contentMeta} onOpen={() => openChapter(c.id)} />)}</div>
+              <div className="card">{chapters.map(c => <ChapterRow key={c.id} c={c} store={store} contentMeta={contentMeta} pearlCount={pearlsByChapter[c.id] || 0} onOpen={() => openChapter(c.id)} />)}</div>
             </div>
           )}
 
 
           {view === 'reader' && chapter && (
-            <Reader chapter={chapter} store={store} update={update} onBack={() => go('library')} onQuiz={openQuiz}
+            <Reader chapter={chapter} store={store} update={update} onBack={() => go('library')} onQuiz={openQuiz} pearlCards={pearlCards}
               onOpenManual={() => openManual(manualIdForChapter(chapter))}
               onNext={() => { const n = chapters[chapters.indexOf(chapter) + 1]; if (n) openChapter(n.id) }} />
           )}
@@ -325,7 +330,7 @@ function Blueprint({ guide }) {
   )
 }
 
-function ChapterRow({ c, store, onOpen, contentMeta }) {
+function ChapterRow({ c, store, onOpen, contentMeta, pearlCount }) {
   const done = !!store.completed[c.id]
   const depth = contentMeta?.chapters?.find(x => x.id === c.id)
   const graded = c.questions.filter(q => q.correctIndex != null && q.options?.length >= 2).length
@@ -334,7 +339,7 @@ function ChapterRow({ c, store, onOpen, contentMeta }) {
       <div className={`num ${done ? 'done' : ''}`}>{done ? '✓' : c.number}</div>
       <div style={{ flex: 1, cursor: 'pointer' }} onClick={onOpen}>
         <strong>{c.shortTitle}</strong>
-        <p className="small muted" style={{ margin: 2 }}>{c.sections.length} sections · ~{Math.max(1, Math.round(c.wordCount / 200))} min · {graded} Q{depth ? ` · ${depth.pearls} pearls · ${(depth.words / 1000).toFixed(1)}k manual depth` : ''} {store.bookmarks.includes(c.id) ? '· ★ saved' : ''}</p>
+        <p className="small muted" style={{ margin: 2 }}>{c.sections.length} sections · ~{Math.max(1, Math.round(c.wordCount / 200))} min · {graded} Q{pearlCount ? ` · ${pearlCount} pearls` : ''}{depth ? ` · ${depth.tables ?? 0} manual tables` : ''} {store.bookmarks.includes(c.id) ? '· ★ saved' : ''}</p>
       </div>
       <a className="pill" href={pdfUrlForChapter(c)} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}>PDF</a>
       <button className="btn ghost" onClick={onOpen}>Study →</button>
@@ -346,7 +351,7 @@ function AboutAccess({ totalQ, totalCards, chapters, store, update, guide, conte
   const [email, setEmail] = useState('')
   const [note, setNote] = useState('')
   const [joined, setJoined] = useState(false)
-  const pearls = contentMeta?.pearls_total ?? 0
+  const pearls = stats.pearlsTotal
   const pro = PLANS.pro
   const free = PLANS.free
 
@@ -382,7 +387,7 @@ function AboutAccess({ totalQ, totalCards, chapters, store, update, guide, conte
         </p>
       </div>
 
-      <PlatformStats guide={guide} contentMeta={contentMeta} manualBank={manualBank} questionTotal={totalQ} />
+      <PlatformStats guide={guide} contentMeta={contentMeta} manualBank={manualBank} questionTotal={totalQ} pearlTotal={stats.pearlsTotal} />
 
       <div className="grid cols2" style={{ marginTop: 16 }}>
         <div className="card">

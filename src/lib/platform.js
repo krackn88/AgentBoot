@@ -33,12 +33,14 @@ export function loadGuide() {
 
 export function loadPlatformBundle() {
   return Promise.all([
-    fetchJson('data/pearls.json', []),
+    fetchJson('data/pearls-clean.json', null),
     fetchJson('data/content-index.json', null),
     fetchJson('data/manual-questions.json', null),
     fetchJson('data/question-quality.json', null),
   ]).then(([pearlCards, contentMeta, manualBank, quality]) => ({
-    pearlCards,
+    // pearls-clean.json is the reviewed deck (whole, verifiable statements).
+    // pearls.json is the old keyword extraction, kept only as a fallback.
+    pearlCards: pearlCards?.pearls?.length ? pearlCards.pearls : [],
     contentMeta,
     manualBank: applyManualQuality(manualBank, quality),
     quality,

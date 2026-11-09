@@ -66,7 +66,7 @@ const rationales = read('rationale-upgrades.json')
 const professional = read('professional-questions.json')
 const guide = applyGuideQuality(guideRaw, quality, rationales, professional)
 const manualBank = read('manual-questions.json')
-const pearls = read('pearls.json')
+const pearls = read('pearls-clean.json').pearls
 
 let failures = 0
 const check = (name, fn) => {
@@ -138,6 +138,31 @@ check('completed-week counter reads the same keys the UI writes', () => {
   const done = Object.fromEntries(weeks[0].tasks.map(t => [t.key, true]))
   const n = countCompletedPathWeeks(weeks, done)
   if (n !== 1) throw new Error(`expected 1 completed week, got ${n}`)
+})
+
+console.log('\npearl deck')
+const pearlDeck = read('pearls-clean.json').pearls
+check('pearls deck is non-empty', () => {
+  if (!pearlDeck.length) throw new Error('no pearls')
+})
+check('no pearl carries slide artefacts', () => {
+  const bad = pearlDeck.filter(p =>
+    /•/.test(p.front) ||
+    /\s\$\s/.test(p.front) ||
+    /NOTES|CONTENT OVERVIEW|CHECK YOUR KNOWLEDGE|EXAM CHECKLIST|QUESTION\s*#/i.test(p.front) ||
+    /\bwhich of the following\b|\bselect all that apply\b/i.test(p.front),
+  )
+  if (bad.length) throw new Error(`${bad.length} artefacts, e.g. "${bad[0].front.slice(0, 80)}"`)
+})
+check('no pearl is a mangled cell fragment', () => {
+  // tables sliced by column geometry can leave words cut in half
+  const bad = pearlDeck.filter(p => /\b[a-z]{1,3}\s[A-Z][a-z]+\s*[:,]/.test(p.front) || /\b\w+\s\w{1,3}$/.test(p.front))
+  if (bad.length) throw new Error(`${bad.length} suspicious, e.g. "${bad[0].front.slice(0, 80)}"`)
+})
+check('every pearl has a real chapter', () => {
+  const ids = new Set(guide.chapters.map(c => c.id))
+  const bad = pearlDeck.filter(p => !ids.has(p.chapterId))
+  if (bad.length) throw new Error(`${bad.length} pearls point at unknown chapters`)
 })
 
 console.log('\nspaced repetition')

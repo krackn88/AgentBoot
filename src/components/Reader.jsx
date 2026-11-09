@@ -23,7 +23,7 @@ export function Blocks({ blocks }) {
   })
 }
 
-export default function Reader({ chapter, store, update, onBack, onQuiz, onNext, onOpenManual }) {
+export default function Reader({ chapter, store, update, onBack, onQuiz, onNext, onOpenManual, pearlCards = [] }) {
   const done = !!store.completed[chapter.id]
   const ref = useRef(null)
   const [progress, setProgress] = useState(0)
@@ -31,6 +31,7 @@ export default function Reader({ chapter, store, update, onBack, onQuiz, onNext,
   const [module, setModule] = useState(null)
   const [modErr, setModErr] = useState('')
   const [printingPacket, setPrintingPacket] = useState(false)
+  const chapterPearls = pearlCards.filter(p => p.chapterId === chapter.id)
 
   useEffect(() => { window.scrollTo(0, 0); setTab('guide') }, [chapter.id])
   useEffect(() => {
@@ -83,7 +84,7 @@ export default function Reader({ chapter, store, update, onBack, onQuiz, onNext,
       <div className="segmented reader-tabs no-print" role="tablist">
         <button type="button" role="tab" className={tab === 'guide' ? 'active' : ''} onClick={() => setTab('guide')}>Study guide</button>
         <button type="button" role="tab" className={tab === 'depth' ? 'active' : ''} onClick={() => setTab('depth')}>Course manual depth</button>
-        <button type="button" role="tab" className={tab === 'pearls' ? 'active' : ''} onClick={() => setTab('pearls')}>Clinical pearls ({module?.pearls?.length || '…'})</button>
+        <button type="button" role="tab" className={tab === 'pearls' ? 'active' : ''} onClick={() => setTab('pearls')}>Clinical pearls ({chapterPearls.length})</button>
       </div>
 
       {tab === 'guide' && (
@@ -102,10 +103,18 @@ export default function Reader({ chapter, store, update, onBack, onQuiz, onNext,
 
       {tab === 'pearls' && (
         <div className="pearls-panel">
-          <p className="muted">High-signal lines pulled from the manual — first-line therapy, dosing, criteria, referral triggers, and rules the exam loves.</p>
-          {!module?.pearls?.length && !modErr && <div className="skeleton-card">Loading pearls…</div>}
-          <div className="pearl-grid">{module?.pearls?.map((p, i) => (
-            <div key={i} className="pearl-card"><span className="pearl-num">{i + 1}</span><p>{p}</p></div>
+          <p className="muted">
+            Reviewed pearls for this chapter — whole statements with a number, threshold or first-line rule.
+            Every card is also drilled in the spaced-repetition deck.
+          </p>
+          {chapterPearls.length === 0 && (
+            <div className="card" style={{ marginTop: 12 }}>
+              No reviewed pearls for this chapter yet. The reference tables in <strong>Course manual depth</strong> carry
+              its highest-yield numbers, and the original PDF is one tap away.
+            </div>
+          )}
+          <div className="pearl-grid">{chapterPearls.map((p, i) => (
+            <div key={p.id || i} className="pearl-card"><span className="pearl-num">{i + 1}</span><p>{p.front || p}</p></div>
           ))}</div>
         </div>
       )}
@@ -116,7 +125,7 @@ export default function Reader({ chapter, store, update, onBack, onQuiz, onNext,
       </div>
       {(printingPacket || module) && (
         <div className="print-packet-root" aria-hidden={!printingPacket}>
-          <ChapterPrintPacket chapter={chapter} module={module} />
+          <ChapterPrintPacket chapter={chapter} module={module} pearls={chapterPearls} />
         </div>
       )}
     </div>

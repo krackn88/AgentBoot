@@ -485,7 +485,7 @@ def main():
                     "tag": ch["shortTitle"],
                 }
             )
-    (ROOT / "public/data/pearls.json").write_text(json.dumps(pearls_flat, ensure_ascii=False))
+    # pearls.json is retired: scripts/rebuild_pearls.py writes pearls-clean.json
     print(
         f"Wrote {OUT_DIR} ({len(index['chapters'])} modules), "
         f"pearls={index['pearls_total']}, search={len(snippets)} snippets, "
