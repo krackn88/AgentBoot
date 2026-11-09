@@ -1,19 +1,27 @@
 import React, { useMemo, useState } from 'react'
 import { ArrowLeft, Printer, PencilLine, Grid3x3, Stethoscope, NotebookPen, Eye, Check, X } from 'lucide-react'
 import { bumpDaily, shuffle } from '../lib/store'
+import { drillsFromTable, tableIsDrillable, topicPhrase, splitTopic, clozeFrom, pearlPrompt } from '../lib/drills'
 
-// Each table row becomes one recall prompt: show the row label + column header, hide the cell.
+/**
+ * Every drill exposes the same shape the card renders:
+ *   prompt - a question a clinician would actually ask
+ *   answer - the expected response (a string, or `items` for a list)
+ * Anything that cannot be phrased as a question is not surfaced.
+ */
 function tableDrills(chapter) {
   const out = []
-  chapter.sections.forEach(s => s.blocks.forEach((b, bi) => {
-    if (b.type !== 'table' || b.headers.length < 2) return
-    b.rows.forEach((r, ri) => {
-      if (!r[0]) return
-      for (let ci = 1; ci < r.length; ci++) {
-        const cell = (r[ci] || '').trim()
-        if (!cell || cell === '—' || cell === '-' || cell.length > 260) continue
-        out.push({ id: `${s.id}-t${bi}-r${ri}-c${ci}`, section: s.title, row: r[0], column: b.headers[ci] || `Column ${ci + 1}`, answer: cell, table: b })
-      }
+  chapter.sections.forEach(s => (s.blocks || []).forEach((b, bi) => {
+    if (b.type !== 'table' || !tableIsDrillable(b)) return
+    drillsFromTable(b, { section: s.title, tableKey: `${s.id}-t${bi}` }).forEach(d => {
+      out.push({
+        id: d.id,
+        section: s.title,
+        prompt: d.prompt,
+        answer: d.answer,
+        kind: 'table',
+        table: b,
+      })
     })
   }))
   return out
@@ -38,12 +46,11 @@ function chapterTables(chapter) {
  */
 function listDrills(chapter, pdfLists = []) {
   return pdfLists
-    .filter(l => l.chapterId === chapter.id)
+    .filter(l => l.chapterId === chapter.id && l.items?.length >= 3 && l.prompt)
     .map(l => ({
       id: l.id,
       section: l.section || chapter.shortTitle,
-      row: l.prompt,
-      column: `Recall all ${l.items.length} items`,
+      prompt: l.prompt,
       answer: l.items.map((it, i) => `${i + 1}. ${it}`).join('\n'),
       kind: 'list',
       items: l.items,
@@ -58,16 +65,23 @@ export function workbookStats(guide, store) {
   return { total, done }
 }
 
+/**
+ * Pearl drills: turn each pearl into a question rather than showing it to reveal
+ * itself. The pearl is a statement about a topic, so the prompt names the topic and
+ * the answer is the statement.
+ */
 function pearlDrillsForChapter(chapter, pearlCards = []) {
-  return pearlCards.filter(p => p.chapterId === chapter.id).map((p, i) => ({
-    id: p.id,
-    section: 'Clinical pearl',
-    row: 'Recall this board pearl',
-    column: p.front.slice(0, 140) + (p.front.length > 140 ? '…' : ''),
-    answer: p.front,
-    table: { headers: ['Pearl'], rows: [[p.front]] },
-    pearl: true,
-  }))
+  return pearlCards
+    .filter(p => p.chapterId === chapter.id && p.front && p.front.length > 30)
+    .flatMap(p => {
+      const text = p.front.trim()
+      const { topic } = splitTopic(text)
+      const base = { id: p.id, section: p.tag || 'Clinical pearl', kind: 'pearl' }
+      if (topic) return [{ ...base, prompt: pearlPrompt(topic), answer: text }]
+      const cloze = clozeFrom(text)
+      if (!cloze) return []
+      return [{ ...base, prompt: cloze.prompt, answer: `${cloze.answer} — ${cloze.full}` }]
+    })
 }
 
 export default function Workbook({ guide, store, update, pearlCards = [], pdfLists = [] }) {
@@ -164,25 +178,46 @@ export function ChapterWorkbook({ chapter, store, update, pearlCards, pdfLists =
         <button type="button" className={tab === 'print' ? 'active' : ''} onClick={() => setTab('print')}><PencilLine size={16} /> Worksheet</button>
       </div>
 
-      {tab === 'drills' && current && (
+      {tab === 'drills' && active && (
         <div className="drill-card card">
-          <p className="label">{active.section} · drill {(pos % order.length) + 1} of {order.length} · {remaining.length} not yet attempted</p>
-          <p className="drill-row">{active.row}</p>
-          <p className="drill-col">{active.column}?</p>
-          {!shown ? <>
-            <textarea className="drill-input" value={typed} onChange={e => setTyped(e.target.value)} placeholder="Type your answer from memory, then reveal…" rows={2}
-              onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); setShown(true) } }} />
-            <button className="btn" onClick={() => setShown(true)}><Eye size={16} /> Reveal answer</button>
-          </> : <>
-            {typed && <p className="small muted">Your answer: <em>{typed}</em></p>}
-            {active.kind === 'list'
-              ? <ol className="drill-list">{active.items.map((it, k) => <li key={k}>{it}</li>)}</ol>
-              : <div className="drill-answer">{active.answer}</div>}
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-              <button className="btn ghost" onClick={() => rate(false)}><X size={16} /> Missed it</button>
-              <button className="btn" onClick={() => rate(true)}><Check size={16} /> Got it</button>
-            </div>
-          </>}
+          <p className="label">
+            {active.section} · drill {(pos % order.length) + 1} of {order.length}
+            {remaining.length > 0 && ` · ${remaining.length} not yet attempted`}
+          </p>
+          <p className="drill-question">{active.prompt}</p>
+          {active.kind === 'list' && (
+            <p className="drill-cue">Recall all {active.items.length} items.</p>
+          )}
+          {!shown ? (
+            <>
+              <textarea
+                className="drill-input"
+                value={typed}
+                onChange={e => setTyped(e.target.value)}
+                placeholder="Answer from memory, then reveal…"
+                rows={active.kind === 'list' ? 4 : 3}
+                onKeyDown={e => {
+                  if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault()
+                    setShown(true)
+                  }
+                }}
+              />
+              <button className="btn" onClick={() => setShown(true)}><Eye size={16} /> Reveal answer</button>
+            </>
+          ) : (
+            <>
+              {typed && <p className="small muted">Your answer: <em>{typed}</em></p>}
+              <p className="drill-answer-label">Answer</p>
+              {active.kind === 'list'
+                ? <ol className="drill-list">{active.items.map((it, k) => <li key={k}>{it}</li>)}</ol>
+                : <div className="drill-answer">{active.answer}</div>}
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                <button className="btn ghost" onClick={() => rate(false)}><X size={16} /> Missed it</button>
+                <button className="btn" onClick={() => rate(true)}><Check size={16} /> Got it</button>
+              </div>
+            </>
+          )}
           <div className="drill-foot">
             <button className="linkbtn" onClick={() => { setOrder(shuffle(drills.map((_, i) => i))); setPos(0); setShown(false); setTyped('') }}>Shuffle</button>
             <button className="linkbtn" onClick={() => { const missed = drills.map((d, i) => results[d.id] === false ? i : -1).filter(i => i >= 0); if (missed.length) { setOrder(missed); setPos(0); setShown(false) } }}>Drill only missed ({Object.values(results).filter(v => v === false).length})</button>

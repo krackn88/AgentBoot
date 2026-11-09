@@ -3,34 +3,61 @@ import { shuffle, bumpDaily } from '../lib/store'
 import { PageHeader } from './AppShell.jsx'
 import { GRADES, deckStats, dueCards, splitDue, forecast, isDue, isNew, schedule } from '../lib/srs'
 import { isUniqueGraded } from '../lib/quality'
+import { drillsFromTable, tableIsDrillable, topicPhrase, splitTopic, answerWithWhy, clozeFrom, pearlPrompt } from '../lib/drills'
 
 const MASTERED_INTERVAL = 21
 
 export function buildDecks(guide, store, pearlCards = [], questionPool = null) {
+  // Table cards use the same question generator as the workbook, so a card front is
+  // a real question ("In hives, what is the itch like?") rather than a bare cell
+  // ("Live vaccines") that tells the student nothing about what is being asked.
+  const drillCards = (table, node, prefix, tag) => {
+    if (!tableIsDrillable(table)) return []
+    return drillsFromTable(table, { section: tag, tableKey: prefix }).map(d => ({
+      id: `${prefix}-${d.id}`,
+      front: d.prompt,
+      back: d.answer,
+      tag,
+    }))
+  }
+
   const high = []
-  const walk = (node) => (node?.sections || []).forEach(s => s.blocks.forEach(b => {
-    if (b.type === 'table') b.rows.forEach(r => { if (r[0] && r[1]) high.push({ id: 'hy-' + high.length, front: r[0], back: r.slice(1).join(' — '), tag: s.title }) })
+  ;(guide.quickRef?.sections || []).forEach(s => (s.blocks || []).forEach((b, bi) => {
+    if (b.type === 'table') high.push(...drillCards(b, s, `hy${bi}`, s.title))
   }))
-  walk(guide.quickRef)
   const labs = []
   const ch1 = guide.chapters[0]
-  ch1?.sections.filter(s => /labs/i.test(s.title)).forEach(s => s.blocks.forEach(b => {
-    if (b.type === 'table') b.rows.forEach(r => { if (r[0] && r[1]) labs.push({ id: 'lab-' + labs.length, front: r[0], back: r.slice(1).join(' — '), tag: 'Labs to commit to memory' }) })
+  ;(ch1?.sections || []).filter(s => /labs/i.test(s.title)).forEach(s => (s.blocks || []).forEach((b, bi) => {
+    if (b.type === 'table') labs.push(...drillCards(b, s, `lab${bi}`, 'Labs to commit to memory'))
   }))
+
   const pool = questionPool || guide.chapters.flatMap(c => c.questions.map(q => ({ ...q, chapterTitle: c.shortTitle })))
   const qs = pool.filter(isUniqueGraded)
     .map(q => ({
       id: 'q-' + q.id,
       front: q.stem,
-      back: `${q.options[q.correctIndex]} — ${q.explanation || ''}`,
+      back: answerWithWhy(q.options[q.correctIndex], q.explanation),
       tag: q.chapterTitle || q.chapterId,
       anchor: q.anchor,
     }))
   const missed = qs.filter(c => store.answers[c.id.slice(2)] && !store.answers[c.id.slice(2)].correct)
-  const pearls = pearlCards.map(c => ({ id: c.id, front: c.front, back: c.back, tag: c.tag }))
+  // High-yield cards already cover the must-know rule table. A pearl whose text is
+  // the same rule would ask the identical question in a second deck, so only
+  // pearls that add something (tips, rationales) become pearl cards.
+  const covered = new Set(high.map(c => (c.back || '').toLowerCase().replace(/[^a-z0-9]+/g, '')))
+  const pearls = pearlCards.flatMap(c => {
+    const { topic, detail } = splitTopic(c.front)
+    if (topic) {
+      if (covered.has((detail || '').toLowerCase().replace(/[^a-z0-9]+/g, ''))) return []
+      return [{ id: c.id, front: pearlPrompt(topic), back: detail, tag: c.tag || 'Clinical pearl' }]
+    }
+    const cloze = clozeFrom(c.front)
+    if (!cloze) return []
+    return [{ id: c.id, front: cloze.prompt, back: `${cloze.answer} — ${cloze.full}`, tag: c.tag || 'Clinical pearl' }]
+  })
 
   return {
-    due: { label: 'Due today', cards: [] }, // filled by caller with the cross-deck queue
+    due: { label: 'Due today', cards: [] },
     highyield: { label: `High-yield tables (${high.length})`, cards: high },
     labs: { label: `Labs to commit (${labs.length})`, cards: labs },
     questions: { label: `Question cards (${qs.length})`, cards: qs },
