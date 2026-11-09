@@ -1,0 +1,559 @@
+{
+ "meta": {
+  "enriched": 76,
+  "note": "Rationales extended with verbatim supporting sentences from the course manuals."
+ },
+ "questions": {
+  "antibiotics-q2": {
+   "explanation": "Amoxicillin in the past month raises the odds of a beta-lactamase producer. The patient was treated with amoxicillin last month.",
+   "support": [
+    "The patient was treated with amoxicillin last month."
+   ],
+   "chapterId": "antibiotics"
+  },
+  "pulmonary-disorders-q8": {
+   "explanation": "PCV (20/21) is now recommended for all adults \u226550. The PCV21 is recommended at age 50 for immunocompetent patients.",
+   "support": [
+    "The PCV21 is recommended at age 50 for immunocompetent patients."
+   ],
+   "chapterId": "pulmonary-disorders"
+  },
+  "pulmonary-disorders-q12": {
+   "explanation": "MART: budesonide/formoterol as maintenance and reliever. They use low-dose formoterol/budesonide BID and PRN.",
+   "support": [
+    "They use low-dose formoterol/budesonide BID and PRN."
+   ],
+   "chapterId": "pulmonary-disorders"
+  },
+  "hematology-q2": {
+   "explanation": "Iron deficiency. A common side effect of iron supplementation is diarrhea.",
+   "support": [
+    "A common side effect of iron supplementation is diarrhea."
+   ],
+   "chapterId": "hematology"
+  },
+  "hematology-q5": {
+   "explanation": "IV iron may be needed after bariatric surgery (malabsorption). IV iron may be necessary for patients who have a history of bariatric surgery.",
+   "support": [
+    "IV iron may be necessary for patients who have a history of bariatric surgery."
+   ],
+   "chapterId": "hematology"
+  },
+  "hematology-q6": {
+   "explanation": "Iron deficiency persists unless the bleeding is addressed. Iron deficiency may persist if AUB is not addressed.",
+   "support": [
+    "Iron deficiency may persist if AUB is not addressed."
+   ],
+   "chapterId": "hematology"
+  },
+  "neurologic-disorders-q1": {
+   "explanation": "Inability to walk or keep balance means central vertigo. The patient is unable to maintain balance while walking.",
+   "support": [
+    "The patient is unable to maintain balance while walking."
+   ],
+   "chapterId": "neurologic-disorders"
+  },
+  "neurologic-disorders-q4": {
+   "explanation": "Complete a stepwise return-to-play without recurrent symptoms. The patient is advised to return to full activity: 1.",
+   "support": [
+    "The patient is advised to return to full activity: 1."
+   ],
+   "chapterId": "neurologic-disorders"
+  },
+  "neurologic-disorders-q13": {
+   "explanation": "Delirium is acute, not 3 months progressive. Delirium and other mental disorders (depression, schizophrenia, etc.) have been excluded Domains of Cognition Learning and Language Executive Complex Perceptual Social Cognition Memory Function Attention Motor Skills Diagnosis: Probable Alzheimer Disease (AD) Agreement between history and mental exam is highly suggestive of Alzheimer dementia.",
+   "support": [
+    "Delirium and other mental disorders (depression, schizophrenia, etc.) have been excluded Domains of Cognition Learning and Language Executive Complex Perceptual Social Cognition Memory Function Attention Motor Skills Diagnosis: Probable Alzheimer Disease (AD) Agreement between history and mental exam is highly suggestive of Alzheimer dementia."
+   ],
+   "chapterId": "neurologic-disorders"
+  },
+  "mental-health-in-primary-care-q1": {
+   "explanation": "Screen with the PHQ-9 (labs follow as indicated). Q is a 70-year-old female who reports foggy thoughts, difficulty concentrating, and poor appetite. She says, \u201cI have no energy to be around people\u201d and is no longer socializing with friends.",
+   "support": [
+    "Q is a 70-year-old female who reports foggy thoughts, difficulty concentrating, and poor appetite.",
+    "She says, \u201cI have no energy to be around people\u201d and is no longer socializing with friends."
+   ],
+   "chapterId": "mental-health-in-primary-care"
+  },
+  "mental-health-in-primary-care-q5": {
+   "explanation": "Continue at least 6 months after remission (first episode). Medication is recommended for at least 6 months after remission is achieved.",
+   "support": [
+    "Medication is recommended for at least 6 months after remission is achieved."
+   ],
+   "chapterId": "mental-health-in-primary-care"
+  },
+  "mental-health-in-primary-care-q8": {
+   "explanation": "Trauma-focused psychotherapy. The NP understands the first line treatment for PTSD is: 1.",
+   "support": [
+    "The NP understands the first line treatment for PTSD is: 1."
+   ],
+   "chapterId": "mental-health-in-primary-care"
+  },
+  "gastrointestinal-disorders-q4": {
+   "explanation": "Appendicitis (Markle/heel-drop sign). A 50-year-old who is vegetarian and has tenesmus pain and fever for 3 days 4.",
+   "support": [
+    "A 50-year-old who is vegetarian and has tenesmus pain and fever for 3 days 4."
+   ],
+   "chapterId": "gastrointestinal-disorders"
+  },
+  "gastrointestinal-disorders-q6": {
+   "explanation": "No alarm features: 8 weeks of a PPI. Her GERD symptoms have resolved during 8 weeks of therapy.",
+   "support": [
+    "Her GERD symptoms have resolved during 8 weeks of therapy."
+   ],
+   "chapterId": "gastrointestinal-disorders"
+  },
+  "urology-and-sexually-transmitted-infections-q2": {
+   "explanation": "A UTI in a man is complicated: culture. A 60-year-old male who has benign prostatic hypertrophy 3.",
+   "support": [
+    "A 60-year-old male who has benign prostatic hypertrophy 3."
+   ],
+   "chapterId": "urology-and-sexually-transmitted-infections"
+  },
+  "urology-and-sexually-transmitted-infections-q4": {
+   "explanation": "RBC casts mean glomerulonephritis: urgent nephrology. A urinalysis is positive for blood, protein, and RBC casts.",
+   "support": [
+    "A urinalysis is positive for blood, protein, and RBC casts."
+   ],
+   "chapterId": "urology-and-sexually-transmitted-infections"
+  },
+  "urology-and-sexually-transmitted-infections-q7": {
+   "explanation": "\u2020 Test for STIs (NAAT). Treat empirically if follow-up is uncertain. If the patient was exposed to HSV-2 but the serology IgG is negative, repeat the test in 12 weeks.",
+   "support": [
+    "If the patient was exposed to HSV-2 but the serology IgG is negative, repeat the test in 12 weeks."
+   ],
+   "chapterId": "urology-and-sexually-transmitted-infections"
+  },
+  "urology-and-sexually-transmitted-infections-q10": {
+   "explanation": "Early PID can be subtle (dyspareunia, AUB). PID may present with dyspareunia, menorrhagia, or abnormal uterine bleeding.",
+   "support": [
+    "PID may present with dyspareunia, menorrhagia, or abnormal uterine bleeding."
+   ],
+   "chapterId": "urology-and-sexually-transmitted-infections"
+  },
+  "cardiovascular-and-peripheral-vascular-disorders-q14": {
+   "explanation": "Mitral valve prolapse. On examination, a midsystolic click is heard at the apex.",
+   "support": [
+    "On examination, a midsystolic click is heard at the apex."
+   ],
+   "chapterId": "cardiovascular-and-peripheral-vascular-disorders"
+  },
+  "cardiovascular-and-peripheral-vascular-disorders-q15": {
+   "explanation": "Angina with a systolic murmur. Systolic murmur with wide fixed split S2, LSB, second ICS Aortic Regurgitation Use APEA\u2019s three easy steps. Systolic murmur: Sound occurs at the same time the carotid pulse is felt.",
+   "support": [
+    "Systolic murmur with wide fixed split S2, LSB, second ICS Aortic Regurgitation Use APEA\u2019s three easy steps.",
+    "Systolic murmur: Sound occurs at the same time the carotid pulse is felt."
+   ],
+   "chapterId": "cardiovascular-and-peripheral-vascular-disorders"
+  },
+  "cardiovascular-and-peripheral-vascular-disorders-q16": {
+   "explanation": "Diastolic murmur at the 2nd right ICS / left sternal border. Diastolic murmur: Sound occurs between carotid pulses. A harsh diastolic murmur heard best at the third ICS, associated with a thrill 2.",
+   "support": [
+    "Diastolic murmur: Sound occurs between carotid pulses.",
+    "A harsh diastolic murmur heard best at the third ICS, associated with a thrill 2."
+   ],
+   "chapterId": "cardiovascular-and-peripheral-vascular-disorders"
+  },
+  "endocrine-disorders-q2": {
+   "explanation": "Advanced CVD with frequent hypoglycemia: relax the goal. A patient with advanced CVD who has frequent episodes of hypoglycemia 3.",
+   "support": [
+    "A patient with advanced CVD who has frequent episodes of hypoglycemia 3."
+   ],
+   "chapterId": "endocrine-disorders"
+  },
+  "endocrine-disorders-q3": {
+   "explanation": "Acanthosis nigricans (insulin resistance). Check A1c or FPG and lipids. A velvety discoloration is noted around the patient\u2019s neck.",
+   "support": [
+    "A velvety discoloration is noted around the patient\u2019s neck."
+   ],
+   "chapterId": "endocrine-disorders"
+  },
+  "endocrine-disorders-q7": {
+   "explanation": "Weight returns after stopping. Patients who lose weight on GLP-1 agonists may regain weight if they stop the medication.",
+   "support": [
+    "Patients who lose weight on GLP-1 agonists may regain weight if they stop the medication."
+   ],
+   "chapterId": "endocrine-disorders"
+  },
+  "endocrine-disorders-q9": {
+   "explanation": "Add basal insulin to the current regimen. A medically complex patient whose HbA1c is stable at 6.9% on the current regimen 4. When to Consider Basal Insulin Early use can preserve pancreatic function.",
+   "support": [
+    "A medically complex patient whose HbA1c is stable at 6.9% on the current regimen 4.",
+    "When to Consider Basal Insulin \u2022 Early use can preserve pancreatic function."
+   ],
+   "chapterId": "endocrine-disorders"
+  },
+  "endocrine-disorders-q11": {
+   "explanation": "4 units of rapid-acting insulin with the largest meal. If hypoglycemia, Increase meal-time insulin dose by 1 to 2 units 2 reduce by 10\u2013 times/week until postprandial glucoses are in 20%.",
+   "support": [
+    "If hypoglycemia, Increase meal-time insulin dose by 1 to 2 units 2 reduce by 10\u2013 times/week until postprandial glucoses are in 20%."
+   ],
+   "chapterId": "endocrine-disorders"
+  },
+  "endocrine-disorders-q12": {
+   "explanation": "Subclinical hypothyroidism: repeat TSH in 6\u201312 months. Thyroid State TSH Free T4 T3 Euthyroid Normal Normal Normal Primary hyperthyroidism Decreased Increased/Normal Increased Subclinical hyperthyroidism Decreased Normal Normal Secondary hyperthyroidism Normal/Increased Increased Increased TIP: Nonspecific beta-blockers (e.g., propranolol) may be prescribed for symptom management while awaiting endocrinology referral.",
+   "support": [
+    "Thyroid State TSH Free T4 T3 Euthyroid Normal Normal Normal Primary hyperthyroidism Decreased Increased/Normal Increased Subclinical hyperthyroidism Decreased Normal Normal Secondary hyperthyroidism Normal/Increased Increased Increased TIP: Nonspecific beta-blockers (e.g., propranolol) may be prescribed for symptom management while awaiting endocrinology referral."
+   ],
+   "chapterId": "endocrine-disorders"
+  },
+  "endocrine-disorders-q15": {
+   "explanation": "TSH is still high: increase the dose and recheck in 4\u20136 weeks. If hypoglycemia, Increase meal-time insulin dose by 1 to 2 units 2 reduce by 10\u2013 times/week until postprandial glucoses are in 20%.",
+   "support": [
+    "If hypoglycemia, Increase meal-time insulin dose by 1 to 2 units 2 reduce by 10\u2013 times/week until postprandial glucoses are in 20%."
+   ],
+   "chapterId": "endocrine-disorders"
+  },
+  "women-s-health-q2": {
+   "explanation": "Secondary dysmenorrhea suggests a structural cause. Symptoms suggest that there may be an underlying structural problem.",
+   "support": [
+    "Symptoms suggest that there may be an underlying structural problem."
+   ],
+   "chapterId": "women-s-health"
+  },
+  "women-s-health-q4": {
+   "explanation": "IUDs are fine with a nulliparous cervix. An IUD can be used if the patient has a nulliparous cervix.",
+   "support": [
+    "An IUD can be used if the patient has a nulliparous cervix."
+   ],
+   "chapterId": "women-s-health"
+  },
+  "women-s-health-q6": {
+   "explanation": "Recurrent candidiasis: screen for diabetes and immunocompromise. The patient should be screened for immunocompromising conditions. This is the patient\u2019s third episode of candidiasis in 4 months.",
+   "support": [
+    "The patient should be screened for immunocompromising conditions.",
+    "This is the patient\u2019s third episode of candidiasis in 4 months."
+   ],
+   "chapterId": "women-s-health"
+  },
+  "men-s-health-q9": {
+   "explanation": "Epididymitis: gradual onset, prolonged sitting. Symptoms began yesterday after a 12-hour shift and have gradually increased.",
+   "support": [
+    "Symptoms began yesterday after a 12-hour shift and have gradually increased."
+   ],
+   "chapterId": "men-s-health"
+  },
+  "men-s-health-q10": {
+   "explanation": "Suspected torsion: TWIST score, then the ED. On examination, the right testicle is very tender, hard, and swollen with a negative cremasteric reflex.",
+   "support": [
+    "On examination, the right testicle is very tender, hard, and swollen with a negative cremasteric reflex."
+   ],
+   "chapterId": "men-s-health"
+  },
+  "men-s-health-q11": {
+   "explanation": "Hernia repair. Surgical repair should be deferred unless the hernia entrapped.",
+   "support": [
+    "Surgical repair should be deferred unless the hernia entrapped."
+   ],
+   "chapterId": "men-s-health"
+  },
+  "men-s-health-q12": {
+   "explanation": "Reducible inguinal hernia. There is a small \u201clump\u201d in his groin that disappears when he lies supine.",
+   "support": [
+    "There is a small \u201clump\u201d in his groin that disappears when he lies supine."
+   ],
+   "chapterId": "men-s-health"
+  },
+  "men-s-health-q13": {
+   "explanation": "Refer to a general surgeon. The patient should be referred to general surgeon.",
+   "support": [
+    "The patient should be referred to general surgeon."
+   ],
+   "chapterId": "men-s-health"
+  },
+  "orthopedic-disorders-q4": {
+   "explanation": "Supraspinatus tendinitis. A positive empty can test is elicited by the NP.",
+   "support": [
+    "A positive empty can test is elicited by the NP."
+   ],
+   "chapterId": "orthopedic-disorders"
+  },
+  "orthopedic-disorders-q7": {
+   "explanation": "Supportive treatment (no Ottawa criteria met). There is diffuse tenderness and mild swelling of the knee. The patient is able to ambulate in the office with minimal difficulty.",
+   "support": [
+    "There is diffuse tenderness and mild swelling of the knee.",
+    "The patient is able to ambulate in the office with minimal difficulty."
+   ],
+   "chapterId": "orthopedic-disorders"
+  },
+  "orthopedic-disorders-q8": {
+   "explanation": "Unable to bear weight for 4 steps. According to the Ottawa Ankle Rules, a radiograph is indicated if the patient: 1.",
+   "support": [
+    "According to the Ottawa Ankle Rules, a radiograph is indicated if the patient: 1."
+   ],
+   "chapterId": "orthopedic-disorders"
+  },
+  "orthopedic-disorders-q9": {
+   "explanation": "Allopurinol plus anti-inflammatory prophylaxis. In addition to lifestyle modifications, the best management plan is to prescribe: 1.",
+   "support": [
+    "In addition to lifestyle modifications, the best management plan is to prescribe: 1."
+   ],
+   "chapterId": "orthopedic-disorders"
+  },
+  "dermatology-q3": {
+   "explanation": "Beta-hemolytic strep (cellulitis) The margins are poorly circumscribed and the area is warm and tender to palpation.",
+   "support": [
+    "The margins are poorly circumscribed and the area is warm and tender to palpation."
+   ],
+   "chapterId": "dermatology"
+  },
+  "dermatology-q10": {
+   "explanation": "Cellulitis The lesion is located on the trunk and has an area of central clearing.",
+   "support": [
+    "The lesion is located on the trunk and has an area of central clearing."
+   ],
+   "chapterId": "dermatology"
+  },
+  "dermatology-q12": {
+   "explanation": "Herpes zoster Vaccine can be given upon resolution of acute episode of herpes zoster.",
+   "support": [
+    "Vaccine can be given upon resolution of acute episode of herpes zoster."
+   ],
+   "chapterId": "dermatology"
+  },
+  "dermatology-q13": {
+   "explanation": "After the episode resolves Vaccine can be given upon resolution of acute episode of herpes zoster. The patient asks when they can receive the shingles vaccine.",
+   "support": [
+    "Vaccine can be given upon resolution of acute episode of herpes zoster.",
+    "The patient asks when they can receive the shingles vaccine."
+   ],
+   "chapterId": "dermatology"
+  },
+  "eye-ear-nose-and-throat-eent-q1": {
+   "explanation": "\"Double-sickening\" Symptoms are improving, then suddenly become severe again.",
+   "support": [
+    "Symptoms are improving, then suddenly become severe again."
+   ],
+   "chapterId": "eye-ear-nose-and-throat-eent"
+  },
+  "eye-ear-nose-and-throat-eent-q3": {
+   "explanation": "Suicidal thoughts The NP should advise the caregiver to monitor for serious side effects including: 1.",
+   "support": [
+    "The NP should advise the caregiver to monitor for serious side effects including: 1."
+   ],
+   "chapterId": "eye-ear-nose-and-throat-eent"
+  },
+  "eye-ear-nose-and-throat-eent-q8": {
+   "explanation": "Intermittent jaw/cheek pain differential includes all four listed diagnoses. Dental infection TIP: Consider dental etiology when patient is present with facial/jaw pain.",
+   "support": [
+    "Dental infection TIP: Consider dental etiology when patient is present with facial/jaw pain."
+   ],
+   "chapterId": "eye-ear-nose-and-throat-eent"
+  },
+  "eye-ear-nose-and-throat-eent-q10": {
+   "explanation": "Isolation and cognitive decline Hearing loss can lead to understimulation, isolation, and potential cognitive decline.",
+   "support": [
+    "Hearing loss can lead to understimulation, isolation, and potential cognitive decline."
+   ],
+   "chapterId": "eye-ear-nose-and-throat-eent"
+  },
+  "eye-ear-nose-and-throat-eent-q11": {
+   "explanation": "Hearing loss may become permanent Hearing loss can lead to understimulation, isolation, and potential cognitive decline.",
+   "support": [
+    "Hearing loss can lead to understimulation, isolation, and potential cognitive decline."
+   ],
+   "chapterId": "eye-ear-nose-and-throat-eent"
+  },
+  "eye-ear-nose-and-throat-eent-q12": {
+   "explanation": "Chalazion There is no conjunctival drainage or injection.",
+   "support": [
+    "There is no conjunctival drainage or injection."
+   ],
+   "chapterId": "eye-ear-nose-and-throat-eent"
+  },
+  "care-of-the-aging-adult-q2": {
+   "explanation": "Goals of care Assessing Goals of Care Consider goals of care to be part of your assessment, especially in older adults. Goals of Care Often, the goal is to alleviate suffering.",
+   "support": [
+    "Assessing Goals of Care \u2022 Consider goals of care to be part of your assessment, especially in older adults.",
+    "Goals of Care \u2022 Often, the goal is to alleviate suffering."
+   ],
+   "chapterId": "care-of-the-aging-adult"
+  },
+  "care-of-the-aging-adult-q12": {
+   "explanation": "Life expectancy <6 months Patients must have a life expectancy of less than 6 months to qualify for hospice.",
+   "support": [
+    "Patients must have a life expectancy of less than 6 months to qualify for hospice."
+   ],
+   "chapterId": "care-of-the-aging-adult"
+  },
+  "care-of-the-aging-adult-q13": {
+   "explanation": "Assess capacity Assess the patient to determine if the concerns are valid.",
+   "support": [
+    "Assess the patient to determine if the concerns are valid."
+   ],
+   "chapterId": "care-of-the-aging-adult"
+  },
+  "care-of-the-aging-adult-q15": {
+   "explanation": "Integrity vs. despair The NP understands the patient has reached Erikson\u2019s appropriate stage of psychosocial development if the patient: 1.",
+   "support": [
+    "The NP understands the patient has reached Erikson\u2019s appropriate stage of psychosocial development if the patient: 1."
+   ],
+   "chapterId": "care-of-the-aging-adult"
+  },
+  "pregnancy-in-primary-care-q1": {
+   "explanation": "NTD risk We need to determine your level of risk for neural tube defects.",
+   "support": [
+    "We need to determine your level of risk for neural tube defects."
+   ],
+   "chapterId": "pregnancy-in-primary-care"
+  },
+  "pregnancy-in-primary-care-q2": {
+   "explanation": "Gastric bypass We need to determine your level of risk for neural tube defects.",
+   "support": [
+    "We need to determine your level of risk for neural tube defects."
+   ],
+   "chapterId": "pregnancy-in-primary-care"
+  },
+  "pregnancy-in-primary-care-q5": {
+   "explanation": "3-hour GTT One unequivocal abnormal reading on the 3-hour OGTT indicates gestational diabetes.",
+   "support": [
+    "One unequivocal abnormal reading on the 3-hour OGTT indicates gestational diabetes."
+   ],
+   "chapterId": "pregnancy-in-primary-care"
+  },
+  "pregnancy-in-primary-care-q6": {
+   "explanation": "Onset at 5 weeks, resolving by 12 New-onset diabetes diagnosed in the first trimester of pregnancy is considered gestational diabetes.",
+   "support": [
+    "New-onset diabetes diagnosed in the first trimester of pregnancy is considered gestational diabetes."
+   ],
+   "chapterId": "pregnancy-in-primary-care"
+  },
+  "pregnancy-in-primary-care-q12": {
+   "explanation": "Fosfomycin Fosfomycin is efficacious and a good first choice in the first trimester.",
+   "support": [
+    "Fosfomycin is efficacious and a good first choice in the first trimester."
+   ],
+   "chapterId": "pregnancy-in-primary-care"
+  },
+  "pregnancy-in-primary-care-q14": {
+   "explanation": "Buprenorphine Buprenorphine can be initiated for opioid use disorder during pregnancy. Infection Precautions During Pregnancy Avoid febrile illnesses/contagious diseases.",
+   "support": [
+    "Buprenorphine can be initiated for opioid use disorder during pregnancy.",
+    "Infection Precautions During Pregnancy \u2022 Avoid febrile illnesses/contagious diseases."
+   ],
+   "chapterId": "pregnancy-in-primary-care"
+  },
+  "pregnancy-in-primary-care-q16": {
+   "explanation": "Screening in the 2nd trimester (24\u201328 weeks) Screening should be conducted in the second trimester. New-onset diabetes diagnosed in the first trimester of pregnancy is considered gestational diabetes.",
+   "support": [
+    "Screening should be conducted in the second trimester.",
+    "New-onset diabetes diagnosed in the first trimester of pregnancy is considered gestational diabetes."
+   ],
+   "chapterId": "pregnancy-in-primary-care"
+  },
+  "pediatrics-q1": {
+   "explanation": "Same day or 4 weeks apart Live vaccines should be given same day or 4 weeks apart. Live vaccines should not be given simultaneously.",
+   "support": [
+    "Live vaccines should be given same day or 4 weeks apart.",
+    "Live vaccines should not be given simultaneously."
+   ],
+   "chapterId": "pediatrics"
+  },
+  "pediatrics-q3": {
+   "explanation": "More than 4 days early is invalid Spacing of Vaccines Vaccines are valid if given 4 days prior to the scheduled time. The infant\u2019s caregiver asks if they can schedule the immunization appointment when the infant is 3 \u00bd months old.",
+   "support": [
+    "Spacing of Vaccines \u2022 Vaccines are valid if given 4 days prior to the scheduled time.",
+    "The infant\u2019s caregiver asks if they can schedule the immunization appointment when the infant is 3 \u00bd months old."
+   ],
+   "chapterId": "pediatrics"
+  },
+  "pediatrics-q4": {
+   "explanation": "Defer the discussion Schedule the child and defer vaccine discussion until a therapeutic relationship is established. When asked to bring an immunization record, the caregiver states that the child has not been immunized.",
+   "support": [
+    "Schedule the child and defer vaccine discussion until a therapeutic relationship is established.",
+    "When asked to bring an immunization record, the caregiver states that the child has not been immunized."
+   ],
+   "chapterId": "pediatrics"
+  },
+  "pediatrics-q9": {
+   "explanation": "Psychiatric comorbidity Preadolescents with eating disorders are likely to have comorbid psychiatric conditions. Males are less likely to have eating disorders than females.",
+   "support": [
+    "Preadolescents with eating disorders are likely to have comorbid psychiatric conditions.",
+    "Males are less likely to have eating disorders than females."
+   ],
+   "chapterId": "pediatrics"
+  },
+  "pediatrics-q10": {
+   "explanation": "MRI and neurology referral No underlying cause for the seizure is found.",
+   "support": [
+    "No underlying cause for the seizure is found."
+   ],
+   "chapterId": "pediatrics"
+  },
+  "pediatrics-q11": {
+   "explanation": "Incomplete blood\u2013brain barrier This child is more susceptible to toxic effects due to an incomplete blood\u2013brain barrier. Lead toxicity is more common in children greater than 6 years of age.",
+   "support": [
+    "This child is more susceptible to toxic effects due to an incomplete blood\u2013brain barrier.",
+    "Lead toxicity is more common in children greater than 6 years of age."
+   ],
+   "chapterId": "pediatrics"
+  },
+  "pediatrics-q15": {
+   "explanation": "Live vaccines are not contraindicated in SCD Up to three live vaccines can be administered simultaneously. Live vaccines should not be administered with inactivated vaccines.",
+   "support": [
+    "Up to three live vaccines can be administered simultaneously.",
+    "Live vaccines should not be administered with inactivated vaccines."
+   ],
+   "chapterId": "pediatrics"
+  },
+  "pediatrics-q21": {
+   "explanation": "Routine flu vaccine The child can get the influenza vaccine but will need extra monitoring. The child can get the routine influenza vaccination.",
+   "support": [
+    "The child can get the influenza vaccine but will need extra monitoring.",
+    "The child can get the routine influenza vaccination."
+   ],
+   "chapterId": "pediatrics"
+  },
+  "pediatrics-q22": {
+   "explanation": "Mild asthma A 7-year-old who has mild persistent asthma 3.",
+   "support": [
+    "A 7-year-old who has mild persistent asthma 3."
+   ],
+   "chapterId": "pediatrics"
+  },
+  "pediatrics-q25": {
+   "explanation": "ICS rarely inhibit growth The child\u2019s parent is concerned that the drug will impair their growth. Inhaled steroids can increase the rate of growth.",
+   "support": [
+    "The child\u2019s parent is concerned that the drug will impair their growth.",
+    "Inhaled steroids can increase the rate of growth."
+   ],
+   "chapterId": "pediatrics"
+  },
+  "pediatrics-q27": {
+   "explanation": "Productive cough The child is wheezing and has a cough but has no distress.",
+   "support": [
+    "The child is wheezing and has a cough but has no distress."
+   ],
+   "chapterId": "pediatrics"
+  },
+  "pediatrics-q30": {
+   "explanation": "Screen for metabolic disease The child should be screened for metabolic-associated diseases.",
+   "support": [
+    "The child should be screened for metabolic-associated diseases."
+   ],
+   "chapterId": "pediatrics"
+  },
+  "pediatrics-q33": {
+   "explanation": "Pyloric stenosis Visible peristaltic waves in the upper abdomen are noted.",
+   "support": [
+    "Visible peristaltic waves in the upper abdomen are noted."
+   ],
+   "chapterId": "pediatrics"
+  },
+  "pediatrics-q35": {
+   "explanation": "HepB vaccine + HBIG within 12 h To prevent hepatitis B infection in the infant, the plan of action should include: 1.",
+   "support": [
+    "To prevent hepatitis B infection in the infant, the plan of action should include: 1."
+   ],
+   "chapterId": "pediatrics"
+  },
+  "pediatrics-q46": {
+   "explanation": "Wait in the car The family should be advised to call when they arrive and wait in the car until an exam room is available. The clinic should refuse to schedule an appointment until the fever has resolved.",
+   "support": [
+    "The family should be advised to call when they arrive and wait in the car until an exam room is available.",
+    "The clinic should refuse to schedule an appointment until the fever has resolved."
+   ],
+   "chapterId": "pediatrics"
+  }
+ }
+}

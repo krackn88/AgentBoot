@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 const KEY = 'apea-hub-v2'
 const DEFAULTS = {
   completed: {}, bookmarks: [], quizHistory: [], answers: {},
-  cardBox: {}, studyDates: [], plan: null, planDone: {}, deck: 'highyield',
+  cardBox: {}, srs: {}, studyDates: [], plan: null, planDone: {}, deck: 'highyield',
   examDate: '', waitlist: [], lastChapter: null, fontSize: 17, daily: {}, studyPathDone: {},
 }
 export function loadStore() {

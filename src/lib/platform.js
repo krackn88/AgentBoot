@@ -18,8 +18,14 @@ async function fetchJson(path, fallback) {
   return p
 }
 
+import { applyGuideQuality, applyManualQuality } from './quality'
+
 export function loadGuide() {
-  return fetchJson('data/guide.json')
+  return Promise.all([
+    fetchJson('data/guide.json'),
+    fetchJson('data/question-quality.json', null),
+    fetchJson('data/rationale-upgrades.json', null),
+  ]).then(([guide, overlay, rationales]) => applyGuideQuality(guide, overlay, rationales))
 }
 
 export function loadPlatformBundle() {
@@ -28,11 +34,13 @@ export function loadPlatformBundle() {
     fetchJson('data/pearls.json', []),
     fetchJson('data/content-index.json', null),
     fetchJson('data/manual-questions.json', null),
-  ]).then(([searchCorpus, pearlCards, contentMeta, manualBank]) => ({
+    fetchJson('data/question-quality.json', null),
+  ]).then(([searchCorpus, pearlCards, contentMeta, manualBank, quality]) => ({
     searchCorpus,
     pearlCards,
     contentMeta,
-    manualBank,
+    manualBank: applyManualQuality(manualBank, quality),
+    quality,
   }))
 }
 

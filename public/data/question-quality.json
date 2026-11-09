@@ -1,0 +1,4008 @@
+{
+ "meta": {
+  "generated": "2026-11-09T02:23:00Z",
+  "optionsCleaned": 129,
+  "duplicates": 49,
+  "anchored": 460,
+  "guideQuestions": 277,
+  "manualQuestions": 262
+ },
+ "options": {
+  "neurologic-disorders-q11": {
+   "options": [
+    "Parkinson = unilateral resting tremor; essential = symmetric voice/head tremor; drug-induced with valproate; essential treated with.",
+    "All tremors are essential tremor until proven otherwise",
+    "Valproic acid treats essential tremor; propranolol treats drug-induced tremor",
+    "Resting tremor always indicates hyperthyroidism"
+   ]
+  },
+  "endocrine-disorders-q14": {
+   "options": [
+    "Use full calculated dose for younger patients without cardiovascular disease; start low (~25 mcg) in the 72-year-old with.",
+    "Start all patients at 200 mcg regardless of age",
+    "Withhold levothyroxine in asthma until pulmonary clearance",
+    "Use the same 112 mcg start dose for every patient"
+   ]
+  },
+  "manual-03-q1": {
+   "options": [
+    "It is not considered an allergic reaction, but a drug-disease reaction.",
+    "The rash always appears within 24\u201348 hours after administration of the drug.",
+    "Penicillin and cephalosporins are commonly associated with morbilliform rash.",
+    "The rash associated with maculopapular drug eruption may extend to the mucous membranes"
+   ]
+  },
+  "manual-03-q2": {
+   "options": [
+    "The patient presents with a fever.",
+    "The patient is immunocompromised.",
+    "The patient is older than age 65.",
+    "The patient was treated with amoxicillin last month."
+   ]
+  },
+  "manual-04-q6": {
+   "options": [
+    "Order a chest x-ray.",
+    "Stop doxycycline and start amoxicillin.",
+    "Advise to increase oral fluid intake.",
+    "Continue doxycycline and order a PPI."
+   ]
+  },
+  "manual-04-q7": {
+   "options": [
+    "Age less than 18 years",
+    "History of torsades de pointes",
+    "History of tendon rupture",
+    "Creatinine clearance of 50 mL/min."
+   ]
+  },
+  "manual-04-q9": {
+   "options": [
+    "COPD is progressive and worsens over time.",
+    "The goal of COPD treatment is to improve symptoms and quality of life.",
+    "Quitting smoking will keep COPD symptoms from getting worse.",
+    "Avoiding respiratory infections can slow disease progression."
+   ]
+  },
+  "manual-04-q12": {
+   "options": [
+    "Ipratropium/albuterol",
+    "Ipratropium plus tiotropium",
+    "Umeclidinium/vilanterol",
+    "Fluticasone/umeclidinium/vilanterol."
+   ]
+  },
+  "manual-05-q1": {
+   "options": [
+    "Both low hemoglobin and hematocrit",
+    "Hemoglobin, hematocrit, and red blood cells, all must be low",
+    "Both low hemoglobin and mean corpuscular volume",
+    "Either low hemoglobin, hematocrit, or red blood cells."
+   ]
+  },
+  "manual-05-q3": {
+   "options": [
+    "Brittle fingernails",
+    "Fatigue",
+    "Muscle cramps",
+    "Exercise intolerance."
+   ]
+  },
+  "manual-06-q2": {
+   "options": [
+    "Dizziness resolves immediately upon performing the maneuver.",
+    "A doll eye (oculocephalic) reflex is observed.",
+    "Nystagmus of <60 seconds is observed.",
+    "The patient vomits on the NP\u2019s shoes."
+   ]
+  },
+  "manual-06-q3": {
+   "options": [
+    "the patient\u2019s current Glasgow Coma Scale (GCS) score is 15.",
+    "the patient vomited once after the injury.",
+    "there is a laceration on the forehead.",
+    "the patient is 65-years old."
+   ]
+  },
+  "manual-06-q4": {
+   "options": [
+    "after 48 hours of physical and cognitive rest.",
+    "when the patient can tolerate a full day of school activities.",
+    "when the headache has resolved completely.",
+    "after a 6-day return-to-play protocol without recurrent symptoms."
+   ]
+  },
+  "manual-06-q6": {
+   "options": [
+    "Explosive eye pain resolving in 1 hour",
+    "Severe headache in patient taking dabigatran",
+    "Associated with nausea and vomiting",
+    "Visual distortion occurred pre-headache."
+   ]
+  },
+  "manual-06-q8": {
+   "options": [
+    "Opioids",
+    "Triptans",
+    "Simple analgesics",
+    "All of the above."
+   ]
+  },
+  "manual-06-q9": {
+   "options": [
+    "Duration and severity of hyperglycemia are primary risk factors.",
+    "Symptoms typically begin with unilateral, distal paresthesia of a limb.",
+    "Diabetic neuropathy is reversible with adequate blood glucose control.",
+    "Foot inspections should be performed at least weekly to prevent amputations."
+   ]
+  },
+  "manual-06-q12": {
+   "options": [
+    "The patient should be examined without the family member\u2019s input.",
+    "The patient is always aware of their own cognitive impairment.",
+    "A thorough medication review should be completed.",
+    "Determine if the family member has medical power of attorney."
+   ]
+  },
+  "manual-06-q13": {
+   "options": [
+    "B12 deficiency",
+    "Depression",
+    "Syphilis",
+    "Delirium Delirium Sudden, significant change in brain function Common etiologies Drug."
+   ]
+  },
+  "manual-07-q1": {
+   "options": [
+    "Order a TSH, B12 level, and folate level.",
+    "Screen for depression with the PHQ-9.",
+    "Order a urinalysis to screen for UTI.",
+    "Order a CMP, CBC, and TSH."
+   ]
+  },
+  "manual-07-q2": {
+   "options": [
+    "Amitriptyline",
+    "Quetiapine",
+    "Escitalopram",
+    "Buspirone Treatment of Major Depressive Disorder (MDD) Shared decision making and."
+   ]
+  },
+  "manual-07-q3": {
+   "options": [
+    "Obsessive compulsive disorder",
+    "Panic disorder",
+    "Bipolar disorder",
+    "Generalized anxiety disorder."
+   ]
+  },
+  "manual-07-q4": {
+   "options": [
+    "25 mg once daily\u200b Start Low",
+    "50 mg once daily\u200b",
+    "75 mg once daily\u200b Go Slow",
+    "100 mg once daily."
+   ]
+  },
+  "manual-07-q6": {
+   "options": [
+    "Switch the patient to fluoxetine.",
+    "Continue sertraline and add olanzapine.",
+    "Switch the patient to amitriptyline",
+    "Switch the patient to desvenlafaxine."
+   ]
+  },
+  "manual-07-q7": {
+   "options": [
+    "Ginkgo biloba",
+    "St. John\u2019s wort",
+    "Milk thistle",
+    "Black cohosh."
+   ]
+  },
+  "manual-07-q8": {
+   "options": [
+    "trauma focused psychotherapy",
+    "stress inoculation therapy.",
+    "electroconvulsive therapy (ECT).",
+    "serotonin modulating pharmacotherapy."
+   ]
+  },
+  "manual-07-q10": {
+   "options": [
+    "Trazodone",
+    "Quetiapine (Seroquel)",
+    "Doxepin (Silenor)",
+    "Amitriptyline (Elavil) TIP: Always consult the Beers Criteria when prescribing for geriatric patients."
+   ]
+  },
+  "manual-08-q1": {
+   "options": [
+    "Diverticulitis",
+    "Peptic ulcer",
+    "Appendicitis",
+    "Acute cholecystitis."
+   ]
+  },
+  "manual-08-q5": {
+   "options": [
+    "Pyloric stenosis",
+    "Small bowel obstruction",
+    "Gastroesophageal reflux disease",
+    "Cholelithiasis."
+   ]
+  },
+  "manual-09-q1": {
+   "options": [
+    "has an indwelling urinary catheter.",
+    "is immunocompromised.",
+    "is younger than 7 years.",
+    "is currently pregnant. Empiric.",
+    "Fosfomycin (off-label for males)",
+    "Trimethoprim-sulfamethoxazole (if local resistance is <20%)."
+   ]
+  },
+  "manual-09-q2": {
+   "options": [
+    "A 25-year-old female with mild suprapubic pain",
+    "A 60-year-old male who has benign prostatic hypertrophy",
+    "A 40-year-old female who had a UTI one year ago",
+    "A 50-year-old female with perimenopausal symptoms When to Get a Urine Culture?"
+   ]
+  },
+  "manual-09-q5": {
+   "options": [
+    "Helical CT scan",
+    "Ultrasonography",
+    "KUB radiograph",
+    "Intravenous pyelogram."
+   ]
+  },
+  "manual-09-q6": {
+   "options": [
+    "Voiding may occur up to 60 times a day.",
+    "Long-term antibiotic prophylaxis is recommended.",
+    "Urology consultation is helpful for diagnosis and treatment recommendations.",
+    "Eliminating bladder irritants may reduce symptoms."
+   ]
+  },
+  "manual-09-q7": {
+   "options": [
+    "Treat for a UTI caused by gram-positive organisms.",
+    "Treat for gonorrhea, chlamydia, and UTI.",
+    "Repeat urinalysis with a first-morning sample.",
+    "Perform testing for sexually transmitted infections."
+   ]
+  },
+  "manual-09-q8": {
+   "options": [
+    "Ceftriaxone 500 mg IM \u00d7 1",
+    "Azithromycin 1 g oral single dose",
+    "Levofloxacin 500 mg oral \u00d7 7 days",
+    "Doxycycline 100 mg orally."
+   ]
+  },
+  "manual-09-q9": {
+   "options": [
+    "Urine culture",
+    "Nucleic acid amplification test",
+    "Gram stain",
+    "Serologic tests."
+   ]
+  },
+  "manual-09-q10": {
+   "options": [
+    "PID presents with obvious symptoms that make diagnosis straightforward.",
+    "Only severe PID is associated with damage to the genitourinary tract.",
+    "Infertility and adverse perinatal outcomes are not associated with PID.",
+    "PID may present with dyspareunia, menorrhagia, or abnormal uterine bleeding."
+   ]
+  },
+  "manual-09-q12": {
+   "options": [
+    "Five or more sexual partners",
+    "Current yeast vaginitis",
+    "HIV-negative status",
+    "Current genital lesion."
+   ]
+  },
+  "manual-09-q14": {
+   "options": [
+    "All patients aged 13\u201364 years",
+    "Patients being treated for tuberculosis or hepatitis",
+    "Patients who have recurrent urinary tract infections",
+    "More than one sex partner since last."
+   ]
+  },
+  "manual-09-q16": {
+   "options": [
+    "HIV IgM antibodies",
+    "Antigen/antibody immunoassay (ELISA/EIA)",
+    "Western blot",
+    "HIV-1 RNA nucleic acid test (APTIMA)."
+   ]
+  },
+  "manual-10-q4": {
+   "options": [
+    "Calcium, sodium",
+    "Potassium, BUN/Cr",
+    "Glucose, potassium",
+    "Labs not indicated What if lisinopril is ordered instead?"
+   ]
+  },
+  "manual-10-q7": {
+   "options": [
+    "prescribing moderate intensity statin.",
+    "repeating lipid panel next week.",
+    "calculating the ASCVD risk.",
+    "asking the patient about familial hyperlipidemia."
+   ]
+  },
+  "manual-10-q9": {
+   "options": [
+    "Rhonchi on auscultation",
+    "Peripheral edema",
+    "Split S2 heart sound",
+    "Bradypnea Heart Failure (HF) Signs and symptoms Resting tachycardia Abnormal ECG Tachypnea Crackles Diaphoretic S3 and/or S4 PMI may be displaced."
+   ]
+  },
+  "manual-10-q10": {
+   "options": [
+    "Stop the amlodipine and initiate lisinopril.",
+    "Increase the amlodipine to 10 mg.",
+    "Add chlorthalidone to the amlodipine.",
+    "Stop amlodipine, initiate a beta-blocker."
+   ]
+  },
+  "manual-10-q12": {
+   "options": [
+    "send the patient to the ED for immediate cardioversion.",
+    "calculate Well score and prescribe magnesium.",
+    "order coronary artery calcium (CAC) test.",
+    "calculate CHADS-Vasc2 score to determine need for anticoagulation."
+   ]
+  },
+  "manual-10-q14": {
+   "options": [
+    "Mitral",
+    "Aortic",
+    "Tricuspid",
+    "Pulmonic Mitral Valve Prolapse Use APEA\u2019s Three Easy Steps Step Question Answer 1."
+   ]
+  },
+  "manual-10-q16": {
+   "options": [
+    "A diastolic murmur heard best near the apex",
+    "Systolic heard loudest near the second ICS, RSB",
+    "Diastolic murmur near the RSB, second ICS",
+    "Systolic murmur with wide fixed split S2, LSB, second ICS Aortic Regurgitation Use APEA\u2019s three easy steps."
+   ]
+  },
+  "manual-11-q1": {
+   "options": [
+    "An A1c of 6.1% is diagnostic of DM.",
+    "Fasting plasma glucose (FPG) means nothing to eat or drink in the last 4 hours.",
+    "A FPG of 160 mg/dL and an A1c of 6.6% is diagnostic.",
+    "A postprandial plasma glucose (PPG) of more than 200 mg/dL is diagnostic."
+   ]
+  },
+  "manual-11-q2": {
+   "options": [
+    "An older patient who has been controlled on their oral medications for 5 years",
+    "A patient with advanced CVD who has frequent episodes of hypoglycemia",
+    "A medically complex patient whose HbA1c is stable at 6.9% on the current regimen",
+    "An adult who is well controlled on oral meds but has been diagnosed with early."
+   ]
+  },
+  "manual-11-q7": {
+   "options": [
+    "GLP-1 agonists are only available as subcutaneous injections.",
+    "Dizziness and hypoglycemia are the most common side effects.",
+    "Patients who lose weight on GLP-1 agonists may regain weight if they stop the medication.",
+    "These medications are not recommended in patients with an increased ASCVD risk."
+   ]
+  },
+  "manual-11-q9": {
+   "options": [
+    "Add meal-time insulin to the current regimen.",
+    "Add basal insulin and discontinue metformin.",
+    "Add basal insulin and discontinue the GLP-1.",
+    "Add basal insulin to the current regimen."
+   ]
+  },
+  "manual-11-q15": {
+   "options": [
+    "Continue current levothyroxine dose and recheck TSH in 6 months.",
+    "Order a free T4 level to inform decision-making.",
+    "Increase levothyroxine dose and recheck TSH in 4\u20136 weeks.",
+    "Prescribe combination T3/T4 therapy."
+   ]
+  },
+  "manual-12-q1": {
+   "options": [
+    "A 45-year-old female who had six pregnancies",
+    "A 61-year-old nulliparous female with dense breast tissue",
+    "A 50-year-old female who has a higher body mass",
+    "A 32-year-old transgender female on hormone replacement therapy for 2 years."
+   ]
+  },
+  "manual-12-q2": {
+   "options": [
+    "This is a normal finding in patients who have previously given birth.",
+    "Taking an NSAID will eliminate menstrual pain.",
+    "Symptoms suggest that there may be an underlying structural problem.",
+    "This pain can be managed with lifestyle modifications."
+   ]
+  },
+  "manual-12-q3": {
+   "options": [
+    "A pelvic ultrasound is required to diagnose PCOS.",
+    "Fibroids are the most likely diagnosis.",
+    "An androgen producing tumor is most likely the cause of symptoms.",
+    "Polycystic ovarian syndrome diagnostic criteria has been met."
+   ]
+  },
+  "manual-12-q4": {
+   "options": [
+    "An IUD can be used if the patient has a nulliparous cervix.",
+    "Combined oral contraceptives may be used if the patient has a history of deep vein thrombosis.",
+    "Patient must be referred to a specialist to insert long-acting reversible contraceptives.",
+    "Combined hormonal contraceptives cannot be used if patient is breastfeeding their 9-month-old."
+   ]
+  },
+  "manual-12-q5": {
+   "options": [
+    "The color and consistency of the discharge will determine the cause.",
+    "The most likely diagnosis is candidiasis due to the report of discharge.",
+    "Sexually transmitted diseases are not likely due to the report of itching.",
+    "Further information is required to determine the etiology."
+   ]
+  },
+  "manual-12-q6": {
+   "options": [
+    "The patient can douche to help prevent future episodes.",
+    "The patient should abstain from sexual contact for 2 months.",
+    "The patient should be screened for immunocompromising conditions.",
+    "The patient should have their Mirena IUD removed."
+   ]
+  },
+  "manual-13-q1": {
+   "options": [
+    "Nocturia",
+    "Postvoid dribbling",
+    "Hematuria",
+    "Weak urinary stream."
+   ]
+  },
+  "manual-13-q7": {
+   "options": [
+    "Cardiovascular disease",
+    "Neurologic issues",
+    "History of gonorrhea",
+    "Use of antidepressants."
+   ]
+  },
+  "manual-13-q9": {
+   "options": [
+    "Acute bacterial prostatitis",
+    "Prostate cancer",
+    "Chronic prostatitis",
+    "Epididymitis."
+   ]
+  },
+  "manual-13-q10": {
+   "options": [
+    "Assess for inguinal hernia.",
+    "Calculate TWIST score and refer the patient to the ED.",
+    "Order a urinalysis and urine culture.",
+    "Order a KUB radiograph to assess for kidney stones."
+   ]
+  },
+  "manual-13-q11": {
+   "options": [
+    "Unilateral swelling of one testis",
+    "Painless, firm nodule in the testis",
+    "History of cryptorchidism",
+    "History of hernia repair surgery Testicular Cancer Testicular Cancer Males 15\u201335 years old Hx of cryptorchidism (even with orchiopexy) Either testis affected Risk is greater in undescended one."
+   ]
+  },
+  "manual-13-q12": {
+   "options": [
+    "Ventral hernia",
+    "Umbilical hernia",
+    "Inguinal hernia",
+    "Incarcerated hernia Inguinal Hernias Two-thirds of inguinal hernias are on the right side."
+   ]
+  },
+  "manual-13-q13": {
+   "options": [
+    "The athlete should be restricted from all athletic activity.",
+    "The patient should be referred to general surgeon.",
+    "The patient should be prescribed a truss.",
+    "Surgical repair should be deferred unless the hernia entrapped."
+   ]
+  },
+  "manual-14-q3": {
+   "options": [
+    "It is an inflammatory condition.",
+    "It causes tenderness to soft tissues.",
+    "It typically occurs between the ages of 20 and 55 years.",
+    "It is a diagnosis of exclusion.",
+    "Degree of fatigue",
+    "Waking unrefreshed"
+   ]
+  },
+  "manual-14-q9": {
+   "options": [
+    "an anti-inflammatory agent only.",
+    "allopurinol only.",
+    "colchicine prophylactically.",
+    "allopurinol and an anti-inflammatory."
+   ]
+  },
+  "manual-15-q4": {
+   "options": [
+    "Topical mupirocin",
+    "Topical betamethasone",
+    "Oral doxycycline",
+    "Oral cephalexin."
+   ]
+  },
+  "manual-15-q9": {
+   "options": [
+    "Suture the wound and follow up in 2 days for wound check.",
+    "Bandage the wound and provide education on signs and symptoms of infection.",
+    "Refer the patient to the emergency department for rabies prophylaxis.",
+    "Prescribe prophylactic amoxicillin/clavulanate for 3 to 5 days."
+   ]
+  },
+  "manual-15-q14": {
+   "options": [
+    "Erythema migrans may take up to 120 days to appear.",
+    "Antibiotic prophylaxis should be initiated for all ticks removed.",
+    "Prophylaxis should be initiated within 12 hours of tick removal.",
+    "A single dose of doxycycline is preferred prophylaxis."
+   ]
+  },
+  "manual-16-q1": {
+   "options": [
+    "Symptoms are most severe on days 3\u20136.",
+    "OTC medications do not provide complete relief.",
+    "Symptoms are improving, then suddenly become severe again.",
+    "Nasal discharge is green and blood tinged."
+   ]
+  },
+  "manual-16-q2": {
+   "options": [
+    "Purulent nasal discharge",
+    "Boggy, gray nasal turbinates",
+    "Petechiae of the posterior pharynx",
+    "Tenderness to the sinuses on palpation."
+   ]
+  },
+  "manual-16-q3": {
+   "options": [
+    "suicidal thoughts.",
+    "somnolence.",
+    "headache.",
+    "anuria. Decongestant."
+   ]
+  },
+  "manual-16-q7": {
+   "options": [
+    "Anorexia",
+    "Sore throat",
+    "Vomiting",
+    "Enlarged anterior cervical lymph nodes."
+   ]
+  },
+  "manual-16-q8": {
+   "options": [
+    "Trigeminal neuralgia",
+    "Temporomandibular joint (TMJ) dysfunction",
+    "Acute rhinosinusitis",
+    "Dental infection."
+   ]
+  },
+  "manual-16-q10": {
+   "options": [
+    "Hearing loss will impact employment opportunities if not corrected.",
+    "Hearing loss reduces ability to perform daily tasks independently.",
+    "Older adults who cannot hear are not legally able to drive.",
+    "Hearing loss can lead to understimulation, isolation, and potential cognitive decline."
+   ]
+  },
+  "manual-16-q11": {
+   "options": [
+    "Dizziness is worse with head movement.",
+    "Disease course is persistent and predictable.",
+    "Dix\u2013Hallpike confirms the diagnosis.",
+    "Hearing loss may become permanent."
+   ]
+  },
+  "manual-17-q1": {
+   "options": [
+    "Presbyopia",
+    "Word finding difficulty",
+    "Presbycusis",
+    "Dementia Pathologic Aging Occurs when the normal processes of aging accelerate to the."
+   ]
+  },
+  "manual-17-q2": {
+   "options": [
+    "Order a CT scan of the chest and pelvis.",
+    "Order a bilateral mammogram.",
+    "Discuss goals of care with the patient and daughter.",
+    "Order a CBC and complete metabolic panel."
+   ]
+  },
+  "manual-17-q3": {
+   "options": [
+    "Primary prevention",
+    "Secondary prevention",
+    "Tertiary prevention",
+    "Quaternary prevention."
+   ]
+  },
+  "manual-17-q4": {
+   "options": [
+    "Ramelteon (Rozerem)",
+    "Temazepam (Restoril)",
+    "Zolpidem (Ambien)",
+    "Trazodone (Desyrel)."
+   ]
+  },
+  "manual-17-q5": {
+   "options": [
+    "The problem is chronic, caused by hypertension.",
+    "The problem is acute, caused by dehydration.",
+    "The problem is acute, caused by medication.",
+    "More information is needed to determine chronicity."
+   ]
+  },
+  "manual-17-q6": {
+   "options": [
+    "Diagnose the patient with depression.",
+    "Start the patient on a low-dose SSRI.",
+    "Refer the patient for cognitive behavioral therapy (CBT).",
+    "Determine if the patient meets the DSM-5 criteria for depression."
+   ]
+  },
+  "manual-17-q8": {
+   "options": [
+    "Hyponatremia",
+    "Sinus tachycardia",
+    "Anorexia",
+    "Parkinsonism."
+   ]
+  },
+  "manual-17-q9": {
+   "options": [
+    "Ankle-brachial pressure index",
+    "Treadmill exercise stress test",
+    "Tilt-table testing",
+    "Orthostatic BP measurement Orthostatic Hypotension Significant drop in blood pressure (BP) that occurs upon standing Systolic BP drops by 20 mmHg or more."
+   ]
+  },
+  "manual-17-q11": {
+   "options": [
+    "65-year-old male who has a new diagnosis of uncomplicated type 2 diabetes",
+    "65-year-old female who has chronic, well-controlled asthma",
+    "65-year-old male who has COPD and is struggling with breathlessness and anxiety",
+    "65-year-old female who has just completed treatment for stage 2 breast cancer."
+   ]
+  },
+  "manual-17-q13": {
+   "options": [
+    "Ask the children to leave the room.",
+    "Tell the children that they cannot make decisions for their parent without a durable power of attorney.",
+    "Call the clinic\u2019s attorney for advice.",
+    "Assess the patient to determine if the concerns are valid."
+   ]
+  },
+  "manual-17-q15": {
+   "options": [
+    "Expresses concern over lack of intimate relationships.",
+    "Contemplates if they had a meaningful life.",
+    "Asks the NP \u201cAm I good or bad?\u201d",
+    "Is unsure if they can contribute to society."
+   ]
+  },
+  "manual-18-q2": {
+   "options": [
+    "Maternal history of gestational diabetes",
+    "Maternal history of gastric bypass",
+    "Maternal history of hypothyroidism",
+    "Maternal use of angiotensin-converting enzyme inhibitor."
+   ]
+  },
+  "manual-18-q4": {
+   "options": [
+    "Nasal congestion",
+    "Mild exertional dyspnea",
+    "Increased blood pressure",
+    "Soft systolic heart murmur Pregnancy Symptoms: Amenorrhea, nausea, breast changes, fatigue, constipation, food aversions or cravings, mood changes, urinary frequency, etc."
+   ]
+  },
+  "manual-18-q5": {
+   "options": [
+    "Fasting blood glucose",
+    "3-hour glucose tolerance test",
+    "Random blood glucose",
+    "A1c TIP: Diagnostic criteria is the same as for a nonpregnant adult with diabetes Nausea."
+   ]
+  },
+  "manual-18-q7": {
+   "options": [
+    "Mineral oil",
+    "Polyethylene glycol 3350 (MiraLax)",
+    "Psyllium (Metamucil)",
+    "Castor oil Prescribing for Pregnant Patients Avoid fetal drug exposure when possible."
+   ]
+  },
+  "manual-18-q13": {
+   "options": [
+    "Boxing",
+    "Hot yoga",
+    "Horseback riding",
+    "Running Substance Use Screen all pregnant patients for alcohol, tobacco, opioids,."
+   ]
+  },
+  "manual-18-q14": {
+   "options": [
+    "Patients taking benzodiazepines should not go through detoxification while pregnant.",
+    "Medical marijuana used for morning sickness is safer than recreational marijuana.",
+    "Patients who have opioid use disorder (OUD) are not candidates for medication for OUD.",
+    "Buprenorphine can be initiated for opioid use disorder during pregnancy."
+   ]
+  },
+  "manual-18-q15": {
+   "options": [
+    "Urinary tract infection",
+    "Ectopic pregnancy",
+    "Appendicitis",
+    "Ovarian cyst."
+   ]
+  },
+  "manual-18-q16": {
+   "options": [
+    "New-onset diabetes diagnosed in the first trimester of pregnancy is considered gestational diabetes.",
+    "Screening should be conducted in the second trimester.",
+    "One unequivocal abnormal reading on the 3-hour OGTT indicates gestational diabetes.",
+    "Gestational diabetes affects about 15% of pregnant patients."
+   ]
+  },
+  "manual-19-q3": {
+   "options": [
+    "if the child tolerated the previous doses, the vaccines can be given early.",
+    "vaccinations can be given up to 14 days before their schedule dose.",
+    "vaccines cannot be given after the recommended age.",
+    "vaccines given more than 5 days early are not considered valid doses."
+   ]
+  },
+  "manual-19-q5": {
+   "options": [
+    "Perform titers for antibodies to vaccine-preventable illnesses.",
+    "Vaccinate or revaccinate the child as if they have never been vaccinated.",
+    "A combination of 1 and 2",
+    "Only option 2 CDC Advice: How to Address Caregiver Concerns About Vaccines Take time to listen to concerns."
+   ]
+  },
+  "manual-19-q6": {
+   "options": [
+    "The child has acute otitis media.",
+    "Erythema indicates inflammation.",
+    "This is not a clinically significant finding.",
+    "The child is having an allergic reaction."
+   ]
+  },
+  "manual-19-q11": {
+   "options": [
+    "Lead toxicity is more common in children greater than 6 years of age.",
+    "This child is more susceptible to toxic effects due to an incomplete blood\u2013brain barrier.",
+    "Patients with lead toxicity are asymptomatic unless there is moderate to high exposure.",
+    "Children who live in rural areas have a higher risk of lead poisoning."
+   ]
+  },
+  "manual-19-q15": {
+   "options": [
+    "Assess growth and development.",
+    "Avoid administration of live vaccines.",
+    "Screen for iron deficiency anemia.",
+    "Continue penicillin prophylaxis."
+   ]
+  },
+  "manual-19-q16": {
+   "options": [
+    "Tdap",
+    "DTaP",
+    "PCV 15",
+    "PPSV 23 Respiratory."
+   ]
+  },
+  "manual-19-q18": {
+   "options": [
+    "Order a sputum culture.",
+    "Order an antibiotic.",
+    "Watchful waiting",
+    "Oral steroids."
+   ]
+  },
+  "manual-19-q20": {
+   "options": [
+    "Amoxicillin 3,000 mg given three times daily",
+    "Amoxicillin 3,500 mg daily in three divided doses",
+    "Amoxicillin 1,000 mg given three times daily.",
+    "Augmentin since the dose of amoxicillin exceeds the adult dose."
+   ]
+  },
+  "manual-19-q22": {
+   "options": [
+    "A 5-year-old who has type 1 diabetes",
+    "A 7-year-old who has mild persistent asthma",
+    "A 4-year-old who has leukemia",
+    "A 6-year-old who has a cochlear implant."
+   ]
+  },
+  "manual-19-q23": {
+   "options": [
+    "As an outpatient with close follow-up",
+    "As an outpatient with albuterol nebulizer",
+    "As an inpatient because of their symptoms",
+    "As an inpatient because of their age."
+   ]
+  },
+  "manual-19-q24": {
+   "options": [
+    "Nebulized epinephrine",
+    "Single dose of oral dexamethasone",
+    "Guaifenesin/dextromethorphan prn for cough",
+    "3 days of oral prednisolone 1 mg/kg Asthma Most common chronic illness in children Risk factors Frequent cause of missed school days Sensitivity in certain environments History Sensitivity to."
+   ]
+  },
+  "manual-19-q27": {
+   "options": [
+    "Excessive sweating",
+    "Frequent episodes of diarrhea",
+    "Persistent productive cough",
+    "Persistent watery eyes and tears Cystic Fibrosis: Manifestations Clinical manifestations"
+   ]
+  },
+  "manual-19-q29": {
+   "options": [
+    "2 years old",
+    "5 years old",
+    "9 years old",
+    "13 years old."
+   ]
+  },
+  "manual-19-q30": {
+   "options": [
+    "The child should be diagnosed with severe obesity.",
+    "The child can be diagnosed as overweight.",
+    "The BMI should be calculated to determine obesity in a child of this age.",
+    "The child should be screened for metabolic-associated diseases."
+   ]
+  },
+  "manual-19-q33": {
+   "options": [
+    "Gastroesophageal reflux",
+    "Milk protein intolerance",
+    "Intestinal obstruction",
+    "Pyloric stenosis Pyloric Stenosis Narrowing of the pyloric sphincter due to hypertrophy of the pyloric muscle Occurs in infancy Occurs in 3.5/1,000 births More common in boys!"
+   ]
+  },
+  "manual-19-q36": {
+   "options": [
+    "Loose stools with blood and mucous",
+    "Cough with eating",
+    "Constipation",
+    "Strong family history of atopy."
+   ]
+  },
+  "manual-19-q37": {
+   "options": [
+    "Intussusception",
+    "Intestinal obstruction",
+    "Constipation",
+    "Appendicitis."
+   ]
+  },
+  "manual-19-q38": {
+   "options": [
+    "Hepatitis A",
+    "Rotavirus",
+    "Hepatitis B",
+    "MMR Constipation."
+   ]
+  },
+  "manual-19-q39": {
+   "options": [
+    "Crohn disease",
+    "Appendicitis",
+    "Colitis",
+    "Viral gastroenteritis."
+   ]
+  },
+  "manual-19-q40": {
+   "options": [
+    "TMP-SMX (Bactrim)",
+    "Cephalexin (Keflex)",
+    "Cefuroxime (Ceftin)",
+    "Amoxicillin (Amoxil)."
+   ]
+  },
+  "manual-19-q42": {
+   "options": [
+    "Penile cancer",
+    "Testicular cancer",
+    "Epididymitis",
+    "Hydrocele Undescended Testes: Risks Risk of testicular cancer is increased!"
+   ]
+  },
+  "manual-19-q48": {
+   "options": [
+    "There is still a risk of developing parvo B19.",
+    "Adults are not likely to contract Parvo B19.",
+    "There is no risk to the fetus.",
+    "Parvo B19 in the third trimester would be more concerning."
+   ]
+  },
+  "manual-19-q49": {
+   "options": [
+    "7\u201313 months",
+    "2\u20134 years old",
+    "3\u20136 years old",
+    "6\u201312 years old."
+   ]
+  },
+  "manual-19-q52": {
+   "options": [
+    "Unequal gluteal folds",
+    "Inability to lie on hips",
+    "Pain with straightening the legs",
+    "Decreased patellar reflexes."
+   ]
+  },
+  "manual-19-q55": {
+   "options": [
+    "Erythema, warmth of the tibial tuberosity",
+    "Anterior knee pain reproduced by extending the knee against resistance",
+    "Pain occurs over the patellar tendon",
+    "Posterior knee pain exacerbated by excessive forefoot pronation."
+   ]
+  },
+  "manual-19-q56": {
+   "options": [
+    "septic arthritis.",
+    "rheumatoid arthritis.",
+    "Legg-Calv\u00e9-Perthes.",
+    "transient synovitis. Pediatric."
+   ]
+  },
+  "manual-20-q1": {
+   "options": [
+    "Macrosomia",
+    "Group B Strep infection in birthing parent",
+    "A CN VI disorder",
+    "Vitamin D deficiency in birthing parent Newborn: Personal-Social Regards another\u2019s face."
+   ]
+  },
+  "manual-20-q2": {
+   "options": [
+    "Indicates the maturity of the nervous system",
+    "Indicates normal muscle tone",
+    "Rules out neurologic disorders",
+    "Assesses the gestational age of the infant."
+   ]
+  },
+  "manual-20-q6": {
+   "options": [
+    "hearing loss.",
+    "central nervous system damage.",
+    "a visual defect.",
+    "developmental delays. Newborns: Ears."
+   ]
+  },
+  "manual-20-q7": {
+   "options": [
+    "16 pounds",
+    "19 pounds",
+    "21 pounds",
+    "24 pounds Growth in Infants Newborns lose 5\u20137% of their birth weight in the first days."
+   ]
+  },
+  "manual-20-q8": {
+   "options": [
+    "This fontanel will stay open until about age 9 to 18 months.",
+    "The posterior fontanel should close by 3 months.",
+    "The baby should be referred to Neurology.",
+    "The posterior fontanel usually closes by 8 weeks. 2-Month-Old: Visual."
+   ]
+  },
+  "manual-20-q10": {
+   "options": [
+    "Within the first 2 months of life",
+    "By 3 months of age",
+    "By 6 months of age",
+    "By 12 months of age 6-Month-Old: Visual."
+   ]
+  },
+  "manual-20-q11": {
+   "options": [
+    "Red reflex",
+    "Snellen chart",
+    "Cover-uncover test",
+    "Visual tracking."
+   ]
+  },
+  "manual-20-q13": {
+   "options": [
+    "Preconventional level\u2014Stage 1: obedience and punishment orientation",
+    "Preconventional level\u2014Stage 2: individualism and exchange (self-interest)",
+    "Conventional level\u2014Stage 3: good interpersonal relationships",
+    "Postconventional level\u2014Stage 5: social contract and individual rights."
+   ]
+  }
+ },
+ "duplicates": {
+  "manual-03-q1": {
+   "dupOf": "antibiotics-q1",
+   "similarity": 0.839
+  },
+  "manual-10-q2": {
+   "dupOf": "cardiovascular-and-peripheral-vascular-disorders-q2",
+   "similarity": 0.857
+  },
+  "manual-14-q1": {
+   "dupOf": "orthopedic-disorders-q1",
+   "similarity": 1.0
+  },
+  "manual-14-q2": {
+   "dupOf": "orthopedic-disorders-q2",
+   "similarity": 0.961
+  },
+  "manual-14-q3": {
+   "dupOf": "orthopedic-disorders-q3",
+   "similarity": 1.0
+  },
+  "manual-14-q4": {
+   "dupOf": "orthopedic-disorders-q4",
+   "similarity": 0.892
+  },
+  "manual-14-q6": {
+   "dupOf": "orthopedic-disorders-q6",
+   "similarity": 0.983
+  },
+  "manual-14-q8": {
+   "dupOf": "orthopedic-disorders-q8",
+   "similarity": 0.898
+  },
+  "manual-14-q9": {
+   "dupOf": "orthopedic-disorders-q9",
+   "similarity": 0.959
+  },
+  "manual-15-q2": {
+   "dupOf": "dermatology-q2",
+   "similarity": 1.0
+  },
+  "manual-15-q3": {
+   "dupOf": "dermatology-q3",
+   "similarity": 0.84
+  },
+  "manual-15-q4": {
+   "dupOf": "dermatology-q4",
+   "similarity": 0.813
+  },
+  "manual-15-q8": {
+   "dupOf": "dermatology-q8",
+   "similarity": 0.946
+  },
+  "manual-15-q11": {
+   "dupOf": "dermatology-q11",
+   "similarity": 0.886
+  },
+  "manual-15-q12": {
+   "dupOf": "dermatology-q12",
+   "similarity": 0.858
+  },
+  "manual-15-q13": {
+   "dupOf": "dermatology-q13",
+   "similarity": 0.827
+  },
+  "manual-15-q15": {
+   "dupOf": "dermatology-q15",
+   "similarity": 0.843
+  },
+  "manual-16-q1": {
+   "dupOf": "eye-ear-nose-and-throat-eent-q1",
+   "similarity": 0.861
+  },
+  "manual-16-q2": {
+   "dupOf": "eye-ear-nose-and-throat-eent-q2",
+   "similarity": 0.922
+  },
+  "manual-16-q3": {
+   "dupOf": "eye-ear-nose-and-throat-eent-q3",
+   "similarity": 0.819
+  },
+  "manual-16-q7": {
+   "dupOf": "eye-ear-nose-and-throat-eent-q7",
+   "similarity": 0.932
+  },
+  "manual-16-q8": {
+   "dupOf": "eye-ear-nose-and-throat-eent-q8",
+   "similarity": 0.85
+  },
+  "manual-16-q9": {
+   "dupOf": "eye-ear-nose-and-throat-eent-q9",
+   "similarity": 0.85
+  },
+  "manual-16-q10": {
+   "dupOf": "eye-ear-nose-and-throat-eent-q10",
+   "similarity": 1.0
+  },
+  "manual-17-q3": {
+   "dupOf": "care-of-the-aging-adult-q3",
+   "similarity": 0.861
+  },
+  "manual-17-q7": {
+   "dupOf": "care-of-the-aging-adult-q7",
+   "similarity": 0.826
+  },
+  "manual-17-q8": {
+   "dupOf": "care-of-the-aging-adult-q8",
+   "similarity": 0.832
+  },
+  "manual-17-q14": {
+   "dupOf": "care-of-the-aging-adult-q14",
+   "similarity": 0.816
+  },
+  "manual-18-q4": {
+   "dupOf": "pregnancy-in-primary-care-q4",
+   "similarity": 0.867
+  },
+  "manual-18-q5": {
+   "dupOf": "pregnancy-in-primary-care-q5",
+   "similarity": 0.8
+  },
+  "manual-18-q9": {
+   "dupOf": "pregnancy-in-primary-care-q9",
+   "similarity": 0.812
+  },
+  "manual-18-q20": {
+   "dupOf": "pregnancy-in-primary-care-q20",
+   "similarity": 0.888
+  },
+  "manual-19-q2": {
+   "dupOf": "pediatrics-q2",
+   "similarity": 0.821
+  },
+  "manual-19-q6": {
+   "dupOf": "pediatrics-q6",
+   "similarity": 0.815
+  },
+  "manual-19-q9": {
+   "dupOf": "pediatrics-q9",
+   "similarity": 0.83
+  },
+  "manual-19-q13": {
+   "dupOf": "pediatrics-q13",
+   "similarity": 0.802
+  },
+  "manual-19-q15": {
+   "dupOf": "pediatrics-q15",
+   "similarity": 0.853
+  },
+  "manual-19-q17": {
+   "dupOf": "pediatrics-q17",
+   "similarity": 0.848
+  },
+  "manual-19-q23": {
+   "dupOf": "pediatrics-q23",
+   "similarity": 0.808
+  },
+  "manual-19-q27": {
+   "dupOf": "pediatrics-q27",
+   "similarity": 0.848
+  },
+  "manual-19-q28": {
+   "dupOf": "pediatrics-q28",
+   "similarity": 0.893
+  },
+  "manual-19-q29": {
+   "dupOf": "pediatrics-q29",
+   "similarity": 0.842
+  },
+  "manual-19-q45": {
+   "dupOf": "pediatrics-q45",
+   "similarity": 0.836
+  },
+  "manual-19-q49": {
+   "dupOf": "pediatrics-q49",
+   "similarity": 0.851
+  },
+  "manual-19-q52": {
+   "dupOf": "pediatrics-q52",
+   "similarity": 0.809
+  },
+  "manual-19-q55": {
+   "dupOf": "pediatrics-q55",
+   "similarity": 0.949
+  },
+  "manual-20-q8": {
+   "dupOf": "pediatric-growth-development-q8",
+   "similarity": 0.955
+  },
+  "manual-20-q9": {
+   "dupOf": "pediatric-growth-development-q9",
+   "similarity": 0.956
+  },
+  "manual-20-q10": {
+   "dupOf": "pediatric-growth-development-q10",
+   "similarity": 0.947
+  }
+ },
+ "anchors": {
+  "antibiotics-q1": {
+   "manualId": "03",
+   "manualTitle": "Antibiotics",
+   "section": "Rule 2: Cautious Use of Second- or Third-Generation Cephalosporin if",
+   "score": 0.114
+  },
+  "antibiotics-q2": {
+   "manualId": "03",
+   "manualTitle": "Antibiotics",
+   "section": "NOT MRSA",
+   "score": 0.419
+  },
+  "pulmonary-disorders-q1": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Let\u2019s Take Care of Some Patients!",
+   "score": 0.15
+  },
+  "pulmonary-disorders-q2": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Let\u2019s Take Care of Some Patients!",
+   "score": 0.128
+  },
+  "pulmonary-disorders-q3": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Ex: Influenza Positive Negative Disease",
+   "score": 0.102
+  },
+  "pulmonary-disorders-q4": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Evidence-Based Strategy for Outpatient Pneumonia Treatment",
+   "score": 0.114
+  },
+  "pulmonary-disorders-q5": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Low-quality Mod-quality",
+   "score": 0.163
+  },
+  "pulmonary-disorders-q6": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Low-quality Mod-quality",
+   "score": 0.167
+  },
+  "pulmonary-disorders-q7": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "H. influenzae, M. catarrhalis, M. pneumoniae, C. pneumoniae, DRSP",
+   "score": 0.312
+  },
+  "pulmonary-disorders-q8": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Cefuroxime Ceftin*",
+   "score": 0.174
+  },
+  "pulmonary-disorders-q9": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Grade Description of Breathlessness",
+   "score": 0.129
+  },
+  "pulmonary-disorders-q10": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Let\u2019s Take Care of Some More Patients!",
+   "score": 0.189
+  },
+  "pulmonary-disorders-q11": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Let\u2019s Take Care of Some More Patients!",
+   "score": 0.171
+  },
+  "pulmonary-disorders-q12": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Step 1 Symbicort dosages:",
+   "score": 0.209
+  },
+  "pulmonary-disorders-q13": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Low-dose ICS/formoterol PRN",
+   "score": 0.2
+  },
+  "hematology-q1": {
+   "manualId": "05",
+   "manualTitle": "Hematology",
+   "section": "HGB 10.0 L 13.7\u201317.3",
+   "score": 0.143
+  },
+  "hematology-q2": {
+   "manualId": "05",
+   "manualTitle": "Hematology",
+   "section": "Group #1 Group #2",
+   "score": 0.231
+  },
+  "hematology-q3": {
+   "manualId": "05",
+   "manualTitle": "Hematology",
+   "section": "Iron-Deficiency Anemia (IDA)",
+   "score": 0.185
+  },
+  "hematology-q4": {
+   "manualId": "05",
+   "manualTitle": "Hematology",
+   "section": "Iron-Deficiency Anemia (IDA)",
+   "score": 0.143
+  },
+  "hematology-q5": {
+   "manualId": "05",
+   "manualTitle": "Hematology",
+   "section": "Iron-Rich Foods",
+   "score": 0.081
+  },
+  "hematology-q7": {
+   "manualId": "05",
+   "manualTitle": "Hematology",
+   "section": "Test Patient Normal Range",
+   "score": 0.235
+  },
+  "hematology-q8": {
+   "manualId": "05",
+   "manualTitle": "Hematology",
+   "section": "Anemia of Chronic Disease Etiologies",
+   "score": 0.108
+  },
+  "hematology-q9": {
+   "manualId": "05",
+   "manualTitle": "Hematology",
+   "section": "Folate Deficiency Management",
+   "score": 0.115
+  },
+  "neurologic-disorders-q1": {
+   "manualId": "06",
+   "manualTitle": "Neurologic Disorders",
+   "section": "Stroke Days to Vascular risk factors Neurologic deficits,",
+   "score": 0.095
+  },
+  "neurologic-disorders-q3": {
+   "manualId": "06",
+   "manualTitle": "Neurologic Disorders",
+   "section": "TIP: Refer for everything except BPPV!",
+   "score": 0.182
+  },
+  "neurologic-disorders-q4": {
+   "manualId": "06",
+   "manualTitle": "Neurologic Disorders",
+   "section": "Canadian CT Head Injury/Trauma Rule (CCHR)",
+   "score": 0.194
+  },
+  "neurologic-disorders-q5": {
+   "manualId": "06",
+   "manualTitle": "Neurologic Disorders",
+   "section": "Increase in HR",
+   "score": 0.169
+  },
+  "neurologic-disorders-q8": {
+   "manualId": "06",
+   "manualTitle": "Neurologic Disorders",
+   "section": "Rimegepant (Nurtec ODT)",
+   "score": 0.192
+  },
+  "neurologic-disorders-q9": {
+   "manualId": "06",
+   "manualTitle": "Neurologic Disorders",
+   "section": "No opioids or barbiturates Prevention",
+   "score": 0.205
+  },
+  "neurologic-disorders-q10": {
+   "manualId": "06",
+   "manualTitle": "Neurologic Disorders",
+   "section": "Gabapentinoids Pregabalin (Lyrica) Gabapentin (Neurontin)",
+   "score": 0.226
+  },
+  "neurologic-disorders-q11": {
+   "manualId": "06",
+   "manualTitle": "Neurologic Disorders",
+   "section": "Tremor Characteristics Most Likely Diagnosis",
+   "score": 0.457
+  },
+  "neurologic-disorders-q12": {
+   "manualId": "06",
+   "manualTitle": "Neurologic Disorders",
+   "section": "Dementia Risk Factors",
+   "score": 0.209
+  },
+  "mental-health-in-primary-care-q1": {
+   "manualId": "07",
+   "manualTitle": "Mental Health",
+   "section": "Thorough History",
+   "score": 0.12
+  },
+  "mental-health-in-primary-care-q2": {
+   "manualId": "07",
+   "manualTitle": "Mental Health",
+   "section": "Score Depression Severity Comments",
+   "score": 0.175
+  },
+  "mental-health-in-primary-care-q3": {
+   "manualId": "07",
+   "manualTitle": "Mental Health",
+   "section": "SSRIs in Pregnancy and Lactation",
+   "score": 0.115
+  },
+  "mental-health-in-primary-care-q5": {
+   "manualId": "07",
+   "manualTitle": "Mental Health",
+   "section": "Age Expect Improvement Expect Relief of Symptoms",
+   "score": 0.228
+  },
+  "mental-health-in-primary-care-q6": {
+   "manualId": "07",
+   "manualTitle": "Mental Health",
+   "section": "Less CYP450 effect",
+   "score": 0.105
+  },
+  "mental-health-in-primary-care-q8": {
+   "manualId": "07",
+   "manualTitle": "Mental Health",
+   "section": "Posttraumatic Stress Disorder (PTSD)",
+   "score": 0.118
+  },
+  "mental-health-in-primary-care-q9": {
+   "manualId": "07",
+   "manualTitle": "Mental Health",
+   "section": "ADHD Assessment",
+   "score": 0.211
+  },
+  "mental-health-in-primary-care-q10": {
+   "manualId": "07",
+   "manualTitle": "Mental Health",
+   "section": "KNOWLEDGE CHECK",
+   "score": 0.385
+  },
+  "gastrointestinal-disorders-q1": {
+   "manualId": "08",
+   "manualTitle": "Gastrointestinal Disorders",
+   "section": "LET\u2019S MEET OUR FIRST PATIENT!",
+   "score": 0.296
+  },
+  "gastrointestinal-disorders-q3": {
+   "manualId": "08",
+   "manualTitle": "Gastrointestinal Disorders",
+   "section": "Murphy\u2019s Sign",
+   "score": 0.385
+  },
+  "gastrointestinal-disorders-q4": {
+   "manualId": "08",
+   "manualTitle": "Gastrointestinal Disorders",
+   "section": "Chronic Cholecystitis",
+   "score": 0.167
+  },
+  "gastrointestinal-disorders-q6": {
+   "manualId": "08",
+   "manualTitle": "Gastrointestinal Disorders",
+   "section": "GERD: Alarm Symptoms",
+   "score": 0.128
+  },
+  "gastrointestinal-disorders-q8": {
+   "manualId": "08",
+   "manualTitle": "Gastrointestinal Disorders",
+   "section": "Barrett\u2019s Esophagus: Risk Factors",
+   "score": 0.148
+  },
+  "gastrointestinal-disorders-q9": {
+   "manualId": "08",
+   "manualTitle": "Gastrointestinal Disorders",
+   "section": "Barrett\u2019s Esophagus: Risk Factors",
+   "score": 0.163
+  },
+  "gastrointestinal-disorders-q10": {
+   "manualId": "08",
+   "manualTitle": "Gastrointestinal Disorders",
+   "section": "Colorectal Cancer (CRC) Screening",
+   "score": 0.167
+  },
+  "gastrointestinal-disorders-q11": {
+   "manualId": "08",
+   "manualTitle": "Gastrointestinal Disorders",
+   "section": "Marker Interpretation",
+   "score": 0.4
+  },
+  "urology-and-sexually-transmitted-infections-q1": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "Leukocyte esterase Enzyme produced by WBCs \u2022 Usually indicates UTI",
+   "score": 0.103
+  },
+  "urology-and-sexually-transmitted-infections-q2": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "UTI Diagnostic Studies",
+   "score": 0.083
+  },
+  "urology-and-sexually-transmitted-infections-q3": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "Uncomplicated UTI",
+   "score": 0.167
+  },
+  "urology-and-sexually-transmitted-infections-q4": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "Pyelonephritis Management",
+   "score": 0.19
+  },
+  "urology-and-sexually-transmitted-infections-q6": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "Prescribing in Renal Impairment",
+   "score": 0.143
+  },
+  "urology-and-sexually-transmitted-infections-q7": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "ASSESSING SEXUAL RISK",
+   "score": 0.153
+  },
+  "urology-and-sexually-transmitted-infections-q8": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "PLUS G. vaginalis",
+   "score": 0.111
+  },
+  "urology-and-sexually-transmitted-infections-q11": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "Do NOTIUDremove",
+   "score": 0.16
+  },
+  "urology-and-sexually-transmitted-infections-q12": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "Types of HSV Infection",
+   "score": 0.143
+  },
+  "urology-and-sexually-transmitted-infections-q13": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "Consider HSV serology IF:",
+   "score": 0.083
+  },
+  "urology-and-sexually-transmitted-infections-q16": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "HIV: Screening Per CDC",
+   "score": 0.125
+  },
+  "cardiovascular-and-peripheral-vascular-disorders-q1": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Stage 2 HTN or if",
+   "score": 0.364
+  },
+  "cardiovascular-and-peripheral-vascular-disorders-q3": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Lab Today Normal Range",
+   "score": 0.179
+  },
+  "cardiovascular-and-peripheral-vascular-disorders-q4": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Lab Today Normal Range",
+   "score": 0.103
+  },
+  "cardiovascular-and-peripheral-vascular-disorders-q5": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "SECONDARY HTN",
+   "score": 0.091
+  },
+  "cardiovascular-and-peripheral-vascular-disorders-q6": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "SECONDARY HTN",
+   "score": 0.111
+  },
+  "cardiovascular-and-peripheral-vascular-disorders-q7": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "ACC/AHA GOAL",
+   "score": 0.2
+  },
+  "cardiovascular-and-peripheral-vascular-disorders-q9": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "ASCVD, LDL>160 mg/dL, Atorvastatin 40\u201380 mg Atorvastatin 10\u201320 mg",
+   "score": 0.143
+  },
+  "cardiovascular-and-peripheral-vascular-disorders-q10": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Joshua Lanclos/APEA",
+   "score": 0.148
+  },
+  "cardiovascular-and-peripheral-vascular-disorders-q11": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "ULTRASOUND: GOLD STANDARD",
+   "score": 0.091
+  },
+  "cardiovascular-and-peripheral-vascular-disorders-q12": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Atrial Fibrillation",
+   "score": 0.089
+  },
+  "cardiovascular-and-peripheral-vascular-disorders-q13": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Pneumonic: Diastolic Murmurs",
+   "score": 0.167
+  },
+  "cardiovascular-and-peripheral-vascular-disorders-q14": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Step Question Answer",
+   "score": 0.119
+  },
+  "cardiovascular-and-peripheral-vascular-disorders-q15": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Symptoms Signs",
+   "score": 0.125
+  },
+  "cardiovascular-and-peripheral-vascular-disorders-q16": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Pneumonic: Diastolic Murmurs",
+   "score": 0.133
+  },
+  "cardiovascular-and-peripheral-vascular-disorders-q17": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Pneumonic: Diastolic Murmurs",
+   "score": 0.125
+  },
+  "endocrine-disorders-q2": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "A1c goal Usually 7% A1c goal",
+   "score": 0.1
+  },
+  "endocrine-disorders-q3": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "TYPE 2 DIABETES",
+   "score": 0.24
+  },
+  "endocrine-disorders-q4": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "A1c Estimated Average Blood Glucose (mg/dL) Blood Glucose Range (mg/dL)",
+   "score": 0.143
+  },
+  "endocrine-disorders-q5": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "Patient Category Initial Labs Goal/Strategies",
+   "score": 0.08
+  },
+  "endocrine-disorders-q6": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "GIP/GLP-1 -tide Tirzepatide",
+   "score": 0.083
+  },
+  "endocrine-disorders-q8": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "Limited financial resources SU, TZD, metformin",
+   "score": 0.135
+  },
+  "endocrine-disorders-q9": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "Obesity SGLT2, GLP-1",
+   "score": 0.222
+  },
+  "endocrine-disorders-q11": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "Day FBG",
+   "score": 0.32
+  },
+  "endocrine-disorders-q12": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "Subclinical Hypothyroidism",
+   "score": 0.2
+  },
+  "endocrine-disorders-q13": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "Patient Calculated Dose Starting Dose",
+   "score": 0.091
+  },
+  "endocrine-disorders-q14": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "Patient Calculated Dose Starting Dose",
+   "score": 0.368
+  },
+  "endocrine-disorders-q15": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "Levothyroxine Dose Titration",
+   "score": 0.154
+  },
+  "endocrine-disorders-q16": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "Name That Endocrine Condition",
+   "score": 0.237
+  },
+  "women-s-health-q1": {
+   "manualId": "12",
+   "manualTitle": "Women's Health",
+   "section": "Stage 4 Stage 5",
+   "score": 0.13
+  },
+  "women-s-health-q2": {
+   "manualId": "12",
+   "manualTitle": "Women's Health",
+   "section": "Manage in primary care Refer to OBGYN",
+   "score": 0.237
+  },
+  "women-s-health-q3": {
+   "manualId": "12",
+   "manualTitle": "Women's Health",
+   "section": "PCOS: Diagnosis",
+   "score": 0.19
+  },
+  "women-s-health-q5": {
+   "manualId": "12",
+   "manualTitle": "Women's Health",
+   "section": "Results Action",
+   "score": 0.125
+  },
+  "women-s-health-q6": {
+   "manualId": "12",
+   "manualTitle": "Women's Health",
+   "section": "Microscopy Clue cells Buds, hyphae, with KOH Trichomonads",
+   "score": 0.089
+  },
+  "women-s-health-q7": {
+   "manualId": "12",
+   "manualTitle": "Women's Health",
+   "section": "Vulvovaginal Atrophy (VVA) Management",
+   "score": 0.114
+  },
+  "women-s-health-q8": {
+   "manualId": "12",
+   "manualTitle": "Women's Health",
+   "section": "Osteoporosis T-Score <\u22122.5",
+   "score": 0.091
+  },
+  "men-s-health-q1": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "Inguinal Hernias",
+   "score": 0.143
+  },
+  "men-s-health-q4": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "Uroselective Comments",
+   "score": 0.158
+  },
+  "men-s-health-q5": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "COMMON CONCERNS",
+   "score": 0.094
+  },
+  "men-s-health-q6": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "Acute Bacterial Prostatitis: History",
+   "score": 0.24
+  },
+  "men-s-health-q8": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "Cautious use: CVD",
+   "score": 0.333
+  },
+  "men-s-health-q9": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "COMMON CONCERNS",
+   "score": 0.345
+  },
+  "men-s-health-q10": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "Epididymitis: Management",
+   "score": 0.258
+  },
+  "men-s-health-q11": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "Joshua Lanclos/APEA",
+   "score": 0.25
+  },
+  "men-s-health-q12": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "HYDROCELE",
+   "score": 0.286
+  },
+  "men-s-health-q13": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "Joshua Lanclos/APEA",
+   "score": 0.261
+  },
+  "men-s-health-q14": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "Hernia Diagnosis",
+   "score": 0.169
+  },
+  "orthopedic-disorders-q2": {
+   "manualId": "14",
+   "manualTitle": "Orthopedic Disorders",
+   "section": "Treatment of Osteoarthritis",
+   "score": 0.316
+  },
+  "orthopedic-disorders-q3": {
+   "manualId": "14",
+   "manualTitle": "Orthopedic Disorders",
+   "section": "Fibromyalgia: Diagnosis",
+   "score": 0.1
+  },
+  "orthopedic-disorders-q4": {
+   "manualId": "14",
+   "manualTitle": "Orthopedic Disorders",
+   "section": "Differentials: AC Yes (rotator cuff tendinopathy,",
+   "score": 0.409
+  },
+  "orthopedic-disorders-q5": {
+   "manualId": "14",
+   "manualTitle": "Orthopedic Disorders",
+   "section": "Orthopedic Principle #2",
+   "score": 0.5
+  },
+  "orthopedic-disorders-q6": {
+   "manualId": "14",
+   "manualTitle": "Orthopedic Disorders",
+   "section": "Posterior Muscle Groups",
+   "score": 0.227
+  },
+  "orthopedic-disorders-q7": {
+   "manualId": "14",
+   "manualTitle": "Orthopedic Disorders",
+   "section": "Posterior hip pain SI joint, LBP",
+   "score": 0.533
+  },
+  "orthopedic-disorders-q8": {
+   "manualId": "14",
+   "manualTitle": "Orthopedic Disorders",
+   "section": "Base of Navicular bone",
+   "score": 0.194
+  },
+  "orthopedic-disorders-q9": {
+   "manualId": "14",
+   "manualTitle": "Orthopedic Disorders",
+   "section": "Joshua Lanclos/APEA",
+   "score": 0.625
+  },
+  "dermatology-q3": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Let\u2019s Try a Practice Question",
+   "score": 0.136
+  },
+  "dermatology-q4": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Let\u2019s Try a Practice Question",
+   "score": 0.094
+  },
+  "dermatology-q7": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Let\u2019s Try a Practice Question",
+   "score": 0.092
+  },
+  "dermatology-q8": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "CAN LEAD TO BACTERIAL INFECTION!",
+   "score": 0.14
+  },
+  "dermatology-q9": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Management of Bites",
+   "score": 0.138
+  },
+  "dermatology-q12": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Fungal Rashes",
+   "score": 0.098
+  },
+  "dermatology-q13": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Referral to ENT",
+   "score": 0.194
+  },
+  "dermatology-q14": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Amoxicillin single dose Ixodes tick",
+   "score": 0.25
+  },
+  "dermatology-q15": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Seborrheic Keratosis",
+   "score": 0.096
+  },
+  "dermatology-q17": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Name That Skin Cancer",
+   "score": 0.118
+  },
+  "dermatology-q18": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Systemic Lupus Erythematosus (SLE)",
+   "score": 0.083
+  },
+  "eye-ear-nose-and-throat-eent-q1": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Antihistamines Not recommended; may cause",
+   "score": 0.281
+  },
+  "eye-ear-nose-and-throat-eent-q2": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Bacterial Sinusitis",
+   "score": 0.235
+  },
+  "eye-ear-nose-and-throat-eent-q3": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Allergic Rhinitis Management",
+   "score": 0.206
+  },
+  "eye-ear-nose-and-throat-eent-q4": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Strep Pharyngitis Treatment",
+   "score": 0.154
+  },
+  "eye-ear-nose-and-throat-eent-q5": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Strep Pharyngitis Treatment",
+   "score": 0.133
+  },
+  "eye-ear-nose-and-throat-eent-q6": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Check GAS community",
+   "score": 0.125
+  },
+  "eye-ear-nose-and-throat-eent-q7": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Check GAS community",
+   "score": 0.112
+  },
+  "eye-ear-nose-and-throat-eent-q8": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Late primary or Pos Pos Pos",
+   "score": 0.455
+  },
+  "eye-ear-nose-and-throat-eent-q9": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Otitis media \u2022 Usually self-limited",
+   "score": 0.136
+  },
+  "eye-ear-nose-and-throat-eent-q10": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Refer to ENT or ER for:",
+   "score": 0.105
+  },
+  "eye-ear-nose-and-throat-eent-q11": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Refer to ENT or ER for:",
+   "score": 0.167
+  },
+  "eye-ear-nose-and-throat-eent-q12": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "EYE COMPLAINTS",
+   "score": 0.421
+  },
+  "care-of-the-aging-adult-q1": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Normal Aging",
+   "score": 0.091
+  },
+  "care-of-the-aging-adult-q2": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Anemia Atelectasis Insomnia",
+   "score": 0.441
+  },
+  "care-of-the-aging-adult-q3": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Preventive Care",
+   "score": 0.3
+  },
+  "care-of-the-aging-adult-q4": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Managing Sleep Disturbances",
+   "score": 0.109
+  },
+  "care-of-the-aging-adult-q5": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Lab Value Normal Value",
+   "score": 0.3
+  },
+  "care-of-the-aging-adult-q6": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "V <14 Dialysis",
+   "score": 0.316
+  },
+  "care-of-the-aging-adult-q7": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Assessing Goals of Care",
+   "score": 0.136
+  },
+  "care-of-the-aging-adult-q8": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Depression Assessment",
+   "score": 0.143
+  },
+  "care-of-the-aging-adult-q9": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Mrs. Dalton",
+   "score": 0.429
+  },
+  "care-of-the-aging-adult-q10": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Pain Management",
+   "score": 0.186
+  },
+  "care-of-the-aging-adult-q11": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "END-OF-LIFE PLANNING",
+   "score": 0.25
+  },
+  "care-of-the-aging-adult-q12": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Drug use disorder Questionnaire All adults N/A",
+   "score": 0.118
+  },
+  "care-of-the-aging-adult-q13": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Palliative Care",
+   "score": 0.114
+  },
+  "care-of-the-aging-adult-q14": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Provider Role in Assessing Capacity",
+   "score": 0.157
+  },
+  "care-of-the-aging-adult-q15": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Provider Role in Assessing Capacity",
+   "score": 0.11
+  },
+  "pregnancy-in-primary-care-q1": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Preconception Counseling",
+   "score": 0.182
+  },
+  "pregnancy-in-primary-care-q2": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Folic Acid Risk",
+   "score": 0.174
+  },
+  "pregnancy-in-primary-care-q4": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "PREGNANCY COMPLICATIONS",
+   "score": 0.097
+  },
+  "pregnancy-in-primary-care-q5": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "COMMON PREGNANCY CONCERNS",
+   "score": 0.355
+  },
+  "pregnancy-in-primary-care-q6": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Nausea in Pregnancy: Treatment",
+   "score": 0.161
+  },
+  "pregnancy-in-primary-care-q7": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Nausea in Pregnancy: Treatment",
+   "score": 0.154
+  },
+  "pregnancy-in-primary-care-q8": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Fluconazole (Diflucan) Miscarriage (all doses)",
+   "score": 0.256
+  },
+  "pregnancy-in-primary-care-q10": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "STI Plan",
+   "score": 0.119
+  },
+  "pregnancy-in-primary-care-q11": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "STI Plan",
+   "score": 0.134
+  },
+  "pregnancy-in-primary-care-q12": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "STI Plan",
+   "score": 0.107
+  },
+  "pregnancy-in-primary-care-q13": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Weight Gain: Singleton Pregnancy",
+   "score": 0.171
+  },
+  "pregnancy-in-primary-care-q14": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Primary Care",
+   "score": 0.081
+  },
+  "pregnancy-in-primary-care-q15": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "PREGNANCY COMPLICATIONS",
+   "score": 0.385
+  },
+  "pregnancy-in-primary-care-q16": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Second Trimester: 14\u201328 Weeks",
+   "score": 0.192
+  },
+  "pregnancy-in-primary-care-q17": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Preterm Premature Rupture",
+   "score": 0.098
+  },
+  "pregnancy-in-primary-care-q19": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Gestational Diabetes",
+   "score": 0.095
+  },
+  "pregnancy-in-primary-care-q20": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Preeclampsia Management",
+   "score": 0.096
+  },
+  "pediatrics-q1": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Live Vaccines",
+   "score": 0.17
+  },
+  "pediatrics-q2": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Live Vaccines",
+   "score": 0.111
+  },
+  "pediatrics-q3": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Live Vaccines",
+   "score": 0.255
+  },
+  "pediatrics-q4": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Spacing of Vaccines",
+   "score": 0.219
+  },
+  "pediatrics-q6": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Acute Otitis Media (AOM)",
+   "score": 0.235
+  },
+  "pediatrics-q7": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "When to Refer for Recurrent AOM",
+   "score": 0.29
+  },
+  "pediatrics-q9": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Autism Screening",
+   "score": 0.114
+  },
+  "pediatrics-q10": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Seizure: Get a Detailed History!",
+   "score": 0.186
+  },
+  "pediatrics-q11": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "HEMATOLOGY",
+   "score": 0.39
+  },
+  "pediatrics-q12": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "HYPERBILIRUBINEMIA",
+   "score": 0.222
+  },
+  "pediatrics-q13": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "HYPERBILIRUBINEMIA",
+   "score": 0.125
+  },
+  "pediatrics-q14": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "BIND: Clinical Signs",
+   "score": 0.104
+  },
+  "pediatrics-q15": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Sickle Cell Disease (SCD)",
+   "score": 0.143
+  },
+  "pediatrics-q16": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Children\u2019s Airways",
+   "score": 0.107
+  },
+  "pediatrics-q18": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "HIB Haemophilus influenzae type B; Pneumonia, meningitis, epiglottitis",
+   "score": 0.17
+  },
+  "pediatrics-q19": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Lymphs % 14 L 30\u201340",
+   "score": 0.12
+  },
+  "pediatrics-q21": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Influenza Vaccine",
+   "score": 0.152
+  },
+  "pediatrics-q22": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Influenza Vaccine",
+   "score": 0.121
+  },
+  "pediatrics-q23": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Clinical Diagnosis!",
+   "score": 0.234
+  },
+  "pediatrics-q24": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Bronchiolitis Management",
+   "score": 0.103
+  },
+  "pediatrics-q26": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Referral recommended at Step 4",
+   "score": 0.09
+  },
+  "pediatrics-q27": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Referral recommended at Step 4",
+   "score": 0.093
+  },
+  "pediatrics-q28": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Measure Normal Values",
+   "score": 0.08
+  },
+  "pediatrics-q29": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Measure Normal Values",
+   "score": 0.25
+  },
+  "pediatrics-q30": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Overweight and Obesity",
+   "score": 0.16
+  },
+  "pediatrics-q32": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "GASTROINTESTINAL",
+   "score": 0.143
+  },
+  "pediatrics-q33": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Pyloric Stenosis: Presentation",
+   "score": 0.14
+  },
+  "pediatrics-q34": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Pyloric Stenosis: Presentation",
+   "score": 0.189
+  },
+  "pediatrics-q35": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "PYLORIC STENOSIS MANAGEMENT",
+   "score": 0.35
+  },
+  "pediatrics-q36": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "GER: Lifestyle Management",
+   "score": 0.173
+  },
+  "pediatrics-q37": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "GER: Pharmacologic Management",
+   "score": 0.169
+  },
+  "pediatrics-q39": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Internal anal has painful BM Rectum",
+   "score": 0.14
+  },
+  "pediatrics-q40": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Treat empirically \u2022 E. colicoverage!",
+   "score": 0.346
+  },
+  "pediatrics-q41": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Joshua Lanclos / APEA",
+   "score": 0.263
+  },
+  "pediatrics-q42": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Joshua Lanclos / APEA",
+   "score": 0.25
+  },
+  "pediatrics-q43": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Joshua Lanclos/APEA",
+   "score": 0.094
+  },
+  "pediatrics-q44": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Joshua Lanclos/APEA",
+   "score": 0.132
+  },
+  "pediatrics-q46": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Many, Many Other Rashes",
+   "score": 0.139
+  },
+  "pediatrics-q47": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Many, Many Other Rashes",
+   "score": 0.134
+  },
+  "pediatrics-q48": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Joshua Lanclos/APEA",
+   "score": 0.393
+  },
+  "pediatrics-q49": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Overweight and Obesity",
+   "score": 0.08
+  },
+  "pediatrics-q51": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Developmental Dysplasia of the Hip (DDH)",
+   "score": 0.14
+  },
+  "pediatrics-q52": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "DDH Screening by Age",
+   "score": 0.16
+  },
+  "pediatrics-q54": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Scoliosis: Manifestations",
+   "score": 0.102
+  },
+  "pediatrics-q56": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Osgood\u2013Schlatter Disease",
+   "score": 0.194
+  },
+  "pediatric-growth-development-q1": {
+   "manualId": "20",
+   "manualTitle": "Pediatric Growth and Development",
+   "section": "Newborn: Motor Development",
+   "score": 0.237
+  },
+  "pediatric-growth-development-q2": {
+   "manualId": "20",
+   "manualTitle": "Pediatric Growth and Development",
+   "section": "Newborn: Language",
+   "score": 0.242
+  },
+  "pediatric-growth-development-q4": {
+   "manualId": "20",
+   "manualTitle": "Pediatric Growth and Development",
+   "section": "Newborns: Head",
+   "score": 0.273
+  },
+  "pediatric-growth-development-q5": {
+   "manualId": "20",
+   "manualTitle": "Pediatric Growth and Development",
+   "section": "Newborn: Ocular Discharge",
+   "score": 0.132
+  },
+  "pediatric-growth-development-q6": {
+   "manualId": "20",
+   "manualTitle": "Pediatric Growth and Development",
+   "section": "Newborn: Ocular Discharge",
+   "score": 0.192
+  },
+  "pediatric-growth-development-q7": {
+   "manualId": "20",
+   "manualTitle": "Pediatric Growth and Development",
+   "section": "Infant Exam: Growth and Development",
+   "score": 0.227
+  },
+  "pediatric-growth-development-q8": {
+   "manualId": "20",
+   "manualTitle": "Pediatric Growth and Development",
+   "section": "Growth in Infants",
+   "score": 0.088
+  },
+  "pediatric-growth-development-q12": {
+   "manualId": "20",
+   "manualTitle": "Pediatric Growth and Development",
+   "section": "Gross Motor Fine Motor Psychosocial Emotional Language",
+   "score": 0.146
+  },
+  "pediatric-growth-development-q13": {
+   "manualId": "20",
+   "manualTitle": "Pediatric Growth and Development",
+   "section": "Male Physical Development Female Physical Development",
+   "score": 0.156
+  },
+  "manual-03-q1": {
+   "manualId": "03",
+   "manualTitle": "Antibiotics",
+   "section": "Rule 2: Cautious Use of Second- or Third-Generation Cephalosporin if",
+   "score": 0.136
+  },
+  "manual-03-q2": {
+   "manualId": "03",
+   "manualTitle": "Antibiotics",
+   "section": "NOT MRSA",
+   "score": 0.425
+  },
+  "manual-04-q1": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Let\u2019s Take Care of Some Patients!",
+   "score": 0.333
+  },
+  "manual-04-q2": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Let\u2019s Take Care of Some Patients!",
+   "score": 0.308
+  },
+  "manual-04-q3": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Ex: Influenza Positive Negative Disease",
+   "score": 0.153
+  },
+  "manual-04-q4": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Evidence-Based Strategy for Outpatient Pneumonia Treatment",
+   "score": 0.295
+  },
+  "manual-04-q5": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Low-quality Mod-quality",
+   "score": 0.381
+  },
+  "manual-04-q6": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Low-quality Mod-quality",
+   "score": 0.262
+  },
+  "manual-04-q7": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "H. influenzae, M. catarrhalis, M. pneumoniae, C. pneumoniae, DRSP",
+   "score": 0.375
+  },
+  "manual-04-q8": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Cefuroxime Ceftin*",
+   "score": 0.435
+  },
+  "manual-04-q9": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Grade Description of Breathlessness",
+   "score": 0.233
+  },
+  "manual-04-q10": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Let\u2019s Take Care of Some More Patients!",
+   "score": 0.324
+  },
+  "manual-04-q12": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Let\u2019s Take Care of Some More Patients!",
+   "score": 0.5
+  },
+  "manual-04-q13": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Step 1 Symbicort dosages:",
+   "score": 0.372
+  },
+  "manual-04-q14": {
+   "manualId": "04",
+   "manualTitle": "Pulmonary Disorders",
+   "section": "Step 1 Symbicort dosages:",
+   "score": 0.395
+  },
+  "manual-05-q1": {
+   "manualId": "05",
+   "manualTitle": "Hematology",
+   "section": "ANEMIA",
+   "score": 0.538
+  },
+  "manual-05-q2": {
+   "manualId": "05",
+   "manualTitle": "Hematology",
+   "section": "Group #1 Group #2",
+   "score": 0.5
+  },
+  "manual-05-q3": {
+   "manualId": "05",
+   "manualTitle": "Hematology",
+   "section": "Iron-Deficiency Anemia (IDA)",
+   "score": 0.273
+  },
+  "manual-05-q5": {
+   "manualId": "05",
+   "manualTitle": "Hematology",
+   "section": "Iron-Rich Foods",
+   "score": 0.183
+  },
+  "manual-05-q6": {
+   "manualId": "05",
+   "manualTitle": "Hematology",
+   "section": "Iron-Rich Foods",
+   "score": 0.169
+  },
+  "manual-05-q9": {
+   "manualId": "05",
+   "manualTitle": "Hematology",
+   "section": "Folate Deficiency Management",
+   "score": 0.196
+  },
+  "manual-06-q1": {
+   "manualId": "06",
+   "manualTitle": "Neurologic Disorders",
+   "section": "Stroke Days to Vascular risk factors Neurologic deficits,",
+   "score": 0.164
+  },
+  "manual-06-q2": {
+   "manualId": "06",
+   "manualTitle": "Neurologic Disorders",
+   "section": "Stroke Days to Vascular risk factors Neurologic deficits,",
+   "score": 0.164
+  },
+  "manual-06-q3": {
+   "manualId": "06",
+   "manualTitle": "Neurologic Disorders",
+   "section": "Head Trauma Imaging Criteria",
+   "score": 0.863
+  },
+  "manual-06-q4": {
+   "manualId": "06",
+   "manualTitle": "Neurologic Disorders",
+   "section": "Canadian CT Head Injury/Trauma Rule (CCHR)",
+   "score": 0.233
+  },
+  "manual-06-q5": {
+   "manualId": "06",
+   "manualTitle": "Neurologic Disorders",
+   "section": "Increase in HR",
+   "score": 0.359
+  },
+  "manual-06-q8": {
+   "manualId": "06",
+   "manualTitle": "Neurologic Disorders",
+   "section": "Rimegepant (Nurtec ODT)",
+   "score": 0.28
+  },
+  "manual-06-q9": {
+   "manualId": "06",
+   "manualTitle": "Neurologic Disorders",
+   "section": "No opioids or barbiturates Prevention",
+   "score": 0.359
+  },
+  "manual-06-q10": {
+   "manualId": "06",
+   "manualTitle": "Neurologic Disorders",
+   "section": "Gabapentinoids Pregabalin (Lyrica) Gabapentin (Neurontin)",
+   "score": 0.355
+  },
+  "manual-06-q12": {
+   "manualId": "06",
+   "manualTitle": "Neurologic Disorders",
+   "section": "Dementia Risk Factors",
+   "score": 0.333
+  },
+  "manual-06-q13": {
+   "manualId": "06",
+   "manualTitle": "Neurologic Disorders",
+   "section": "Neuropsychiatric Symptoms",
+   "score": 0.479
+  },
+  "manual-07-q1": {
+   "manualId": "07",
+   "manualTitle": "Mental Health",
+   "section": "Thorough History",
+   "score": 0.244
+  },
+  "manual-07-q2": {
+   "manualId": "07",
+   "manualTitle": "Mental Health",
+   "section": "Treatment of Major Depressive Disorder (MDD)",
+   "score": 0.658
+  },
+  "manual-07-q3": {
+   "manualId": "07",
+   "manualTitle": "Mental Health",
+   "section": "SSRIs in Pregnancy and Lactation",
+   "score": 0.314
+  },
+  "manual-07-q4": {
+   "manualId": "07",
+   "manualTitle": "Mental Health",
+   "section": "Mania Hypomania",
+   "score": 0.167
+  },
+  "manual-07-q5": {
+   "manualId": "07",
+   "manualTitle": "Mental Health",
+   "section": "Age Expect Improvement Expect Relief of Symptoms",
+   "score": 0.404
+  },
+  "manual-07-q6": {
+   "manualId": "07",
+   "manualTitle": "Mental Health",
+   "section": "Serotonin\u2013Norepinephrine Reuptake Inhibitors (SNRIs)",
+   "score": 0.413
+  },
+  "manual-07-q7": {
+   "manualId": "07",
+   "manualTitle": "Mental Health",
+   "section": "Discontinuation Syndrome",
+   "score": 0.172
+  },
+  "manual-07-q8": {
+   "manualId": "07",
+   "manualTitle": "Mental Health",
+   "section": "Criterion PTSD Cardinal Features",
+   "score": 0.208
+  },
+  "manual-07-q9": {
+   "manualId": "07",
+   "manualTitle": "Mental Health",
+   "section": "DSM-5 Diagnostic Criteria (children and adults)",
+   "score": 0.316
+  },
+  "manual-07-q10": {
+   "manualId": "07",
+   "manualTitle": "Mental Health",
+   "section": "KNOWLEDGE CHECK",
+   "score": 0.5
+  },
+  "manual-08-q1": {
+   "manualId": "08",
+   "manualTitle": "Gastrointestinal Disorders",
+   "section": "LET\u2019S MEET OUR FIRST PATIENT!",
+   "score": 0.76
+  },
+  "manual-08-q2": {
+   "manualId": "08",
+   "manualTitle": "Gastrointestinal Disorders",
+   "section": "Acute Cholecystitis",
+   "score": 0.333
+  },
+  "manual-08-q3": {
+   "manualId": "08",
+   "manualTitle": "Gastrointestinal Disorders",
+   "section": "Murphy\u2019s Sign",
+   "score": 0.615
+  },
+  "manual-08-q4": {
+   "manualId": "08",
+   "manualTitle": "Gastrointestinal Disorders",
+   "section": "Chronic Cholecystitis",
+   "score": 0.3
+  },
+  "manual-08-q5": {
+   "manualId": "08",
+   "manualTitle": "Gastrointestinal Disorders",
+   "section": "Pathophysiology of GERD",
+   "score": 0.5
+  },
+  "manual-08-q6": {
+   "manualId": "08",
+   "manualTitle": "Gastrointestinal Disorders",
+   "section": "GERD: Alarm Symptoms",
+   "score": 0.283
+  },
+  "manual-08-q7": {
+   "manualId": "08",
+   "manualTitle": "Gastrointestinal Disorders",
+   "section": "Class Examples Mechanism of Action",
+   "score": 0.168
+  },
+  "manual-08-q8": {
+   "manualId": "08",
+   "manualTitle": "Gastrointestinal Disorders",
+   "section": "Barrett\u2019s Esophagus: Risk Factors",
+   "score": 0.224
+  },
+  "manual-08-q9": {
+   "manualId": "08",
+   "manualTitle": "Gastrointestinal Disorders",
+   "section": "Barrett\u2019s Esophagus: Risk Factors",
+   "score": 0.367
+  },
+  "manual-08-q10": {
+   "manualId": "08",
+   "manualTitle": "Gastrointestinal Disorders",
+   "section": "Colorectal Cancer (CRC) Screening",
+   "score": 0.154
+  },
+  "manual-08-q15": {
+   "manualId": "08",
+   "manualTitle": "Gastrointestinal Disorders",
+   "section": "HBsAg Anti-HBc Anti-HBs Anti-HBc Interpretation",
+   "score": 0.548
+  },
+  "manual-09-q1": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "Leukocyte esterase Enzyme produced by WBCs \u2022 Usually indicates UTI",
+   "score": 0.289
+  },
+  "manual-09-q2": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "TIP: Hematuria requires further evaluation!!!",
+   "score": 0.25
+  },
+  "manual-09-q3": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "Uncomplicated UTI",
+   "score": 0.2
+  },
+  "manual-09-q4": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "Pyelonephritis Management",
+   "score": 0.328
+  },
+  "manual-09-q5": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "Urinary Malignancy",
+   "score": 0.545
+  },
+  "manual-09-q6": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "Interstitial Cystitis",
+   "score": 0.633
+  },
+  "manual-09-q7": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "ASSESSING SEXUAL RISK",
+   "score": 0.42
+  },
+  "manual-09-q8": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "Chlamydia Management",
+   "score": 0.241
+  },
+  "manual-09-q9": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "Chlamydia Management",
+   "score": 0.211
+  },
+  "manual-09-q10": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "PID: Diagnostic Criteria",
+   "score": 0.703
+  },
+  "manual-09-q12": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "Consider HSV serology IF:",
+   "score": 0.458
+  },
+  "manual-09-q15": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "HIV: Screening Per CDC",
+   "score": 0.167
+  },
+  "manual-09-q16": {
+   "manualId": "09",
+   "manualTitle": "Urology and STI",
+   "section": "HIV: Screening Per CDC",
+   "score": 0.31
+  },
+  "manual-10-q1": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Stage 2 HTN or if",
+   "score": 0.368
+  },
+  "manual-10-q2": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Lab Today Normal Range",
+   "score": 0.267
+  },
+  "manual-10-q3": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Date BP Date BP",
+   "score": 0.368
+  },
+  "manual-10-q4": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "TIP: Avoid/caution prescribing ARBs in combination with ACEs",
+   "score": 0.189
+  },
+  "manual-10-q5": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "TIP: Avoid/caution prescribing ARBs in combination with ACEs",
+   "score": 0.233
+  },
+  "manual-10-q6": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "TIP: Avoid/caution prescribing ARBs in combination with ACEs",
+   "score": 0.233
+  },
+  "manual-10-q7": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Secondary HTN suspected when:",
+   "score": 0.294
+  },
+  "manual-10-q9": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "ASCVD, LDL>160 mg/dL, Atorvastatin 40\u201380 mg Atorvastatin 10\u201320 mg",
+   "score": 0.556
+  },
+  "manual-10-q10": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Joshua Lanclos/APEA",
+   "score": 0.36
+  },
+  "manual-10-q11": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "ULTRASOUND: GOLD STANDARD",
+   "score": 0.167
+  },
+  "manual-10-q12": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Atrial Fibrillation",
+   "score": 0.367
+  },
+  "manual-10-q13": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Pneumonic: Diastolic Murmurs",
+   "score": 0.379
+  },
+  "manual-10-q14": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Step Question Answer",
+   "score": 0.333
+  },
+  "manual-10-q15": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Step Question Answer",
+   "score": 0.162
+  },
+  "manual-10-q16": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Pneumonic: Diastolic Murmurs",
+   "score": 0.118
+  },
+  "manual-10-q17": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Pneumonic: Diastolic Murmurs",
+   "score": 0.143
+  },
+  "manual-10-q18": {
+   "manualId": "10",
+   "manualTitle": "Cardiovascular Disorders",
+   "section": "Step Question Answer",
+   "score": 0.09
+  },
+  "manual-11-q1": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "Type of Test Pre-DM Type 2 DM",
+   "score": 0.091
+  },
+  "manual-11-q2": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "A1c goal Usually 7% A1c goal",
+   "score": 0.296
+  },
+  "manual-11-q4": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "Lab Result Normal Range",
+   "score": 0.346
+  },
+  "manual-11-q5": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "Type 2 DM: First Medication",
+   "score": 0.115
+  },
+  "manual-11-q6": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "Type 2 DM: First Medication",
+   "score": 0.113
+  },
+  "manual-11-q7": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "GLP-1/GIP receptor Increases insulin 1.7\u20132.4% Weight loss, CV \u20221200",
+   "score": 0.143
+  },
+  "manual-11-q8": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "Limited financial resources SU, TZD, metformin",
+   "score": 0.432
+  },
+  "manual-11-q9": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "When to Consider Basal Insulin",
+   "score": 0.595
+  },
+  "manual-11-q10": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "Add basal Insulin",
+   "score": 0.255
+  },
+  "manual-11-q11": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "Day FBG",
+   "score": 0.68
+  },
+  "manual-11-q12": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "Subclinical Hypothyroidism",
+   "score": 0.375
+  },
+  "manual-11-q13": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "TSH Free T4",
+   "score": 0.167
+  },
+  "manual-11-q15": {
+   "manualId": "11",
+   "manualTitle": "Endocrine Disorders",
+   "section": "Levothyroxine Dose Titration",
+   "score": 0.333
+  },
+  "manual-12-q1": {
+   "manualId": "12",
+   "manualTitle": "Women's Health",
+   "section": "Stage 4 Stage 5",
+   "score": 0.2
+  },
+  "manual-12-q2": {
+   "manualId": "12",
+   "manualTitle": "Women's Health",
+   "section": "Manage in primary care Refer to OBGYN",
+   "score": 0.472
+  },
+  "manual-12-q3": {
+   "manualId": "12",
+   "manualTitle": "Women's Health",
+   "section": "N Not classified",
+   "score": 0.362
+  },
+  "manual-12-q4": {
+   "manualId": "12",
+   "manualTitle": "Women's Health",
+   "section": "Back-up method \u00d7 since LMP",
+   "score": 0.105
+  },
+  "manual-12-q5": {
+   "manualId": "12",
+   "manualTitle": "Women's Health",
+   "section": "HSIL: High-grade squamous intraepithelial lesion",
+   "score": 0.694
+  },
+  "manual-12-q6": {
+   "manualId": "12",
+   "manualTitle": "Women's Health",
+   "section": "Microscopy Clue cells Buds, hyphae, with KOH Trichomonads",
+   "score": 0.143
+  },
+  "manual-12-q7": {
+   "manualId": "12",
+   "manualTitle": "Women's Health",
+   "section": "Vulvovaginal Atrophy (VVA) Management",
+   "score": 0.179
+  },
+  "manual-12-q8": {
+   "manualId": "12",
+   "manualTitle": "Women's Health",
+   "section": "Osteoporosis T-Score <\u22122.5",
+   "score": 0.212
+  },
+  "manual-13-q1": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "Benign Prostatic Hyperplasia",
+   "score": 0.591
+  },
+  "manual-13-q3": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "OBJECTIVE FINDINGS",
+   "score": 0.138
+  },
+  "manual-13-q4": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "Uroselective Comments",
+   "score": 0.421
+  },
+  "manual-13-q6": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "Prostate Cancer Assessment",
+   "score": 0.34
+  },
+  "manual-13-q8": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "Cautious use: CVD",
+   "score": 0.583
+  },
+  "manual-13-q9": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "COMMON CONCERNS",
+   "score": 0.786
+  },
+  "manual-13-q10": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "Epididymitis: Management",
+   "score": 0.435
+  },
+  "manual-13-q11": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "Testicular Cancer Testicular Cancer",
+   "score": 0.742
+  },
+  "manual-13-q12": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "HYDROCELE",
+   "score": 0.514
+  },
+  "manual-13-q13": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "Joshua Lanclos/APEA",
+   "score": 0.409
+  },
+  "manual-13-q14": {
+   "manualId": "13",
+   "manualTitle": "Men's Health",
+   "section": "Hernia Diagnosis",
+   "score": 0.381
+  },
+  "manual-14-q2": {
+   "manualId": "14",
+   "manualTitle": "Orthopedic Disorders",
+   "section": "Treatment of Osteoarthritis",
+   "score": 0.368
+  },
+  "manual-14-q3": {
+   "manualId": "14",
+   "manualTitle": "Orthopedic Disorders",
+   "section": "Fibromyalgia: Diagnosis",
+   "score": 0.1
+  },
+  "manual-14-q4": {
+   "manualId": "14",
+   "manualTitle": "Orthopedic Disorders",
+   "section": "Differentials: AC Yes (rotator cuff tendinopathy,",
+   "score": 0.442
+  },
+  "manual-14-q6": {
+   "manualId": "14",
+   "manualTitle": "Orthopedic Disorders",
+   "section": "Posterior Muscle Groups",
+   "score": 0.279
+  },
+  "manual-14-q7": {
+   "manualId": "14",
+   "manualTitle": "Orthopedic Disorders",
+   "section": "Posterior hip pain SI joint, LBP",
+   "score": 0.586
+  },
+  "manual-14-q8": {
+   "manualId": "14",
+   "manualTitle": "Orthopedic Disorders",
+   "section": "Base of Navicular bone",
+   "score": 0.194
+  },
+  "manual-14-q9": {
+   "manualId": "14",
+   "manualTitle": "Orthopedic Disorders",
+   "section": "Gout Treatment",
+   "score": 0.809
+  },
+  "manual-15-q3": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Let\u2019s Try a Practice Question",
+   "score": 0.171
+  },
+  "manual-15-q4": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Let\u2019s Try a Practice Question",
+   "score": 0.111
+  },
+  "manual-15-q5": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Let\u2019s Try a Practice Question",
+   "score": 0.128
+  },
+  "manual-15-q6": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Let\u2019s Try a Practice Question",
+   "score": 0.085
+  },
+  "manual-15-q7": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Let\u2019s Try a Practice Question",
+   "score": 0.128
+  },
+  "manual-15-q8": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "CAN LEAD TO BACTERIAL INFECTION!",
+   "score": 0.14
+  },
+  "manual-15-q9": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Management of Bites",
+   "score": 0.236
+  },
+  "manual-15-q10": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Fungal Rashes",
+   "score": 0.125
+  },
+  "manual-15-q11": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Dermatological Disorders",
+   "score": 0.1
+  },
+  "manual-15-q12": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Fungal Rashes",
+   "score": 0.153
+  },
+  "manual-15-q13": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Referral to ENT",
+   "score": 0.267
+  },
+  "manual-15-q14": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Lyme Disease: Erythema Rocky Mountain Spotted Fever:",
+   "score": 0.321
+  },
+  "manual-15-q15": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Seborrheic Keratosis",
+   "score": 0.151
+  },
+  "manual-15-q16": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Skin Lesion Evaluation",
+   "score": 0.135
+  },
+  "manual-15-q17": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Name That Skin Cancer",
+   "score": 0.167
+  },
+  "manual-15-q18": {
+   "manualId": "15",
+   "manualTitle": "Dermatological Disorders",
+   "section": "Systemic Lupus Erythematosus (SLE)",
+   "score": 0.183
+  },
+  "manual-16-q1": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Antihistamines Not recommended; may cause",
+   "score": 0.367
+  },
+  "manual-16-q2": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Bacterial Sinusitis",
+   "score": 0.286
+  },
+  "manual-16-q3": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Allergic Rhinitis Management",
+   "score": 0.258
+  },
+  "manual-16-q5": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Check GAS community",
+   "score": 0.149
+  },
+  "manual-16-q6": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Check GAS community",
+   "score": 0.207
+  },
+  "manual-16-q7": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Check GAS community",
+   "score": 0.138
+  },
+  "manual-16-q8": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Late primary or Pos Pos Pos",
+   "score": 0.452
+  },
+  "manual-16-q9": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Otitis media \u2022 Usually self-limited",
+   "score": 0.13
+  },
+  "manual-16-q10": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Conductive Hearing Loss",
+   "score": 0.721
+  },
+  "manual-16-q11": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "Refer to ENT or ER for:",
+   "score": 0.615
+  },
+  "manual-16-q12": {
+   "manualId": "16",
+   "manualTitle": "Eye, Ear, Nose and Throat Disorders",
+   "section": "EYE COMPLAINTS",
+   "score": 0.812
+  },
+  "manual-17-q2": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Anemia Atelectasis Insomnia",
+   "score": 0.613
+  },
+  "manual-17-q3": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Preventive Care",
+   "score": 0.414
+  },
+  "manual-17-q4": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Medication Class Geriatric Cautions",
+   "score": 0.371
+  },
+  "manual-17-q5": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Renal Function and Aging",
+   "score": 0.39
+  },
+  "manual-17-q6": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "V <14 Dialysis",
+   "score": 0.73
+  },
+  "manual-17-q7": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Assessing Goals of Care",
+   "score": 0.136
+  },
+  "manual-17-q8": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Depression Assessment",
+   "score": 0.191
+  },
+  "manual-17-q9": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Orthostatic Hypotension",
+   "score": 0.568
+  },
+  "manual-17-q10": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Pain Management",
+   "score": 0.268
+  },
+  "manual-17-q11": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "END-OF-LIFE PLANNING",
+   "score": 0.516
+  },
+  "manual-17-q12": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Drug use disorder Questionnaire All adults N/A",
+   "score": 0.105
+  },
+  "manual-17-q13": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Palliative Care",
+   "score": 0.412
+  },
+  "manual-17-q14": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Provider Role in Assessing Capacity",
+   "score": 0.17
+  },
+  "manual-17-q15": {
+   "manualId": "17",
+   "manualTitle": "Care of Aging Adult",
+   "section": "Provider Role in Assessing Capacity",
+   "score": 0.182
+  },
+  "manual-18-q1": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Preconception Counseling",
+   "score": 0.263
+  },
+  "manual-18-q2": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Folic Acid Risk",
+   "score": 0.25
+  },
+  "manual-18-q3": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Neural Tube Defects (NTDs): Risk Factors",
+   "score": 0.125
+  },
+  "manual-18-q4": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "PREGNANCY COMPLICATIONS",
+   "score": 0.097
+  },
+  "manual-18-q5": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "COMMON PREGNANCY CONCERNS",
+   "score": 0.677
+  },
+  "manual-18-q6": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Nausea in Pregnancy: Treatment",
+   "score": 0.231
+  },
+  "manual-18-q7": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Nausea in Pregnancy: Treatment",
+   "score": 0.192
+  },
+  "manual-18-q8": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Fluconazole (Diflucan) Miscarriage (all doses)",
+   "score": 0.302
+  },
+  "manual-18-q12": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "STI Plan",
+   "score": 0.149
+  },
+  "manual-18-q13": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Weight Gain: Singleton Pregnancy",
+   "score": 0.387
+  },
+  "manual-18-q14": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Infection Precautions During Pregnancy",
+   "score": 0.789
+  },
+  "manual-18-q15": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "PREGNANCY COMPLICATIONS",
+   "score": 0.76
+  },
+  "manual-18-q16": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Second Trimester: 14\u201328 Weeks",
+   "score": 0.185
+  },
+  "manual-18-q17": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Preterm Premature Rupture",
+   "score": 0.198
+  },
+  "manual-18-q19": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Preeclampsia Management",
+   "score": 0.106
+  },
+  "manual-18-q20": {
+   "manualId": "18",
+   "manualTitle": "Pregnancy in Primary Care",
+   "section": "Preeclampsia Management",
+   "score": 0.096
+  },
+  "manual-19-q1": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Live Vaccines",
+   "score": 0.208
+  },
+  "manual-19-q2": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Live Vaccines",
+   "score": 0.17
+  },
+  "manual-19-q3": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Live Vaccines",
+   "score": 0.344
+  },
+  "manual-19-q4": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Spacing of Vaccines",
+   "score": 0.381
+  },
+  "manual-19-q5": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Spacing of Vaccines",
+   "score": 0.175
+  },
+  "manual-19-q6": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Acute Otitis Media (AOM)",
+   "score": 0.324
+  },
+  "manual-19-q7": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "When to Refer for Recurrent AOM",
+   "score": 0.387
+  },
+  "manual-19-q8": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Autism Screening",
+   "score": 0.13
+  },
+  "manual-19-q9": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Overweight and Obesity",
+   "score": 0.103
+  },
+  "manual-19-q10": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Seizure: Get a Detailed History!",
+   "score": 0.333
+  },
+  "manual-19-q11": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "HEMATOLOGY",
+   "score": 0.538
+  },
+  "manual-19-q12": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "HYPERBILIRUBINEMIA",
+   "score": 0.25
+  },
+  "manual-19-q13": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "HYPERBILIRUBINEMIA",
+   "score": 0.189
+  },
+  "manual-19-q15": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Sickle Cell Disease (SCD)",
+   "score": 0.188
+  },
+  "manual-19-q16": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Children\u2019s Airways",
+   "score": 0.232
+  },
+  "manual-19-q18": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "HIB Haemophilus influenzae type B; Pneumonia, meningitis, epiglottitis",
+   "score": 0.235
+  },
+  "manual-19-q19": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Lymphs % 14 L 30\u201340",
+   "score": 0.14
+  },
+  "manual-19-q20": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Lymphs % 14 L 30\u201340",
+   "score": 0.2
+  },
+  "manual-19-q21": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Influenza Vaccine",
+   "score": 0.266
+  },
+  "manual-19-q22": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Influenza Vaccine",
+   "score": 0.188
+  },
+  "manual-19-q23": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Clinical Diagnosis!",
+   "score": 0.255
+  },
+  "manual-19-q24": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Bronchiolitis Management",
+   "score": 0.137
+  },
+  "manual-19-q25": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Referral recommended at Step 4",
+   "score": 0.177
+  },
+  "manual-19-q26": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Referral recommended at Step 4",
+   "score": 0.208
+  },
+  "manual-19-q27": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Referral recommended at Step 4",
+   "score": 0.104
+  },
+  "manual-19-q28": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Joshua Lanclos/APEA",
+   "score": 0.161
+  },
+  "manual-19-q29": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Measure Normal Values",
+   "score": 0.727
+  },
+  "manual-19-q30": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Childhood Obesity",
+   "score": 0.791
+  },
+  "manual-19-q31": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "GASTROINTESTINAL",
+   "score": 0.171
+  },
+  "manual-19-q32": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "GASTROINTESTINAL",
+   "score": 0.198
+  },
+  "manual-19-q33": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "GASTROINTESTINAL",
+   "score": 0.228
+  },
+  "manual-19-q34": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Pyloric Stenosis: Presentation",
+   "score": 0.297
+  },
+  "manual-19-q35": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "PYLORIC STENOSIS MANAGEMENT",
+   "score": 0.575
+  },
+  "manual-19-q36": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "GER: Lifestyle Management",
+   "score": 0.245
+  },
+  "manual-19-q37": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "GER: Pharmacologic Management",
+   "score": 0.286
+  },
+  "manual-19-q38": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Normal stool frequency Constipation:",
+   "score": 0.838
+  },
+  "manual-19-q39": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Internal anal has painful BM Rectum",
+   "score": 0.211
+  },
+  "manual-19-q40": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "First Pediatric UTI",
+   "score": 0.676
+  },
+  "manual-19-q41": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Joshua Lanclos / APEA",
+   "score": 0.389
+  },
+  "manual-19-q42": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Joshua Lanclos / APEA",
+   "score": 0.306
+  },
+  "manual-19-q43": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Joshua Lanclos/APEA",
+   "score": 0.125
+  },
+  "manual-19-q44": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Joshua Lanclos/APEA",
+   "score": 0.266
+  },
+  "manual-19-q46": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Many, Many Other Rashes",
+   "score": 0.224
+  },
+  "manual-19-q47": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Many, Many Other Rashes",
+   "score": 0.197
+  },
+  "manual-19-q48": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Joshua Lanclos/APEA",
+   "score": 0.667
+  },
+  "manual-19-q49": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Hand, Foot, and Mouth Disease",
+   "score": 0.472
+  },
+  "manual-19-q51": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Developmental Dysplasia of the Hip (DDH)",
+   "score": 0.224
+  },
+  "manual-19-q52": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "DDH Screening by Age",
+   "score": 0.184
+  },
+  "manual-19-q53": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Scoliosis: Manifestations",
+   "score": 0.105
+  },
+  "manual-19-q54": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Scoliosis: Manifestations",
+   "score": 0.175
+  },
+  "manual-19-q56": {
+   "manualId": "19",
+   "manualTitle": "Pediatrics",
+   "section": "Osgood\u2013Schlatter Disease",
+   "score": 0.231
+  },
+  "manual-20-q1": {
+   "manualId": "20",
+   "manualTitle": "Pediatric Growth and Development",
+   "section": "Newborn: Motor Development",
+   "score": 0.583
+  },
+  "manual-20-q2": {
+   "manualId": "20",
+   "manualTitle": "Pediatric Growth and Development",
+   "section": "Newborn: Language",
+   "score": 0.344
+  },
+  "manual-20-q4": {
+   "manualId": "20",
+   "manualTitle": "Pediatric Growth and Development",
+   "section": "Newborns: Head",
+   "score": 0.524
+  },
+  "manual-20-q5": {
+   "manualId": "20",
+   "manualTitle": "Pediatric Growth and Development",
+   "section": "Newborn: Ocular Discharge",
+   "score": 0.173
+  },
+  "manual-20-q6": {
+   "manualId": "20",
+   "manualTitle": "Pediatric Growth and Development",
+   "section": "Newborn: Ocular Discharge",
+   "score": 0.365
+  },
+  "manual-20-q7": {
+   "manualId": "20",
+   "manualTitle": "Pediatric Growth and Development",
+   "section": "Growth in Infants",
+   "score": 0.248
+  },
+  "manual-20-q8": {
+   "manualId": "20",
+   "manualTitle": "Pediatric Growth and Development",
+   "section": "Growth in Infants",
+   "score": 0.245
+  },
+  "manual-20-q12": {
+   "manualId": "20",
+   "manualTitle": "Pediatric Growth and Development",
+   "section": "Gross Motor Fine Motor Psychosocial Emotional Language",
+   "score": 0.206
+  },
+  "manual-20-q13": {
+   "manualId": "20",
+   "manualTitle": "Pediatric Growth and Development",
+   "section": "Male Physical Development Female Physical Development",
+   "score": 0.326
+  }
+ }
+}

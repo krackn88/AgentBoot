@@ -3,12 +3,15 @@ import { useStore, streakOf, todayKey } from './lib/store'
 import { pdfUrlForChapter, manualIdForChapter } from './lib/pdfs'
 import Reader, { Blocks } from './components/Reader.jsx'
 import Quiz from './components/Quiz.jsx'
-import Flashcards, { buildDecks } from './components/Flashcards.jsx'
+import Flashcards, { buildDecks, allCards } from './components/Flashcards.jsx'
 import Planner from './components/Planner.jsx'
 import Workbook from './components/Workbook.jsx'
 import { Sidebar, PageHeader, MobileNav } from './components/AppShell.jsx'
 import PlatformStats from './components/PlatformStats.jsx'
 import SourceTrust from './components/SourceTrust.jsx'
+import ReadinessPanel from './components/ReadinessPanel.jsx'
+import TodayPlan from './components/TodayPlan.jsx'
+import InstallPrompt from './components/InstallPrompt.jsx'
 import StudyPath from './components/StudyPath.jsx'
 import OnboardingCard from './components/OnboardingCard.jsx'
 import Milestones from './components/Milestones.jsx'
@@ -19,6 +22,7 @@ import { usePageTitle } from './lib/usePageTitle'
 import { BETA_OPEN } from './lib/config'
 import { flattenQuestions, gradable } from './lib/questions'
 import { buildTwelveWeekPath } from './lib/studyPath'
+import { computeReadiness } from './lib/readiness'
 import { countCompletedPathWeeks } from './lib/milestones'
 import { PLANS, COMPARE_ROWS } from './lib/plans'
 import { loadGuide, loadPlatformBundle, prefetchChapterModule } from './lib/platform'
@@ -82,13 +86,33 @@ function StudyApp({ guide }) {
   const accuracy = answered ? Math.round(correctCount / answered * 100) : 0
   const doneCh = chapters.filter(c => store.completed[c.id]).length
   const decks = useMemo(() => buildDecks(guide, store, pearlCards, questionPool), [guide, store, pearlCards, questionPool])
+  const cards = useMemo(() => allCards(decks), [decks])
   const mastered = Object.values(decks).reduce((a, d) => a + d.cards.filter(c => (store.cardBox[c.id] || 0) >= 3).length, 0)
   const totalCards = decks.highyield.cards.length + decks.labs.cards.length
-  const readiness = Math.round((doneCh / chapters.length) * 40 + (answered ? Math.min(answered / totalQ, 1) * 30 * (accuracy / 100 + 0.3) / 1.3 : 0) + Math.min(mastered / Math.max(1, totalCards), 1) * 30)
+  const readinessModel = useMemo(
+    () => computeReadiness({ doneCh, totalCh: chapters.length, answered, accuracy, cards, srs: store.srs }),
+    [doneCh, chapters.length, answered, accuracy, cards, store.srs],
+  )
+  const readiness = readinessModel.score
   const streak = streakOf(store.studyDates)
   const lastChapter = chapters.find(c => c.id === store.lastChapter) || chapters.find(c => !store.completed[c.id])
   const pathWeeks = useMemo(() => buildTwelveWeekPath(guide), [guide])
   const weeksComplete = countCompletedPathWeeks(pathWeeks, store.studyPathDone)
+  const weakestChaptersForPlan = useMemo(() => {
+    const qChapter = {}
+    chapters.forEach(c => c.questions.forEach(q => { qChapter[q.id] = c }))
+    const by = {}
+    Object.entries(store.answers || {}).forEach(([qid, a]) => {
+      const c = qChapter[qid]
+      if (!c) return
+      by[c.id] = by[c.id] || { chapter: c, t: 0, ok: 0 }
+      by[c.id].t++
+      if (a.correct) by[c.id].ok++
+    })
+    return Object.values(by)
+      .map(r => ({ ...r.chapter, pct: Math.round((r.ok / r.t) * 100) }))
+      .sort((a, b) => a.pct - b.pct)
+  }, [chapters, store.answers])
   const milestoneStats = { doneCh, totalCh: chapters.length, answered, accuracy, mastered, streak, readiness }
 
   const searchResults = useMemo(() => {
@@ -129,6 +153,7 @@ function StudyApp({ guide }) {
       <Sidebar view={view} go={go} readiness={readiness} doneCh={doneCh} totalCh={chapters.length} answered={answered} totalQ={totalQ} guideQ={guideQCount} manualQ={manualQCount} streak={streak} />
 
       <main className="main-shell">
+        <InstallPrompt />
         {['dashboard', 'tests', 'reader'].includes(view) && <ContextualHelp view={view === 'reader' ? 'reader' : view} />}
         {BETA_OPEN && view === 'dashboard' && (
           <div className="beta-banner no-print">
@@ -160,20 +185,25 @@ function StudyApp({ guide }) {
                   <button className="btn ghost" onClick={() => go('manuals')}>Browse all 22 full manuals</button>
                 </div>
               </div>
+              <TodayPlan
+                cards={cards}
+                srs={store.srs}
+                weakestChapter={weakestChaptersForPlan[0]}
+                nextChapter={lastChapter}
+                streak={streak}
+                examDate={store.examDate}
+                onGo={go}
+                onOpenChapter={openChapter}
+                onQuiz={(id) => openQuiz(id)}
+              />
+              <ReadinessPanel model={readinessModel} onGo={go} />
+              <ReadinessCertificate readiness={readiness} doneCh={doneCh} totalCh={chapters.length} accuracy={accuracy} streak={streak} examDate={store.examDate} />
               <SourceTrust guide={guide} manualBank={manualBank} totalQ={totalQ} guideQ={guideQCount} manualQ={manualQCount} />
               <PlatformStats guide={guide} contentMeta={contentMeta} manualBank={manualBank} questionTotal={totalQ} />
               <OnboardingCard onGo={go} />
-              <ReadinessCertificate readiness={readiness} doneCh={doneCh} totalCh={chapters.length} accuracy={accuracy} streak={streak} examDate={store.examDate} />
               <ReadinessReportCard guide={guide} store={store} readiness={readiness} doneCh={doneCh} totalCh={chapters.length} answered={answered} totalQ={totalQ} accuracy={accuracy} mastered={mastered} streak={streak} />
               <Milestones store={store} stats={milestoneStats} weeksComplete={weeksComplete} />
-              <div className="grid cols4" style={{ marginTop: 16 }}>
-                <div className="card"><p className="label">Board readiness</p><p className="stat">{readiness}%</p><div className="bar"><i style={{ width: `${readiness}%` }} /></div><p className="small muted">Chapters 40% · questions 30% · flashcards 30%</p></div>
-                <div className="card"><p className="label">Chapters complete</p><p className="stat">{doneCh}/{chapters.length}</p><div className="bar"><i style={{ width: `${doneCh / chapters.length * 100}%` }} /></div><p className="small muted">{chapters.reduce((a, c) => a + c.wordCount, 0).toLocaleString()} words of guide</p></div>
-                <div className="card"><p className="label">Question accuracy</p><p className="stat">{answered ? accuracy + '%' : '—'}</p><p className="small muted">{correctCount}/{answered} correct · {totalQ - answered} untouched<br />75%+ is board-ready pace</p></div>
-                <div className="card"><p className="label">Study streak</p><p className="stat">{streak} day{streak === 1 ? '' : 's'}</p><p className="small muted">{mastered} flashcards mastered · {store.studyDates.length} total study days</p></div>
-              </div>
               <StudyPath guide={guide} store={store} update={update} onOpenChapter={openChapter} onGo={go} />
-              <TodayReview store={store} decks={decks} guide={guide} go={go} openQuiz={openQuiz} />
               <WeakAreas guide={guide} store={store} onQuiz={(id) => openQuiz(id)} onRead={(id) => openChapter(id)} />
               <Blueprint guide={guide} />
               <div className="grid cols2" style={{ marginTop: 16 }}>
@@ -260,25 +290,6 @@ function StudyApp({ guide }) {
       </main>
 
 <MobileNav view={view} go={go} />
-    </div>
-  )
-}
-
-function TodayReview({ store, decks, guide, go, openQuiz }) {
-  const due = [...decks.highyield.cards, ...decks.labs.cards].filter(c => (store.cardBox[c.id] || 0) < 3).length
-  const missed = Object.values(store.answers).filter(a => !a.correct).length
-  const today = (store.daily || {})[todayKey()] || {}
-  return (
-    <div className="card" style={{ marginTop: 16, border: '2px solid var(--brand)' }}>
-      <h3 style={{ marginTop: 0 }}>Today's Review — your smart session</h3>
-      <p className="muted" style={{ lineHeight: 1.6 }}>Today: <strong>{today.answered || 0}</strong> questions answered · <strong>{today.cards || 0}</strong> flashcards rated · <strong>{missed}</strong> missed questions waiting · <strong>{due}</strong> high-yield/lab cards not yet mastered. Ten focused minutes here beats an hour of re-reading.</p>
-      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-        <button className="btn" onClick={() => go('flashcards')}>Review flashcards ({due} due)</button>
-        <button className="btn gold" disabled={!missed} onClick={() => openQuiz()}>Drill missed questions ({missed})</button>
-        <button className="btn ghost" onClick={() => go('quickref')}>⚡ High-yield cram sheet</button>
-      </div>
-      {!store.examDate && <p className="small" style={{ marginTop: 10 }}>No exam date set — <a href="#" onClick={e => { e.preventDefault(); go('planner') }}>set one in the Study Planner</a> to get your day-by-day countdown plan.</p>}
-      {store.examDate && <p className="small" style={{ marginTop: 10 }}>Exam: <strong>{new Date(store.examDate + 'T00:00:00').toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}</strong> — {Math.max(0, Math.round((new Date(store.examDate) - Date.now()) / 86400000))} days to go.</p>}
     </div>
   )
 }

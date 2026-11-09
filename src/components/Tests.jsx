@@ -6,7 +6,7 @@ import { shuffle } from '../lib/store'
 const PASS_TARGET = 75
 
 function gradableFromPool(pool) {
-  return pool.filter(q => q.correctIndex != null && q.options.length >= 2).map(q => ({
+  return pool.filter(q => q.correctIndex != null && q.options.length >= 2 && !q.duplicateOf).map(q => ({
     ...q,
     chapter: { id: q.chapterId, shortTitle: q.chapterTitle || q.chapterId },
   }))
@@ -49,7 +49,7 @@ export function buildTests(guide, questionPool) {
       testId: 'combo-mega',
       kind: 'full',
       title: 'Combo Board (Guide + Manual)',
-      blurb: `Blended ${Math.min(120, ids.length)}-question mix from both banks when you need fresh stems.`,
+      blurb: `Blended ${Math.min(120, ids.length)}-question mix from both banks when you need fresh stems. Duplicate stems across banks are excluded.`,
       count: Math.min(120, ids.length),
       minutes: 150,
       ids: shuffle(ids, 120).slice(0, 120),

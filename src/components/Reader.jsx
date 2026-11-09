@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { pdfUrlForChapter } from '../lib/pdfs'
 import { loadChapterModule } from '../lib/platform'
 import ChapterPrintPacket from './ChapterPrintPacket.jsx'
+import DepthPanel from './DepthPanel.jsx'
 
 export function Blocks({ blocks }) {
   return blocks.map((b, i) => {
@@ -65,7 +66,7 @@ export default function Reader({ chapter, store, update, onBack, onQuiz, onNext,
       </div>
 
       <p className="label" style={{ marginTop: 16 }}>Chapter {chapter.number} · {chapter.questions.length} practice questions
-        {module?.meta && <> · <strong>{module.meta.section_count}</strong> manual sections · <strong>{module.meta.pearl_count}</strong> pearls</>}</p>
+        {module?.meta && <> · <strong>{module.meta.table_count ?? 0}</strong> manual tables · <strong>{module.meta.pearl_count}</strong> pearls</>}</p>
       <h1 className="reader-title">{chapter.shortTitle}</h1>
 
       <div className="reader-actions no-print">
@@ -97,19 +98,7 @@ export default function Reader({ chapter, store, update, onBack, onQuiz, onNext,
         </>
       )}
 
-      {tab === 'depth' && (
-        <div className="depth-panel">
-          <p className="muted">Extracted from the original APEA course manual for <strong>{module?.manualTitle || chapter.shortTitle}</strong> — the full teaching text behind the condensed study guide (tables, criteria, dosing, and clinical detail).</p>
-          {modErr && <div className="card warn">{modErr}</div>}
-          {!module && !modErr && <div className="skeleton-card">Loading manual depth…</div>}
-          {module?.sections?.map((sec, i) => (
-            <section key={i} className="depth-section card">
-              <h3>{sec.title}</h3>
-              <Blocks blocks={sec.blocks} />
-            </section>
-          ))}
-        </div>
-      )}
+      {tab === 'depth' && <DepthPanel module={module} chapter={chapter} err={modErr} />}
 
       {tab === 'pearls' && (
         <div className="pearls-panel">

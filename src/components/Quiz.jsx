@@ -42,7 +42,7 @@ export default function Quiz({ guide, store, update, preset, onDone, questionPoo
 
   function pool(m, ch) {
     let p = ch === 'all' ? allQ : allQ.filter(q => q.chapterId === ch)
-    if (m === 'exam' || m === 'mixed') p = p.filter(q => q.correctIndex != null && q.options.length >= 2)
+    if (m === 'exam' || m === 'mixed') p = p.filter(q => q.correctIndex != null && q.options.length >= 2 && !q.duplicateOf)
     if (m === 'missed') p = p.filter(q => store.answers[q.id] && !store.answers[q.id].correct)
     return p
   }
@@ -69,9 +69,9 @@ export default function Quiz({ guide, store, update, preset, onDone, questionPoo
     onDone?.(res)
   }
 
-  const poolSize = gradable(allQ).length
-  const manualInPool = allQ.filter(q => q.source === 'manual' && q.correctIndex != null).length
-
+  const uniquePool = allQ.filter(q => !q.duplicateOf)
+  const poolSize = gradable(uniquePool).length
+  const manualInPool = uniquePool.filter(q => q.source === 'manual' && q.correctIndex != null).length
   if (setup) return (
     <div style={{ maxWidth: 720, margin: '0 auto' }}>
       <PageHeader eyebrow="Question bank" title="Practice & exam simulator" subtitle={`${poolSize} graded items (${manualInPool} from course-manual slides). Keyboard: 1–4 answer · Enter check · ←/→ navigate · F flag.`} />
@@ -112,7 +112,7 @@ export default function Quiz({ guide, store, update, preset, onDone, questionPoo
           <div className="card" key={q.id} style={{ margin: '10px 0' }}>
             <p className="label">{q.chapterTitle} · Q{i + 1}</p><p><strong>{q.stem}</strong></p>
             {q.options.map((o, j) => <p key={j} className="small" style={{ color: j === q.correctIndex ? 'var(--green)' : picked[q.id] === j ? 'var(--red)' : 'inherit', fontWeight: j === q.correctIndex ? 700 : 400 }}>{String.fromCharCode(65 + j)}. {o}{j === q.correctIndex ? ' ✓' : picked[q.id] === j ? ' ✗ your answer' : ''}</p>)}
-            {q.explanation && <p className="small" style={{ background: '#f2f6fb', padding: 10, borderRadius: 8 }}><strong>Rationale:</strong> {q.explanation}<br /><span className="muted">Source: {q.source === 'manual' ? 'Course manual slide' : 'Answer Key'}</span></p>}
+            {q.explanation && <p className="small" style={{ background: '#f2f6fb', padding: 10, borderRadius: 8 }}><strong>Rationale:</strong> {q.explanation}<br /><span className="muted">Source: {q.source === 'manual' ? 'Course manual slide' : q.rationaleSource === 'manual' ? 'Answer Key + course manual' : 'Answer Key'}</span></p>}
           </div>))}
         <div style={{ display: 'flex', gap: 8, marginTop: 16 }}><button className="btn" onClick={() => { setSetup(true); setSession(null); setResult(null) }}>New quiz</button>
           <button className="btn ghost" onClick={() => start('missed', 'all', 25)}>Retry missed only</button></div>
@@ -139,7 +139,13 @@ export default function Quiz({ guide, store, update, preset, onDone, questionPoo
         {session.mode === 'practice' && !showAns && <button className="btn" disabled={picked[q.id] == null && q.options.length >= 2} onClick={() => setRevealed(r => ({ ...r, [q.id]: true }))}>Check answer</button>}
         {showAns && <div style={{ background: '#f2f6fb', padding: 14, borderRadius: 10, marginTop: 10 }}>
           <strong>{!isGraded ? 'Answer & rationale' : picked[q.id] === q.correctIndex ? '✓ Correct' : '✗ Not quite'}:</strong> {q.explanation || 'See the chapter for the teaching point behind this question.'}
-          <p className="small muted" style={{ margin: '10px 0 0' }}>Source: {q.source === 'manual' ? 'Course manual slide MCQ (keyed + override when needed)' : 'Study guide Answer Key'}</p>
+          <p className="small muted" style={{ margin: '10px 0 0' }}>
+            Source: {q.source === 'manual'
+              ? 'Course manual slide MCQ (keyed + override when needed)'
+              : q.rationaleSource === 'manual'
+                ? 'Answer Key + supporting text from the course manual'
+                : 'Study guide Answer Key'}
+          </p>
         </div>}
       </div>
       <div style={{ display: 'flex', gap: 8, marginTop: 14, flexWrap: 'wrap' }}>
