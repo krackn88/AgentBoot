@@ -1,7 +1,7 @@
 import React, { lazy, Suspense, useMemo, useState, useEffect } from 'react'
 import { useStore, streakOf, todayKey } from './lib/store'
 import { pdfUrlForChapter, manualIdForChapter } from './lib/pdfs'
-import Reader, { Blocks } from './components/Reader.jsx'
+import Reader from './components/Reader.jsx'
 import Quiz from './components/Quiz.jsx'
 import Flashcards, { buildDecks, allCards } from './components/Flashcards.jsx'
 import Planner from './components/Planner.jsx'
@@ -13,6 +13,7 @@ import ReadinessPanel from './components/ReadinessPanel.jsx'
 import TodayPlan from './components/TodayPlan.jsx'
 import InstallPrompt from './components/InstallPrompt.jsx'
 import SearchPanel from './components/SearchPanel.jsx'
+import HighYield from './components/HighYield.jsx'
 import StudyPath from './components/StudyPath.jsx'
 import OnboardingCard from './components/OnboardingCard.jsx'
 import Milestones from './components/Milestones.jsx'
@@ -24,6 +25,7 @@ import { BETA_OPEN } from './lib/config'
 import { flattenQuestions, gradable } from './lib/questions'
 import { buildTwelveWeekPath } from './lib/studyPath'
 import { computeReadiness } from './lib/readiness'
+import { contentStats } from './lib/contentStats'
 import { countCompletedPathWeeks } from './lib/milestones'
 import { PLANS, COMPARE_ROWS } from './lib/plans'
 import { loadGuide, loadPlatformBundle, prefetchChapterModule } from './lib/platform'
@@ -44,7 +46,7 @@ export default function App() {
   return <StudyApp guide={guide} />
 }
 
-function StudyApp({ guide }) {
+export function StudyApp({ guide }) {
   const [store, update] = useStore()
   const [view, setView] = useState(() => (location.hash.match(/^#\/([\w-]+)/)?.[1] || 'dashboard'))
   const [chapterId, setChapterId] = useState(() => location.hash.match(/^#\/reader\/([^/]+)/)?.[1] || null)
@@ -75,10 +77,16 @@ function StudyApp({ guide }) {
   }, [])
   const chapters = guide.chapters
   const questionPool = useMemo(() => flattenQuestions(guide, manualBank), [guide, manualBank])
+  // unique graded items only — duplicates across the two banks must not inflate the count
   const gradedQ = useMemo(() => gradable(questionPool).length, [questionPool])
   const chapter = chapters.find(c => c.id === chapterId)
   const guideQCount = useMemo(() => guide.chapters.reduce((a, c) => a + c.questions.length, 0), [guide])
-  const manualQCount = manualBank?.meta?.graded ?? 0
+  // count unique manual items: the meta.graded figure includes items that
+  // duplicate a study-guide stem, which would overstate the real pool
+  const manualQCount = useMemo(
+    () => (manualBank?.questions || []).filter(q => !q.duplicateOf && q.correctIndex != null).length,
+    [manualBank],
+  )
   const totalQ = gradedQ || guideQCount + manualQCount
   const answered = Object.keys(store.answers).length
   const correctCount = Object.values(store.answers).filter(a => a.correct).length
@@ -113,6 +121,10 @@ function StudyApp({ guide }) {
       .sort((a, b) => a.pct - b.pct)
   }, [chapters, store.answers])
   const milestoneStats = { doneCh, totalCh: chapters.length, answered, accuracy, mastered, streak, readiness }
+  const stats = useMemo(
+    () => contentStats({ guide, manualBank, pearls: pearlCards, questionPool }),
+    [guide, manualBank, pearlCards, questionPool],
+  )
 
   function openQuiz(chId) { setQuizPreset(chId ? { mode: 'practice', chapterId: chId } : null); go('quiz') }
   function openChapter(id) { setChapterId(id); setView('reader'); location.hash = `#/reader/${id}`; window.scrollTo(0, 0) }
@@ -198,11 +210,10 @@ function StudyApp({ guide }) {
                   <ul className="feature-list">
                     <li><strong>{chapters.length} chapters</strong> — searchable study guide with original PDFs</li>
                     <li><strong>22 manuals</strong> — full text + source PDFs from the APEA course</li>
-                    <li><strong>1,720+ workbook drills</strong> — active recall from clinical tables</li>
-                    <li><strong>{totalQ} questions</strong> — graded with Answer Key rationales</li>
-                    <li><strong>Mock exams</strong> — AANP, ANCC, and chapter tests</li>
-                    {contentMeta && <li><strong>{contentMeta.pearls_total} clinical pearls</strong> + manual depth on every chapter</li>}
-                    {manualBank?.meta?.graded > 0 && <li><strong>{manualBank.meta.graded}</strong> extra MCQs from course-manual slides (separate mock banks)</li>}
+                    <li><strong>{stats.claims.drills} workbook drills</strong> — active recall from clinical tables</li>
+                    <li><strong>{stats.gradedTotal} graded questions</strong> — {stats.examSafe} exam-verified with rationales</li>
+                    <li><strong>Mock exams</strong> — 150-item AANP and 175-item ANCC forms, plus chapter tests</li>
+                    <li><strong>{stats.pearlsTotal} clinical pearls</strong> + rebuilt reference tables on every chapter</li>
                   </ul>
                 </div>
               </div>
@@ -241,28 +252,11 @@ function StudyApp({ guide }) {
           )}
           {view === 'workbooks' && <Workbook guide={guide} store={store} update={update} pearlCards={pearlCards} />}
 
-          {view === 'quickref' && (
-            <div style={{ maxWidth: 860, margin: '0 auto' }}>
-              <PageHeader eyebrow="High yield" title="Quick reference + clinical pearls" subtitle="Condensed rules from the study guide, labs to memorize, and the highest-signal lines pulled from all 22 course manuals." />
-              {(guide.quickRef?.sections || []).map(s => <div key={s.id} className="card" style={{ marginBottom: 16 }}><h3>{s.title}</h3><Blocks blocks={s.blocks} /></div>)}
-              {chapters[0].sections.filter(s => /labs/i.test(s.title)).map(s => <div key={s.id} className="card" style={{ marginBottom: 16 }}><h3>{s.title}</h3><Blocks blocks={s.blocks} /></div>)}
-              {pearlCards.length > 0 && (
-                <div className="card">
-                  <h3>Clinical pearls sampler</h3>
-                  <p className="muted small">A taste of the {pearlCards.length} pearl cards — open any chapter's Clinical pearls tab or drill the full deck in Flashcards.</p>
-                  <div className="pearl-grid">{pearlCards.slice(0, 12).map((p, i) => (
-                    <div key={p.id} className="pearl-card"><span className="pearl-num">{i + 1}</span><p>{p.front}</p></div>
-                  ))}</div>
-                  <button className="btn" style={{ marginTop: 14 }} onClick={() => go('flashcards')}>Drill all pearls in flashcards →</button>
-                </div>
-              )}
-              <button className="btn ghost" onClick={() => go('flashcards')}>High-yield & lab flashcard decks →</button>
-            </div>
-          )}
+          {view === 'quickref' && <HighYield guide={guide} pearls={pearlCards} onGo={go} />}
 
           {view === 'planner' && <Planner guide={guide} store={store} update={update} />}
 
-          {view === 'about' && <AboutAccess totalQ={totalQ} totalCards={totalCards} chapters={chapters.length} store={store} update={update} guide={guide} contentMeta={contentMeta} manualBank={manualBank} readiness={readiness} />}
+          {view === 'about' && <AboutAccess totalQ={totalQ} totalCards={totalCards} chapters={chapters.length} store={store} update={update} guide={guide} contentMeta={contentMeta} manualBank={manualBank} readiness={readiness} stats={stats} />}
         </>
       </main>
 
@@ -348,7 +342,7 @@ function ChapterRow({ c, store, onOpen, contentMeta }) {
   )
 }
 
-function AboutAccess({ totalQ, totalCards, chapters, store, update, guide, contentMeta, manualBank, readiness }) {
+function AboutAccess({ totalQ, totalCards, chapters, store, update, guide, contentMeta, manualBank, readiness, stats }) {
   const [email, setEmail] = useState('')
   const [note, setNote] = useState('')
   const [joined, setJoined] = useState(false)
@@ -430,7 +424,7 @@ function AboutAccess({ totalQ, totalCards, chapters, store, update, guide, conte
         <ul className="feature-list">
           <li>{chapters} searchable guide chapters + {pearls ? `${pearls} clinical pearls` : 'clinical pearls'}</li>
           <li>22 course manuals (full text + PDF links)</li>
-          <li>{totalQ} graded questions · {totalCards}+ flashcards · 1,720+ workbook drills</li>
+          <li>{stats.gradedTotal} graded questions ({stats.examSafe} exam-verified) · {totalCards}+ flashcards · {stats.claims.drills} workbook drills</li>
           <li>Mock exams, 12-week path, planner, readiness report export</li>
         </ul>
         {BETA_OPEN && (

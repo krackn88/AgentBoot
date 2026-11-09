@@ -19,7 +19,9 @@
     "depth": "python3 scripts/restructure_depth.py",
     "rationales": "python3 scripts/enrich_rationales.py",
     "search-index": "python3 scripts/build_search_index.py",
-    "content:build": "npm run enrich && npm run extract:questions && npm run sync:manual-answers && npm run bulk:manual-answers && npm run extract:questions && npm run tables && npm run depth && npm run quality && npm run rationales && npm run search-index"
+    "content:build": "npm run enrich && npm run extract:questions && npm run sync:manual-answers && npm run bulk:manual-answers && npm run extract:questions && npm run tables && npm run depth && npm run quality && npm run rationales && npm run search-index",
+    "smoke": "node scripts/build_smoke_bundle.mjs && node scripts/smoke_render.mjs",
+    "verify": "npm run smoke && npm run build"
   },
   "dependencies": {
     "lucide-react": "^1.70.0",
@@ -29,6 +31,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.4.1",
+    "jsdom": "^31.0.0",
     "vite": "^6.3.5"
   }
 }

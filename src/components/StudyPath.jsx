@@ -5,7 +5,7 @@ import { ChevronRight } from 'lucide-react'
 export default function StudyPath({ guide, store, update, onOpenChapter, onGo, onWeekComplete }) {
   const weeks = useMemo(() => buildTwelveWeekPath(guide), [guide])
   const done = store.studyPathDone || {}
-  const activeWeek = weeks.find(w => !w.tasks.every(t => done[`${w.week}-${t.key}`]))?.week ?? 12
+  const activeWeek = weeks.find(w => !w.tasks.every(t => done[t.key]))?.week ?? 12
   const [weekToast, setWeekToast] = useState(null)
 
   useEffect(() => {
@@ -14,12 +14,17 @@ export default function StudyPath({ guide, store, update, onOpenChapter, onGo, o
     return () => clearTimeout(t)
   }, [weekToast])
 
+  // Task keys are already globally unique (`w3-read`). Prefixing them with the
+  // week number produced `4-w3-read`, which nothing ever read back — so no task
+  // could be completed and the progress count was always zero.
+  const taskId = (weekNum, key) => key
+
   function toggle(weekNum, key) {
-    const id = `${weekNum}-${key}`
+    const id = taskId(weekNum, key)
     const weekRow = weeks.find(w => w.week === weekNum)
-    const wasComplete = weekRow?.tasks.every(t => done[`${weekNum}-${t.key}`])
+    const wasComplete = weekRow?.tasks.every(t => done[taskId(weekNum, t.key)])
     const next = { ...done, [id]: !done[id] }
-    const nowComplete = weekRow?.tasks.every(t => next[`${weekNum}-${t.key}`])
+    const nowComplete = weekRow?.tasks.every(t => next[taskId(weekNum, t.key)])
     update(s => ({
       ...s,
       studyPathDone: { ...(s.studyPathDone || {}), [id]: !done[id] },
@@ -48,7 +53,7 @@ export default function StudyPath({ guide, store, update, onOpenChapter, onGo, o
       </div>
       <div className="study-path-weeks">
         {weeks.map(w => {
-          const complete = w.tasks.every(t => done[`${w.week}-${t.key}`])
+          const complete = w.tasks.every(t => done[t.key])
           const isActive = w.week === activeWeek
           return (
             <details key={w.week} className={`study-week ${isActive ? 'active' : ''} ${complete ? 'done week-complete' : ''}`} open={isActive}>
@@ -59,7 +64,7 @@ export default function StudyPath({ guide, store, update, onOpenChapter, onGo, o
               </summary>
               <ul className="study-week-tasks">
                 {w.tasks.map(t => {
-                  const id = `${w.week}-${t.key}`
+                  const id = t.key
                   return (
                     <li key={t.key}>
                       <label>

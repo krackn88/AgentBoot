@@ -39,5 +39,6 @@ export function popNewMilestoneToasts(ctx) {
 }
 
 export function countCompletedPathWeeks(weeks, studyPathDone = {}) {
-  return weeks.filter(w => w.tasks.every(t => studyPathDone[`${w.week}-${t.key}`])).length
+  // task keys are unique on their own (`w3-read`); do not re-prefix the week
+  return weeks.filter(w => w.tasks.every(t => studyPathDone[t.key])).length
 }
