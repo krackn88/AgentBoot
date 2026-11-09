@@ -158,6 +158,28 @@ def main() -> int:
 
     # 4. TIP/PEARL lines printed on the slides, extracted from the PDF text layer.
     #    These are the instructor's own call-outs and are already complete sentences.
+    # Docling's layout model picks up more TIP call-outs than the coordinate pass
+    docling_dir = DATA / "docling"
+    if docling_dir.exists():
+        chapter_titles = {c["id"]: (c.get("shortTitle") or c.get("title")) for c in GUIDE["chapters"]}
+        import glob as _g2
+        for path in sorted(_g2.glob(str(docling_dir / "*.json"))):
+            if path.endswith("_summary.json"):
+                continue
+            doc = json.loads(Path(path).read_text())
+            cid = doc.get("chapterId", "")
+            for tip in doc.get("tips", []):
+                t = clean(tip)
+                # a tip sometimes repeats its own lead-in ("X! TIP: X!")
+                m = re.match(r"^(.+?[.!])\s*TIP:\s*(.+)$", t, re.I)
+                if m and clean(m.group(1)).lower() == clean(m.group(2)).lower():
+                    t = m.group(2)
+                t = strip_label(t)
+                if not t.endswith((".", "!", "?")) or looks_glued(t):
+                    continue
+                if 30 <= len(t) <= 220:
+                    add(cid, chapter_titles.get(cid, ""), t, "tip")
+
     extract_dir = DATA / "pdf-extract"
     if extract_dir.exists():
         chapter_titles = {c["id"]: (c.get("shortTitle") or c.get("title")) for c in GUIDE["chapters"]}

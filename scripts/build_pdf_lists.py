@@ -1,19 +1,12 @@
 #!/usr/bin/env python3
-"""Turn the PDFs' bullet lists into active-recall drills.
+"""Build recall drills from Docling's structured markdown.
 
-The site ignored the single largest body of structured content in the source: the
-slides carry 1,010 bullet lists (11,094 items) covering lesion definitions,
-criteria, red flags, dosing and differentials. None of it reached a study surface
-because the markdown pipeline flattened it and the pearl extractor rejected it.
+Docling preserves document structure that naive text extraction destroys: headings
+become `##`, bullets stay bullets, and definition-style runs (`Term: definition`)
+keep their pairing. That makes far better study material than the flattened line
+runs the previous pass had to guess at.
 
-Each list becomes a recall drill of the form
-
-    prompt: "Dermatology: primary skin lesions"
-    items:  ["Nodule: solid lesion >0.5–2.0 cm", ...]
-
-so a student can try to reproduce the list before revealing it — the same
-mechanic the workbook already uses for tables, applied to content that previously
-had none.
+Each drill is a prompt plus the items a student should be able to reproduce.
 
 Output: public/data/pdf-lists.json
 """
@@ -29,120 +22,127 @@ OUT = DATA / "pdf-lists.json"
 GUIDE = json.loads((DATA / "guide.json").read_text())
 TITLES = {c["id"]: (c.get("shortTitle") or c.get("title")) for c in GUIDE["chapters"]}
 
-FOOTER = re.compile(r"\d*\s*FNP/AGPCNP Review", re.I)
-CHAPTER_LINE = re.compile(r"^Chapter\s+\d+\s*\w*.*\|.*$", re.I)
-# running headers look like "Chapter 11  Women's Health | Tanner Stages"
-RUNNING_HEAD = re.compile(r"\bChapter\s+\d+\b.*\|", re.I)
-NOTES = re.compile(r"\bNOTES\b", re.I)
-CAPS_HEAD = re.compile(r"^[A-Z][A-Z0-9 ,&/\-\(\)]{6,}$")
+FOOTER = re.compile(r"\d*\s*FNP/AGPCNP Review|©\s*\d{4}|Advanced Practice Education Associates", re.I)
+RUNNING_HEAD = re.compile(r"^#+\s*Chapter\s+\d+", re.I)
+BAD_HEAD = re.compile(r"^(NOTES|CONTENT OVERVIEW|CHECK YOUR KNOWLEDGE|EXAM CHECKLIST)$", re.I)
+BULLET = re.compile(r"^\s*[-*]\s+(.*)$")
+NUMBERED = re.compile(r"^\s*\d+\.\s+(.*)$")
+IMAGE = re.compile(r"^<!--.*-->$")
 
 
-def clean_item(t: str) -> str:
-    t = t.replace("\x08", " ")
-    t = re.sub(r"^\s*[\$•✓\-]\s*", "", t)      # bullet glyphs, incl. the PDF's "$"
-    t = FOOTER.sub("", t)
+def clean(t: str) -> str:
+    t = (t or "").replace("\x08", " ").replace("$", "")
+    t = re.sub(r"&gt;", ">", t)
+    t = re.sub(r"&lt;", "<", t)
+    t = re.sub(r"&amp;", "&", t)
     t = re.sub(r"\s+", " ", t).strip()
     return t.strip(" ,;")
 
 
-def usable(item: str) -> bool:
-    if len(item) < 14 or len(item) > 180:
+def usable_item(t: str) -> bool:
+    if len(t) < 12 or len(t) > 180:
         return False
-    if CHAPTER_LINE.match(item) or FOOTER.search(item) or RUNNING_HEAD.search(item):
+    if FOOTER.search(t) or IMAGE.match(t):
         return False
-    if NOTES.search(item):
-        return False
-    if "$" in item:
-        return False
-    if re.fullmatch(r"[\d\s.,%–\-]+", item):
-        return False
-    # copyright / publisher furniture
-    if re.search(r"©|Advanced Practice Education Associates|All rights reserved", item, re.I):
-        return False
-    words = item.split()
+    words = t.split()
     if len(words) < 3:
         return False
-    # mostly-caps slide headings are not list items
     caps = sum(1 for w in words if w.isupper() and len(w) > 2)
     if caps / len(words) > 0.4:
+        return False
+    if re.fullmatch(r"[\d\s.,%<>≤≥–\-]+", t):
         return False
     return True
 
 
-BAD_PROMPT = re.compile(r"(FNP/AGPCNP|Chapter \d|Review$|^\d+$|NOTES)", re.I)
+def parse_markdown(md: str):
+    """Yield (heading, items) runs, plus definition runs without bullets."""
+    heading = ""
+    block = []
+    out = []
 
+    def flush():
+        nonlocal block
+        if len(block) >= 3:
+            out.append((heading, list(block)))
+        block = []
 
-def derive_prompt(items: list[str], section: str) -> str:
-    """Name the list from its own first item when no heading survives."""
-    head = ""
-    for it in items:
-        if re.match(r"^[A-Z][a-z]", it) and ":" in it and len(it) < 60:
-            head = it.split(":")[0]
-            break
-    if not head and section and not BAD_PROMPT.search(section):
-        head = section
-    if not head and items:
-        head = items[0].split(":")[0][:48]
-    head = head.strip(" •-$")
-    if BAD_PROMPT.search(head) or len(head) < 6:
-        return ""
-    return head
+    for raw in md.splitlines():
+        line = raw.rstrip()
+        if not line.strip():
+            continue
+        hm = re.match(r"^(#{1,6})\s+(.*)$", line.strip())
+        if hm:
+            flush()
+            title = clean(hm.group(2))
+            if not RUNNING_HEAD.match(line.strip()) and not BAD_HEAD.match(title):
+                heading = title
+            continue
+        bm = BULLET.match(line)
+        nm = NUMBERED.match(line)
+        if bm or nm:
+            t = clean((bm or nm).group(1))
+            if usable_item(t):
+                block.append(t)
+            continue
+        # a definition-style line: "Term: definition"
+        t = clean(line)
+        if usable_item(t) and ":" in t and len(t.split()) >= 4:
+            block.append(t)
+        else:
+            flush()
+    flush()
+    return out
 
 
 def main() -> int:
-    out = []
-    for path in sorted(glob.glob(str(DATA / "pdf-extract" / "*.json"))):
+    lists = []
+    for path in sorted(glob.glob(str(DATA / "docling" / "*.json"))):
         if path.endswith("_summary.json"):
             continue
         doc = json.loads(Path(path).read_text())
         cid = doc.get("chapterId", "")
+        md = doc.get("markdown", "")
+        if not md:
+            continue
         title = TITLES.get(cid, doc.get("title", ""))
-        section = ""
-        for b in doc.get("blocks", []):
-            if b.get("type") == "para":
-                t = (b.get("text") or "").strip()
-                if 3 <= len(t.split()) <= 8 and not re.search(r"[.?!]$", t):
-                    section = t
-                continue
-            if b.get("type") != "list":
-                continue
-            items, seen = [], set()
-            for raw in b.get("items", []):
-                it = clean_item(raw)
-                if not usable(it):
-                    continue
+        for heading, items in parse_markdown(md):
+            # de-duplicate while preserving order
+            seen, uniq = set(), []
+            for it in items:
                 k = it.lower()
                 if k in seen:
                     continue
                 seen.add(k)
-                items.append(it)
-            prompt = derive_prompt(items, section)
-            if len(items) < 3 or not prompt:
+                uniq.append(it)
+            if len(uniq) < 3:
                 continue
-            out.append({
-                "id": f"pdf-list-{len(out)}",
+            prompt = heading or uniq[0].split(":")[0][:48] or "Recall this list"
+            prompt = re.sub(r"^NOTES\s*", "", prompt, flags=re.I).strip()
+            prompt = re.sub(r"\s+", " ", prompt)
+            lists.append({
+                "id": f"pdf-list-{len(lists)}",
                 "chapterId": cid,
                 "chapter": title,
-                "section": section,
-                "prompt": prompt,
-                "items": items[:14],
-                "page": b.get("page"),
+                "section": heading,
+                "prompt": prompt[:90],
+                "items": uniq[:14],
             })
 
     payload = {
         "meta": {
-            "count": len(out),
-            "items": sum(len(x["items"]) for x in out),
-            "source": "bullet lists recovered from the 22 APEA PDFs, one recall drill per list",
+            "count": len(lists),
+            "items": sum(len(x["items"]) for x in lists),
+            "source": "Docling structured markdown from the 22 APEA PDFs",
         },
-        "lists": out,
+        "lists": lists,
     }
     OUT.write_text(json.dumps(payload, indent=1, ensure_ascii=False))
     from collections import Counter
-    print(f"pdf-lists.json: {len(out)} drills, {payload['meta']['items']} items "
-          f"across {len(Counter(x['chapterId'] for x in out))} chapters")
-    for x in out[:5]:
-        print(f"  [{x['chapter'][:20]:<20}] {x['prompt'][:46]} ({len(x['items'])} items)")
+    print(f"pdf-lists.json: {len(lists)} drills, {payload['meta']['items']} items "
+          f"across {len(Counter(x['chapterId'] for x in lists))} chapters")
+    for x in lists[:6]:
+        print(f"  [{x['chapter'][:18]:<18}] {x['prompt'][:48]} ({len(x['items'])})")
     return 0
 
 

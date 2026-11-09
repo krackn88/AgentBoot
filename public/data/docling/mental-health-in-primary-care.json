@@ -1,0 +1,544 @@
+{
+ "chapterId": "mental-health-in-primary-care",
+ "title": "Mental Health in Primary Care",
+ "pdf": "07-mental-health-course-manual.pdf",
+ "markdown": "CHAPTER 6\n\n## Mental Health in Primary Care\n\n## CONTENT OVERVIEW\n\n- Depression\n- Anxiety\n- Suicidality\n- PTSD (Posttraumatic stress disorder)\n- Substance use disorders\n- ADHD (Attention deficit hyperactivity disorder)\n\n## NOTES\n\n## NEUROBIOLOGY\n\n## What Controls Mood?\n\n- Biology: neurotransmitters and hormones\n- Psychology\n- Physiologic states\n- Environment\n\n## Neurobiology\n\n<!-- image -->\n\nInitial stimulus (Nerve impulse):\n\nFatigue, hunger, stress, fear, anger, genetics, toxic substances\n\n## Neurotransmitters: Functions\n\n| Neurotransmitter   | Impulse                   | Function (Plays a Role in)                                       |\n|--------------------|---------------------------|------------------------------------------------------------------|\n| Serotonin (5-HT)   | Inhibitory                | Appetite, mood, anxiety, sleep, sex drive                        |\n| Dopamine           | Excitatory and inhibitory | Energy, reward, motivation, mood, attention, executive functions |\n| GABA               | Inhibitory                | Produces feeling of calmness and relaxation; anxiety and sleep   |\n| Norepinephrine     | Excitatory                | Mood, alertness, concentration, energy                           |\n| Epinephrine        | Excitatory                | Memory, attentiveness, sleep                                     |\n\n## Neurotransmitters: Balance\n\n<!-- image -->\n\nPostsynaptic nerve impulse: Excitatory or inhibitory\n\n## DEPRESSION\n\n- Most common mental health disorder\n- 50% of patients are NOT diagnosed because the right questions are not asked.\n- \"Within the last 2 weeks, have you experienced the following symptoms?\"\n\n| SIG-E-CAPS   | SIG-E-CAPS                          |\n|--------------|-------------------------------------|\n| S            | SLEEP                               |\n| I            | INTEREST (ANHEDONIA)                |\n| G            | GUILTY (WORTHLESSNESS)              |\n| E            | ENERGY                              |\n| C            | CONCENTRATION DIFFICULTIES          |\n| A            | APPETITE                            |\n| P            | PSYCHOMOTOR AGITATION OR IRRITATION |\n| S            | SUICIDALITY                         |\n\n## Depression Screening Instruments\n\n| Tool                             | Uses                     | Population                                    | # Questions   |\n|----------------------------------|--------------------------|-----------------------------------------------|---------------|\n| PHQ-2                            | Prescreening             | ≥12 years                                     | 2             |\n| PHQ-9                            | Screening, monitoring Tx | ≥12 years, cognitive impairment, nursing home | 9             |\n| Geriatric Depression Scale (GDS) | Screening                | ≥60 years, cognitive impairment               | 5, 15, or 30  |\n| Beck Depression Inventory (BDI)  | Screening, monitoring Tx | 13-80 years                                   | 21            |\n\nSimilar sensitivity and specificity\n\n## Thorough History\n\n- History:\n- $ Prior depression, course, treatment\n- $ Family history (30-40% of cases are genetic)\n- $ Stressful life events, social, occupation (60-70% etiology is situational/contextual)\n- Psychiatric comorbidities (may confound diagnosis)\n- $ Bipolar disorder, anxiety disorders, alcohol or drug use disorders\n- Medical comorbidities (complicate diagnosis)\n- $ Diabetes, heart failure, dementia, COPD, etc.\n\n## NOTES\n\n## NOTES DSM-5-TR Diagnosis of Unipolar Depression\n\nSymptoms present ≥2 weeks\n\nAnhedonia or depressed mood MUST be present for diagnosis\n\n## Major depressive disorder\n\n- At least five symptoms\n- Symptoms present for most of the day, nearly every day\n- Symptoms must be causing distress\n- No other reason for symptoms\n- No manic or hypomanic behavior\n\n## QUESTION #1\n\nMs. Q is a 70-year-old female who reports foggy thoughts, difficulty concentrating, and poor appetite. She says, \"I have no energy to be around people\" and is no longer socializing with friends. What is the next step?\n\n1. Order a TSH, B12 level, and folate level.\n2. Screen for depression with the PHQ-9.\n3. Order a urinalysis to screen for UTI.\n4. Order a CMP, CBC, and TSH.\n\n## Lab Considerations\n\nConsider secondary causes:\n\n- Older patients\n- First episode\n- Severe depression at onset\n- No clear precipitant\n- Standard: CBC, CMP, TSH\n- $ Older adults: FBG, B12, folate\n- $ Impaired nutrition: B12, folate\n- $ Fertile females: pregnancy test\n- $ Suspected substance use: urine drug screen\n\n## Treatment Plan PHQ-9\n\n| Score   | Depression Severity   | Comments                                                                                   |\n|---------|-----------------------|--------------------------------------------------------------------------------------------|\n| 0-4     | Minimal or none       | Monitor; may not require treatment                                                         |\n| 5-9     | Mild                  | Treatment offered, use clinical judgment and shared decision making to determine treatment |\n| 10-14   | Moderate              |                                                                                            |\n| 15-19   | Moderately severe     | Warrants active treatment with psychotherapy, medications, or combination                  |\n| 20-27   | Severe                |                                                                                            |\n\n## Other specified depressive disorder\n\n- Does not meet criteria for MDD but symptoms are clinically significant\n\n<!-- image -->\n\n<!-- image -->\n\n## QUESTION #2\n\nA young adult patient with anhedonia has a PHQ-9 score of 12, indicating moderately severe depression and a negative screening for bipolar disorder. Which medication is preferred for the management of depression?\n\n1. Amitriptyline\n2. Quetiapine\n3. Escitalopram\n4. Buspirone\n\n## Treatment of Major Depressive Disorder (MDD)\n\nShared decision making and individualization of care\n\n- Depression focused psychotherapy, CBT, others\n- Generally, a 2nd generation antidepressant is preferred\n- $ SSRI\n- $ SNRI\n- NDRI (bupropion) and serotonin modulators are also effective `\n\n## Selective Serotonin Reuptake Inhibitors (SSRIs)\n\nMOA of SSRIs\n\n<!-- image -->\n\n© Jones &amp; Bartlett Learning Considerations for choosing an SSRI\n\n<!-- image -->\n\n<!-- image -->\n\nMore CYP450 effect = more drug/drug interactions and side effects NOTES\n\n<!-- image -->\n\n<!-- image -->\n\n| More CYP450 Effect   |\n|----------------------|\n| Fluoxetine (Prozac)  |\n| Paroxetine (Paxil)   |\n| Fluvoxamine (Luvox)  |\n\n<!-- image -->\n\n## NOTES SSRIs: Prescribing Considerations\n\n| Side Effect        | Comments                                                                       | Prescribing Pearls                                                                  |\n|--------------------|--------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|\n| Nausea             | Most common, occurs with all SSRIs                                             | Start low, go slow                                                                  |\n| Diarrhea           | More likely with sertraline                                                    | Start low, go slow                                                                  |\n| Constipation       | More likely with paroxetine                                                    | Start low, go slow                                                                  |\n| Sexual dysfunction | Ejaculatory changes, decreased libido, anorgasmia; more likely with paroxetine | Lower dose, add bupropion, or switching to a non-serotoninergic drug or fluvoxamine |\n| Somnolence         | paroxetine, citalopram, fluvoxamine                                            | Take at bedtime                                                                     |\n| Insomnia           | Fluoxetine, sertraline                                                         | Take in the AM                                                                      |\n| Weight gain        | More likely with paroxetine, escitalopram, citalopram; 6 months of use         | Diet, exercise; fluoxetine has less effect on weight                                |\n\n## SSRIs in Pregnancy and Lactation\n\n- Pregnancy\n- $ Generally safe\n- $ Escitalopram (Lexapro) or sertraline (Zoloft) usually preferred\n- $ Avoid paroxetine (Paxil)\n- $ Discuss the risk/benefits\n- Lactation\n- $ Generally, low levels pass into breast milk\n- $ SSRI used in pregnancy can typically be continued\n\nWeigh risks of untreated depression in pregnancy/postpartum vs. benefits of treatment\n\n## QUESTION #3\n\nA young adult meets the criteria for MDD and is prescribed fluoxetine 20 mg daily. Which of the following differentials must be excluded before prescribing an SSRI?\n\n1. Obsessive compulsive disorder\n2. Panic disorder\n3. Bipolar disorder\n4. Generalized anxiety disorder\n\n## Screen for Bipolar Disorder\n\n- Major depression may be a presenting symptom of bipolar\n- Screen: Mood Disorder Questionnaire (15-item, self-report)\n- $ Sensitivity 58%; Specificity 93%\n\n| Mania                                                                                                                                                                                        | Hypomania                                                                                                                                                                                  |\n|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| · Excess energy, grandiosity, fast speech, distractibility, agitation, hallucinations, impulsive behavior · Substance and alcohol misuse, legal problems, and relationship issues are common | · Like symptoms of mania, but not severe enough to impact functioning · Productive increases in goal-directed activities, enhanced creativity, improved psychosocial functioning, inflated |\n\n<!-- image -->\n\n## Bipolar Disorder\n\nBipolar I: one or more manic or hypomanic episode, less likely to have a major depressive episode Bipolar II: one episode of hypomania, at least one episode of major depression, and no history of mania\n\nIf bipolar is suspected:\n\n- Do not initiate antidepressants\n- REFER!\n\n## QUESTION #4\n\nSertraline is prescribed for a 75-year-old female with depression. Which starting dose is reasonable for this patient? (Typical dose: 50 mg-200 mg po daily)\n\n1. 25 mg once daily\n2. 50 mg once daily\n3. 75 mg once daily\n4. 100 mg once daily\n\n## SSRI Response\n\n| Age                   | Expect Improvement   | Expect Relief of Symptoms   |\n|-----------------------|----------------------|-----------------------------|\n| Young to middle Adult | 2-4 weeks            | 6-12 weeks                  |\n| Older adult           | 4-6 weeks            | 12-16 weeks                 |\n\n## QUESTION #5\n\nA patient is diagnosed with a first episode of major depression after the recent death of their spouse. Sertraline is prescribed. The patient expresses that she doesn't want to be on medication long-term. Which response is best?\n\n1. You will need this medication for life.\n2. Medication should be continued for 3 years due to risk of recurrence.\n3. Medication is recommended for at least 1 year.\n4. Medication is recommended for at least 6 months after remission is achieved.\n\n<!-- image -->\n\n<!-- image -->\n\n<!-- image -->\n\n## NOTES\n\n## NOTES\n\n## QUESTION #6\n\nA patient with major depressive disorder (MDD) reports that citalopram has helped some with symptoms, but not greatly. He was previously on sertraline. His PHQ-9 score has decreased from 16 to 14. Which of the following is the best option for this patient?\n\n1. Switch the patient to fluoxetine.\n2. Continue sertraline and add olanzapine.\n3. Switch the patient to amitriptyline\n4. Switch the patient to desvenlafaxine\n\n## Serotonin-Norepinephrine Reuptake Inhibitors (SNRIs)\n\nSide effects: nausea, dizziness, diaphoresis, increase in blood pressure (except duloxetine), sexual dysfunction, bleeding, hyponatremia\n\n| Drug                      | Indications/Considerations                                                                 |\n|---------------------------|--------------------------------------------------------------------------------------------|\n| Duloxetine (Cymbalta)     | MDD, GAD, fibromyalgia, neuropathy, chronic musculoskeletal pain; Least likely to raise BP |\n| Venlafaxine (Effexor)     | MDD, social anxiety disorder, cataplexy; cautious use in patients at risk of bleeding      |\n| Desvenlafaxine (Pristiq)  | MDD; less risk of sexual dysfunction                                                       |\n| Milnacipran (Savella)     | Fibromyalgia; may increase liver enzymes, avoid in end-stage renal disease                 |\n| Levomilnacipran (Fetzima) | MDD; avoid in end-stage renal disease                                                      |\n\n## Norepinephrine-Dopamine Reuptake Inhibitor (NDRI)\n\n- Drug: bupropion (Wellbutrin)\n- Indications\n- $ MDD, seasonal affective disorder, smoking cessation (Zyban), ADHD (off-label)\n- $ Bupropion/naltrexone (Contrave): weight loss\n- Contraindications\n- $ Seizures, uncontrolled hypertension\n- Monitor: blood pressure\n- Common side effects: dry mouth, nausea, insomnia, anxiety\n- Benefits: no sexual side effects or weight gain; less likely to cause withdrawal syndrome\n\n## Discontinuation Syndrome\n\n- Likely to occur if antidepressants are:\n- $ Abruptly stopped\n- $ Tapered too quickly (2-7 days)\n- $ Switch to a new antidepressant with different pharmacokinetics\n- $ Skips 3-4 consecutive doses\n- $ Switch from branded to generic\n- Symptoms: fatigue, headache, nausea, agitation/anxiety, dizziness, insomnia, flulike illness (chills without fever, myalgias)\n\nTIP: Do NOT stop abruptly! Taper over 2-4 weeks for most SSRIs if taking SSRI for ≥6 weeks.\n\n<!-- image -->\n\n## Methods for Switching Antidepressants\n\nImmediate switch\n\n- Stop one and start the other.\n- Use when drugs have similar MOA and half-lives.\n\nCross taper\n\n- Taper current medication while increasing the new medication.\n- Typically over 1-2 weeks\n\nWashout period\n\n- Taper current medication, allow a period of five half-lives to pass, and initiate new medication.\n- Preferred if the two antidepressants cause significant drug-drug interactions (i.e., MAOI inhibitors)\n\n## QUESTION #7\n\nBefore initiating the SSRI, a medication review is conducted. Which common herb is used to treat depression and can be dangerous in combination with SSRIs?\n\n1. Ginkgo biloba\n2. St. John's wort\n3. Milk thistle\n4. Black cohosh\n\n## Serotonin Syndrome\n\n## EXCESS SEROTONIN (SEROTONIN TOXICITY)\n\n- Etiology\n- $ Combining medications that increase serotonin levels (SSRIs, SNRIs, etc.)\n- Symptoms\n- $ Increased BP, HR, temp\n- $ Confusion, restlessness, agitation\n- $ Headache, muscle rigidity, N/V, tremors, shivering\n- $ High rates of mortality\n- Serotonin agents (impact serotonin in the body)\n- $ Dextromethorphan\n- $ Tramadol\n- $ TCAs\n- $ Cyclobenzaprine\n- $ Others\n\n## Antidepressants and Suicidality\n\nALL antidepressants carry a warning of increased suicidality. FDA black box warning reports are more prevalent:\n\n- 18- to 24-year-olds\n- Initial treatment\n- First 1-2 months of treatment\n\n<!-- image -->\n\n<!-- image -->\n\nNOTES\n\nNOTES Efficacy studies found:\n\n- No evidence for higher/lower risk of suicide death\n- Initiation of antidepressants does not cause new-onset suicidal ideation.\n- SSRIs reduce suicidal ideation\n\nWeigh risks versus benefits, put supports in place.\n\n## Suicidality Risk\n\nRisk factors:\n\n- Presence of psychiatric disorder\n- Hopelessness, impulsivity\n- Isolation\n- Previous attempts\n- Family history\n- Substance use\n- Prolonged stress\n- Abuse/neglect/trauma\n\n## Highest risk:\n\n- Never married\n- Male &gt; females (4:1 ratio)\n- Older age (75+)\n- Firearms most common method\n\nAssess safety: if actively suicidal with a plan, ACTIVATE EMS.\n\n## ANXIETY\n\n## Anxiety Disorders\n\nAnxiety is a natural emotion; it becomes pathologic when intensity is disproportionate to the triggering events.\n\n| Differential Diagnosis       | Differing \"Worry\" Characteristics                                                               | Screening Tool                                                         |\n|------------------------------|-------------------------------------------------------------------------------------------------|------------------------------------------------------------------------|\n| Depression                   | Worry about past events                                                                         | PHQ-9                                                                  |\n| Generalized anxiety disorder | Worry about future events                                                                       | GAD-7                                                                  |\n| Panic disorder               | Paroxysmal intense worry that lasts for several minutes to an hour. Worry about future attacks. | Panic Disorder Screening (PADIS)                                       |\n| Social anxiety disorder      | Intense, irrational fear of a specific object, situation, or activity                           | Social Interaction Anxiety Scale (SIAS-6); Social Phobia Scale (SPS-6) |\n\n<!-- image -->\n\n## Things That Masquerade as Anxiety\n\n| Diseases                | Drugs                                      |\n|-------------------------|--------------------------------------------|\n| Angina, arrhythmias, MI | Caffeine, cocaine                          |\n| Anemias                 | Pseudoephedrine                            |\n| Hyperthyroidism         | Theophylline                               |\n| Hypoglycemia            | Drug withdrawal (benzodiazepines, alcohol) |\n| Essential tremor        | Benadryl                                   |\n| Asthma, COPD, PE        | TCAs                                       |\n| Carcinoid tumor         | Dopaminergics                              |\n\n## Generalized Anxiety Disorder\n\n- DSM-5 TR criteria\n- $ Excessive anxiety or unrealistic worry\n- $ Occurring more days than not for ≥6 months\n- $ Clinically significant distress; significantly impairing function\n- $ At least three associated symptoms\n- Not attributable to substance misuse or another diagnosis\n\n## GAD: Associated Symptoms\n\n<!-- image -->\n\nNOTES\n\n## NOTES Generalized Anxiety: Management\n\nFirst-line: SSRIs &amp; SNRIs\n\nAs needed, short-term bridge:\n\n- Choose based on patient characteristics\n- $ Benzodiazepines\n- $ Hydroxyzine (nonaddictive)\n\nAdjunctive therapy\n\n- Buspirone (BuSpar)\n- $ Add on to SSRI or SNRI\n- $ Daily dosing\n- Exercise!\n- Smoking cessation\n\n<!-- image -->\n\n## POSTTRAUMATIC STRESS DISORDER\n\n## Posttraumatic Stress Disorder (PTSD)\n\nMarked cognitive, affective, and/or behavioral disruption that develops in response to trauma\n\n<!-- image -->\n\n## PTSD DSM-5-TR Criteria (&gt;6 yoa)\n\n| Criterion                          | PTSD Cardinal Features                                                                                                                                                                                                                                |\n|------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| A: Traumatic event                 | · Threatened death, serious injury, sexual violence · Directly experience, witnessing, or learning of · Repeated or extreme exposure (first responders, military)                                                                                     |\n| B: Intrusion symptoms (≥1)         | · Recurrent, involuntary, intrusive distressing memories · Recurrent distressing dreams, dissociative reactions (flashbacks) · Intense psychological or physiologic reactions to internal or external clues                                           |\n| C: Avoidance symptoms              | · Avoidance of stimuli associated with the event                                                                                                                                                                                                      |\n| D: Negative cognitions & mood (≥2) | · Inability to remember (dissociative amnesia) all or part · Persistent exaggerated negative beliefs (\"I am bad,\" \"No one can be trusted\") · Persistent negative emotional state, disinterest, detachment · Inability to experience positive emotions |\n| E: Arousal & reactivity changes    | · Irritability/aggression, reckless/self-destructive behavior, on edge, sleep disturbances, hypervigilance · Symptoms started AFTER the traumatic event                                                                                               |\n\n## QUESTION #8\n\nA patient has a diagnosis of PTSD secondary to a recent motor vehicle accident. The patient is having intrusive and avoidance symptoms, and sleep disturbances. The NP understands the first line treatment for PTSD is:\n\n1. trauma focused psychotherapy\n2. stress inoculation therapy.\n3. electroconvulsive therapy (ECT).\n4. serotonin modulating pharmacotherapy.\n\nReferral for trauma focused psychotherapy and pharmacotherapy as indicated\n\n## SUBSTANCE USE DISORDER\n\n## Substance Use Disorder (SUD)\n\n## SUBSTANCES OF MISUSE\n\n- Caffeine\n- Tobacco/nicotine\n- Alcohol\n- Prescription medications\n- $ Opioids, stimulants, gabapentin\n- Marijuana\n- Illicit drugs\n\nCocaine, opioids, heroin, hallucinogens, inhalants\n\nJoshua Lanclos/APEA\n\n<!-- image -->\n\n<!-- image -->\n\n## NOTES\n\n## NOTES ASSESSMENT\n\n- Ask if ever used, pattern of use, last use, frequency of use\n- Consequences of substance use (e.g., lost job, divorce, jail, etc.)\n- Patient's perception of substance use\n- Readiness to change\n\n## SUD Screening Tools\n\n| SUD                 | Screening/Assessment                                                           | Characteristics                                                                              |\n|---------------------|--------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|\n| Alcohol             | Single item                                                                    | How many times in the past year have you had 5 (male) or 4 (female) or more drinks in a day? |\n| Alcohol             | AUDIT-C                                                                        | 3 items                                                                                      |\n| Opioid              | OWLS (overuse, worrying, losing interested, slowed down/sluggish/sedated)      | 4 items, primary care setting                                                                |\n| Opioid              | RODS (Rapid opioid dependence screen)                                          | 8 items: assess for dependence                                                               |\n| Opioid              | Opioid Risk Tool: assesses for risk                                            | Complete prior to prescribing; self-report                                                   |\n| Multiple substances | TAPS-1; TAPS-2-tobacco, alcohol, prescription medication, and other substances | Patient or clinician administered TAPS-1, 4 items. TAPS-2 completed if TAPS-1 positive       |\n\n## Diagnostic Criteria: Substance Use Disorder\n\n| DSM-5-TR criteria: ≥2 of the following within a 12-month period   |\n|-------------------------------------------------------------------|\n| Taking longer or in larger amounts than intended                  |\n| Unable to cut down or stop use                                    |\n| Excessive time spent to obtain, use, or recover                   |\n| Craving or a strong desire or urge to use                         |\n| Failure to fulfill major role obligations                         |\n| Continued use despite interpersonal problems                      |\n| Forgoing social/recreational activities to use                    |\n| Recurrent use in physically hazardous situations                  |\n| Continued use despite physical or psychological problems          |\n| Development of tolerance                                          |\n| Withdrawal symptoms                                               |\n\n| SUD Severity   | # Symptoms   |\n|----------------|--------------|\n| Mild           | 2-3          |\n| Moderate       | 4-5          |\n| Severe         | ≥6           |\n\nUnderstand MAT act and consider referral\n\n## ADHD: ADULTS\n\n## ADHD Symptoms/Subtypes\n\n| Predominantly inattentive                                                                                                                                                                 | Combined   | Predominantly hyperactive-impulsive   |\n|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------|---------------------------------------|\n| · Careless/poor attention to detail · Diminished attention span · Poor listening skills · Lacks follow-through · Disorganized · Avoids tasks requiring · Loses things · Easily distracted |            | · Fidgets                             |\n|                                                                                                                                                                                           |            | · Trouble staying still               |\n|                                                                                                                                                                                           |            | · Restlessness                        |\n|                                                                                                                                                                                           |            | · Trouble keeping quiet               |\n|                                                                                                                                                                                           |            | · \"On the go\"                         |\n| concentration                                                                                                                                                                             |            | · Talks excessively                   |\n|                                                                                                                                                                                           |            | · Impulsively blurts things out       |\n|                                                                                                                                                                                           |            | · Trouble waiting for their turn      |\n| · Forgetful                                                                                                                                                                               |            | · Interrupts/intrudes                 |\n\n## ADHD Assessment\n\n- Rating scales for ADHD assessment\n- $ Adult ADHD Self-Report Scale (WHO)\n- $ Conners' Adult ADHD Rating Scale\n- $ Wender Utah Rating Scale\n- Comprehensive assessment for:\n- $ Comorbidities\n- $ Substance use disorder\n- $ Age of onset\n\n## ADHD Diagnosis\n\nDSM-5 Diagnostic Criteria (children and adults)\n\n- Symptoms must be present prior to age 12.\n- Symptoms last &gt;6 months.\n- Symptoms are evident in two different settings.\n- Evidence that symptoms interfere with social, academic, or occupational functioning.\n\n|                           | <17 years   | >17 years   |\n|---------------------------|-------------|-------------|\n| Inattention               | 6 symptoms  | ≥5 symptoms |\n| Hyperactivity/impulsivity | 6 symptoms  | ≥5 symptoms |\n\n## QUESTION #9\n\nThe NP is evaluating an adult patient for treatment of ADHD. Which of the following would contraindicate prescribing stimulant medication at this time?\n\n1. Depression\n2. Anxiety\n3. Active substance use disorder\n4. Controlled hypertension\n\n<!-- image -->\n\n## NOTES\n\n## NOTES ADHD Management\n\nPreferred: CBT + pharmacologic treatment\n\n## FIRST-LINE PHARMACOLOGIC:\n\n- Stimulants: amphetamines (Adderall), methylphenidate (Ritalin)\n- Side effects:\n- $ Common: weight loss, headaches, insomnia, dry mouth, irritability, dysphoria\n- $ Rare: priapism, elevated blood pressure, tics\n\n## ALTERNATIVE TREATMENT OPTIONS:\n\n- Norepinephrine reuptake inhibitor: atomoxetine (Strattera); viloxazine (Qelbree)\n- Bupropion (Wellbutrin): off-label\n\n## ADHD Management: Referral\n\nRefer when:\n\n- Comorbidities\n- $ Psychological disorders (oppositional defiant disorder, emotional problems)\n- $ Neurologic, medical disorders (tics, autism, sleep disorders)\n- Diagnosis is unclear.\n- Patient does not respond to treatment as expected.\n\n## KNOWLEDGE CHECK\n\n## QUESTION #10\n\nAn older adult patient is found to have sleep-onset insomnia. Which of the following is FDA-approved for insomnia and has the least risk of dependence?\n\n1. Trazodone\n2. Quetiapine (Seroquel)\n3. Doxepin (Silenor)\n4. Amitriptyline (Elavil)\n\n<!-- image -->\n\nTIP: Always consult the Beers Criteria when prescribing for geriatric patients.\n\n## Over-the-Counter (OTC) Sleep Aids\n\n- Antihistamines:\n- $ Diphenhydramine (e.g., Benadryl)\n- $ Doxylamine (e.g., Unisom)\n- Melatonin supplements:\n- $ Mimic the effects of the natural sleep hormone melatonin.\n- Herbal supplements:\n- $ Valerian root, chamomile, lavender\n- Mechanism of action:\n- $ Antihistamines block histamine receptors, inducing drowsiness.\n- $ Melatonin supplements regulate the sleep-wake cycle.\n- $ Herbal supplements may have a calming or sedative effect.\n\n## Pharmacologic Management of Insomnia\n\n| Drug Class                                        | Drugs                                                                            | Characteristics                                                                                                                                                                                                  |\n|---------------------------------------------------|----------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| Benzodiazepine                                    | Temazepam (Restoril), Lorazepam (Ativan), Triazolam (Halcion)                    | SE: drowsiness, confusion, anterograde amnesia, next day impairment; dependence and tolerance with long-term use Contraindicated: angle-closure glaucoma                                                         |\n| Non-benzodiazepine hypnotics (non-BZD or Z-drugs) | Zolpidem (Ambien), Eszopiclone (Lunesta), Zaleplon (Sonata), Ramelteon (Rozerem) | SE: daytime drowsiness, dizziness, headache, complex sleep behaviors (e.g., sleepwalking) Next day somnolence, rebound insomnia Contraindicated: history of complex sleep behaviors with drugs of the same class |\n| Melatonin receptor agonists                       | Ramelteon (Rozerem); Tasimelteon (Hetlioz); Melatonin                            | SE: rare, but may include headache, dizziness, or daytime drowsiness                                                                                                                                             |\n| Tricyclic antidepressant                          | Doxepin (Silenor)                                                                | SE: anticholinergic                                                                                                                                                                                              |\n| Dual Orexin Receptor Antagonists (DORAs)          | Suvorexant (Belsomra); Lemborexant (Dayvigo) Daridorexant (Quviviq)              | SE: headache, drowsiness, dizziness, nausea Rare: abnormal dreams, anxiety, mood changes, suicidal thoughts                                                                                                      |\n\n- Anxiety\n- Bipolar disorder\n- Depression\n- Suicide\n- PTSD\n- Substance use disorders\n- ADHD\n- Insomnia\n- Pharmacology\n- Know clinical presentation (subjective, objective findings)\n- Screenings\n- Diagnostic criteria\n- Differential diagnosis\n- Pharmacologic, nonpharmacologic management\n- Recognize normal course\n- Follow-up care\n- Know when to refer\n\n<!-- image -->\n\n## EXAM CHECKLIST\n\n## NOTES\n\nNOTES",
+ "tables": [
+  {
+   "headers": [
+    "Serotonin (5-HT)",
+    "Inhibitory",
+    "Appetite, mood, anxiety, sleep, sex drive"
+   ],
+   "rows": [
+    [
+     "Dopamine",
+     "Excitatory and inhibitory",
+     "Energy, reward, motivation, mood, attention, executive functions"
+    ],
+    [
+     "GABA",
+     "Inhibitory",
+     "Produces feeling of calmness and relaxation; anxiety and sleep"
+    ],
+    [
+     "Norepinephrine",
+     "Excitatory",
+     "Mood, alertness, concentration, energy"
+    ],
+    [
+     "Epinephrine",
+     "Excitatory",
+     "Memory, attentiveness, sleep"
+    ]
+   ],
+   "caption": "",
+   "page": 1
+  },
+  {
+   "headers": [
+    "S",
+    "SLEEP"
+   ],
+   "rows": [
+    [
+     "I",
+     "INTEREST (ANHEDONIA)"
+    ],
+    [
+     "G",
+     "GUILTY (WORTHLESSNESS)"
+    ],
+    [
+     "E",
+     "ENERGY"
+    ],
+    [
+     "C",
+     "CONCENTRATION DIFFICULTIES"
+    ],
+    [
+     "A",
+     "APPETITE"
+    ],
+    [
+     "P",
+     "PSYCHOMOTOR AGITATION OR IRRITATION"
+    ],
+    [
+     "S",
+     "SUICIDALITY"
+    ]
+   ],
+   "caption": "",
+   "page": 2
+  },
+  {
+   "headers": [
+    "PHQ-2",
+    "Prescreening",
+    "≥12 years",
+    "2"
+   ],
+   "rows": [
+    [
+     "PHQ-9",
+     "Screening, monitoring Tx",
+     "≥12 years, cognitive impairment, nursing home",
+     "9"
+    ],
+    [
+     "Geriatric Depression Scale (GDS)",
+     "Screening",
+     "≥60 years, cognitive impairment",
+     "5, 15, or 30"
+    ],
+    [
+     "Beck Depression Inventory (BDI)",
+     "Screening, monitoring Tx",
+     "13-80 years",
+     "21"
+    ]
+   ],
+   "caption": "",
+   "page": 2
+  },
+  {
+   "headers": [
+    "0-4",
+    "Minimal or none",
+    "Monitor; may not require treatment"
+   ],
+   "rows": [
+    [
+     "5-9",
+     "Mild",
+     "Treatment offered, use clinical judgment and shared decision making to determine treatment"
+    ],
+    [
+     "10-14",
+     "Moderate",
+     ""
+    ],
+    [
+     "15-19",
+     "Moderately severe",
+     "Warrants active treatment with psychotherapy, medications, or combination"
+    ],
+    [
+     "20-27",
+     "Severe",
+     ""
+    ]
+   ],
+   "caption": "",
+   "page": 3
+  },
+  {
+   "headers": [
+    "Nausea",
+    "Most common, occurs with all SSRIs",
+    "Start low, go slow"
+   ],
+   "rows": [
+    [
+     "Diarrhea",
+     "More likely with sertraline",
+     "Start low, go slow"
+    ],
+    [
+     "Constipation",
+     "More likely with paroxetine",
+     "Start low, go slow"
+    ],
+    [
+     "Sexual dysfunction",
+     "Ejaculatory changes, decreased libido, anorgasmia; more likely with paroxetine",
+     "Lower dose, add bupropion, or switching to a non-serotoninergic drug or fluvoxamine"
+    ],
+    [
+     "Somnolence",
+     "paroxetine, citalopram, fluvoxamine",
+     "Take at bedtime"
+    ],
+    [
+     "Insomnia",
+     "Fluoxetine, sertraline",
+     "Take in the AM"
+    ],
+    [
+     "Weight gain",
+     "More likely with paroxetine, escitalopram, citalopram; 6 months of use",
+     "Diet, exercise; fluoxetine has less effect on weight"
+    ]
+   ],
+   "caption": "",
+   "page": 5
+  },
+  {
+   "headers": [
+    "Age",
+    "Expect Improvement",
+    "Expect Relief of Symptoms"
+   ],
+   "rows": [
+    [
+     "Young to middle Adult",
+     "2-4 weeks",
+     "6-12 weeks"
+    ],
+    [
+     "Older adult",
+     "4-6 weeks",
+     "12-16 weeks"
+    ]
+   ],
+   "caption": "",
+   "page": 6
+  },
+  {
+   "headers": [
+    "Duloxetine (Cymbalta)",
+    "MDD, GAD, fibromyalgia, neuropathy, chronic musculoskeletal pain; Least likely to raise BP"
+   ],
+   "rows": [
+    [
+     "Venlafaxine (Effexor)",
+     "MDD, social anxiety disorder, cataplexy; cautious use in patients at risk of bleeding"
+    ],
+    [
+     "Desvenlafaxine (Pristiq)",
+     "MDD; less risk of sexual dysfunction"
+    ],
+    [
+     "Milnacipran (Savella)",
+     "Fibromyalgia; may increase liver enzymes, avoid in end-stage renal disease"
+    ],
+    [
+     "Levomilnacipran (Fetzima)",
+     "MDD; avoid in end-stage renal disease"
+    ]
+   ],
+   "caption": "",
+   "page": 7
+  },
+  {
+   "headers": [
+    "Depression",
+    "Worry about past events",
+    "PHQ-9"
+   ],
+   "rows": [
+    [
+     "Generalized anxiety disorder",
+     "Worry about future events",
+     "GAD-7"
+    ],
+    [
+     "Panic disorder",
+     "Paroxysmal intense worry that lasts for several minutes to an hour. Worry about future attacks.",
+     "Panic Disorder Screening (PADIS)"
+    ],
+    [
+     "Social anxiety disorder",
+     "Intense, irrational fear of a specific object, situation, or activity",
+     "Social Interaction Anxiety Scale (SIAS-6); Social Phobia Scale (SPS-6)"
+    ]
+   ],
+   "caption": "",
+   "page": 9
+  },
+  {
+   "headers": [
+    "Angina, arrhythmias, MI",
+    "Caffeine, cocaine"
+   ],
+   "rows": [
+    [
+     "Anemias",
+     "Pseudoephedrine"
+    ],
+    [
+     "Hyperthyroidism",
+     "Theophylline"
+    ],
+    [
+     "Hypoglycemia",
+     "Drug withdrawal (benzodiazepines, alcohol)"
+    ],
+    [
+     "Essential tremor",
+     "Benadryl"
+    ],
+    [
+     "Asthma, COPD, PE",
+     "TCAs"
+    ],
+    [
+     "Carcinoid tumor",
+     "Dopaminergics"
+    ]
+   ],
+   "caption": "",
+   "page": 10
+  },
+  {
+   "headers": [
+    "A: Traumatic event",
+    "· Threatened death, serious injury, sexual violence · Directly experience, witnessing, or learning of · Repeated or extreme exposure (first responders, military)"
+   ],
+   "rows": [
+    [
+     "B: Intrusion symptoms (≥1)",
+     "· Recurrent, involuntary, intrusive distressing memories · Recurrent distressing dreams, dissociative reactions (flashbacks) · Intense psychological or physiologic reactions to internal or external clues"
+    ],
+    [
+     "C: Avoidance symptoms",
+     "· Avoidance of stimuli associated with the event"
+    ],
+    [
+     "D: Negative cognitions & mood (≥2)",
+     "· Inability to remember (dissociative amnesia) all or part · Persistent exaggerated negative beliefs (\"I am bad,\" \"No one can be trusted\") · Persistent negative emotional state, disinterest, detachment · Inability to experience positive emotions"
+    ],
+    [
+     "E: Arousal & reactivity changes",
+     "· Irritability/aggression, reckless/self-destructive behavior, on edge, sleep disturbances, hypervigilance · Symptoms started AFTER the traumatic event"
+    ]
+   ],
+   "caption": "",
+   "page": 12
+  },
+  {
+   "headers": [
+    "Alcohol",
+    "Single item",
+    "How many times in the past year have you had 5 (male) or 4 (female) or more drinks in a day?"
+   ],
+   "rows": [
+    [
+     "Alcohol",
+     "AUDIT-C",
+     "3 items"
+    ],
+    [
+     "Opioid",
+     "OWLS (overuse, worrying, losing interested, slowed down/sluggish/sedated)",
+     "4 items, primary care setting"
+    ],
+    [
+     "Opioid",
+     "RODS (Rapid opioid dependence screen)",
+     "8 items: assess for dependence"
+    ],
+    [
+     "Opioid",
+     "Opioid Risk Tool: assesses for risk",
+     "Complete prior to prescribing; self-report"
+    ],
+    [
+     "Multiple substances",
+     "TAPS-1; TAPS-2-tobacco, alcohol, prescription medication, and other substances",
+     "Patient or clinician administered TAPS-1, 4 items. TAPS-2 completed if TAPS-1 positive"
+    ]
+   ],
+   "caption": "",
+   "page": 13
+  },
+  {
+   "headers": [
+    "SUD Severity",
+    "# Symptoms"
+   ],
+   "rows": [
+    [
+     "Mild",
+     "2-3"
+    ],
+    [
+     "Moderate",
+     "4-5"
+    ],
+    [
+     "Severe",
+     "≥6"
+    ]
+   ],
+   "caption": "",
+   "page": 13
+  },
+  {
+   "headers": [
+    "· Careless/poor attention to detail · Diminished attention span · Poor listening skills · Lacks follow-through · Disorganized · Avoids tasks requiring · Loses things · Easily distracted",
+    "· Fidgets"
+   ],
+   "rows": [
+    [
+     "",
+     "· Trouble staying still"
+    ],
+    [
+     "",
+     "· Restlessness"
+    ],
+    [
+     "",
+     "· Trouble keeping quiet"
+    ],
+    [
+     "",
+     "· \"On the go\""
+    ],
+    [
+     "concentration",
+     "· Talks excessively"
+    ],
+    [
+     "",
+     "· Impulsively blurts things out"
+    ],
+    [
+     "",
+     "· Trouble waiting for their turn"
+    ],
+    [
+     "· Forgetful",
+     "· Interrupts/intrudes"
+    ]
+   ],
+   "caption": "",
+   "page": 14
+  },
+  {
+   "headers": [
+    "Inattention",
+    "6 symptoms",
+    "≥5 symptoms"
+   ],
+   "rows": [
+    [
+     "Hyperactivity/impulsivity",
+     "6 symptoms",
+     "≥5 symptoms"
+    ]
+   ],
+   "caption": "",
+   "page": 14
+  },
+  {
+   "headers": [
+    "Benzodiazepine",
+    "Temazepam (Restoril), Lorazepam (Ativan), Triazolam (Halcion)",
+    "SE: drowsiness, confusion, anterograde amnesia, next day impairment; dependence and tolerance with long-term use Contraindicated: angle-closure glaucoma"
+   ],
+   "rows": [
+    [
+     "Non-benzodiazepine hypnotics (non-BZD or Z-drugs)",
+     "Zolpidem (Ambien), Eszopiclone (Lunesta), Zaleplon (Sonata), Ramelteon (Rozerem)",
+     "SE: daytime drowsiness, dizziness, headache, complex sleep behaviors (e.g., sleepwalking) Next day somnolence, rebound insomnia Contraindicated: history of complex sleep behaviors with drugs of the same class"
+    ],
+    [
+     "Melatonin receptor agonists",
+     "Ramelteon (Rozerem); Tasimelteon (Hetlioz); Melatonin",
+     "SE: rare, but may include headache, dizziness, or daytime drowsiness"
+    ],
+    [
+     "Tricyclic antidepressant",
+     "Doxepin (Silenor)",
+     "SE: anticholinergic"
+    ],
+    [
+     "Dual Orexin Receptor Antagonists (DORAs)",
+     "Suvorexant (Belsomra); Lemborexant (Dayvigo) Daridorexant (Quviviq)",
+     "SE: headache, drowsiness, dizziness, nausea Rare: abnormal dreams, anxiety, mood changes, suicidal thoughts"
+    ]
+   ],
+   "caption": "",
+   "page": 16
+  }
+ ],
+ "tips": [],
+ "questions": [
+  {
+   "stem": "Ms. Q is a 70-year-old female who reports foggy thoughts, difficulty concentrating, and poor appetite. She says, \"I have no energy to be around people\" and is no longer socializing with friends. What is the next step?",
+   "options": [
+    "Order a TSH, B12 level, and folate level.",
+    "Screen for depression with the PHQ-9.",
+    "Order a urinalysis to screen for UTI.",
+    "Order a CMP, CBC, and TSH."
+   ]
+  },
+  {
+   "stem": "A young adult patient with anhedonia has a PHQ-9 score of 12, indicating moderately severe depression and a negative screening for bipolar disorder. Which medication is preferred for the management of depression?",
+   "options": [
+    "Amitriptyline",
+    "Quetiapine",
+    "Escitalopram",
+    "Buspirone Treatment of Major Depressive Disorder (MDD) Shared decision making and individualization of care - Depression focused psychotherapy, CBT, others - Generally, a 2nd generation antidepressant is preferred - SSRI - SNRI - NDRI (bupropion) and serotonin modulators are also effective ` Selective Serotonin Reuptake Inhibitors (SSRIs) MOA of SSRIs © Jones & Bartlett Learning Considerations for choosing an SSRI More CYP450 effect = more drug/drug interactions and side effects NOTES | More CYP450 Effect | |----------------------| | Fluoxetine (Prozac) | | Paroxetine (Paxil) | | Fluvoxamine (Luvox) | NOTES SSRIs: Prescribing Considerations | Side Effect | Comments | Prescribing Pearls | |--------------------|--------------------------------------------------------------------------------|-------------------------------------------------------------------------------------| | Nausea | Most common, occurs with all SSRIs | Start low, go slow | | Diarrhea | More likely with sertraline | Start low, go slow | | Constipation | More likely with paroxetine | Start low, go slow | | Sexual dysfunction | Ejaculatory changes, decreased libido, anorgasmia; more likely with paroxetine | Lower dose, add bupropion, or switching to a non-serotoninergic drug or fluvoxamine | | Somnolence | paroxetine, citalopram, fluvoxamine | Take at bedtime | | Insomnia | Fluoxetine, sertraline | Take in the AM | | Weight gain | More likely with paroxetine, escitalopram, citalopram; 6 months of use | Diet, exercise; fluoxetine has less effect on weight | SSRIs in Pregnancy and Lactation - Pregnancy - Generally safe - Escitalopram (Lexapro) or sertraline (Zoloft) usually preferred - Avoid paroxetine (Paxil) - Discuss the risk/benefits - Lactation - Generally, low levels pass into breast milk - SSRI used in pregnancy can typically be continued Weigh risks of untreated depression in pregnancy/postpartum vs. benefits of treatment QUESTION #3 A young adult meets the criteria for MDD and is prescribed fluoxetine 20 mg daily. Which of the following differentials must be excluded before prescribing an SSRI?",
+    "Obsessive compulsive disorder",
+    "Panic disorder"
+   ]
+  },
+  {
+   "stem": "Sertraline is prescribed for a 75-year-old female with depression. Which starting dose is reasonable for this patient? (Typical dose: 50 mg-200 mg po daily)",
+   "options": [
+    "25 mg once daily",
+    "50 mg once daily",
+    "75 mg once daily",
+    "100 mg once daily SSRI Response | Age | Expect Improvement | Expect Relief of Symptoms | |-----------------------|----------------------|-----------------------------| | Young to middle Adult | 2-4 weeks | 6-12 weeks | | Older adult | 4-6 weeks | 12-16 weeks | QUESTION #5 A patient is diagnosed with a first episode of major depression after the recent death of their spouse. Sertraline is prescribed. The patient expresses that she doesn't want to be on medication long-term. Which response is best?",
+    "You will need this medication for life.",
+    "Medication should be continued for 3 years due to risk of recurrence."
+   ]
+  },
+  {
+   "stem": "A patient with major depressive disorder (MDD) reports that citalopram has helped some with symptoms, but not greatly. He was previously on sertraline. His PHQ-9 score has decreased from 16 to 14. Which of the following is the best option for this patient?",
+   "options": [
+    "Switch the patient to fluoxetine.",
+    "Continue sertraline and add olanzapine.",
+    "Switch the patient to amitriptyline",
+    "Switch the patient to desvenlafaxine Serotonin-Norepinephrine Reuptake Inhibitors (SNRIs) Side effects: nausea, dizziness, diaphoresis, increase in blood pressure (except duloxetine), sexual dysfunction, bleeding, hyponatremia | Drug | Indications/Considerations | |---------------------------|--------------------------------------------------------------------------------------------| | Duloxetine (Cymbalta) | MDD, GAD, fibromyalgia, neuropathy, chronic musculoskeletal pain; Least likely to raise BP | | Venlafaxine (Effexor) | MDD, social anxiety disorder, cataplexy; cautious use in patients at risk of bleeding | | Desvenlafaxine (Pristiq) | MDD; less risk of sexual dysfunction | | Milnacipran (Savella) | Fibromyalgia; may increase liver enzymes, avoid in end-stage renal disease | | Levomilnacipran (Fetzima) | MDD; avoid in end-stage renal disease | Norepinephrine-Dopamine Reuptake Inhibitor (NDRI) - Drug: bupropion (Wellbutrin) - Indications - MDD, seasonal affective disorder, smoking cessation (Zyban), ADHD (off-label) - Bupropion/naltrexone (Contrave): weight loss - Contraindications - Seizures, uncontrolled hypertension - Monitor: blood pressure - Common side effects: dry mouth, nausea, insomnia, anxiety - Benefits: no sexual side effects or weight gain; less likely to cause withdrawal syndrome Discontinuation Syndrome - Likely to occur if antidepressants are: - Abruptly stopped - Tapered too quickly (2-7 days) - Switch to a new antidepressant with different pharmacokinetics - Skips 3-4 consecutive doses - Switch from branded to generic - Symptoms: fatigue, headache, nausea, agitation/anxiety, dizziness, insomnia, flulike illness (chills without fever, myalgias) TIP: Do NOT stop abruptly! Taper over 2-4 weeks for most SSRIs if taking SSRI for ≥6 weeks."
+   ]
+  },
+  {
+   "stem": "Before initiating the SSRI, a medication review is conducted. Which common herb is used to treat depression and can be dangerous in combination with SSRIs?",
+   "options": [
+    "Ginkgo biloba",
+    "St. John's wort",
+    "Milk thistle",
+    "Black cohosh Serotonin Syndrome EXCESS SEROTONIN (SEROTONIN TOXICITY) - Etiology - Combining medications that increase serotonin levels (SSRIs, SNRIs, etc.) - Symptoms - Increased BP, HR, temp - Confusion, restlessness, agitation - Headache, muscle rigidity, N/V, tremors, shivering - High rates of mortality - Serotonin agents (impact serotonin in the body) - Dextromethorphan - Tramadol - TCAs - Cyclobenzaprine - Others Antidepressants and Suicidality ALL antidepressants carry a warning of increased suicidality. FDA black box warning reports are more prevalent: - 18- to 24-year-olds - Initial treatment - First 1-2 months of treatment NOTES NOTES Efficacy studies found: - No evidence for higher/lower risk of suicide death - Initiation of antidepressants does not cause new-onset suicidal ideation."
+   ]
+  },
+  {
+   "stem": "A patient has a diagnosis of PTSD secondary to a recent motor vehicle accident. The patient is having intrusive and avoidance symptoms, and sleep disturbances. The NP understands the first line treatment for PTSD is:",
+   "options": [
+    "trauma focused psychotherapy",
+    "stress inoculation therapy.",
+    "electroconvulsive therapy (ECT).",
+    "serotonin modulating pharmacotherapy."
+   ]
+  },
+  {
+   "stem": "The NP is evaluating an adult patient for treatment of ADHD. Which of the following would contraindicate prescribing stimulant medication at this time?",
+   "options": [
+    "Depression",
+    "Anxiety",
+    "Active substance use disorder",
+    "Controlled hypertension NOTES NOTES ADHD Management Preferred: CBT + pharmacologic treatment FIRST-LINE PHARMACOLOGIC: - Stimulants: amphetamines (Adderall), methylphenidate (Ritalin) - Side effects: - Common: weight loss, headaches, insomnia, dry mouth, irritability, dysphoria - Rare: priapism, elevated blood pressure, tics ALTERNATIVE TREATMENT OPTIONS: - Norepinephrine reuptake inhibitor: atomoxetine (Strattera); viloxazine (Qelbree) - Bupropion (Wellbutrin): off-label ADHD Management: Referral Refer when: - Comorbidities - Psychological disorders (oppositional defiant disorder, emotional problems) - Neurologic, medical disorders (tics, autism, sleep disorders) - Diagnosis is unclear."
+   ]
+  },
+  {
+   "stem": "An older adult patient is found to have sleep-onset insomnia. Which of the following is FDA-approved for insomnia and has the least risk of dependence?",
+   "options": [
+    "Trazodone",
+    "Quetiapine (Seroquel)",
+    "Doxepin (Silenor)",
+    "Amitriptyline (Elavil) TIP: Always consult the Beers Criteria when prescribing for geriatric patients."
+   ]
+  }
+ ],
+ "quality": {
+  "tables": 15,
+  "tips": 0,
+  "questions": 8,
+  "rows": 64
+ }
+}

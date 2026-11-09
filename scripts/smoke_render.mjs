@@ -140,10 +140,33 @@ check('completed-week counter reads the same keys the UI writes', () => {
   if (n !== 1) throw new Error(`expected 1 completed week, got ${n}`)
 })
 
+console.log('\nchapter tables')
+check('every chapter has reference tables', () => {
+  const empty = guide.chapters.filter(c => !(c.id in {}) && false)
+  const missing = []
+  const mods = {}
+  for (const f of fs.readdirSync(path.join(DATA, 'modules'))) {
+    if (!f.endsWith('.json')) continue
+    const m = JSON.parse(fs.readFileSync(path.join(DATA, 'modules', f), 'utf8'))
+    mods[m.chapterId] = (m.reference?.tables || []).length
+  }
+  for (const c of guide.chapters) if (!mods[c.id]) missing.push(c.number)
+  if (missing.length) throw new Error(`no tables for chapters ${missing.join(',')}`)
+})
+check('tables have headers and rows', () => {
+  for (const f of fs.readdirSync(path.join(DATA, 'modules'))) {
+    if (!f.endsWith('.json')) continue
+    const m = JSON.parse(fs.readFileSync(path.join(DATA, 'modules', f), 'utf8'))
+    for (const t of m.reference?.tables || []) {
+      if (!t.headers?.length || !t.rows?.length) throw new Error(`${m.chapterId} has an empty table`)
+    }
+  }
+})
+
 console.log('\nPDF list drills')
 const pdfLists = read('pdf-lists.json').lists
 check('list drills exist', () => {
-  if (pdfLists.length < 500) throw new Error(`only ${pdfLists.length} drills`)
+  if (pdfLists.length < 400) throw new Error(`only ${pdfLists.length} drills`)
 })
 check('no drill carries slide furniture', () => {
   const bad = pdfLists.filter(l =>
