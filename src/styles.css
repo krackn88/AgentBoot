@@ -230,6 +230,13 @@ input[type=text],input[type=email],input[type=date],select{padding:11px 13px;bor
 .compare-table{font-size:14px;margin-top:12px}
 .compare-table th:first-child,.compare-table td:first-child{min-width:180px}
 .waitlist-card{border-color:#f0d9ad}
+.source-trust{border-color:#c5e5de;background:linear-gradient(180deg,#fff,#f8fcfb);margin:16px 0}
+.source-trust-title{font-size:22px;margin:6px 0 0;line-height:1.3}
+.source-trust-grid{display:grid;gap:16px;margin-top:16px}
+@media(min-width:720px){.source-trust-grid{grid-template-columns:repeat(3,1fr)}}
+.source-trust-item{display:flex;gap:12px;align-items:flex-start}
+.source-trust-item svg{flex-shrink:0;color:var(--brand);margin-top:2px}
+.source-trust-foot{border-top:1px solid var(--line);padding-top:12px}
 @media(max-width:980px){.milestone-toast{bottom:100px}.readiness-tools-pct{font-size:34px}}
 @media print{
   .readiness-cert,.cert-inner{break-inside:avoid;border:2px solid #333}

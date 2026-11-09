@@ -8,6 +8,7 @@ import Planner from './components/Planner.jsx'
 import Workbook from './components/Workbook.jsx'
 import { Sidebar, PageHeader, MobileNav } from './components/AppShell.jsx'
 import PlatformStats from './components/PlatformStats.jsx'
+import SourceTrust from './components/SourceTrust.jsx'
 import StudyPath from './components/StudyPath.jsx'
 import OnboardingCard from './components/OnboardingCard.jsx'
 import Milestones from './components/Milestones.jsx'
@@ -119,7 +120,7 @@ function StudyApp({ guide }) {
   const titles = {
     dashboard: 'Dashboard', library: 'Study guide', manuals: 'Full manuals', reader: chapter?.shortTitle,
     quiz: 'Question bank', tests: 'Mock exams', workbooks: 'Workbooks', flashcards: 'Flashcards',
-    quickref: 'High-yield', planner: 'Study planner', about: 'About',
+    quickref: 'High-yield', planner: 'Study planner', about: 'Sources & scope',
   }
   usePageTitle(titles[view] || null)
 
@@ -131,7 +132,7 @@ function StudyApp({ guide }) {
         {['dashboard', 'tests', 'reader'].includes(view) && <ContextualHelp view={view === 'reader' ? 'reader' : view} />}
         {BETA_OPEN && view === 'dashboard' && (
           <div className="beta-banner no-print">
-            <strong>Open beta.</strong> Every chapter, workbook, mock exam, flashcard deck, and manual is unlocked while we finish polishing the platform. Your progress still saves on this device.
+            <strong>Full access.</strong> No account, no paywall — study guide, manuals, mocks, and workbooks. Progress is saved in this browser only (export JSON on the dashboard if you switch devices).
           </div>
         )}
         {['dashboard', 'library', 'quickref'].includes(view) && (
@@ -149,19 +150,20 @@ function StudyApp({ guide }) {
         ) : (<>
           {view === 'dashboard' && (
             <div>
-              <OnboardingCard onGo={go} />
               <div className="hero">
-                <p className="pill gold">One path to exam day</p>
-                <h1>See how ready you are — not just how much you read.</h1>
-                <p>Searchable chapters, timed mocks, weak-area tracking, and a printable readiness report — built from the official APEA 2026 manuals on this server.</p>
+                <p className="pill gold">APEA 2026 FNP cohort</p>
+                <h1>Study guide, full manuals, keyed questions, timed mocks.</h1>
+                <p>One workspace for the materials you already have — searchable, trackable, with rationales from the Answer Key. Verify anything against the linked PDFs.</p>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 16 }}>
                   <button className="btn gold" onClick={() => { if (lastChapter) openChapter(lastChapter.id) }}>{store.lastChapter ? 'Continue studying →' : 'Start Chapter 1 →'}</button>
                   <button className="btn" onClick={() => openQuiz()}>Take a practice quiz</button>
                   <button className="btn ghost" onClick={() => go('manuals')}>Browse all 22 full manuals</button>
                 </div>
               </div>
-              <ReadinessCertificate readiness={readiness} doneCh={doneCh} totalCh={chapters.length} accuracy={accuracy} streak={streak} examDate={store.examDate} />
+              <SourceTrust guide={guide} manualBank={manualBank} totalQ={totalQ} guideQ={guideQCount} manualQ={manualQCount} />
               <PlatformStats guide={guide} contentMeta={contentMeta} manualBank={manualBank} questionTotal={totalQ} />
+              <OnboardingCard onGo={go} />
+              <ReadinessCertificate readiness={readiness} doneCh={doneCh} totalCh={chapters.length} accuracy={accuracy} streak={streak} examDate={store.examDate} />
               <ReadinessReportCard guide={guide} store={store} readiness={readiness} doneCh={doneCh} totalCh={chapters.length} answered={answered} totalQ={totalQ} accuracy={accuracy} mastered={mastered} streak={streak} />
               <Milestones store={store} stats={milestoneStats} weeksComplete={weeksComplete} />
               <div className="grid cols4" style={{ marginTop: 16 }}>
@@ -382,20 +384,19 @@ function AboutAccess({ totalQ, totalCards, chapters, store, update, guide, conte
   return (
     <div className="about-page">
       <PageHeader
-        eyebrow="Pro value"
-        title="Why this platform vs. PDFs alone"
-        subtitle="Built from official APEA 2026 course manuals hosted for this cohort — structured for outcomes: readiness score, mocks, tracking, and recall."
+        eyebrow="Sources & scope"
+        title="What you are studying"
+        subtitle="Not a third-party question factory — extracted and keyed content from the APEA 2026 materials on this server, with PDFs always available to cross-check."
       />
 
+      <SourceTrust guide={guide} manualBank={manualBank} totalQ={totalQ} guideQ={guide?.meta?.questions ?? 0} manualQ={manualBank?.meta?.graded ?? 0} />
+
       <div className="card pro-hero">
-        <p className="label">The problem</p>
-        <h2 style={{ marginTop: 4 }}>Free materials are complete — but not organized for exam day</h2>
+        <p className="label">Why use this instead of a folder of PDFs</p>
+        <h2 style={{ marginTop: 4 }}>Same content — search, mocks, and weak-area tracking</h2>
         <p className="muted" style={{ lineHeight: 1.65, maxWidth: 680 }}>
-          You can download every manual. What you cannot get from a folder of PDFs is a <strong>readiness score</strong>, timed mocks at board pace,
-          weak-area tracking across {totalQ} questions, or a single searchable path from Chapter 1 to the mock block. This hub wraps the same official content around those outcomes.
-        </p>
-        <p className="small muted" style={{ marginTop: 12, lineHeight: 1.5 }}>
-          Social proof we can stand behind: content is sourced from the APEA 2026 FNP review manuals on this server — not third-party summaries. No fabricated testimonials during beta.
+          The manuals are complete on their own. This hub adds what PDFs lack: full-text search across {totalQ} keyed items, timed mocks at board pace (72s/question on AANP sim),
+          missed-question decks, and a readiness tracker so you know which chapters to hit before exam day — without retyping notes into another app.
         </p>
       </div>
 

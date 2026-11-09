@@ -21,7 +21,7 @@ export function Sidebar({ view, go, readiness, doneCh, totalCh, answered, totalQ
       <div className="brand-block">
         <p className="brand-kicker">APEA 2026 · FNP / AGPCNP</p>
         <div className="logo">FNP Board Prep</div>
-        <p className="tagline">Chapters, mocks, and tracking — from official APEA 2026 course manuals.</p>
+        <p className="tagline">APEA 2026 manuals &amp; answer key — searchable, keyed MCQs, timed mocks.</p>
       </div>
       <nav className="side-nav" aria-label="Main">
         {GROUPS.map(g => (
@@ -43,7 +43,7 @@ export function Sidebar({ view, go, readiness, doneCh, totalCh, answered, totalQ
         {(guideQ > 0 || manualQ > 0) && <p className="sidefoot-detail">{guideQ} guide + {manualQ || 0} manual keyed</p>}
         <p>{streak}-day streak</p>
       </div>
-      <button type="button" className="navbtn subtle" onClick={() => go('about')}><Info size={16} /> About & access</button>
+      <button type="button" className="navbtn subtle" onClick={() => go('about')}><Info size={16} /> Sources &amp; scope</button>
     </aside>
   )
 }

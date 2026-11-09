@@ -112,7 +112,7 @@ export default function Quiz({ guide, store, update, preset, onDone, questionPoo
           <div className="card" key={q.id} style={{ margin: '10px 0' }}>
             <p className="label">{q.chapterTitle} · Q{i + 1}</p><p><strong>{q.stem}</strong></p>
             {q.options.map((o, j) => <p key={j} className="small" style={{ color: j === q.correctIndex ? 'var(--green)' : picked[q.id] === j ? 'var(--red)' : 'inherit', fontWeight: j === q.correctIndex ? 700 : 400 }}>{String.fromCharCode(65 + j)}. {o}{j === q.correctIndex ? ' ✓' : picked[q.id] === j ? ' ✗ your answer' : ''}</p>)}
-            {q.explanation && <p className="small" style={{ background: '#f2f6fb', padding: 10, borderRadius: 8 }}><strong>Rationale:</strong> {q.explanation}</p>}
+            {q.explanation && <p className="small" style={{ background: '#f2f6fb', padding: 10, borderRadius: 8 }}><strong>Rationale:</strong> {q.explanation}<br /><span className="muted">Source: {q.source === 'manual' ? 'Course manual slide' : 'Answer Key'}</span></p>}
           </div>))}
         <div style={{ display: 'flex', gap: 8, marginTop: 16 }}><button className="btn" onClick={() => { setSetup(true); setSession(null); setResult(null) }}>New quiz</button>
           <button className="btn ghost" onClick={() => start('missed', 'all', 25)}>Retry missed only</button></div>
@@ -138,7 +138,9 @@ export default function Quiz({ guide, store, update, preset, onDone, questionPoo
         }) : <p className="muted">Recall question — think of the answer, then reveal the rationale below.</p>}
         {session.mode === 'practice' && !showAns && <button className="btn" disabled={picked[q.id] == null && q.options.length >= 2} onClick={() => setRevealed(r => ({ ...r, [q.id]: true }))}>Check answer</button>}
         {showAns && <div style={{ background: '#f2f6fb', padding: 14, borderRadius: 10, marginTop: 10 }}>
-          <strong>{!isGraded ? 'Answer & rationale' : picked[q.id] === q.correctIndex ? '✓ Correct' : '✗ Not quite'}:</strong> {q.explanation || 'See the chapter for the teaching point behind this question.'}</div>}
+          <strong>{!isGraded ? 'Answer & rationale' : picked[q.id] === q.correctIndex ? '✓ Correct' : '✗ Not quite'}:</strong> {q.explanation || 'See the chapter for the teaching point behind this question.'}
+          <p className="small muted" style={{ margin: '10px 0 0' }}>Source: {q.source === 'manual' ? 'Course manual slide MCQ (keyed + override when needed)' : 'Study guide Answer Key'}</p>
+        </div>}
       </div>
       <div style={{ display: 'flex', gap: 8, marginTop: 14, flexWrap: 'wrap' }}>
         <button className="btn ghost" disabled={idx === 0} onClick={() => setIdx(idx - 1)}>← Prev</button>

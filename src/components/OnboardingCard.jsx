@@ -21,9 +21,9 @@ export default function OnboardingCard({ onGo }) {
   return (
     <div className="card onboarding-card no-print" role="region" aria-label="Getting started">
       <button type="button" className="onboarding-close" onClick={dismiss} aria-label="Dismiss"><X size={18} /></button>
-      <p className="label">New here?</p>
-      <h3 style={{ margin: '4px 0 10px' }}>How to use this platform in 3 steps</h3>
-      <p className="muted small" style={{ margin: '0 0 14px', lineHeight: 1.55 }}>Built from official APEA 2026 course manuals hosted for this cohort — structured so you study, test, and see gaps instead of hunting PDFs.</p>
+      <p className="label">Quick start</p>
+      <h3 style={{ margin: '4px 0 10px' }}>Efficient loop (read → questions → mock)</h3>
+      <p className="muted small" style={{ margin: '0 0 14px', lineHeight: 1.55 }}>Every chapter links to its PDF. Check rationales against the Answer Key if something feels off.</p>
       <ol className="onboarding-steps">
         {steps.map(s => (
           <li key={s.n}>
