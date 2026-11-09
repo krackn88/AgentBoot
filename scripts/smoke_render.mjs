@@ -140,6 +140,29 @@ check('completed-week counter reads the same keys the UI writes', () => {
   if (n !== 1) throw new Error(`expected 1 completed week, got ${n}`)
 })
 
+console.log('\nPDF list drills')
+const pdfLists = read('pdf-lists.json').lists
+check('list drills exist', () => {
+  if (pdfLists.length < 500) throw new Error(`only ${pdfLists.length} drills`)
+})
+check('no drill carries slide furniture', () => {
+  const bad = pdfLists.filter(l =>
+    /FNP\/AGPCNP|Chapter \d|NOTES/i.test(l.prompt) ||
+    l.items.some(i => /©|Advanced Practice Education/i.test(i)) ||
+    l.items.some(i => /FNP\/AGPCNP Review|Chapter \d+\s+\w+ \|/.test(i)),
+  )
+  if (bad.length) throw new Error(`${bad.length} contaminated, e.g. "${bad[0].prompt.slice(0, 60)}"`)
+})
+check('every drill has at least 3 usable items', () => {
+  const bad = pdfLists.filter(l => l.items.length < 3 || l.items.some(i => !i || i.length > 200))
+  if (bad.length) throw new Error(`${bad.length} malformed drills`)
+})
+check('drills are attributed to real chapters', () => {
+  const ids = new Set(guide.chapters.map(c => c.id))
+  const bad = pdfLists.filter(l => !ids.has(l.chapterId))
+  if (bad.length) throw new Error(`${bad.length} drills point at unknown chapters`)
+})
+
 console.log('\npearl deck')
 const pearlDeck = read('pearls-clean.json').pearls
 check('pearls deck is non-empty', () => {

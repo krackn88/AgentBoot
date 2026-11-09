@@ -1,0 +1,14 @@
+{
+ "meta": {
+  "count": 1,
+  "source": "answer choices re-read from the PDF text layer"
+ },
+ "fixes": {
+  "manual-12-q3": {
+   "from": "Polycystic ovarian syndrome diagnostic criteria has been met. PCOS: Diagnosis Complex endocrinopathy Pathophysiology is unclear.",
+   "to": "Polycystic ovarian syndrome diagnostic criteria has been met.",
+   "chapterId": "women-s-health",
+   "why": "PDF text layer holds this option without the slide text the markdown pipeline glued on"
+  }
+ }
+}

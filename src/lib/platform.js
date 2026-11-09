@@ -37,7 +37,9 @@ export function loadPlatformBundle() {
     fetchJson('data/content-index.json', null),
     fetchJson('data/manual-questions.json', null),
     fetchJson('data/question-quality.json', null),
-  ]).then(([pearlCards, contentMeta, manualBank, quality]) => ({
+    fetchJson('data/pdf-lists.json', null),
+  ]).then(([pearlCards, contentMeta, manualBank, quality, pdfLists]) => ({
+    pdfLists: pdfLists?.lists || [],
     // pearls-clean.json is the reviewed deck (whole, verifiable statements).
     // pearls.json is the old keyword extraction, kept only as a fallback.
     pearlCards: pearlCards?.pearls?.length ? pearlCards.pearls : [],

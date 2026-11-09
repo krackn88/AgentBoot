@@ -29,6 +29,28 @@ function chapterTables(chapter) {
   return out
 }
 
+/**
+ * Recall drills built from the PDF bullet lists.
+ *
+ * The slides carry ~790 intact lists (lesion definitions, criteria, red flags,
+ * dosing, differentials) that never reached a study surface before. Each becomes
+ * one prompt-and-reveal drill so a student reproduces the list from memory.
+ */
+function listDrills(chapter, pdfLists = []) {
+  return pdfLists
+    .filter(l => l.chapterId === chapter.id)
+    .map(l => ({
+      id: l.id,
+      section: l.section || chapter.shortTitle,
+      row: l.prompt,
+      column: `Recall all ${l.items.length} items`,
+      answer: l.items.map((it, i) => `${i + 1}. ${it}`).join('\n'),
+      kind: 'list',
+      items: l.items,
+      page: l.page,
+    }))
+}
+
 export function workbookStats(guide, store) {
   const wb = store.workbook || {}
   let total = 0, done = 0
@@ -48,7 +70,7 @@ function pearlDrillsForChapter(chapter, pearlCards = []) {
   }))
 }
 
-export default function Workbook({ guide, store, update, pearlCards = [] }) {
+export default function Workbook({ guide, store, update, pearlCards = [], pdfLists = [] }) {
   const [chapterId, setChapterId] = useState(null)
   const chapter = guide.chapters.find(c => c.id === chapterId)
   const wb = store.workbook || {}
@@ -62,7 +84,7 @@ export default function Workbook({ guide, store, update, pearlCards = [] }) {
           <p>Reading is not studying. Each workbook turns the manual's tables, clinical pearls, and criteria into fill-in drills, adds case studies with model answers, and keeps your notes in one place. Print any chapter as a worksheet with an answer key.</p>
         </div>
         <div className="source-proof">
-          <span><strong>{guide.chapters.reduce((a, c) => a + tableDrills(c).length + pearlDrillsForChapter(c, pearlCards).length, 0).toLocaleString()}</strong> recall drills</span>
+          <span><strong>{guide.chapters.reduce((a, c) => a + listDrills(c, pdfLists).length + tableDrills(c).length + pearlDrillsForChapter(c, pearlCards).length, 0).toLocaleString()}</strong> recall drills</span>
           <span><strong>{guide.chapters.reduce((a, c) => a + caseStudies(c).length, 0)}</strong> case studies</span>
           <span><strong>{guide.chapters.reduce((a, c) => a + chapterTables(c).length, 0)}</strong> clinical tables</span>
         </div>
@@ -70,13 +92,13 @@ export default function Workbook({ guide, store, update, pearlCards = [] }) {
       <div className="section-title"><div><p className="eyebrow">Choose a chapter</p><h2>Workbooks</h2></div></div>
       <div className="manual-grid">
         {guide.chapters.map(c => {
-          const drills = tableDrills(c).length + pearlDrillsForChapter(c, pearlCards).length
+          const drills = listDrills(c, pdfLists).length + tableDrills(c).length + pearlDrillsForChapter(c, pearlCards).length
           const doneN = Math.min(drills, Object.keys(wb[c.id]?.drills || {}).length)
           const right = Object.values(wb[c.id]?.drills || {}).filter(Boolean).length
           return (
             <article key={c.id} className="manual-card workbook-card" onClick={() => setChapterId(c.id)}>
               <div className="manual-number">{c.number}</div>
-              <div><h3>{c.shortTitle}</h3><p>{tableDrills(c).length + pearlDrillsForChapter(c, pearlCards).length} drills · {caseStudies(c).length} cases · {chapterTables(c).length} tables</p></div>
+              <div><h3>{c.shortTitle}</h3><p>{listDrills(c, pdfLists).length + tableDrills(c).length + pearlDrillsForChapter(c, pearlCards).length} drills · {caseStudies(c).length} cases · {chapterTables(c).length} tables</p></div>
               <div className="wb-progress">
                 <div className="bar"><i style={{ width: `${drills ? doneN / drills * 100 : 0}%` }} /></div>
                 <span className="small muted">{drills ? `${doneN}/${drills} done${doneN ? ` · ${Math.round(right / doneN * 100)}% recalled` : ''}` : 'Notes and print worksheet'}</span>
@@ -88,11 +110,14 @@ export default function Workbook({ guide, store, update, pearlCards = [] }) {
     </div>
   )
 
-  return <ChapterWorkbook chapter={chapter} store={store} update={update} pearlCards={pearlCards} onBack={() => setChapterId(null)} />
+  return <ChapterWorkbook chapter={chapter} store={store} update={update} pearlCards={pearlCards} pdfLists={pdfLists} onBack={() => setChapterId(null)} />
 }
 
-function ChapterWorkbook({ chapter, store, update, pearlCards, onBack }) {
-  const drills = useMemo(() => [...tableDrills(chapter), ...pearlDrillsForChapter(chapter, pearlCards)], [chapter, pearlCards])
+function ChapterWorkbook({ chapter, store, update, pearlCards, pdfLists = [], onBack }) {
+  const drills = useMemo(
+    () => [...listDrills(chapter, pdfLists), ...tableDrills(chapter), ...pearlDrillsForChapter(chapter, pearlCards)],
+    [chapter, pearlCards, pdfLists],
+  )
   const cases = useMemo(() => caseStudies(chapter), [chapter])
   const tables = useMemo(() => chapterTables(chapter), [chapter])
   const [tab, setTab] = useState(drills.length ? 'drills' : cases.length ? 'cases' : 'notes')
@@ -146,7 +171,9 @@ function ChapterWorkbook({ chapter, store, update, pearlCards, onBack }) {
             <button className="btn" onClick={() => setShown(true)}><Eye size={16} /> Reveal answer</button>
           </> : <>
             {typed && <p className="small muted">Your answer: <em>{typed}</em></p>}
-            <div className="drill-answer">{current.answer}</div>
+            {current.kind === 'list'
+              ? <ol className="drill-list">{current.items.map((it, k) => <li key={k}>{it}</li>)}</ol>
+              : <div className="drill-answer">{current.answer}</div>}
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
               <button className="btn ghost" onClick={() => rate(false)}><X size={16} /> Missed it</button>
               <button className="btn" onClick={() => rate(true)}><Check size={16} /> Got it</button>

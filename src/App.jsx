@@ -55,6 +55,7 @@ export function StudyApp({ guide }) {
   const [searchSeed, setSearchSeed] = useState('')
   const [contentMeta, setContentMeta] = useState(null)
   const [pearlCards, setPearlCards] = useState([])
+  const [pdfLists, setPdfLists] = useState([])
   const [manualBank, setManualBank] = useState(null)
   useEffect(() => {
     function sync() {
@@ -69,7 +70,8 @@ export function StudyApp({ guide }) {
     window.addEventListener('hashchange', sync); return () => window.removeEventListener('hashchange', sync)
   }, [])
   useEffect(() => {
-    loadPlatformBundle().then(({ pearlCards, contentMeta, manualBank }) => {
+    loadPlatformBundle().then(({ pearlCards, pdfLists, contentMeta, manualBank }) => {
+      setPdfLists(pdfLists || [])
       setPearlCards(pearlCards)
       setContentMeta(contentMeta)
       setManualBank(manualBank)
@@ -255,7 +257,7 @@ export function StudyApp({ guide }) {
               <Tests guide={guide} store={store} questionPool={questionPool} onStart={(p) => { setQuizPreset(p); setView('quiz'); location.hash = '#/quiz'; window.scrollTo(0, 0) }} />
             </Suspense>
           )}
-          {view === 'workbooks' && <Workbook guide={guide} store={store} update={update} pearlCards={pearlCards} />}
+          {view === 'workbooks' && <Workbook guide={guide} store={store} update={update} pearlCards={pearlCards} pdfLists={pdfLists} />}
 
           {view === 'quickref' && <HighYield guide={guide} pearls={pearlCards} onGo={go} />}
 
