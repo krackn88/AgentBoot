@@ -31,6 +31,9 @@ function StudyApp({ guide }) {
   const [manualId, setManualId] = useState(() => location.hash.match(/^#\/manuals\/(\d+)/)?.[1] || null)
   const [quizPreset, setQuizPreset] = useState(null)
   const [query, setQuery] = useState('')
+  const [searchCorpus, setSearchCorpus] = useState([])
+  const [contentMeta, setContentMeta] = useState(null)
+  const [pearlCards, setPearlCards] = useState([])
   useEffect(() => {
     function sync() {
       const h = location.hash || '#/dashboard'
@@ -42,6 +45,11 @@ function StudyApp({ guide }) {
       else { setView(v); setManualId(null) }
     }
     window.addEventListener('hashchange', sync); return () => window.removeEventListener('hashchange', sync)
+  }, [])
+  useEffect(() => {
+    fetch(`${import.meta.env.BASE_URL}data/search-corpus.json`).then(r => r.ok ? r.json() : []).then(setSearchCorpus).catch(() => {})
+    fetch(`${import.meta.env.BASE_URL}data/pearls.json`).then(r => r.ok ? r.json() : []).then(setPearlCards).catch(() => {})
+    fetch(`${import.meta.env.BASE_URL}data/content-index.json`).then(r => r.ok ? r.json() : null).then(setContentMeta).catch(() => {})
   }, [])
   const chapters = guide.chapters
   const chapter = chapters.find(c => c.id === chapterId)
@@ -62,10 +70,17 @@ function StudyApp({ guide }) {
     const q = query.toLowerCase(); const out = []
     chapters.forEach(c => c.sections.forEach(s => s.blocks.forEach(b => {
       const texts = b.type === 'table' ? [b.headers.join(' '), ...b.rows.map(r => r.join(' '))] : b.type === 'list' ? b.items : [b.text]
-      texts.forEach(t => { if (t && t.toLowerCase().includes(q) && out.length < 40) out.push({ chapter: c, section: s.title, text: t }) })
+      texts.forEach(t => { if (t && t.toLowerCase().includes(q) && out.length < 50) out.push({ chapter: c, section: s.title, text: t, source: 'guide' }) })
     })))
+    for (const hit of searchCorpus) {
+      if (out.length >= 50) break
+      if (hit.text?.toLowerCase().includes(q)) {
+        const c = chapters.find(x => x.id === hit.chapterId)
+        if (c) out.push({ chapter: c, section: hit.section, text: hit.text, source: hit.section === 'Clinical pearl' ? 'pearl' : 'manual' })
+      }
+    }
     return out
-  }, [query])
+  }, [query, searchCorpus, chapters])
 
   function openQuiz(chId) { setQuizPreset(chId ? { mode: 'practice', chapterId: chId } : null); go('quiz') }
   function openChapter(id) { setChapterId(id); setView('reader'); location.hash = `#/reader/${id}`; window.scrollTo(0, 0) }
@@ -94,8 +109,8 @@ function StudyApp({ guide }) {
         )}
         {query.trim().length >= 3 ? (
           <div><h2>Search results ({searchResults.length})</h2>
-            {searchResults.map((r, i) => <div className="card" key={i} style={{ margin: '10px 0', cursor: 'pointer' }} onClick={() => { openChapter(r.chapter.id); setQuery('') }}>
-              <p className="label">{r.chapter.number}. {r.chapter.shortTitle} · {r.section}</p><p className="small">{r.text.slice(0, 320)}…</p></div>)}
+            {searchResults.map((r, i) => <div className="card search-hit" key={i} style={{ margin: '10px 0', cursor: 'pointer' }} onClick={() => { openChapter(r.chapter.id); setQuery('') }}>
+              <p className="label">{r.chapter.number}. {r.chapter.shortTitle} · {r.section} {r.source !== 'guide' && <span className="pill">{r.source === 'pearl' ? 'Pearl' : 'Manual'}</span>}</p><p className="small">{r.text.slice(0, 320)}…</p></div>)}
             {!searchResults.length && <div className="card">No matches. Try a shorter term.</div>}
           </div>
         ) : (<>
@@ -138,6 +153,7 @@ function StudyApp({ guide }) {
                     <li><strong>1,720+ workbook drills</strong> — active recall from clinical tables</li>
                     <li><strong>{totalQ} questions</strong> — graded with Answer Key rationales</li>
                     <li><strong>Mock exams</strong> — AANP, ANCC, and chapter tests</li>
+                    {contentMeta && <li><strong>{contentMeta.pearls_total} clinical pearls</strong> + manual depth on every chapter</li>}
                   </ul>
                 </div>
               </div>
@@ -149,7 +165,7 @@ function StudyApp({ guide }) {
 
           {view === 'library' && (
             <div>
-              <PageHeader eyebrow="Study guide" title={`All ${chapters.length} chapters`} subtitle="Manual order, section navigation, bookmarks, and the original course PDF on every chapter." />
+              <PageHeader eyebrow="Study guide" title={`All ${chapters.length} chapters`} subtitle="Condensed guide plus Course manual depth and Clinical pearls tabs in each chapter — sourced from the full APEA manuals on your server." />
               <div className="card">{chapters.map(c => <ChapterRow key={c.id} c={c} store={store} onOpen={() => openChapter(c.id)} />)}</div>
             </div>
           )}
@@ -164,7 +180,7 @@ function StudyApp({ guide }) {
           {view === 'manuals' && <Manuals initialId={manualId} />}
 
           {view === 'quiz' && <Quiz key={quizPreset ? (quizPreset.testId || quizPreset.chapterId + quizPreset.mode) : 'setup'} guide={guide} store={store} update={update} preset={quizPreset} />}
-          {view === 'flashcards' && <Flashcards guide={guide} store={store} update={update} />}
+          {view === 'flashcards' && <Flashcards guide={guide} store={store} update={update} pearlCards={pearlCards} />}
           {view === 'tests' && <Tests guide={guide} store={store} onStart={(p) => { setQuizPreset(p); setView('quiz'); location.hash = '#/quiz'; window.scrollTo(0, 0) }} />}
           {view === 'workbooks' && <Workbook guide={guide} store={store} update={update} />}
 

@@ -170,6 +170,20 @@ input[type=text],input[type=email],input[type=date],select{padding:11px 13px;bor
   .source-proof{grid-template-columns:1fr}.segmented{display:grid}.manual-actions{grid-template-columns:1fr}
   .section-title{align-items:start;flex-direction:column}
 }
+.reader-sticky{position:sticky;top:0;z-index:5;background:var(--bg);padding:8px 0}
+.reader-title{font-size:34px;margin:8px 0}
+.reader-actions{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.reader-tabs{margin-bottom:18px}
+.reader-toc{margin:12px 0}.toc-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.reader-section{margin-top:28px}.reader-foot{display:flex;gap:8px;margin-top:36px;flex-wrap:wrap}
+.depth-panel,.pearls-panel{max-width:880px}
+.depth-section{margin:12px 0}.depth-section h3{margin-top:0;font-size:20px}
+.pearl-grid{display:grid;gap:10px;margin-top:14px}
+.pearl-card{display:grid;grid-template-columns:36px 1fr;gap:12px;padding:14px 16px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+.pearl-card p{margin:0;line-height:1.6;color:var(--ink2)}
+.pearl-num{font-family:'Fraunces',serif;font-weight:800;color:var(--brand2);font-size:18px}
+.search-hit .pill{margin-left:6px;font-size:10px}
+
 @media print{
   .sidebar,.bottomnav,.top-search,.no-print{display:none!important}
   .worksheet{border:0;padding:0}

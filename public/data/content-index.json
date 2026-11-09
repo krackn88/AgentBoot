@@ -1,0 +1,174 @@
+{
+  "chapters": [
+    {
+      "id": "exam-prep-and-how-to-use-this-guide",
+      "number": 1,
+      "title": "Exam Prep and How to Use This Guide",
+      "sections": 22,
+      "pearls": 5,
+      "words": 650
+    },
+    {
+      "id": "antibiotics",
+      "number": 2,
+      "title": "Antibiotics",
+      "sections": 38,
+      "pearls": 9,
+      "words": 1030
+    },
+    {
+      "id": "pulmonary-disorders",
+      "number": 3,
+      "title": "Pulmonary Disorders",
+      "sections": 45,
+      "pearls": 23,
+      "words": 1278
+    },
+    {
+      "id": "hematology",
+      "number": 4,
+      "title": "Hematology",
+      "sections": 45,
+      "pearls": 6,
+      "words": 1103
+    },
+    {
+      "id": "neurologic-disorders",
+      "number": 5,
+      "title": "Neurologic Disorders",
+      "sections": 45,
+      "pearls": 13,
+      "words": 1559
+    },
+    {
+      "id": "mental-health-in-primary-care",
+      "number": 6,
+      "title": "Mental Health in Primary Care",
+      "sections": 45,
+      "pearls": 14,
+      "words": 1527
+    },
+    {
+      "id": "gastrointestinal-disorders",
+      "number": 7,
+      "title": "Gastrointestinal Disorders",
+      "sections": 45,
+      "pearls": 6,
+      "words": 1421
+    },
+    {
+      "id": "urology-and-sexually-transmitted-infections",
+      "number": 8,
+      "title": "Urology and Sexually Transmitted Infections",
+      "sections": 45,
+      "pearls": 22,
+      "words": 1523
+    },
+    {
+      "id": "cardiovascular-and-peripheral-vascular-disorders",
+      "number": 9,
+      "title": "Cardiovascular and Peripheral Vascular Disorders",
+      "sections": 45,
+      "pearls": 23,
+      "words": 1262
+    },
+    {
+      "id": "endocrine-disorders",
+      "number": 10,
+      "title": "Endocrine Disorders",
+      "sections": 45,
+      "pearls": 32,
+      "words": 1740
+    },
+    {
+      "id": "women-s-health",
+      "number": 11,
+      "title": "Women's Health",
+      "sections": 45,
+      "pearls": 11,
+      "words": 1464
+    },
+    {
+      "id": "men-s-health",
+      "number": 12,
+      "title": "Men's Health",
+      "sections": 45,
+      "pearls": 7,
+      "words": 1614
+    },
+    {
+      "id": "orthopedic-disorders",
+      "number": 13,
+      "title": "Orthopedic Disorders",
+      "sections": 45,
+      "pearls": 7,
+      "words": 1219
+    },
+    {
+      "id": "dermatology",
+      "number": 14,
+      "title": "Dermatology",
+      "sections": 45,
+      "pearls": 6,
+      "words": 1818
+    },
+    {
+      "id": "eye-ear-nose-and-throat-eent",
+      "number": 15,
+      "title": "Eye, Ear, Nose and Throat (EENT)",
+      "sections": 45,
+      "pearls": 9,
+      "words": 1065
+    },
+    {
+      "id": "care-of-the-aging-adult",
+      "number": 16,
+      "title": "Care of the Aging Adult",
+      "sections": 45,
+      "pearls": 6,
+      "words": 1567
+    },
+    {
+      "id": "pregnancy-in-primary-care",
+      "number": 17,
+      "title": "Pregnancy in Primary Care",
+      "sections": 45,
+      "pearls": 4,
+      "words": 1944
+    },
+    {
+      "id": "pediatrics",
+      "number": 18,
+      "title": "Pediatrics",
+      "sections": 45,
+      "pearls": 22,
+      "words": 1906
+    },
+    {
+      "id": "pediatric-growth-development",
+      "number": 19,
+      "title": "Pediatric Growth & Development",
+      "sections": 45,
+      "pearls": 4,
+      "words": 1339
+    },
+    {
+      "id": "entry-into-practice",
+      "number": 20,
+      "title": "Entry Into Practice",
+      "sections": 45,
+      "pearls": 1,
+      "words": 1516
+    },
+    {
+      "id": "professional-role-competencies-issues",
+      "number": 21,
+      "title": "Professional Role, Competencies & Issues",
+      "sections": 45,
+      "pearls": 5,
+      "words": 1957
+    }
+  ],
+  "pearls_total": 235,
+  "generated": true
+}

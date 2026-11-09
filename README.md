@@ -18,6 +18,7 @@ questions) plus the original course-manual PDFs hosted on the dedi.
 npm install
 npm run convert -- /path/to/APEA_2026_FNP_Complete_Study_Guide_a015.docx  # regenerates public/data/guide.json (fetched at runtime, keeps the JS bundle small)
 npm run sync:manuals # refreshes the complete 22-manual text corpus + metadata from the dedi
+npm run enrich       # builds per-chapter manual depth, clinical pearls, search corpus, pearl flashcards
 npm run dev        # local dev
 npm run build      # -> dist/ (base /apea/study/)
 ```

@@ -16,46 +16,104 @@ export default function Reader({ chapter, store, update, onBack, onQuiz, onNext,
   const done = !!store.completed[chapter.id]
   const ref = useRef(null)
   const [progress, setProgress] = useState(0)
-  useEffect(() => { window.scrollTo(0, 0) }, [chapter.id])
+  const [tab, setTab] = useState('guide')
+  const [module, setModule] = useState(null)
+  const [modErr, setModErr] = useState('')
+
+  useEffect(() => { window.scrollTo(0, 0); setTab('guide') }, [chapter.id])
+  useEffect(() => {
+    let cancel = false
+    setModule(null); setModErr('')
+    fetch(`${import.meta.env.BASE_URL}data/modules/${chapter.id}.json`)
+      .then(r => { if (!r.ok) throw new Error(r.status); return r.json() })
+      .then(d => { if (!cancel) setModule(d) })
+      .catch(e => { if (!cancel) setModErr(`Expanded manual notes unavailable (${e.message}).`) })
+    return () => { cancel = true }
+  }, [chapter.id])
+
   useEffect(() => {
     function onScroll() { const h = document.documentElement; const max = h.scrollHeight - h.clientHeight; setProgress(max > 0 ? Math.min(100, Math.round(h.scrollTop / max * 100)) : 0) }
     window.addEventListener('scroll', onScroll, { passive: true }); onScroll(); return () => window.removeEventListener('scroll', onScroll)
-  }, [chapter.id])
+  }, [chapter.id, tab])
+
   const toggleDone = () => update(s => ({
     ...s, lastChapter: chapter.id,
     completed: { ...s.completed, [chapter.id]: !done },
     studyDates: [...new Set([...s.studyDates, new Date().toISOString().slice(0, 10)])],
   }))
   const bookmarked = store.bookmarks.includes(chapter.id)
+
   return (
     <div className="reader" ref={ref} style={{ fontSize: store.fontSize }}>
-      <div style={{ position: 'sticky', top: 0, zIndex: 5, background: 'var(--bg)', padding: '8px 0' }}>
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}><button className="btn ghost" onClick={onBack}>← All chapters</button>
-        <button className="btn ghost" onClick={() => window.print()}>Print / save PDF</button><span className="small muted">{progress}% read</span></div>
+      <div className="reader-sticky no-print">
+        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+          <button type="button" className="btn ghost" onClick={onBack}>← All chapters</button>
+          <button type="button" className="btn ghost" onClick={() => window.print()}>Print</button>
+          <span className="small muted">{progress}% read</span>
+        </div>
         <div className="bar" style={{ marginTop: 8 }}><i style={{ width: progress + '%' }} /></div>
       </div>
-      <p className="label" style={{ marginTop: 20 }}>Chapter {chapter.number} · ~{Math.max(1, Math.round(chapter.wordCount / 200))} min read · {chapter.questions.length} practice questions</p>
-      <h1 style={{ fontSize: 34, margin: '6px 0' }}>{chapter.shortTitle}</h1>
-      <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', margin: '14px 0 6px' }}>
-        <button className="btn" onClick={toggleDone}>{done ? '✓ Completed — tap to undo' : 'Mark chapter complete'}</button>
-        <button className="btn ghost" onClick={() => update(s => ({ ...s, bookmarks: bookmarked ? s.bookmarks.filter(b => b !== chapter.id) : [...s.bookmarks, chapter.id] }))}>{bookmarked ? '★ Bookmarked' : '☆ Bookmark'}</button>
-        {chapter.questions.length > 0 && <button className="btn gold" onClick={() => onQuiz(chapter.id)}>Practice this chapter →</button>}
-        {onOpenManual && <button className="btn ghost" onClick={onOpenManual}>Open full original manual</button>}
-        <a className="btn ghost" href={pdfUrlForChapter(chapter)} target="_blank" rel="noreferrer">Open chapter PDF</a>
+
+      <p className="label" style={{ marginTop: 16 }}>Chapter {chapter.number} · {chapter.questions.length} practice questions
+        {module?.meta && <> · <strong>{module.meta.section_count}</strong> manual sections · <strong>{module.meta.pearl_count}</strong> pearls</>}</p>
+      <h1 className="reader-title">{chapter.shortTitle}</h1>
+
+      <div className="reader-actions no-print">
+        <button type="button" className="btn" onClick={toggleDone}>{done ? '✓ Completed' : 'Mark complete'}</button>
+        <button type="button" className="btn ghost" onClick={() => update(s => ({ ...s, bookmarks: bookmarked ? s.bookmarks.filter(b => b !== chapter.id) : [...s.bookmarks, chapter.id] }))}>{bookmarked ? '★ Saved' : '☆ Bookmark'}</button>
+        {chapter.questions.length > 0 && <button type="button" className="btn" onClick={() => onQuiz(chapter.id)}>Chapter quiz</button>}
+        {onOpenManual && <button type="button" className="btn ghost" onClick={onOpenManual}>Original manual</button>}
+        <a className="btn ghost" href={pdfUrlForChapter(chapter)} target="_blank" rel="noreferrer">PDF</a>
         <select style={{ width: 'auto' }} value={store.fontSize} onChange={e => update({ fontSize: Number(e.target.value) })} aria-label="Text size">
-          <option value={15}>Text S</option><option value={17}>Text M</option><option value={19}>Text L</option>
+          <option value={15}>S</option><option value={17}>M</option><option value={19}>L</option>
         </select>
       </div>
-      <div className="card" style={{ margin: '14px 0' }}><strong>In this chapter</strong>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginTop: 8 }}>
-          {chapter.sections.map(s => <a key={s.id} className="pill" href={`#${s.id}`} onClick={e => { e.preventDefault(); document.getElementById(s.id)?.scrollIntoView({ behavior: 'smooth' }) }}>{s.title}</a>)}
-        </div></div>
-      {chapter.sections.map(sec => (
-        <section key={sec.id} id={sec.id}><h3>{sec.title}</h3><Blocks blocks={sec.blocks} /></section>
-      ))}
-      <div style={{ display: 'flex', gap: 8, marginTop: 36, flexWrap: 'wrap' }}>
-        <button className="btn" onClick={toggleDone}>{done ? '✓ Completed' : 'Mark complete & continue'}</button>
-        {onNext && <button className="btn ghost" onClick={onNext}>Next chapter →</button>}
+
+      <div className="segmented reader-tabs no-print" role="tablist">
+        <button type="button" role="tab" className={tab === 'guide' ? 'active' : ''} onClick={() => setTab('guide')}>Study guide</button>
+        <button type="button" role="tab" className={tab === 'depth' ? 'active' : ''} onClick={() => setTab('depth')}>Course manual depth</button>
+        <button type="button" role="tab" className={tab === 'pearls' ? 'active' : ''} onClick={() => setTab('pearls')}>Clinical pearls ({module?.pearls?.length || '…'})</button>
+      </div>
+
+      {tab === 'guide' && (
+        <>
+          <div className="card reader-toc"><strong>In this chapter</strong>
+            <div className="toc-pills">{chapter.sections.map(s => (
+              <a key={s.id} className="pill" href={`#${s.id}`} onClick={e => { e.preventDefault(); document.getElementById(s.id)?.scrollIntoView({ behavior: 'smooth' }) }}>{s.title}</a>
+            ))}</div></div>
+          {chapter.sections.map(sec => (
+            <section key={sec.id} id={sec.id} className="reader-section"><h3>{sec.title}</h3><Blocks blocks={sec.blocks} /></section>
+          ))}
+        </>
+      )}
+
+      {tab === 'depth' && (
+        <div className="depth-panel">
+          <p className="muted">Extracted from the original APEA course manual for <strong>{module?.manualTitle || chapter.shortTitle}</strong> — the full teaching text behind the condensed study guide (tables, criteria, dosing, and clinical detail).</p>
+          {modErr && <div className="card warn">{modErr}</div>}
+          {!module && !modErr && <div className="skeleton-card">Loading manual depth…</div>}
+          {module?.sections?.map((sec, i) => (
+            <section key={i} className="depth-section card">
+              <h3>{sec.title}</h3>
+              <Blocks blocks={sec.blocks} />
+            </section>
+          ))}
+        </div>
+      )}
+
+      {tab === 'pearls' && (
+        <div className="pearls-panel">
+          <p className="muted">High-signal lines pulled from the manual — first-line therapy, dosing, criteria, referral triggers, and rules the exam loves.</p>
+          {!module?.pearls?.length && !modErr && <div className="skeleton-card">Loading pearls…</div>}
+          <div className="pearl-grid">{module?.pearls?.map((p, i) => (
+            <div key={i} className="pearl-card"><span className="pearl-num">{i + 1}</span><p>{p}</p></div>
+          ))}</div>
+        </div>
+      )}
+
+      <div className="reader-foot no-print">
+        <button type="button" className="btn" onClick={toggleDone}>{done ? '✓ Completed' : 'Mark complete & continue'}</button>
+        {onNext && <button type="button" className="btn ghost" onClick={onNext}>Next chapter →</button>}
       </div>
     </div>
   )

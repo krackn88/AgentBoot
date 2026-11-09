@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import { shuffle, bumpDaily } from '../lib/store'
 
-export function buildDecks(guide, store) {
+export function buildDecks(guide, store, pearlCards = []) {
   const high = []
   const walk = (node) => (node?.sections || []).forEach(s => s.blocks.forEach(b => {
     if (b.type === 'table') b.rows.forEach(r => { if (r[0] && r[1]) high.push({ id: 'hy-' + high.length, front: r[0], back: r.slice(1).join(' — '), tag: s.title }) })
@@ -15,11 +15,13 @@ export function buildDecks(guide, store) {
   const qs = guide.chapters.flatMap(c => c.questions.filter(q => q.correctIndex != null && q.options[q.correctIndex])
     .map(q => ({ id: 'q-' + q.id, front: q.stem, back: `${q.options[q.correctIndex]} — ${q.explanation}`, tag: c.shortTitle })))
   const missed = qs.filter(c => store.answers[c.id.slice(2)] && !store.answers[c.id.slice(2)].correct)
-  return { highyield: { label: `High-Yield Quick Reference (${high.length})`, cards: high }, labs: { label: `Labs to Commit to Memory (${labs.length})`, cards: labs }, questions: { label: `Question Cards (${qs.length})`, cards: qs }, missed: { label: `My Missed Questions (${missed.length})`, cards: missed } }
+  const pearls = pearlCards.map(c => ({ id: c.id, front: c.front, back: c.back, tag: c.tag }))
+  return { highyield: { label: `High-Yield Quick Reference (${high.length})`, cards: high }, labs: { label: `Labs to Commit to Memory (${labs.length})`, cards: labs }, questions: { label: `Question Cards (${qs.length})`, cards: qs }, pearls: { label: `Clinical pearls (${pearls.length})`, cards: pearls },
+    missed: { label: `My Missed Questions (${missed.length})`, cards: missed } }
 }
 
-export default function Flashcards({ guide, store, update }) {
-  const decks = useMemo(() => buildDecks(guide, store), [guide, store])
+export default function Flashcards({ guide, store, update, pearlCards = [] }) {
+  const decks = useMemo(() => buildDecks(guide, store, pearlCards), [guide, store, pearlCards])
   const [deckId, setDeckId] = useState('highyield')
   const [order, setOrder] = useState(null); const [i, setI] = useState(0); const [flip, setFlip] = useState(false)
   const deck = decks[deckId]
