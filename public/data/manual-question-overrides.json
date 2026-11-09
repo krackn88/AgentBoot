@@ -1,0 +1,526 @@
+{
+  "set": [
+    {
+      "id": "manual-03-q1",
+      "correctIndex": 2,
+      "explanation": "Penicillins and cephalosporins commonly cause morbilliform (maculopapular) drug eruptions."
+    },
+    {
+      "id": "manual-03-q2",
+      "correctIndex": 3,
+      "explanation": "Recent amoxicillin raises beta-lactamase–producing organism risk in sinusitis."
+    },
+    {
+      "id": "manual-03-q3",
+      "correctIndex": 0,
+      "explanation": "Clindamycin has high C. difficile risk."
+    },
+    {
+      "id": "manual-03-q4",
+      "correctIndex": 2,
+      "explanation": "Doxycycline causes photosensitivity — use sunscreen."
+    },
+    {
+      "id": "manual-03-q5",
+      "correctIndex": 1,
+      "explanation": "Azithromycin can prolong QT → torsades de pointes."
+    },
+    {
+      "id": "manual-04-q1",
+      "correctIndex": 3,
+      "explanation": "Acute bronchitis: supportive care (rest, fluids); antibiotics not indicated."
+    },
+    {
+      "id": "manual-04-q2",
+      "correctIndex": 0,
+      "explanation": "Screening tests should have high sensitivity."
+    },
+    {
+      "id": "manual-04-q3",
+      "correctIndex": 2,
+      "explanation": "Typical bacterial CAP often shows lobar infiltrates."
+    },
+    {
+      "id": "manual-04-q4",
+      "correctIndex": 1,
+      "explanation": "Healthy outpatient CAP: macrolide such as azithromycin."
+    },
+    {
+      "id": "manual-04-q5",
+      "correctIndex": 3,
+      "explanation": "PCN allergy (hives): azithromycin appropriate."
+    },
+    {
+      "id": "manual-05-q1",
+      "correctIndex": 3,
+      "explanation": "Anemia = reduction in at least one RBC measure."
+    },
+    {
+      "id": "manual-19-q4",
+      "correctIndex": 3,
+      "explanation": "CDC: do not exclude; schedule child and defer vaccine discussion until therapeutic relationship."
+    },
+    {
+      "id": "manual-19-q8",
+      "correctIndex": 1,
+      "explanation": "Victims of bullying often have low self-esteem (not 'thinks badly of others')."
+    },
+    {
+      "id": "manual-19-q10",
+      "correctIndex": 2,
+      "explanation": "First focal seizure without cause: MRI and neurology referral."
+    },
+    {
+      "id": "manual-19-q21",
+      "correctIndex": 3,
+      "explanation": "Egg allergy of any severity: give routine influenza vaccine per CDC."
+    },
+    {
+      "id": "manual-19-q25",
+      "correctIndex": 1,
+      "explanation": "Inhaled corticosteroids rarely inhibit growth."
+    },
+    {
+      "id": "manual-19-q53",
+      "correctIndex": 0,
+      "explanation": "Adolescent female with 10° curve during growth — highest concern for progression."
+    },
+    {
+      "id": "manual-04-q7",
+      "correctIndex": 1,
+      "explanation": "A history of torsades is an absolute contraindication to fluoroquinolones.",
+      "source": "guide-sync r=0.47"
+    },
+    {
+      "id": "manual-04-q13",
+      "correctIndex": 2,
+      "explanation": "MART: budesonide/formoterol as maintenance and reliever.",
+      "source": "guide-sync r=0.54"
+    },
+    {
+      "id": "manual-04-q14",
+      "correctIndex": 0,
+      "explanation": "Step up to moderate-dose MART.",
+      "source": "guide-sync r=0.48"
+    },
+    {
+      "id": "manual-05-q5",
+      "correctIndex": 0,
+      "explanation": "IV iron may be needed after bariatric surgery (malabsorption).",
+      "source": "guide-sync r=0.51"
+    },
+    {
+      "id": "manual-06-q6",
+      "correctIndex": 1,
+      "explanation": "Severe headache on an anticoagulant: image to rule out a bleed.",
+      "source": "guide-sync r=0.48"
+    },
+    {
+      "id": "manual-06-q7",
+      "correctIndex": 2,
+      "explanation": "SQ sumatriptan is recommended for cluster headache.",
+      "source": "guide-sync r=0.50"
+    },
+    {
+      "id": "manual-06-q12",
+      "correctIndex": 2,
+      "explanation": "A thorough medication review.",
+      "source": "guide-sync r=0.49"
+    },
+    {
+      "id": "manual-08-q4",
+      "correctIndex": 2,
+      "explanation": "Appendicitis (Markle/heel-drop sign).",
+      "source": "guide-sync r=0.56"
+    },
+    {
+      "id": "manual-08-q9",
+      "correctIndex": 0,
+      "explanation": "Uncomplicated diverticulitis. Confirm with CT abdomen/pelvis with contrast.",
+      "source": "guide-sync r=0.52"
+    },
+    {
+      "id": "manual-09-q14",
+      "correctIndex": 0,
+      "explanation": "Everyone aged 13–64 at least once.",
+      "source": "guide-sync r=0.56"
+    },
+    {
+      "id": "manual-10-q1",
+      "correctIndex": 3,
+      "explanation": "Chlorthalidone (thiazide-type) is first-line for uncomplicated HTN.",
+      "source": "guide-sync r=0.56"
+    },
+    {
+      "id": "manual-10-q10",
+      "correctIndex": 0,
+      "explanation": "Switch to an ACE inhibitor for HF (GDMT).",
+      "source": "guide-sync r=0.48"
+    },
+    {
+      "id": "manual-10-q16",
+      "correctIndex": 2,
+      "explanation": "Diastolic murmur at the 2nd right ICS / left sternal border.",
+      "source": "guide-sync r=0.56"
+    },
+    {
+      "id": "manual-10-q18",
+      "correctIndex": 1,
+      "explanation": "A 14-year-old athlete: young, thin chest, high flow.",
+      "source": "guide-sync r=0.48"
+    },
+    {
+      "id": "manual-11-q8",
+      "correctIndex": 2,
+      "explanation": "An SGLT2 inhibitor for HF. Avoid TZDs.",
+      "source": "guide-sync r=0.53"
+    },
+    {
+      "id": "manual-12-q2",
+      "correctIndex": 2,
+      "explanation": "Secondary dysmenorrhea suggests a structural cause.",
+      "source": "guide-sync r=0.60"
+    },
+    {
+      "id": "manual-12-q3",
+      "correctIndex": 3,
+      "explanation": "Meets PCOS criteria (Rotterdam).",
+      "source": "guide-sync r=0.57"
+    },
+    {
+      "id": "manual-12-q7",
+      "correctIndex": 2,
+      "explanation": "A prior fragility fracture is a major risk factor.",
+      "source": "guide-sync r=0.51"
+    },
+    {
+      "id": "manual-13-q12",
+      "correctIndex": 2,
+      "explanation": "Reducible inguinal hernia.",
+      "source": "guide-sync r=0.53"
+    },
+    {
+      "id": "manual-13-q13",
+      "correctIndex": 1,
+      "explanation": "Refer to a general surgeon.",
+      "source": "guide-sync r=0.52"
+    },
+    {
+      "id": "manual-13-q14",
+      "correctIndex": 2,
+      "explanation": "Delayed puberty: refer.",
+      "source": "guide-sync r=0.48"
+    },
+    {
+      "id": "manual-15-q16",
+      "correctIndex": 1,
+      "explanation": "Excisional biopsy referral",
+      "source": "guide-sync r=0.47"
+    },
+    {
+      "id": "manual-06-q1",
+      "correctIndex": 3,
+      "explanation": "Inability to walk or keep balance means central vertigo.",
+      "source": "guide-sync r=0.46"
+    },
+    {
+      "id": "manual-08-q5",
+      "correctIndex": 3,
+      "explanation": "GERD.",
+      "source": "guide-sync r=0.46"
+    },
+    {
+      "id": "manual-08-q6",
+      "correctIndex": 1,
+      "explanation": "Barrett esophagus or esophageal cancer: refer for endoscopy.",
+      "source": "guide-sync r=0.44"
+    },
+    {
+      "id": "manual-11-q11",
+      "correctIndex": 1,
+      "explanation": "4 units of rapid-acting insulin with the largest meal.",
+      "source": "guide-sync r=0.44"
+    },
+    {
+      "id": "manual-11-q12",
+      "correctIndex": 1,
+      "explanation": "Subclinical hypothyroidism: repeat TSH in 6–12 months.",
+      "source": "guide-sync r=0.43"
+    },
+    {
+      "id": "manual-12-q5",
+      "correctIndex": 3,
+      "explanation": "Need more information: exam, pH, wet mount.",
+      "source": "guide-sync r=0.44"
+    },
+    {
+      "id": "manual-13-q11",
+      "correctIndex": 3,
+      "explanation": "Hernia repair.",
+      "source": "guide-sync r=0.44"
+    },
+    {
+      "id": "manual-20-q2",
+      "correctIndex": 1,
+      "explanation": "CNS damage",
+      "source": "guide-sync r=0.45"
+    },
+    {
+      "id": "manual-19-q31",
+      "correctIndex": 1,
+      "explanation": "Colic symptoms typically peak around 4–6 weeks of age (Rule of 3 in infants <3 months)."
+    },
+    {
+      "id": "manual-04-q9",
+      "correctIndex": 2,
+      "explanation": "Quitting smoking slows progression but does not prevent all symptom worsening in established COPD.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-04-q12",
+      "correctIndex": 0,
+      "explanation": "Symptomatic COPD: short-acting bronchodilator (e.g. ipratropium/albuterol) per GOLD staging.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-05-q6",
+      "correctIndex": 2,
+      "explanation": "Treat menorrhagia cause or IDA persists despite iron.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-06-q2",
+      "correctIndex": 2,
+      "explanation": "Positive Dix–Hallpike with brief nystagmus supports BPPV.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-06-q9",
+      "correctIndex": 0,
+      "explanation": "Duration/severity of hyperglycemia drives diabetic neuropathy risk.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-07-q5",
+      "correctIndex": 3,
+      "explanation": "First MDD episode: continue antidepressant ≥6 months after remission.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-07-q6",
+      "correctIndex": 3,
+      "explanation": "SSRI nonresponse: switch class (e.g. SNRI) or augment — not tricyclic first line.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-07-q7",
+      "correctIndex": 1,
+      "explanation": "St. John's wort interacts with serotonergic drugs — serotonin syndrome risk.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-07-q8",
+      "correctIndex": 0,
+      "explanation": "PTSD first-line: trauma-focused psychotherapy ± SSRI/SNRI.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-07-q9",
+      "correctIndex": 2,
+      "explanation": "Active substance use disorder complicates stimulant ADHD treatment.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-08-q2",
+      "correctIndex": 1,
+      "explanation": "Murphy sign: inspiratory arrest with RUQ palpation in cholecystitis.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-08-q7",
+      "correctIndex": 3,
+      "explanation": "GERD controlled: trial PPI discontinuation to assess ongoing need.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-08-q8",
+      "correctIndex": 1,
+      "explanation": "Chronic GERD in older smoker: consider Barrett's and malignancy.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-09-q1",
+      "correctIndex": 3,
+      "explanation": "Asymptomatic bacteriuria: treat in pregnancy only.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-09-q3",
+      "correctIndex": 3,
+      "explanation": "Empiric UTI failure: switch agent and extend course (e.g. nitrofurantoin).",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-09-q6",
+      "correctIndex": 3,
+      "explanation": "IC/PBS: avoid bladder irritants; multimodal conservative care.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-09-q7",
+      "correctIndex": 3,
+      "explanation": "Dysuria + discharge: STI testing before empiric antibiotics only.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-09-q10",
+      "correctIndex": 3,
+      "explanation": "PID can present subtly: dyspareunia, abnormal bleeding, pelvic pain.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-09-q15",
+      "correctIndex": 2,
+      "explanation": "HIV screening: HIV-1/2 Ag/Ab combination assay first.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-10-q3",
+      "correctIndex": 2,
+      "explanation": "Uncontrolled on chlorthalidone 12.5 mg: increase thiazide dose.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-10-q5",
+      "correctIndex": 3,
+      "explanation": "Uncomplicated HTN: thiazide/CCB/ACE/ARB — chlorthalidone is appropriate.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-10-q6",
+      "correctIndex": 3,
+      "explanation": "Resistant HTN despite combination therapy suggests secondary causes.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-10-q7",
+      "correctIndex": 2,
+      "explanation": "Calculate ASCVD risk before statin intensity.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-10-q12",
+      "correctIndex": 3,
+      "explanation": "Intermittent palpitations: CHA2DS2-VASc for stroke risk and anticoagulation.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-10-q19",
+      "correctIndex": 1,
+      "explanation": "PAD: exertional leg pain relieved by rest (claudication).",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-11-q4",
+      "correctIndex": 3,
+      "explanation": "Diabetes range labs: diagnose and initiate treatment plus lifestyle.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-11-q6",
+      "correctIndex": 0,
+      "explanation": "Metformin contraindicated when eGFR <30; caution 30–45.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-11-q7",
+      "correctIndex": 2,
+      "explanation": "GLP-1: weight may return after discontinuation.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-11-q9",
+      "correctIndex": 3,
+      "explanation": "Triple oral therapy failing: add basal insulin without dropping metformin/GLP-1.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-11-q10",
+      "correctIndex": 2,
+      "explanation": "Basal insulin: titrate up if fasting glucose above goal.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-11-q13",
+      "correctIndex": 0,
+      "explanation": "Subclinical hypothyroidism: repeat TSH in 6–12 months if asymptomatic.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-11-q15",
+      "correctIndex": 2,
+      "explanation": "Persistent elevated TSH on levothyroxine: increase dose and recheck.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-12-q1",
+      "correctIndex": 1,
+      "explanation": "Dense breasts + older nulliparous female: higher breast cancer risk.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-12-q6",
+      "correctIndex": 2,
+      "explanation": "Recurrent VVC: evaluate for immunocompromise.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-13-q4",
+      "correctIndex": 3,
+      "explanation": "Older male LUTS most often BPH.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-13-q8",
+      "correctIndex": 1,
+      "explanation": "Nitrates absolutely contraindicated with PDE5 inhibitors.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-13-q10",
+      "correctIndex": 1,
+      "explanation": "Acute scrotum in teen: TWIST score and emergency urology.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-16-q11",
+      "correctIndex": 3,
+      "explanation": "Ménière disease can cause permanent sensorineural hearing loss.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-17-q5",
+      "correctIndex": 3,
+      "explanation": "Creatinine trends need context (hydration, meds) before labeling chronicity.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-17-q9",
+      "correctIndex": 3,
+      "explanation": "Orthostatic hypotension confirmed with orthostatic vital signs.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-18-q3",
+      "correctIndex": 1,
+      "explanation": "Folic acid prevents neural tube defects such as spina bifida.",
+      "source": "curated-final"
+    },
+    {
+      "id": "manual-09-q2",
+      "correctIndex": 1,
+      "explanation": "Order urine culture for complicated UTI risk (e.g. male with BPH), not uncomplicated young female cystitis.",
+      "source": "curated-final"
+    }
+  ]
+}

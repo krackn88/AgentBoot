@@ -1,0 +1,26 @@
+{
+  "name": "APEA 2026 FNP Study Hub",
+  "short_name": "FNP Prep",
+  "description": "APEA 2026 FNP board prep — study guide, full course manuals, keyed questions, spaced repetition, and timed mocks.",
+  "start_url": "/apea/study/#/dashboard",
+  "scope": "/apea/study/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#f6f8fb",
+  "theme_color": "#0e7c6b",
+  "categories": ["education", "medical"],
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,4914 @@
+{
+ "exam-prep-and-how-to-use-this-guide": [
+  {
+   "section": "Exam Prep and How to Use This Guide",
+   "title": "Credentials / FNP-BC or AGPCNP-BC / FNP-C or AGNP-C",
+   "headers": [
+    "Credentials",
+    "FNP-BC or AGPCNP-BC",
+    "FNP-C or AGNP-C"
+   ],
+   "rows": [
+    [
+     "Question format",
+     "Mostly multiple choice, some alternate-format",
+     "All multiple choice"
+    ],
+    [
+     "Review the exam blueprint and refe",
+     "rence list.",
+     ""
+    ],
+    [
+     "Exam Blueprint: Content Domains",
+     "",
+     ""
+    ],
+    [
+     "AANP FNP",
+     "AANP AGPCNP",
+     ""
+    ],
+    [
+     "Domain Percen",
+     "tage Domain",
+     "Percentage"
+    ],
+    [
+     "Assessment 32%",
+     "Assessment",
+     "28%"
+    ],
+    [
+     "Diagnosis 26.5%",
+     "Diagnosis",
+     "25%"
+    ],
+    [
+     "Planning 26.5%",
+     "Planning",
+     "25%"
+    ],
+    [
+     "Evaluation 15%",
+     "Evaluation",
+     "22%"
+    ],
+    [
+     "ANCC divides planning and implemen",
+     "tation.",
+     ""
+    ],
+    [
+     "Check ANCC exam blueprint for perc",
+     "entages.",
+     ""
+    ],
+    [
+     "Exam Blueprint: Content Areas (AAN",
+     "P)",
+     ""
+    ],
+    [
+     "Family",
+     "Adult-Gerontology",
+     ""
+    ],
+    [
+     "Newborn: 2%",
+     "Adolescent: 2%",
+     ""
+    ],
+    [
+     "Infant: 3%",
+     "Young adult: 13%",
+     ""
+    ],
+    [
+     "Toddler: 4%",
+     "Adult: 28%",
+     ""
+    ],
+    [
+     "Child: 4%",
+     "Older adult: 40%",
+     ""
+    ],
+    [
+     "Adolescent: 9%",
+     "Elder adult: 17%",
+     ""
+    ],
+    [
+     "Young adult: 22%",
+     "",
+     ""
+    ],
+    [
+     "Middle adult: 26%",
+     "ANCC does not provide",
+     "a breakdown of content"
+    ],
+    [
+     "Older adult: 30%",
+     "areas with p",
+     "ercentages."
+    ],
+    [
+     "Elder adult: NA",
+     "",
+     ""
+    ]
+   ],
+   "confidence": 0.94
+  },
+  {
+   "section": "Exam Prep and How to Use This Guide",
+   "title": "Sunday / Monday / Tuesday / Wednesday / Thursday / Friday / Saturday",
+   "headers": [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+   ],
+   "rows": [
+    [
+     "Work",
+     "Work",
+     "Cardio",
+     "Work",
+     "Cardio",
+     "Men\u2019s Health Fr",
+     "ee"
+    ],
+    [
+     "7:00 a.m. to",
+     "7:00 a.m. to",
+     "",
+     "7:00 a.m. to",
+     "",
+     "",
+     ""
+    ],
+    [
+     "7:00 p.m.",
+     "7:00 p.m.",
+     "",
+     "7:00 p.m.",
+     "",
+     "",
+     ""
+    ],
+    [
+     "Derm",
+     "Pulm",
+     "Work",
+     "Work",
+     "Work",
+     "Free",
+     "Work"
+    ]
+   ],
+   "confidence": 0.78
+  },
+  {
+   "section": "Exam Prep and How to Use This Guide",
+   "title": "Free / Endo / GI / Neuro / Gero / Free / Pass NP Exam",
+   "headers": [
+    "Free",
+    "Endo",
+    "GI",
+    "Neuro",
+    "Gero",
+    "Free",
+    "Pass NP Exam"
+   ],
+   "rows": [
+    [
+     "Length of study",
+     "plan based on",
+     "number of conte",
+     "nt areas needed t",
+     "o cover, but no",
+     "t longer than",
+     ""
+    ],
+    [
+     "3 months!",
+     "",
+     "",
+     "",
+     "",
+     "",
+     ""
+    ]
+   ],
+   "confidence": 0.67
+  }
+ ],
+ "antibiotics": [
+  {
+   "section": "Antibiotics",
+   "title": "Patient Considerations / Antibiotic Resistance",
+   "headers": [
+    "Patient Considerations",
+    "Antibiotic Resistance"
+   ],
+   "rows": [
+    [
+     "\u2022 Risk of morbidity/mortality",
+     "\u2022 Antibiogram"
+    ],
+    [
+     "\u2022 Higher risk: choose a broader spectrum antibiotic",
+     "\u201cESKAPE\u201d"
+    ],
+    [
+     "\u2022 Risk of side effects",
+     "(Enterococci, S. aureus, Klebsiella pneumoniae,"
+    ],
+    [
+     "\u2022 Patient contraindications",
+     "Acinetobacter baumannii, Pseudomonas aeruginosa,"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Antibiotics",
+   "title": "HIVES / MORBILLIFORM RASH",
+   "headers": [
+    "HIVES",
+    "MORBILLIFORM RASH"
+   ],
+   "rows": [
+    [
+     "\u2022 Raised wheals",
+     "\u2022 Maculopapular, coalescing rash on"
+    ],
+    [
+     "\u2022 Red on light skin, hypopigmented on dark",
+     "extremities and trunk (not mucus"
+    ],
+    [
+     "skin",
+     "membranes)"
+    ],
+    [
+     "\u2022 Intensely itchy",
+     "\u2022 Mild itching/burning"
+    ],
+    [
+     "\u2022 Appear suddenly and spreads quickly",
+     "\u2022 Common in children"
+    ],
+    [
+     "\u2022 Escalates with each exposure",
+     "\u2022 Antibiotics are a common cause (beta-"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Antibiotics",
+   "title": "Strep. Group A, B, C, G\u200b / H. influenzae \u200b",
+   "headers": [
+    "Strep. Group A, B, C, G\u200b",
+    "H. influenzae \u200b"
+   ],
+   "rows": [
+    [
+     "Enterococcus\u200b",
+     "M. catarrhalis \u200b"
+    ],
+    [
+     "Streptococcus pneumoniae\u200b",
+     "E. coli \u200b"
+    ],
+    [
+     "DRSP\u200b",
+     "Neisseria \u200b"
+    ],
+    [
+     "MSSA",
+     "C. Diphtheria"
+    ],
+    [
+     "NOT MRSA",
+     ""
+    ],
+    [
+     "Common indications: sinusitis, AOM, streptococcal pharyng",
+     "itis, bite wounds, pneumonia,"
+    ],
+    [
+     "diverticulitis",
+     ""
+    ]
+   ],
+   "confidence": 0.87
+  },
+  {
+   "section": "Antibiotics",
+   "title": "Generation / Spectrum of Coverage",
+   "headers": [
+    "Generation",
+    "Spectrum of Coverage"
+   ],
+   "rows": [
+    [
+     "First",
+     "Gram-positive, weak gram-negative"
+    ],
+    [
+     "Second",
+     "Less gram-positive, more gram-negative"
+    ],
+    [
+     "Third",
+     "Less gram-positive, extended gram-negative coverage, beta-lactamase producers"
+    ],
+    [
+     "Fourth (IV)",
+     "Gram-positive, stronger gram-negative, weak beta-lactamase"
+    ],
+    [
+     "Fifth (V)",
+     "Stronger gram-positive, gram-negative, beta-lactamase"
+    ],
+    [
+     "*4th/5th generation o",
+     "nly available in intravenous formulation"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Antibiotics",
+   "title": "Enterococcus / Proteus mirabilis",
+   "headers": [
+    "Enterococcus",
+    "Proteus mirabilis"
+   ],
+   "rows": [
+    [
+     "Streptococcus \u200bspp.",
+     "E. coli"
+    ],
+    [
+     "Staphylococcus: MSSA",
+     "Klebsiella pneumoniae"
+    ],
+    [
+     "NOT MRSA",
+     "(Special populations only)"
+    ],
+    [
+     "Common indications: cellulitis, streptococcal pharyngitis",
+     ", cystitis"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Antibiotics",
+   "title": "MSSA / Respiratory pathogens: H. flu, Mycoplasma,",
+   "headers": [
+    "MSSA",
+    "Respiratory pathogens: H. flu, Mycoplasma,"
+   ],
+   "rows": [
+    [
+     "MRSA: Doxycycline, Minocycline, Omadacycline",
+     "Chlamydophila"
+    ],
+    [
+     "Strep. (lower resp. tract): Doxycycline or Minocycline",
+     "Klebsiella"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Antibiotics",
+   "title": "MSSA / H. flu",
+   "headers": [
+    "MSSA",
+    "H. flu"
+   ],
+   "rows": [
+    [
+     "Streptococcus\u2014R",
+     "Gonorrhea/Chlamydia\u2014R"
+    ],
+    [
+     "Listeria",
+     "Bordetella pertussis"
+    ],
+    [
+     "NOT MRSA",
+     "Salmonella"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Antibiotics",
+   "title": "Generation / Spectrum of Coverage\u200b",
+   "headers": [
+    "Generation",
+    "Spectrum of Coverage\u200b"
+   ],
+   "rows": [
+    [
+     "Second",
+     "Gram-negative\u200b(below the belt)"
+    ],
+    [
+     "Third\u200b",
+     "Gram-positive, gram-negative \u200b"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Antibiotics",
+   "title": "Strep.: All types, DRSP! / E. coli, M. catarrhalis, H. flu,",
+   "headers": [
+    "Strep.: All types, DRSP!",
+    "E. coli, M. catarrhalis, H. flu,"
+   ],
+   "rows": [
+    [
+     "Staph.: MSSA",
+     "Klebsiella"
+    ],
+    [
+     "Listeria",
+     "Legionella, Chlamydophila, Mycoplasma,"
+    ],
+    [
+     "NOT MRSA",
+     "Pseudomonas (sometimes)"
+    ],
+    [
+     "Common indications: pneumonia, pyelonephritis, prostati",
+     "tis"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Antibiotics",
+   "title": "Streptococcus: All types, DRSP! / M. catarrhalis, H. flu",
+   "headers": [
+    "Streptococcus: All types, DRSP!",
+    "M. catarrhalis, H. flu"
+   ],
+   "rows": [
+    [
+     "Staphylococcus: MSSA",
+     "Chlamydia pneumoniae"
+    ],
+    [
+     "Listeria",
+     "Mycoplasma"
+    ],
+    [
+     "MRSA\u2014only Delafloxacin",
+     "Legionella,"
+    ],
+    [
+     "Not urinary pathogens",
+     "E. coli, Klebsiella, Proteus (weak)"
+    ],
+    [
+     "Common indications: pneumonia",
+     ""
+    ]
+   ],
+   "confidence": 0.91
+  }
+ ],
+ "pulmonary-disorders": [
+  {
+   "section": "Pulmonary Disorders",
+   "title": "Absolute Contraindications / Relative Contraindications / Potential Adverse Effects",
+   "headers": [
+    "Absolute Contraindications",
+    "Relative Contraindications",
+    "Potential Adverse Effects"
+   ],
+   "rows": [
+    [
+     "Pregnancy",
+     "Age under 18 years",
+     "Altered mental status"
+    ],
+    [
+     "Prolonged QT interval",
+     "History of tendon rupture",
+     "Hyperglycemia Hypoglycemia"
+    ],
+    [
+     "CrCl under 10 mL/min",
+     "",
+     "C. difficile"
+    ],
+    [
+     "G6PD deficiency",
+     "",
+     ""
+    ]
+   ],
+   "confidence": 0.89
+  },
+  {
+   "section": "Pulmonary Disorders",
+   "title": "Antibiotic Class / Generic Names / Brand Example",
+   "headers": [
+    "Antibiotic Class",
+    "Generic Names",
+    "Brand Example"
+   ],
+   "rows": [
+    [
+     "Respiratory fluoroquinolones",
+     "Moxifloxacin",
+     "Avelox*"
+    ],
+    [
+     "\u201cfloxacin\u201d",
+     "Levofloxacin",
+     "Levaquin*"
+    ],
+    [
+     "Macrolides",
+     "Azithromycin",
+     "Zithromax"
+    ],
+    [
+     "\u201cmycin\u201d",
+     "Clarithromycin",
+     "Biaxin*"
+    ],
+    [
+     "Tetracyclines",
+     "Doxycycline",
+     "Doryx"
+    ],
+    [
+     "Beta-lactams",
+     "Amoxicillin",
+     "Amoxil*"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Pulmonary Disorders",
+   "title": "Grade / Description of Breathlessness",
+   "headers": [
+    "Grade",
+    "Description of Breathlessness"
+   ],
+   "rows": [
+    [
+     "0",
+     "I only get breathless with strenuous exercise."
+    ],
+    [
+     "1",
+     "I get short of breath when hurrying on level ground or walking up a slight hill."
+    ],
+    [
+     "2",
+     "On level ground, I walk slower than people of the same age because of breathlessness, or I must"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Pulmonary Disorders",
+   "title": "Class / Onset / Duration / Examples / Notes",
+   "headers": [
+    "Class",
+    "Onset",
+    "Duration",
+    "Examples",
+    "Notes"
+   ],
+   "rows": [
+    [
+     "SABAs",
+     "<5 min",
+     "4\u20136 h",
+     "Albuterol",
+     "\u201cRescue agents\u201d"
+    ],
+    [
+     "(Short-acting)",
+     "",
+     "8h",
+     "Levalbuterol",
+     "Tachycardia"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Pulmonary Disorders",
+   "title": "Class / Examples / Duration",
+   "headers": [
+    "Class",
+    "Examples",
+    "Duration"
+   ],
+   "rows": [
+    [
+     "SAMA",
+     "Ipratropium (Atrovent)",
+     "6h"
+    ],
+    [
+     "(Short-acting antimuscarinic)",
+     "",
+     ""
+    ],
+    [
+     "LAMA",
+     "Tiotropium (Spiriva)",
+     "12\u201324 h"
+    ],
+    [
+     "(Long-acting antimuscarinic)",
+     "Aclidinium (Tudorza Pressair)",
+     ""
+    ]
+   ],
+   "confidence": 0.89
+  },
+  {
+   "section": "Pulmonary Disorders",
+   "title": "Class / Examples / Duration",
+   "headers": [
+    "Class",
+    "Examples",
+    "Duration"
+   ],
+   "rows": [
+    [
+     "Inhaled steroids",
+     "Mometasone (Asmanex)",
+     "12\u201324 h"
+    ],
+    [
+     "(suffix is \u201c-one\u201d)",
+     "Budesonide (Pulmicort)",
+     ""
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Pulmonary Disorders",
+   "title": "Med Classes / Examples / Duration",
+   "headers": [
+    "Med Classes",
+    "Examples",
+    "Duration"
+   ],
+   "rows": [
+    [
+     "SAMA plus SABA",
+     "Ipratropium/albuterol (Combivent)",
+     "6h"
+    ],
+    [
+     "LAMA plus LABA",
+     "Tiotropium/olodaterol",
+     "12\u201324 h"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Pulmonary Disorders",
+   "title": "Grade / MMRC\u2014Description of Breathlessness",
+   "headers": [
+    "Grade",
+    "MMRC\u2014Description of Breathlessness"
+   ],
+   "rows": [
+    [
+     "0",
+     "I only get breathless with strenuous exercise."
+    ],
+    [
+     "1",
+     "I get short of breath when hurrying on level ground"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Pulmonary Disorders",
+   "title": "Spirometry NOT available / Spirometry available",
+   "headers": [
+    "Spirometry NOT available",
+    "Spirometry available"
+   ],
+   "rows": [
+    [
+     "\u2022 Rule out differentials",
+     "\u2022 Reversible airflow limitations"
+    ],
+    [
+     "\u2022 Treat empirically",
+     ""
+    ]
+   ],
+   "confidence": 0.78
+  },
+  {
+   "section": "Pulmonary Disorders",
+   "title": "Step / Symptom Frequency",
+   "headers": [
+    "Step",
+    "Symptom Frequency"
+   ],
+   "rows": [
+    [
+     "Step 1",
+     "< two times/week"
+    ],
+    [
+     "Intermittent",
+     ""
+    ],
+    [
+     "Step 2",
+     "<3\u20135 days/week"
+    ],
+    [
+     "Mild persistent",
+     "with normal or mildly reduced lung function"
+    ],
+    [
+     "Step 3",
+     "Most days (4+) or"
+    ],
+    [
+     "Moderate persistent",
+     "Night awakening \u22651 night/month"
+    ],
+    [
+     "Steps 4 to 5",
+     "Daily symptoms or"
+    ],
+    [
+     "Severe persistent",
+     "Night awakening \u22651 \u00d7/week"
+    ]
+   ],
+   "confidence": 0.94
+  }
+ ],
+ "hematology": [
+  {
+   "section": "Hematology",
+   "title": "MCV Value / Cell Size / Name",
+   "headers": [
+    "MCV Value",
+    "Cell Size",
+    "Name"
+   ],
+   "rows": [
+    [
+     "Low",
+     "Too small",
+     "Microcytic"
+    ],
+    [
+     "Normal",
+     "Normal",
+     "Normocytic"
+    ],
+    [
+     "High",
+     "Too big",
+     "Macrocytic"
+    ],
+    [
+     "\u201ccytic\u201d refers to the cell",
+     "",
+     ""
+    ]
+   ],
+   "confidence": 0.89
+  },
+  {
+   "section": "Hematology",
+   "title": "MCH Value / Cell Color / Name",
+   "headers": [
+    "MCH Value",
+    "Cell Color",
+    "Name"
+   ],
+   "rows": [
+    [
+     "Low",
+     "Too pale",
+     "Hypochromic"
+    ],
+    [
+     "Normal",
+     "Just right",
+     "Normochromic"
+    ],
+    [
+     "High",
+     "Too dark",
+     "Hyperchromic"
+    ],
+    [
+     "\u201cchromic\u201d means color",
+     "",
+     ""
+    ]
+   ],
+   "confidence": 0.89
+  },
+  {
+   "section": "Hematology",
+   "title": "Patient / Normal Range",
+   "headers": [
+    "Patient",
+    "Normal Range"
+   ],
+   "rows": [
+    [
+     "3.8",
+     "4.2\u20134.9 million/mcL"
+    ],
+    [
+     "12.1 g/dL",
+     "12.0\u201315.4 g/dL"
+    ],
+    [
+     "37.8%",
+     "37\u201351%"
+    ],
+    [
+     "69",
+     "80\u201396"
+    ],
+    [
+     "21.5",
+     "23.7\u201328.4"
+    ],
+    [
+     "33.4",
+     "31.3\u201335.7"
+    ],
+    [
+     "14.6",
+     "12\u201317"
+    ],
+    [
+     "265",
+     "150\u2013375"
+    ],
+    [
+     "7.1",
+     "6.5\u201312"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Hematology",
+   "title": "Test / Patient / Normal Range",
+   "headers": [
+    "Test",
+    "Patient",
+    "Normal Range"
+   ],
+   "rows": [
+    [
+     "RBC",
+     "3.8 (low)",
+     "4.2\u20135.4"
+    ],
+    [
+     "HCT",
+     "31.6 (low)",
+     "36.1\u201344.3"
+    ],
+    [
+     "MCH",
+     "24 (low)",
+     "27\u201331"
+    ],
+    [
+     "RDW",
+     "18.6 (high)",
+     "12\u201315"
+    ],
+    [
+     "PLT",
+     "265",
+     "150\u2013450"
+    ],
+    [
+     "Serum Fe",
+     "Decrease",
+     "d"
+    ],
+    [
+     "Serum ferri",
+     "tin Decrease",
+     "d"
+    ],
+    [
+     "TIBC",
+     "Elevated",
+     ""
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Hematology",
+   "title": "Test / Patient / Normal Range",
+   "headers": [
+    "Test",
+    "Patient",
+    "Normal Range"
+   ],
+   "rows": [
+    [
+     "HGB",
+     "9.5 (low)",
+     "12.1\u201315.1"
+    ],
+    [
+     "HCT",
+     "28.6 (low)",
+     "36.1\u201344.3 What diagnosis should be"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Hematology",
+   "title": "Serum Fe / Normal",
+   "headers": [
+    "Serum Fe",
+    "Normal"
+   ],
+   "rows": [
+    [
+     "Serum ferritin",
+     "Normal"
+    ],
+    [
+     "TIBC",
+     "Normal"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Hematology",
+   "title": "Normal / Serum Fe",
+   "headers": [
+    "Normal",
+    "Serum Fe"
+   ],
+   "rows": [
+    [
+     "Normal",
+     "TIBC"
+    ],
+    [
+     "Normal",
+     "Serum ferritin"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Hematology",
+   "title": "Patient / Normal Range",
+   "headers": [
+    "Patient",
+    "Normal Range"
+   ],
+   "rows": [
+    [
+     "3.9 (low)",
+     "4.2\u20135.4"
+    ],
+    [
+     "10.3 (low)",
+     "12.1\u201315.1"
+    ],
+    [
+     "31.1 (low)",
+     "36.1\u201344.3"
+    ],
+    [
+     "99 (high)",
+     "80\u201395"
+    ],
+    [
+     "29.2",
+     "27\u201331"
+    ],
+    [
+     "mia be",
+     ""
+    ]
+   ],
+   "confidence": 0.93
+  },
+  {
+   "section": "Hematology",
+   "title": "\u2022 Glossitis / Large Red Blood Cell",
+   "headers": [
+    "\u2022 Glossitis",
+    "Large Red Blood Cell"
+   ],
+   "rows": [
+    [
+     "logy of B12 and Folate Deficiencies",
+     ""
+    ],
+    [
+     "anism B12 Deficiency Causes Folate",
+     "Deficiency Causes"
+    ],
+    [
+     "eased dietary Alcohol misuse, severely restricted diet, malnourish",
+     "ment"
+    ],
+    [
+     "ired absorption Pernicious anemia (PA), colchicine use Heredit",
+     "ary folate malabsorption"
+    ]
+   ],
+   "confidence": 0.89
+  },
+  {
+   "section": "Hematology",
+   "title": "Patient / Normal Range",
+   "headers": [
+    "Patient",
+    "Normal Range"
+   ],
+   "rows": [
+    [
+     "4.3",
+     "4\u201311"
+    ],
+    [
+     "47.5 (low)",
+     "55\u201375 \u23ab"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Hematology",
+   "title": "Patient / Normal Range / \u2022 WBC count elevated:",
+   "headers": [
+    "Patient",
+    "Normal Range",
+    "\u2022 WBC count elevated:"
+   ],
+   "rows": [
+    [
+     "14.9 H",
+     "4\u201311",
+     ""
+    ],
+    [
+     "76 H",
+     "55\u201375",
+     "\u2022 Polys and lymphs far apart:"
+    ],
+    [
+     "10 L",
+     "30\u201340",
+     ""
+    ],
+    [
+     "11.9 H",
+     "0\u201311",
+     "\u2022 Presence of bands:"
+    ],
+    [
+     "0.1",
+     "0\u20136",
+     ""
+    ],
+    [
+     "0.3",
+     "",
+     "Clinical context: severe LLQ pain, fever, &"
+    ]
+   ],
+   "confidence": 1.0
+  }
+ ],
+ "neurologic-disorders": [
+  {
+   "section": "Neurologic Disorders",
+   "title": "Finding / Peripheral / Central",
+   "headers": [
+    "Finding",
+    "Peripheral",
+    "Central"
+   ],
+   "rows": [
+    [
+     "Nystagmus",
+     "Stops with visual fixation",
+     "Continues with visual fixation"
+    ],
+    [
+     "Gait/balance",
+     "Normal",
+     "Impaired"
+    ],
+    [
+     "Hearing",
+     "May be impaired",
+     "Normal"
+    ],
+    [
+     "Neurologic exam",
+     "Normal",
+     "Impaired"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Neurologic Disorders",
+   "title": "Etiology / Duration / History Findings / Physical Exam",
+   "headers": [
+    "Etiology",
+    "Duration",
+    "History Findings",
+    "Physical Exam"
+   ],
+   "rows": [
+    [
+     "Benign positional",
+     "Seconds",
+     "Triggered by position",
+     "Positive Dix\u2013Hallpike"
+    ],
+    [
+     "vertigo",
+     "",
+     "changes",
+     "maneuver"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Neurologic Disorders",
+   "title": "Peak / Stable / Improved / Recovery",
+   "headers": [
+    "Peak",
+    "Stable",
+    "Improved",
+    "Recovery"
+   ],
+   "rows": [
+    [
+     "mptoms sy",
+     "mptoms",
+     "symptoms",
+     ""
+    ],
+    [
+     "1\u20132 days \u2022",
+     "3 weeks",
+     "\u2022 2\u20133 months",
+     "\u2022 3\u20136 months"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Neurologic Disorders",
+   "title": "Positional / Painful eye",
+   "headers": [
+    "Positional",
+    "Painful eye"
+   ],
+   "rows": [
+    [
+     "Precipitated by Valsalva",
+     "Pathology of immune system"
+    ],
+    [
+     "Progressive",
+     "Painkiller use"
+    ],
+    [
+     "10/10 in severity",
+     ""
+    ]
+   ],
+   "confidence": 0.85
+  },
+  {
+   "section": "Neurologic Disorders",
+   "title": "Etiology / Key History/Characteristics",
+   "headers": [
+    "Etiology",
+    "Key History/Characteristics"
+   ],
+   "rows": [
+    [
+     "Cerebrovascular accident (CVA)",
+     "\u2022 History of cardiovascular disease"
+    ],
+    [
+     "or transient ischemic attack",
+     "\u2022 Sudden onset of focal neurologic change; hemodynamic instability;"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Neurologic Disorders",
+   "title": "Medication Class / Examples of Medications / Considerations",
+   "headers": [
+    "Medication Class",
+    "Examples of Medications",
+    "Considerations"
+   ],
+   "rows": [
+    [
+     "Simple analgesics",
+     "Acetaminophen",
+     "Best for mild to moderate headache"
+    ],
+    [
+     "NSAIDs",
+     "Aspirin, ibuprofen, naproxen,",
+     "Consider contraindications and adverse effects;"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Neurologic Disorders",
+   "title": "Class / Medications / Considerations",
+   "headers": [
+    "Class",
+    "Medications",
+    "Considerations"
+   ],
+   "rows": [
+    [
+     "Nonselective",
+     "Timolol,",
+     "\u2022 Angina, hypertension, anxiety, younger"
+    ],
+    [
+     "beta blockers",
+     "propranolol,",
+     "\u2022 SE: weight gain, fatigue, decreased BP or HR, activity intolerance,"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Neurologic Disorders",
+   "title": "Drug Class / FDA-Approved Drugs / Evidence-Based Off-Label Alternatives",
+   "headers": [
+    "Drug Class",
+    "FDA-Approved Drugs",
+    "Evidence-Based Off-Label Alternatives"
+   ],
+   "rows": [
+    [
+     "Serotonin norepinephrine reuptake",
+     "Duloxetine (Cymbalta)",
+     "Venlafaxine (Effexor)"
+    ],
+    [
+     "inhibitors (SNRIs)",
+     "",
+     ""
+    ],
+    [
+     "Tricyclic antidepressants (TCAs)",
+     "\u2014",
+     "Amitriptyline Desipramine"
+    ]
+   ],
+   "confidence": 0.85
+  },
+  {
+   "section": "Neurologic Disorders",
+   "title": "Essential Tremor / Parkinson Disease",
+   "headers": [
+    "Essential Tremor",
+    "Parkinson Disease"
+   ],
+   "rows": [
+    [
+     "20s\u201330s and 60s\u201370s",
+     "Average age 60s"
+    ],
+    [
+     "Bilateral action tremor",
+     "Resting tremor"
+    ],
+    [
+     "Worse with anxiety or caffeine",
+     "Begins unilaterally, then spreads"
+    ],
+    [
+     "Improves with alcohol",
+     "bilaterally"
+    ],
+    [
+     "Mild gait disorder may be present",
+     "Bradykinesia, rigidity, gait"
+    ]
+   ],
+   "confidence": 1.0
+  }
+ ],
+ "mental-health-in-primary-care": [
+  {
+   "section": "Mental Health in Primary Care",
+   "title": "Neurotransmitter\u200b / Impulse / Function\u200b(Plays a Role in)",
+   "headers": [
+    "Neurotransmitter\u200b",
+    "Impulse",
+    "Function\u200b(Plays a Role in)"
+   ],
+   "rows": [
+    [
+     "Serotonin (5-HT)\u200b",
+     "Inhibitory",
+     "Appetite, mood, anxiety, sleep, sex drive\u200b"
+    ],
+    [
+     "Dopamine\u200b",
+     "Excitatory and",
+     "Energy, reward, motivation, mood, attention, executive functions"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Mental Health in Primary Care",
+   "title": "I / INTEREST (ANHEDONIA)",
+   "headers": [
+    "I",
+    "INTEREST (ANHEDONIA)"
+   ],
+   "rows": [
+    [
+     "G",
+     "GUILTY (WORTHLESSNESS)"
+    ],
+    [
+     "E",
+     "ENERGY"
+    ],
+    [
+     "C",
+     "CONCENTRATION DIFFICULTIES"
+    ],
+    [
+     "A",
+     "APPETITE"
+    ],
+    [
+     "P",
+     "PSYCHOMOTOR AGITATION OR IRRITATION"
+    ],
+    [
+     "S",
+     "SUICIDALITY"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Mental Health in Primary Care",
+   "title": "Tool / Uses / Population / # Questions",
+   "headers": [
+    "Tool",
+    "Uses",
+    "Population",
+    "# Questions"
+   ],
+   "rows": [
+    [
+     "PHQ-2",
+     "Prescreening",
+     "\u226512 years",
+     "2"
+    ],
+    [
+     "PHQ-9",
+     "Screening, monitoring Tx",
+     "\u226512 years, cognitive",
+     "9"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Mental Health in Primary Care",
+   "title": "Score / Depression Severity / Comments",
+   "headers": [
+    "Score",
+    "Depression Severity",
+    "Comments"
+   ],
+   "rows": [
+    [
+     "0\u20134",
+     "Minimal or none",
+     "Monitor; may not require treatment"
+    ],
+    [
+     "5\u20139",
+     "Mild",
+     "Treatment offered, use clinical judgment and shared decision"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Mental Health in Primary Care",
+   "title": "Side Effect / Comments / Prescribing Pearls",
+   "headers": [
+    "Side Effect",
+    "Comments",
+    "Prescribing Pearls"
+   ],
+   "rows": [
+    [
+     "Nausea",
+     "Most common, occurs with all SSRIs",
+     "Start low, go slow"
+    ],
+    [
+     "Diarrhea",
+     "More likely with sertraline",
+     ""
+    ],
+    [
+     "Constipation",
+     "More likely with paroxetine",
+     ""
+    ],
+    [
+     "Sexual dysfunction",
+     "Ejaculatory changes, decreased libido,",
+     "Lower dose, add bupropion, or"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Mental Health in Primary Care",
+   "title": "Age / Expect Improvement / Expect Relief of Symptoms",
+   "headers": [
+    "Age",
+    "Expect Improvement",
+    "Expect Relief of Symptoms"
+   ],
+   "rows": [
+    [
+     "Young to middle Adult",
+     "2\u20134 weeks",
+     "6\u201312 weeks"
+    ],
+    [
+     "Older adult",
+     "4\u20136 weeks",
+     "12\u201316 weeks"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Mental Health in Primary Care",
+   "title": "Diagnosis / Differing \u201cWorry\u201d Characteristics / Screening Tool",
+   "headers": [
+    "Diagnosis",
+    "Differing \u201cWorry\u201d Characteristics",
+    "Screening Tool"
+   ],
+   "rows": [
+    [
+     "Depression",
+     "Worry about past events",
+     "PHQ-9"
+    ],
+    [
+     "Generalized anxiety",
+     "Worry about future events",
+     "GAD-7"
+    ],
+    [
+     "disorder",
+     "",
+     ""
+    ],
+    [
+     "Panic disorder",
+     "Paroxysmal intense worry that lasts for several",
+     "Panic Disorder Screening (PADIS)"
+    ]
+   ],
+   "confidence": 0.89
+  },
+  {
+   "section": "Mental Health in Primary Care",
+   "title": "Angina, arrhythmias, MI\u200b / Caffeine, cocaine\u200b",
+   "headers": [
+    "Angina, arrhythmias, MI\u200b",
+    "Caffeine, cocaine\u200b"
+   ],
+   "rows": [
+    [
+     "Anemias\u200b",
+     "Pseudoephedrine\u200b"
+    ],
+    [
+     "Hyperthyroidism\u200b",
+     "Theophylline\u200b"
+    ],
+    [
+     "Hypoglycemia\u200b",
+     "Drug withdrawal (benzodiazepines, alcohol)\u200b"
+    ],
+    [
+     "Essential tremor\u200b",
+     "Benadryl\u200b"
+    ],
+    [
+     "Asthma, COPD, PE\u200b",
+     "TCAs\u200b"
+    ],
+    [
+     "Carcinoid\u200b tumor",
+     "Dopaminergics\u200b"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Mental Health in Primary Care",
+   "title": "SUD Severity / # Symptoms",
+   "headers": [
+    "SUD Severity",
+    "# Symptoms"
+   ],
+   "rows": [
+    [
+     "Mild",
+     "2\u20133"
+    ],
+    [
+     "Moderate",
+     "4\u20135"
+    ],
+    [
+     "Severe",
+     "\u22656"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Mental Health in Primary Care",
+   "title": "Predominantly inattentive / Combined / Predominantly hyperactive-impulsive",
+   "headers": [
+    "Predominantly inattentive",
+    "Combined",
+    "Predominantly hyperactive-impulsive"
+   ],
+   "rows": [
+    [
+     "\u2022 Careless/poor attention to detail",
+     "",
+     "\u2022 Fidgets"
+    ],
+    [
+     "\u2022 Diminished attention span",
+     "",
+     "\u2022 Trouble staying still"
+    ],
+    [
+     "\u2022 Poor listening skills",
+     "",
+     "\u2022 Restlessness"
+    ],
+    [
+     "\u2022 Lacks follow-through",
+     "",
+     "\u2022 Trouble keeping quiet"
+    ],
+    [
+     "\u2022 Disorganized",
+     "",
+     "\u2022 \u201cOn the go\u201d"
+    ],
+    [
+     "\u2022 Avoids tasks requiring concentration",
+     "",
+     "\u2022 Talks excessively"
+    ],
+    [
+     "\u2022 Loses things",
+     "",
+     "\u2022 Impulsively blurts things out"
+    ],
+    [
+     "\u2022 Easily distracted",
+     "",
+     "\u2022 Trouble waiting for their turn"
+    ],
+    [
+     "\u2022 Forgetful",
+     "",
+     "\u2022 Interrupts/intrudes"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Mental Health in Primary Care",
+   "title": "Tricyclic / Doxepin (Silenor) / SE: anticholinergic",
+   "headers": [
+    "Tricyclic",
+    "Doxepin (Silenor)",
+    "SE: anticholinergic"
+   ],
+   "rows": [
+    [
+     "antidepressant",
+     "",
+     ""
+    ],
+    [
+     "Dual Orexin",
+     "Suvorexant (Belsomra); Lemborexant",
+     "SE: headache, drowsiness, dizziness, nausea"
+    ],
+    [
+     "Receptor Antagonists",
+     "(Dayvigo)",
+     "Rare: abnormal dreams, anxiety, mood"
+    ],
+    [
+     "(DORAs)",
+     "Daridorexant (Quviviq)",
+     "changes, suicidal thoughts"
+    ]
+   ],
+   "confidence": 0.89
+  }
+ ],
+ "gastrointestinal-disorders": [
+  {
+   "section": "Gastrointestinal Disorders",
+   "title": "Symptoms / Differential Diagnosis",
+   "headers": [
+    "Symptoms",
+    "Differential Diagnosis"
+   ],
+   "rows": [
+    [
+     "Anal pain during defecation",
+     "Anal fissure, rectal carcinoma"
+    ],
+    [
+     "Night sweats, fever, weight loss",
+     "Malignancy, chronic infection or inflammation"
+    ],
+    [
+     "Diarrhea preceding or accompanying passage of blood",
+     "Colitis"
+    ],
+    [
+     "Change in frequency or caliber of stools",
+     "Malignancy"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Gastrointestinal Disorders",
+   "title": "Method / Frequency / Comments",
+   "headers": [
+    "Method",
+    "Frequency",
+    "Comments"
+   ],
+   "rows": [
+    [
+     "Guaiac fecal occult blood test",
+     "Annually, 3 specimens",
+     "Guaiac-based fecal occult blood tests"
+    ],
+    [
+     "(gFOBT) (stool)",
+     "",
+     ""
+    ],
+    [
+     "Fecal immunochemical test (FIT)",
+     "Annually, 1 specimen",
+     "Fecal immunochemical tests; more sensitive"
+    ],
+    [
+     "(stool)",
+     "",
+     "than FOBT"
+    ],
+    [
+     "FIT DNA (stool)",
+     "1\u20133 years",
+     "Improved sensitivity, lower specificity; more"
+    ],
+    [
+     "(Cologuard)",
+     "",
+     "specific for colon-related occult blood"
+    ]
+   ],
+   "confidence": 0.93
+  },
+  {
+   "section": "Gastrointestinal Disorders",
+   "title": "ID At-Risk Patients / History/Labs / Noninvasive Testing",
+   "headers": [
+    "ID At-Risk Patients",
+    "History/Labs",
+    "Noninvasive Testing"
+   ],
+   "rows": [
+    [
+     "olic syndrome risk \u2022 Heavy a",
+     "lcohol use? \u2022 Fi",
+     "b-4 score Calculated"
+    ],
+    [
+     "rs (at least 2) \u2022 CBC",
+     "",
+     "$ Age"
+    ],
+    [
+     "2 DM \u2022 LFTs",
+     "",
+     "$ AST/ALT"
+    ],
+    [
+     "osis on imaging \u2022 Hepatit",
+     "is panel",
+     "$ Platelets"
+    ],
+    [
+     "ted ALT/AST",
+     "",
+     ""
+    ]
+   ],
+   "confidence": 0.91
+  },
+  {
+   "section": "Gastrointestinal Disorders",
+   "title": "FIB-4 (<1.3) Low Risk / FIB-4 (>1.3)",
+   "headers": [
+    "FIB-4 (<1.3) Low Risk",
+    "FIB-4 (>1.3)"
+   ],
+   "rows": [
+    [
+     "Primary care",
+     "Refer to hepatology"
+    ],
+    [
+     "Management:",
+     "\u2022 Most likely will require liver biopsy and/or"
+    ],
+    [
+     "\u2022 Lifestyle interventions: physical activity, diet,",
+     "pharmacologic management of fatty liver"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Gastrointestinal Disorders",
+   "title": "(+) HBsAg / Infected",
+   "headers": [
+    "(+) HBsAg",
+    "Infected"
+   ],
+   "rows": [
+    [
+     "(\u2212) anti-HBs",
+     "No immunity"
+    ],
+    [
+     "(+) anti-HBc",
+     "Current or previous infection"
+    ],
+    [
+     "(+) IgM anti-HBc",
+     "Infected for less than 6 months"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Gastrointestinal Disorders",
+   "title": "HBsAg / Anti-HBc / Anti-HBs / Anti-HBc / Interpretation",
+   "headers": [
+    "HBsAg",
+    "Anti-HBc",
+    "Anti-HBs",
+    "Anti-HBc",
+    "Interpretation"
+   ],
+   "rows": [
+    [
+     "\u2212",
+     "\u2212",
+     "\u2212",
+     "NA",
+     "Susceptible, needs vaccine"
+    ],
+    [
+     "\u2212",
+     "+",
+     "+",
+     "NA",
+     "Immune due to resolved infection"
+    ],
+    [
+     "\u2212",
+     "\u2212",
+     "+",
+     "NA",
+     "Immune due to vaccination"
+    ],
+    [
+     "+",
+     "+",
+     "\u2212",
+     "+",
+     "Acutely infected"
+    ],
+    [
+     "+",
+     "+",
+     "\u2212",
+     "\u2212",
+     "Chronically infected"
+    ],
+    [
+     "\u2212",
+     "+",
+     "\u2212",
+     "\u2212",
+     "Interpretation unclear. Four possibilities:"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Gastrointestinal Disorders",
+   "title": "Imaging Study / Use / Comments",
+   "headers": [
+    "Imaging Study",
+    "Use",
+    "Comments"
+   ],
+   "rows": [
+    [
+     "Plain flat/upright",
+     "Ileus, bowel obstruction, perforation",
+     "Quick, cheap, readily available"
+    ],
+    [
+     "abdominal",
+     "",
+     ""
+    ],
+    [
+     "Abdominal",
+     "Gallbladder, pelvic organs, appendix",
+     "Difficult with large BMI, noninvasive,"
+    ],
+    [
+     "ultrasound",
+     "(pediatrics), kidneys, liver",
+     "no radiation"
+    ],
+    [
+     "CT",
+     "Acute abdominal pain, diverticulitis",
+     "Oral contrast: GI tract"
+    ]
+   ],
+   "confidence": 0.91
+  }
+ ],
+ "urology-and-sexually-transmitted-infections": [
+  {
+   "section": "Urology and Sexually Transmitted Infections",
+   "title": "Cast Type / Significance",
+   "headers": [
+    "Cast Type",
+    "Significance"
+   ],
+   "rows": [
+    [
+     "Hyaline",
+     "Most common and nonspecific; low urine flow, dehydration, vigorous exercise"
+    ],
+    [
+     "Crystals",
+     "No clinical significance"
+    ],
+    [
+     "RBC",
+     "Always pathologic; consider glomerulonephritis, urinary tract injury"
+    ],
+    [
+     "WBC",
+     "May indicate pyelonephritis (not present in simple UTI)"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Urology and Sexually Transmitted Infections",
+   "title": "Albuminuria Category / Range (mg/g)",
+   "headers": [
+    "Albuminuria Category",
+    "Range (mg/g)"
+   ],
+   "rows": [
+    [
+     "A1",
+     "<30"
+    ],
+    [
+     "A2",
+     "30\u2013299"
+    ],
+    [
+     "A3",
+     ">300"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Urology and Sexually Transmitted Infections",
+   "title": "eGFR Result / Stage of CKD",
+   "headers": [
+    "eGFR Result",
+    "Stage of CKD"
+   ],
+   "rows": [
+    [
+     "\u226590",
+     "1"
+    ],
+    [
+     "60\u201389",
+     "2"
+    ],
+    [
+     "45\u201359",
+     "3a"
+    ],
+    [
+     "30\u201344",
+     "3b"
+    ],
+    [
+     "15\u201329",
+     "4"
+    ],
+    [
+     "<15",
+     "5"
+    ],
+    [
+     "Abnormal kidney function is treated",
+     "as acute unless proven otherwise!"
+    ]
+   ],
+   "confidence": 1.0
+  }
+ ],
+ "cardiovascular-and-peripheral-vascular-disorders": [
+  {
+   "section": "Cardiovascular and Peripheral Vascular Disorders",
+   "title": "BP Category / Systolic BP / Diastolic BP",
+   "headers": [
+    "BP Category",
+    "Systolic BP",
+    "Diastolic BP"
+   ],
+   "rows": [
+    [
+     "Normal",
+     "<120 mm Hg And",
+     "<80 mm Hg"
+    ],
+    [
+     "Elevated",
+     "120 to 129 mm Hg And",
+     "<80 mm Hg"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Cardiovascular and Peripheral Vascular Disorders",
+   "title": "Lab / Today / Normal Range",
+   "headers": [
+    "Lab",
+    "Today",
+    "Normal Range"
+   ],
+   "rows": [
+    [
+     "BUN",
+     "12",
+     "8\u201325 mg/dL"
+    ],
+    [
+     "Creatinine",
+     "0.9",
+     "0.5\u20131.5 mg/dL"
+    ],
+    [
+     "eGFR",
+     "85 mL/min",
+     ">60 mL/min"
+    ],
+    [
+     "Potassium",
+     "4.5 mmol/L,",
+     "3.5\u20135.1 mmol/L"
+    ],
+    [
+     "Sodium",
+     "138 mmol/L",
+     "135\u2013146 mmol/L"
+    ],
+    [
+     "1. 25 mg metop",
+     "rolol daily (25\u2013",
+     "100 mg daily)"
+    ],
+    [
+     "2. 40 mg lisin",
+     "opril daily (10\u2013",
+     "40 mg daily)"
+    ],
+    [
+     "3. 75 mg losar",
+     "tan daily (50\u201310",
+     "0 mg daily)"
+    ],
+    [
+     "4. 12.5 mg chl",
+     "orthalidone dail",
+     "y (12.5\u201325 mg daily)"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Cardiovascular and Peripheral Vascular Disorders",
+   "title": "Date / BP / Date / BP",
+   "headers": [
+    "Date",
+    "BP",
+    "Date",
+    "BP"
+   ],
+   "rows": [
+    [
+     "30 days ago",
+     "136/88",
+     "12 days ago",
+     "140/96"
+    ],
+    [
+     "21 days ago",
+     "142/90",
+     "2 days ago",
+     "136/92"
+    ],
+    [
+     "14 days ago",
+     "132/86",
+     "Yesterday",
+     "134/86"
+    ],
+    [
+     "1. Continue the pla",
+     "n for another 4 week",
+     "s.",
+     ""
+    ],
+    [
+     "2. Add 50 mg metopr",
+     "olol tartrate BID.",
+     "",
+     ""
+    ],
+    [
+     "3. Increase chlorth",
+     "alidone to 25 mg dai",
+     "ly",
+     ""
+    ],
+    [
+     "4. Add 5 mg amlodip",
+     "ine.",
+     "",
+     ""
+    ]
+   ],
+   "confidence": 0.87
+  },
+  {
+   "section": "Cardiovascular and Peripheral Vascular Disorders",
+   "title": "Lab / Result (mg/dL) / Normal Range (mg/dL)",
+   "headers": [
+    "Lab",
+    "Result (mg/dL)",
+    "Normal Range (mg/dL)"
+   ],
+   "rows": [
+    [
+     "Total Cholesterol",
+     "225",
+     "<200"
+    ],
+    [
+     "LDL",
+     "122",
+     "<100"
+    ],
+    [
+     "HDL",
+     "39",
+     "40"
+    ],
+    [
+     "Triglycerides",
+     "323",
+     "<150"
+    ],
+    [
+     "1. prescribing moderate intensi",
+     "ty statin.",
+     ""
+    ],
+    [
+     "2. repeating lipid panel next w",
+     "eek.",
+     ""
+    ],
+    [
+     "3. calculating the ASCVD risk.",
+     "",
+     ""
+    ],
+    [
+     "4. asking the patient about fam",
+     "ilial hyperlipidemia.",
+     ""
+    ]
+   ],
+   "confidence": 0.94
+  },
+  {
+   "section": "Cardiovascular and Peripheral Vascular Disorders",
+   "title": "Risk Enhancer / High Intensity Statins / Moderate Intensity Statins",
+   "headers": [
+    "Risk Enhancer",
+    "High Intensity Statins",
+    "Moderate Intensity Statins"
+   ],
+   "rows": [
+    [
+     "Family history of early",
+     ">50% reduction in LDL-C",
+     ">30% reduction in LDL-C"
+    ],
+    [
+     "ASCVD, LDL>160 mg/dL,",
+     "Atorvastatin 40\u201380 mg",
+     "Atorvastatin 10\u201320 mg"
+    ],
+    [
+     "CKD, metabolic syndrome,",
+     "",
+     ""
+    ]
+   ],
+   "confidence": 0.85
+  },
+  {
+   "section": "Cardiovascular and Peripheral Vascular Disorders",
+   "title": "Step / Question / Answer",
+   "headers": [
+    "Step",
+    "Question",
+    "Answer"
+   ],
+   "rows": [
+    [
+     "1",
+     "Systolic or Diastolic",
+     "Systolic"
+    ],
+    [
+     "3",
+     "Associated Findings",
+     "SOB, Fatigue, Atrial fibrillation, Heart failure"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Cardiovascular and Peripheral Vascular Disorders",
+   "title": "Step / Question / Answer",
+   "headers": [
+    "Step",
+    "Question",
+    "Answer"
+   ],
+   "rows": [
+    [
+     "1",
+     "Systolic or Diastolic",
+     "Systolic"
+    ],
+    [
+     "3",
+     "Associated Findings",
+     "Palpitations, PVCs, Chest Pain"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Cardiovascular and Peripheral Vascular Disorders",
+   "title": "Step / Question / Answer",
+   "headers": [
+    "Step",
+    "Question",
+    "Answer"
+   ],
+   "rows": [
+    [
+     "1",
+     "Systolic or diastolic",
+     "Systolic"
+    ],
+    [
+     "3",
+     "Associated findings",
+     "Angina, Syncope, Heart failure"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Cardiovascular and Peripheral Vascular Disorders",
+   "title": "Step / Question / Answer",
+   "headers": [
+    "Step",
+    "Question",
+    "Answer"
+   ],
+   "rows": [
+    [
+     "1",
+     "Systolic or diastolic",
+     "Diastolic"
+    ],
+    [
+     "3",
+     "Associated findings",
+     "Angina, dizziness, CHF"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Cardiovascular and Peripheral Vascular Disorders",
+   "title": "Step / Question / Answer",
+   "headers": [
+    "Step",
+    "Question",
+    "Answer"
+   ],
+   "rows": [
+    [
+     "1",
+     "Systolic or diastolic",
+     "Diastolic"
+    ],
+    [
+     "3",
+     "Associated findings",
+     "Dyspnea, A-fib, hemoptysis"
+    ]
+   ],
+   "confidence": 1.0
+  }
+ ],
+ "endocrine-disorders": [
+  {
+   "section": "Endocrine Disorders",
+   "title": "Type of Test / Pre-DM / Type 2 DM",
+   "headers": [
+    "Type of Test",
+    "Pre-DM",
+    "Type 2 DM"
+   ],
+   "rows": [
+    [
+     "A1c",
+     "5.7\u20136.4%",
+     "6.5% or greater"
+    ],
+    [
+     "FPG",
+     "100\u2013125 mg/dL",
+     "126 mg/dL or greater"
+    ],
+    [
+     "Oral glucose tolerance test (OGTT)",
+     "140\u2013199 mg/dL",
+     "over 200 mg/dL"
+    ],
+    [
+     "Random plasma glucose (RPG) with signs",
+     "Not applicable",
+     "over 200 mg/dL"
+    ],
+    [
+     "and symptoms",
+     "",
+     ""
+    ],
+    [
+     "Diagnosis should be confirmed with repeat tes",
+     "ting unless unequivocal hypergl",
+     "ycemia."
+    ]
+   ],
+   "confidence": 0.93
+  },
+  {
+   "section": "Endocrine Disorders",
+   "title": "A1c / Estimated Average Blood Glucose (mg/dL) / Blood Glucose Range (mg/dL)",
+   "headers": [
+    "A1c",
+    "Estimated Average Blood Glucose (mg/dL)",
+    "Blood Glucose Range (mg/dL)"
+   ],
+   "rows": [
+    [
+     "5%",
+     "97",
+     "(76\u2013120)"
+    ],
+    [
+     "6%",
+     "126",
+     "(100\u2013152)"
+    ],
+    [
+     "7%",
+     "154",
+     "(123\u2013185)"
+    ],
+    [
+     "8%",
+     "183",
+     "(147\u2013217)"
+    ],
+    [
+     "9%",
+     "212",
+     "(170\u2013249)"
+    ],
+    [
+     "10%",
+     "240",
+     "(193\u2013282)"
+    ],
+    [
+     "11%",
+     "269",
+     "(217\u2013314)"
+    ],
+    [
+     "12%",
+     "298",
+     "(240\u2013317)"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Endocrine Disorders",
+   "title": "Lab / Result / Normal Range",
+   "headers": [
+    "Lab",
+    "Result",
+    "Normal Range"
+   ],
+   "rows": [
+    [
+     "Glucose",
+     "155 mg/dL",
+     "70\u201399 mg/dL"
+    ],
+    [
+     "A1c",
+     "7.5%",
+     "4.0\u20135.6%"
+    ],
+    [
+     "1. Order another",
+     "round of fasting labs to co",
+     "nfirm the diagnosis."
+    ],
+    [
+     "2. Diagnose with",
+     "prediabetes and recommend l",
+     "ifestyle modification."
+    ],
+    [
+     "3. Diagnose with",
+     "type 2 diabetes and recomme",
+     "nd lifestyle"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Endocrine Disorders",
+   "title": "Class / Mechanism of Action / A1c Decrease / Comment / Cost/Month",
+   "headers": [
+    "Class",
+    "Mechanism of Action",
+    "A1c Decrease",
+    "Comment",
+    "Cost/Month"
+   ],
+   "rows": [
+    [
+     "GLP-1/GIP receptor",
+     "Increases insulin",
+     "1.7\u20132.4%",
+     "Weight loss, CV",
+     "$1200"
+    ],
+    [
+     "agonist",
+     "synthesis in response to",
+     "",
+     "benefit, possible",
+     ""
+    ]
+   ],
+   "confidence": 0.78
+  },
+  {
+   "section": "Endocrine Disorders",
+   "title": "Name / Mechanism of Action / A1c Decrease / Comment / Cost/Month",
+   "headers": [
+    "Name",
+    "Mechanism of Action",
+    "A1c Decrease",
+    "Comment",
+    "Cost/Month"
+   ],
+   "rows": [
+    [
+     "SGLT-2",
+     "Prevents renal glucose",
+     "0.5\u20130.8%",
+     "Weight loss, reduces BP; can",
+     "$400\u2013$700"
+    ],
+    [
+     "inhibitors",
+     "reabsorption",
+     "",
+     "cause UTI, yeast infections",
+     ""
+    ],
+    [
+     "TZDs",
+     "Improves insulin",
+     "0.5\u20131.4%",
+     "Contraindicated in heart",
+     "$300\u2013$400"
+    ]
+   ],
+   "confidence": 0.85
+  },
+  {
+   "section": "Endocrine Disorders",
+   "title": "Patient Characteristics / Beneficial Drugs",
+   "headers": [
+    "Patient Characteristics",
+    "Beneficial Drugs"
+   ],
+   "rows": [
+    [
+     "ASCVD",
+     "GLP-1, SGLT2, TZD"
+    ],
+    [
+     "HF",
+     "SGLT2"
+    ],
+    [
+     "CKD",
+     "SGLT2 or GLP-1"
+    ],
+    [
+     "Risk for hypoglycemia",
+     "DPP-4, SGLT2, GLP-1, TZD"
+    ],
+    [
+     "Obesity",
+     "SGLT2, GLP-1"
+    ],
+    [
+     "A1c \u226510%, BG \u2265300 mg/dL, or symptomatic",
+     "GLP-1, GLP-1/GIP, insulin"
+    ],
+    [
+     "PCOS",
+     "Metformin, TZD"
+    ],
+    [
+     "Pregnancy (or planned)",
+     "Insulin, metformin"
+    ],
+    [
+     "Limited financial resources",
+     "SU, TZD, metformin"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Endocrine Disorders",
+   "title": "Thyroid State / TSH / Free T4 / T3",
+   "headers": [
+    "Thyroid State",
+    "TSH",
+    "Free T4",
+    "T3"
+   ],
+   "rows": [
+    [
+     "Euthyroid",
+     "Normal",
+     "Normal",
+     "Normal"
+    ],
+    [
+     "Primary hypothyroidism",
+     "Increased",
+     "Decreased",
+     "Normal (Usually)"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Endocrine Disorders",
+   "title": "TSH / Free T4",
+   "headers": [
+    "TSH",
+    "Free T4"
+   ],
+   "rows": [
+    [
+     "15 mIU/L",
+     "0.3 mIU/L"
+    ],
+    [
+     "0.5-4.0 mIU/L",
+     "0.7\u20131.53 mIU/L"
+    ],
+    [
+     "toring the TSH in 6",
+     "\u201312 months."
+    ],
+    [
+     "al body weight (IBW",
+     ") and prescribe levothyroxine."
+    ],
+    [
+     "secondary causes of",
+     "hypothyroidism."
+    ],
+    [
+     "antibody studies.",
+     ""
+    ]
+   ],
+   "confidence": 0.93
+  },
+  {
+   "section": "Endocrine Disorders",
+   "title": "Patient / Calculated Dose / Starting Dose",
+   "headers": [
+    "Patient",
+    "Calculated Dose",
+    "Starting Dose"
+   ],
+   "rows": [
+    [
+     "55-year-old with OA",
+     "87 mcg",
+     ""
+    ],
+    [
+     "72-year-old with HTN",
+     "112 mcg",
+     ""
+    ],
+    [
+     "28-year-old with asthma",
+     "116 mcg",
+     ""
+    ],
+    [
+     "46-year-old healthy female",
+     "96 mcg",
+     ""
+    ],
+    [
+     "Available Tablet Doses (mcg):",
+     "",
+     ""
+    ],
+    [
+     "25, 50, 75, 88, 100, 112, 125, 1",
+     "37, 150, 175, 200, 3",
+     "00"
+    ]
+   ],
+   "confidence": 0.93
+  },
+  {
+   "section": "Endocrine Disorders",
+   "title": "Thyroid State / TSH / Free T4 / T3",
+   "headers": [
+    "Thyroid State",
+    "TSH",
+    "Free T4",
+    "T3"
+   ],
+   "rows": [
+    [
+     "Euthyroid",
+     "Normal",
+     "Normal",
+     "Normal"
+    ],
+    [
+     "Primary hyperthyroidism",
+     "Decreased",
+     "Increased/Normal",
+     "Increased"
+    ],
+    [
+     "Subclinical hyperthyroidism",
+     "Decreased",
+     "Normal",
+     "Normal"
+    ],
+    [
+     "Secondary hyperthyroidism",
+     "Normal/Increased",
+     "Increased",
+     "Increased"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Endocrine Disorders",
+   "title": "Patient Category / Initial Labs / Goal/Strategies",
+   "headers": [
+    "Patient Category",
+    "Initial Labs",
+    "Goal/Strategies"
+   ],
+   "rows": [
+    [
+     "BMI 25\u201329.9,",
+     "\u2022 A1c",
+     "\u2022 Prevent further weight gain and comorbidities."
+    ],
+    [
+     "no comorbidities",
+     "\u2022 Thyroid-stimulating",
+     "\u2022 Lifestyle modifications\u2014healthy diet and physical"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Endocrine Disorders",
+   "title": "Medications / Average Weight Loss Comments",
+   "headers": [
+    "Medications",
+    "Average Weight Loss Comments"
+   ],
+   "rows": [
+    [
+     "Tirzepatide (Zepbound)",
+     "15\u201320% \u2022 Probable ASCVD protection; lowers glucose"
+    ],
+    [
+     "\u2022 GLP-1/GIP dual receptor",
+     "\u2022 Avoid if history of pancreatitis, endocrine"
+    ],
+    [
+     "agonist",
+     "tumors."
+    ],
+    [
+     "\u2022 Weekly SQ injection",
+     "\u2022 GI side effects limit tolerance; titrate to max"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Endocrine Disorders",
+   "title": "Disorder / Typical Presentation / Pathophysiology / Management",
+   "headers": [
+    "Disorder",
+    "Typical Presentation",
+    "Pathophysiology",
+    "Management"
+   ],
+   "rows": [
+    [
+     "Addison\u2019s disease",
+     "Fatigue, vomiting, weight loss",
+     ", Inadequate cortisol,",
+     "Corticosteroid,"
+    ],
+    [
+     "(Adrenal Insufficiency)",
+     "skin, postural hypotension",
+     "aldosterone, androgens",
+     "fludrocortisone"
+    ]
+   ],
+   "confidence": 1.0
+  }
+ ],
+ "women-s-health": [
+  {
+   "section": "Women's Health",
+   "title": "No pubic / Sparse, / Darker, coarse,",
+   "headers": [
+    "No pubic",
+    "Sparse,",
+    "Darker, coarse,"
+   ],
+   "rows": [
+    [
+     "hair; nipple",
+     "long,",
+     "curly, sparse hair"
+    ],
+    [
+     "elevation",
+     "straight",
+     "over mons pubis;"
+    ],
+    [
+     "begins",
+     "hair; breast",
+     "breast and areola"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Women's Health",
+   "title": "Estrogen / Endometrium preparation",
+   "headers": [
+    "Estrogen",
+    "Endometrium preparation"
+   ],
+   "rows": [
+    [
+     "Luteinizing hormone",
+     "Liberates the egg"
+    ],
+    [
+     "Progesterone",
+     "Prepares for implantation"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Women's Health",
+   "title": "Cause / Consider by AGE:",
+   "headers": [
+    "Cause",
+    "Consider by AGE:"
+   ],
+   "rows": [
+    [
+     "Polyps",
+     ">30 years of age"
+    ],
+    [
+     "Adenomyosis",
+     ""
+    ],
+    [
+     "Leiomyoma/fibroids",
+     ""
+    ],
+    [
+     "Malignancy/hyperplasia",
+     "Premenopausal with risk factors (obesity, DM, PCOS)"
+    ]
+   ],
+   "confidence": 0.78
+  },
+  {
+   "section": "Women's Health",
+   "title": "O / Ovulatory dysfunction",
+   "headers": [
+    "O",
+    "Ovulatory dysfunction"
+   ],
+   "rows": [
+    [
+     "E",
+     "Endometrial"
+    ],
+    [
+     "I",
+     "Iatrogenic, medications"
+    ],
+    [
+     "N",
+     "Not classified"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Women's Health",
+   "title": "Bacterial Vaginosis / Vulvovaginal Candidiasis / Trichomoniasis",
+   "headers": [
+    "Bacterial Vaginosis",
+    "Vulvovaginal Candidiasis",
+    "Trichomoniasis"
+   ],
+   "rows": [
+    [
+     "Multiple partners, no",
+     "Pregnancy, CHC use, diabetes, M",
+     "ultiple sex partners, no condom"
+    ],
+    [
+     "condoms, douching,",
+     "weakened immune system, u",
+     "se, HIV infection, teens, and older"
+    ],
+    [
+     "HSV-2 infection",
+     "recent antibiotic use f",
+     "emales"
+    ],
+    [
+     "Aerobe overgrowth",
+     "Candida albicans",
+     "Trichomonas vaginalis"
+    ],
+    [
+     "Thin, milky,",
+     "Thick, cheesy or curd-like,",
+     "Malodorous, yellow-green,"
+    ],
+    [
+     "malodorous",
+     "white or yellow",
+     "copious, frothy"
+    ],
+    [
+     "Coats walls of vagina",
+     "",
+     ""
+    ],
+    [
+     ">4.5 (elevated)",
+     "<4.5 (normal)",
+     ">4.5 (elevated)"
+    ],
+    [
+     "Positive KOH whiff",
+     "NAAT",
+     "NAAT"
+    ],
+    [
+     "Clue cells",
+     "Buds, hyphae, with KOH",
+     "Trichomonads"
+    ],
+    [
+     "Metronidazole PO",
+     "Vaginal\u2013azole cream or ovule",
+     "Metronidazole 500 mg PO BID"
+    ],
+    [
+     "500 mg BID \u00d77 days",
+     "(suppository); fluconazole",
+     "\u00d77 days"
+    ],
+    [
+     "or vaginal gel daily",
+     "150 mg PO once",
+     ""
+    ]
+   ],
+   "confidence": 0.97
+  },
+  {
+   "section": "Women's Health",
+   "title": "Symptoms / Genitourinary symptoms",
+   "headers": [
+    "Symptoms",
+    "Genitourinary symptoms"
+   ],
+   "rows": [
+    [
+     "\u2022 Irregular menses",
+     "\u2022 Vaginal dryness"
+    ],
+    [
+     "\u2022 Cognitive changes (\u201cBrain Fog\u201d)",
+     "\u2022 Dyspareunia"
+    ],
+    [
+     "\u2022 Sleep/mood changes",
+     "\u2022 Urinary urgency"
+    ],
+    [
+     "\u2022 Hot flashes and night sweats",
+     "\u2022 Urinary frequency"
+    ],
+    [
+     "\u2022 Osteoporosis risk",
+     "\u2022 Recurrent UTIs"
+    ],
+    [
+     "\u2022 Cardiovascular risk",
+     ""
+    ]
+   ],
+   "confidence": 0.93
+  },
+  {
+   "section": "Women's Health",
+   "title": "Osteoporosis / T-Score <\u22122.5",
+   "headers": [
+    "Osteoporosis",
+    "T-Score <\u22122.5"
+   ],
+   "rows": [
+    [
+     "1. Osteopenia + increa",
+     "sed FRAX score"
+    ],
+    [
+     "2. Osteopenia + Hx of",
+     "fragility fracture"
+    ],
+    [
+     "3. Osteoporosis",
+     ""
+    ]
+   ],
+   "confidence": 0.85
+  }
+ ],
+ "men-s-health": [
+  {
+   "section": "Men's Health",
+   "title": "Prostate Cancer Risk Factors / Prostate Cancer / NOTES",
+   "headers": [
+    "Prostate Cancer Risk Factors",
+    "Prostate Cancer",
+    "NOTES"
+   ],
+   "rows": [
+    [
+     "\u2022 Older age",
+     "Screening Principles",
+     ""
+    ],
+    [
+     "\u2022 Black men",
+     "\u2022 Risk-based assessment: age 40",
+     ""
+    ],
+    [
+     "\u2022 Family history of prostate cancer",
+     "\u2022 Screen with PSA: age 50\u201355, every 1\u20132 years",
+     ""
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Men's Health",
+   "title": "Sexual / Physical / Cognitive",
+   "headers": [
+    "Sexual",
+    "Physical",
+    "Cognitive"
+   ],
+   "rows": [
+    [
+     "Reduced sexual drive",
+     "Fatigue",
+     "Depression"
+    ],
+    [
+     "Reduced erectile function",
+     "Hair loss",
+     "Cognitive dysfunction"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Men's Health",
+   "title": "Disorder / Symptom Onset / Cremasteric Reflex / Prehn Sign / Comments",
+   "headers": [
+    "Disorder",
+    "Symptom Onset",
+    "Cremasteric Reflex",
+    "Prehn Sign",
+    "Comments"
+   ],
+   "rows": [
+    [
+     "Epididymitis",
+     "Acute or chronic",
+     "Positive",
+     "Positive",
+     "\u2022 Tenderness of epididymis"
+    ],
+    [
+     "(orchitis)",
+     "",
+     "(testicle will",
+     "(pain resolves",
+     "\u2022 If STI, positive culture or"
+    ]
+   ],
+   "confidence": 1.0
+  }
+ ],
+ "orthopedic-disorders": [
+  {
+   "section": "Orthopedic Disorders",
+   "title": "Duloxetine / Alternative: if NSAIDs contraindicated",
+   "headers": [
+    "Duloxetine",
+    "Alternative: if NSAIDs contraindicated"
+   ],
+   "rows": [
+    [
+     "Injectable steroids",
+     "Very short duration"
+    ],
+    [
+     "Glucosamine, chondroitin, fish oil",
+     "Lack of evidence"
+    ],
+    [
+     "Opioids",
+     "Avoid! Risks outweigh benefits"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Orthopedic Disorders",
+   "title": "ROTATOR CUFF TENDINOPATHY / SHOULDER IMPINGEMENT",
+   "headers": [
+    "ROTATOR CUFF TENDINOPATHY",
+    "SHOULDER IMPINGEMENT"
+   ],
+   "rows": [
+    [
+     "\u2022 Drop arm test",
+     "\u2022 Neer test"
+    ],
+    [
+     "\u2022 Jobe (empty can) test (pictured)",
+     "\u2022 Hawkins\u2013Kennedy test (pictured)"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Orthopedic Disorders",
+   "title": "Test / Movement / Positive Finding",
+   "headers": [
+    "Test",
+    "Movement",
+    "Positive Finding"
+   ],
+   "rows": [
+    [
+     "Neer test [passive painful",
+     "Abduction to 180\u00b0 (raising arm",
+     "Pain with impingement:"
+    ],
+    [
+     "arc maneuver]",
+     "overhead)",
+     "\u2022 90\u00b0: Mild"
+    ],
+    [
+     "(supraspinatus)",
+     "",
+     "\u2022 60\u00b0\u201370\u00b0: Moderate"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Orthopedic Disorders",
+   "title": "Spinal / Extraspinal (Visceral) / Spinal Disease",
+   "headers": [
+    "Spinal",
+    "Extraspinal (Visceral)",
+    "Spinal Disease"
+   ],
+   "rows": [
+    [
+     "\u2022 Lumbar strain/",
+     "\u2022 Prostatitis",
+     "\u2022 Neoplasia (metastasis)"
+    ],
+    [
+     "\u2022 musculoskeletal (85%)",
+     "",
+     "\u2022 Infection (osteomyelitis,"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Orthopedic Disorders",
+   "title": "Pain Characteristics / Differential Diagnosis",
+   "headers": [
+    "Pain Characteristics",
+    "Differential Diagnosis"
+   ],
+   "rows": [
+    [
+     "Lateral, aggravated by direct pressure",
+     "Trochanteric bursitis"
+    ],
+    [
+     "Worse with use, better with rest",
+     "Structural joint problem, OA"
+    ],
+    [
+     "Constant pain, especially at night time",
+     "Infectious, inflammatory, neoplastic"
+    ],
+    [
+     "Anterior hip/groin pain",
+     "Hip joint: OA"
+    ],
+    [
+     "Posterior hip pain",
+     "SI joint, LBP"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Orthopedic Disorders",
+   "title": "Test / Method / Identifies",
+   "headers": [
+    "Test",
+    "Method",
+    "Identifies"
+   ],
+   "rows": [
+    [
+     "McMurray test",
+     "Passive flexion and extension of the knee,",
+     "Popping, pain at joint line, or"
+    ],
+    [
+     "",
+     "then repeat with the tibia internally and",
+     "limited range of motion"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Orthopedic Disorders",
+   "title": "Healthy Knee / Baker\u2019s Cyst",
+   "headers": [
+    "Healthy Knee",
+    "Baker\u2019s Cyst"
+   ],
+   "rows": [
+    [
+     "vial cavity is filled The flow o",
+     "f synovial fluid from a"
+    ],
+    [
+     "ovial fluid knee joint",
+     "to the gastrocnemio-"
+    ]
+   ],
+   "confidence": 1.0
+  }
+ ],
+ "dermatology": [
+  {
+   "section": "Dermatology",
+   "title": "Infection / Usual Organism / Treatment per IDSA",
+   "headers": [
+    "Infection",
+    "Usual Organism",
+    "Treatment per IDSA"
+   ],
+   "rows": [
+    [
+     "Cellulitis w/o purulence",
+     "MSSA, Strep",
+     "Cephalexin, cefadroxil, clindamycin"
+    ],
+    [
+     "Cellulitis w/ purulence",
+     "MRSA",
+     "I & D first-line, TMP-SMX, clindamycin, tetracycline,"
+    ]
+   ],
+   "confidence": 1.0
+  }
+ ],
+ "eye-ear-nose-and-throat-eent": [
+  {
+   "section": "Eye, Ear, Nose and Throat (EENT)",
+   "title": "Symptoms / Physical exam",
+   "headers": [
+    "Symptoms",
+    "Physical exam"
+   ],
+   "rows": [
+    [
+     "\u2022 Nasal congestion",
+     "\u2022 Sinus tenderness"
+    ],
+    [
+     "\u2022 Purulent nasal discharge",
+     "\u2022 Mucosal erythema"
+    ],
+    [
+     "\u2022 Facial pain/pressure (worse with bending",
+     "\u2022 Purulent posterior pharyngeal/nasal"
+    ],
+    [
+     "down)",
+     "secretions"
+    ],
+    [
+     "\u2022 Maxillary dental pain",
+     "\u2022 Air-fluid levels on transillumination"
+    ],
+    [
+     "\u2022 Fatigue, fever, cough, etc.",
+     ""
+    ]
+   ],
+   "confidence": 0.93
+  },
+  {
+   "section": "Eye, Ear, Nose and Throat (EENT)",
+   "title": "Anti-VCA IgM / Anti-VCA IgG / EBV Nuclear Antigen",
+   "headers": [
+    "Anti-VCA IgM",
+    "Anti-VCA IgG",
+    "EBV Nuclear Antigen"
+   ],
+   "rows": [
+    [
+     "Onset\u20146 wk",
+     "Acute phase, positive for life",
+     "2\u20134 mo after onset; positive for life"
+    ],
+    [
+     "Pos",
+     "Pos",
+     "Neg"
+    ],
+    [
+     "Neg",
+     "Pos",
+     "Pos"
+    ],
+    [
+     "Neg",
+     "Pos",
+     "Pos"
+    ],
+    [
+     "Pos",
+     "Pos",
+     "Pos"
+    ]
+   ],
+   "confidence": 1.0
+  }
+ ],
+ "care-of-the-aging-adult": [
+  {
+   "section": "Care of the Aging Adult",
+   "title": "Incontinence / Dry mouth / Dementia",
+   "headers": [
+    "Incontinence",
+    "Dry mouth",
+    "Dementia"
+   ],
+   "rows": [
+    [
+     "Atrial fibrillation",
+     "Infection",
+     "Erectile dysfunction"
+    ],
+    [
+     "Tooth decay",
+     "Hypogonadism",
+     "Blindness"
+    ],
+    [
+     "Dehydration",
+     "Prostatic hypertrophy",
+     "Wounds"
+    ],
+    [
+     "Fractures",
+     "Drug toxicity",
+     "Liver failure"
+    ],
+    [
+     "Renal failure",
+     "Burns",
+     "Falls"
+    ],
+    [
+     "Constipation",
+     "Diabetes",
+     "Pneumonia"
+    ],
+    [
+     "Anemia",
+     "Atelectasis",
+     "Insomnia"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Care of the Aging Adult",
+   "title": "Screening Test / Test Form / Indications / Frequency",
+   "headers": [
+    "Screening Test",
+    "Test Form",
+    "Indications",
+    "Frequency"
+   ],
+   "rows": [
+    [
+     "Alcohol use disorder",
+     "Questionnaire",
+     "All adults",
+     "N/A"
+    ],
+    [
+     "Drug use disorder",
+     "Questionnaire",
+     "All adults",
+     "N/A"
+    ],
+    [
+     "Tobacco cessation",
+     "\u201cHave you thought about",
+     "All adults who use tobacco",
+     "Every visit"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Care of the Aging Adult",
+   "title": "Hypertension / BP measurement / All adults / Annually",
+   "headers": [
+    "Hypertension",
+    "BP measurement",
+    "All adults",
+    "Annually"
+   ],
+   "rows": [
+    [
+     "Abdominal aortic",
+     "Abdominal ultrasound",
+     "Males 65\u201375 years who",
+     "Once"
+    ],
+    [
+     "aneurysm (AAA)",
+     "",
+     "have ever smoked",
+     ""
+    ],
+    [
+     "Diabetes",
+     "HbA1c, fasting glucose (FPG),",
+     "Adults aged 35\u201370 with",
+     "Every 3 years"
+    ]
+   ],
+   "confidence": 0.85
+  },
+  {
+   "section": "Care of the Aging Adult",
+   "title": "Lab / Value / Normal Value",
+   "headers": [
+    "Lab",
+    "Value",
+    "Normal Value"
+   ],
+   "rows": [
+    [
+     "Creatinine",
+     "1.6 (high)",
+     "0.6\u20131.3 mg/dL"
+    ],
+    [
+     "BUN",
+     "28 (high)",
+     "6\u201320 mg/dL"
+    ],
+    [
+     "eGFR",
+     "34 (low)",
+     ">60 mL/min/1.73 m2"
+    ],
+    [
+     "1. The problem is chr",
+     "onic, caused by hype",
+     "rtension."
+    ],
+    [
+     "2. The problem is acu",
+     "te, caused by dehydr",
+     "ation."
+    ],
+    [
+     "3. The problem is acu",
+     "te, caused by medica",
+     "tion."
+    ],
+    [
+     "4. More information i",
+     "s needed to determin",
+     "e chronicity."
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Care of the Aging Adult",
+   "title": "Stage / GFR / Interventions",
+   "headers": [
+    "Stage",
+    "GFR",
+    "Interventions"
+   ],
+   "rows": [
+    [
+     "I",
+     ">90",
+     "Reduce sodium intake; healthy habits and weight"
+    ],
+    [
+     "II",
+     "60\u201389",
+     "Reduce sodium intake; healthy habits and weight"
+    ],
+    [
+     "IIIa",
+     "45\u201359",
+     "Review medications; consider referral to nephrology"
+    ],
+    [
+     "IIIb",
+     "30\u201344",
+     "Review medications; diagnose and treat anemia"
+    ],
+    [
+     "IV",
+     "15\u201329",
+     "Review medications; lower protein intake; diagnose and treat"
+    ]
+   ],
+   "confidence": 1.0
+  }
+ ],
+ "pregnancy-in-primary-care": [
+  {
+   "section": "Pregnancy in Primary Care",
+   "title": "FNP EXAM / AGNP EXAM",
+   "headers": [
+    "FNP EXAM",
+    "AGNP EXAM"
+   ],
+   "rows": [
+    [
+     "\u2022 Approximately 3% questions on pregnancy",
+     "\u2022 Unlikely to have a question specific to"
+    ],
+    [
+     "\u2022 Four to six questions",
+     "pregnancy"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Pregnancy in Primary Care",
+   "title": "Acetaminophen (Tylenol) / ADD/ADHD",
+   "headers": [
+    "Acetaminophen (Tylenol)",
+    "ADD/ADHD"
+   ],
+   "rows": [
+    [
+     "Fluconazole (Diflucan)",
+     "Miscarriage (all doses)"
+    ],
+    [
+     "Nitrofurantoin (Macrobid)",
+     "Congenital abnormalities (avoid first trimester [ACOG])"
+    ],
+    [
+     "Ondansetron (Zofran)",
+     "\u2022 Heart defects/cleft palate (FDA warning)"
+    ]
+   ],
+   "confidence": 1.0
+  }
+ ],
+ "pediatrics": [
+  {
+   "section": "Pediatrics",
+   "title": "Patient Value / Lab Normal",
+   "headers": [
+    "Patient Value",
+    "Lab Normal"
+   ],
+   "rows": [
+    [
+     "8.0",
+     "4\u201311"
+    ],
+    [
+     "4.08 (L)",
+     "4.2\u20134.9"
+    ],
+    [
+     "10.0 (L)",
+     "12 \u201315"
+    ],
+    [
+     "31.0 (L)",
+     "37\u201351"
+    ],
+    [
+     "80.4",
+     "73\u201385"
+    ],
+    [
+     "24.3 (L)",
+     "23.7\u201328.4"
+    ],
+    [
+     "31.4",
+     "31.3\u201335.7"
+    ],
+    [
+     "20.6 (H)",
+     "12\u201317"
+    ],
+    [
+     "201",
+     "150\u2013375"
+    ],
+    [
+     "7.1",
+     "6.5\u201312"
+    ],
+    [
+     ":",
+     ""
+    ]
+   ],
+   "confidence": 0.96
+  },
+  {
+   "section": "Pediatrics",
+   "title": "Patient Value / Lab Normal",
+   "headers": [
+    "Patient Value",
+    "Lab Normal"
+   ],
+   "rows": [
+    [
+     "2.9 (L)",
+     "4\u201311"
+    ],
+    [
+     "4.08 (L)",
+     "4.2\u20134.9"
+    ],
+    [
+     "11.0 (L)",
+     "12\u201315"
+    ],
+    [
+     "33.0 (L)",
+     "37\u201351"
+    ],
+    [
+     "70.4 (L)",
+     "73\u201385"
+    ],
+    [
+     "21.2 (L)",
+     "23.7\u201328.4"
+    ],
+    [
+     "31.4",
+     "31.3\u201335.7"
+    ],
+    [
+     "19.6 (H)",
+     "12\u201317"
+    ],
+    [
+     "105 (L)",
+     "150\u2013375"
+    ],
+    [
+     "7.1",
+     "6.5\u201312"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Pediatrics",
+   "title": "Pneumococcal (PCV13, PPSV23) / Streptococcal pneumonia",
+   "headers": [
+    "Pneumococcal (PCV13, PPSV23)",
+    "Streptococcal pneumonia"
+   ],
+   "rows": [
+    [
+     "DTaP (Pertussis)",
+     "Bordetella pertussis (Whooping cough)\u2014younger than 7 years"
+    ],
+    [
+     "Tdap (Pertussis)",
+     "Bordetella pertussis\u2014older than 7 years"
+    ],
+    [
+     "HIB",
+     "Haemophilus influenzae type B; Pneumonia, meningitis, epiglottitis"
+    ],
+    [
+     "RSV vaccine",
+     "Respiratory syncytial virus (RSV)"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Pediatrics",
+   "title": "Patient / Reference Range",
+   "headers": [
+    "Patient",
+    "Reference Range"
+   ],
+   "rows": [
+    [
+     "13.7 H",
+     "4\u201311"
+    ],
+    [
+     "80 H",
+     "55\u201375"
+    ],
+    [
+     "14 L",
+     "30\u201340"
+    ],
+    [
+     "5.9",
+     "0\u201312"
+    ],
+    [
+     "0.1",
+     "0\u20136"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Pediatrics",
+   "title": "Consider referral / LTRA QD",
+   "headers": [
+    "Consider referral",
+    "LTRA QD"
+   ],
+   "rows": [
+    [
+     "Medium dose ICS QD & SABA prn",
+     "ICS QD & SABA prn"
+    ],
+    [
+     "Refer",
+     "ICS QD plus LTRA"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Pediatrics",
+   "title": "Step 1: Intermittent / SABA prn / SABA & ICS prn",
+   "headers": [
+    "Step 1: Intermittent",
+    "SABA prn",
+    "SABA & ICS prn"
+   ],
+   "rows": [
+    [
+     "Step 2: Mild persistent",
+     "Low-dose ICS QD + SABA prn",
+     "Low-dose ICS daily"
+    ],
+    [
+     "Step 3: Mod Persistent",
+     "Low-dose ICS-formoterol daily & prn",
+     "Low-dose ICS-LABA or"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Pediatrics",
+   "title": "Radiation / AS: neck",
+   "headers": [
+    "Radiation",
+    "AS: neck"
+   ],
+   "rows": [
+    [
+     "Response to Softer intensity when upright",
+     "Does not change with position"
+    ],
+    [
+     "position (except venous hum)",
+     ""
+    ]
+   ],
+   "confidence": 0.78
+  },
+  {
+   "section": "Pediatrics",
+   "title": "Murmur / Location / Characteristics / Age of Presentation",
+   "headers": [
+    "Murmur",
+    "Location",
+    "Characteristics",
+    "Age of Presentation"
+   ],
+   "rows": [
+    [
+     "ASD",
+     "LUSB",
+     "Mid-systolic, split S-2",
+     "Variable ages"
+    ],
+    [
+     "Mitral regurgitation",
+     "Apex",
+     "Holosystolic",
+     "Congenital"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Pediatrics",
+   "title": "Measure / Normal Values",
+   "headers": [
+    "Measure",
+    "Normal Values"
+   ],
+   "rows": [
+    [
+     "Total cholesterol",
+     "<170 mg/dL"
+    ],
+    [
+     "LDL-C",
+     "<110 mg/dL"
+    ],
+    [
+     "HDL-C",
+     ">45 mg/dL"
+    ],
+    [
+     "Triglycerides",
+     "<75 mg/dL (<9 years)"
+    ],
+    [
+     "Triglycerides",
+     "<90 mg/dL (10\u201319 years)"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Pediatrics",
+   "title": "Type I / Type II",
+   "headers": [
+    "Type I",
+    "Type II"
+   ],
+   "rows": [
+    [
+     "Autoimmunity to beta-cells produces insulin",
+     "Insulin resistance"
+    ],
+    [
+     "deficiency",
+     ""
+    ],
+    [
+     "Sudden",
+     "Insidious"
+    ],
+    [
+     "50% are <10 years",
+     "After puberty"
+    ],
+    [
+     "Weight loss, polyphagia, polydipsia, polyuria,",
+     "Often asymptomatic (40%)"
+    ],
+    [
+     "ketoacidosis",
+     "Polyphagia, polydipsia, polyuria can be"
+    ]
+   ],
+   "confidence": 0.93
+  },
+  {
+   "section": "Pediatrics",
+   "title": "Measure / Mild / Moderate / Severe",
+   "headers": [
+    "Measure",
+    "Mild",
+    "Moderate",
+    "Severe"
+   ],
+   "rows": [
+    [
+     "Pulse",
+     "Normal",
+     "Tachycardic",
+     "Tachycardia, thready"
+    ],
+    [
+     "Systolic BP",
+     "Normal",
+     "Normal to low",
+     "Low"
+    ],
+    [
+     "Respirations",
+     "Normal",
+     "Deep, tachypneic",
+     "Deep, tachypneic"
+    ],
+    [
+     "Mucosa",
+     "Sticky",
+     "Dry",
+     "Parched"
+    ],
+    [
+     "Anterior fontanel",
+     "Normal",
+     "Sunken",
+     "Very sunken"
+    ],
+    [
+     "Eyes",
+     "Normal",
+     "Sunken",
+     "Very sunken"
+    ],
+    [
+     "Skin turgor",
+     "Normal",
+     "Reduced",
+     "Tenting"
+    ],
+    [
+     "Skin",
+     "Normal",
+     "Cool",
+     "Cool, mottled"
+    ],
+    [
+     "Urine output",
+     "Normal or slightly reduced",
+     "Reduced",
+     "None"
+    ],
+    [
+     "Systemic signs",
+     "Thirsty",
+     "Irritable",
+     "Lethargy"
+    ],
+    [
+     "Hypovolemic shock: tach",
+     "ycardia is first sign",
+     "",
+     ""
+    ]
+   ],
+   "confidence": 0.96
+  },
+  {
+   "section": "Pediatrics",
+   "title": "Virus / Prodrome / Exanthem",
+   "headers": [
+    "Virus",
+    "Prodrome",
+    "Exanthem"
+   ],
+   "rows": [
+    [
+     "Roseola",
+     "Fever for 3\u20135 days then abrupt",
+     "Rash appears when fever resolves; macules and"
+    ],
+    [
+     "(exanthem",
+     "cessation prior to rash; most have no",
+     "maculopapules start on neck and trunk, then"
+    ],
+    [
+     "subitum)",
+     "other symptoms except irritability",
+     "spreads to extremities and face; 2\u20135 mm, pale"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Pediatrics",
+   "title": "Disorder / Description / Patient / Subjective / Objective",
+   "headers": [
+    "Disorder",
+    "Description",
+    "Patient",
+    "Subjective",
+    "Objective"
+   ],
+   "rows": [
+    [
+     "Leg\u2013Calv\u00e9\u2013",
+     "Avascular necrosis of the",
+     "Age 3\u201312",
+     "Hip pain radiates to medial",
+     "Limping on"
+    ],
+    [
+     "Perthes",
+     "capital femoral epiphysis",
+     "Males >females",
+     "knee, worsens with activity,",
+     "affected"
+    ],
+    [
+     "disease",
+     "(femoral head)",
+     "",
+     "persists at rest; pain present",
+     "side; positive"
+    ]
+   ],
+   "confidence": 1.0
+  }
+ ],
+ "pediatric-growth-development": [
+  {
+   "section": "Pediatric Growth & Development",
+   "title": "Infancy / Toddlerhood / Annually",
+   "headers": [
+    "Infancy",
+    "Toddlerhood",
+    "Annually"
+   ],
+   "rows": [
+    [
+     "\u2022 First week",
+     "\u2022 15 months",
+     "\u2022 3-21 years"
+    ],
+    [
+     "\u2022 1 month",
+     "\u2022 18 months",
+     ""
+    ],
+    [
+     "\u2022 2 months",
+     "\u2022 2 years",
+     ""
+    ],
+    [
+     "\u2022 3 months",
+     "\u2022 2.5 years",
+     ""
+    ],
+    [
+     "\u2022 4 months",
+     "",
+     ""
+    ],
+    [
+     "\u2022 6 months",
+     "",
+     ""
+    ],
+    [
+     "\u2022 9 months",
+     "",
+     ""
+    ],
+    [
+     "\u2022 12 months",
+     "",
+     ""
+    ]
+   ],
+   "confidence": 0.7
+  },
+  {
+   "section": "Pediatric Growth & Development",
+   "title": "Infancy / Toddlerhood / Annually",
+   "headers": [
+    "Infancy",
+    "Toddlerhood",
+    "Annually"
+   ],
+   "rows": [
+    [
+     "\u2022 First week",
+     "\u2022 15 months",
+     "\u2022 3\u201321 years"
+    ],
+    [
+     "\u2022 1 month",
+     "\u2022 18 months",
+     "$ 4 years"
+    ],
+    [
+     "\u2022 2 months",
+     "\u2022 2 years",
+     "$ Annual flu vaccine"
+    ],
+    [
+     "\u2022 3 months",
+     "\u2022 2.5 years",
+     ""
+    ],
+    [
+     "\u2022 4 months",
+     "",
+     ""
+    ],
+    [
+     "\u2022 6 months",
+     "",
+     ""
+    ],
+    [
+     "\u2022 9 months",
+     "",
+     ""
+    ],
+    [
+     "\u2022 12 months",
+     "",
+     ""
+    ]
+   ],
+   "confidence": 0.78
+  },
+  {
+   "section": "Pediatric Growth & Development",
+   "title": "Gross Motor / Fine Motor / Psychosocial Emotional / Language",
+   "headers": [
+    "Gross Motor",
+    "Fine Motor",
+    "Psychosocial Emotional",
+    "Language"
+   ],
+   "rows": [
+    [
+     "\u2022 Stands alone",
+     "\u2022 Puts block in",
+     "\u2022 Indicates wants",
+     "\u2022 Jabbers"
+    ],
+    [
+     "\u2022 Stoops and",
+     "cup",
+     "\u2022 Waves bye-bye",
+     "\u2022 \u201cdada\u201d \u201cmama\u201d"
+    ],
+    [
+     "recovers",
+     "",
+     "",
+     "\u2022 Says one word"
+    ],
+    [
+     "\u2022 Walks well",
+     "",
+     "",
+     ""
+    ],
+    [
+     "\u2022 Walks backward",
+     "\u2022 Scribbles",
+     "\u2022 Plays ball with examiner",
+     "\u2022 Says two to three"
+    ]
+   ],
+   "confidence": 0.82
+  },
+  {
+   "section": "Pediatric Growth & Development",
+   "title": "Gross Motor / Fine Motor / Psychosocial Emotional",
+   "headers": [
+    "Gross Motor",
+    "Fine Motor",
+    "Psychosocial Emotional"
+   ],
+   "rows": [
+    [
+     "Jumps up",
+     "Builds tower of six cubes, uses",
+     "Puts on clothing, brushes"
+    ],
+    [
+     "Throws ball overhand",
+     "scissors, copies circle",
+     "teeth with help"
+    ],
+    [
+     "Rides a tricycle",
+     "",
+     ""
+    ],
+    [
+     "Jumps a short distance,",
+     "Copies vertical line, builds",
+     "Washes/dries hands, names"
+    ],
+    [
+     "balances 2 seconds on each foot,",
+     "tower of eight cubes, wriggles",
+     "friend, puts on t-shirt"
+    ],
+    [
+     "catches a bouncing ball, throws",
+     "thumbs, dresses/undresses",
+     ""
+    ],
+    [
+     "ball underhand, walks down steps",
+     "",
+     ""
+    ],
+    [
+     "alternately",
+     "",
+     ""
+    ],
+    [
+     "Hops, balances 3 seconds on",
+     "Draws person in three parts,",
+     "Dresses self, plays board"
+    ],
+    [
+     "each foot, skips, walks backward",
+     "copies +, triangle, square,",
+     "games, brushes teeth without"
+    ],
+    [
+     "toe to heel, can somersault",
+     "prints own name",
+     "help, imaginary friend, shows"
+    ]
+   ],
+   "confidence": 0.88
+  },
+  {
+   "section": "Pediatric Growth & Development",
+   "title": "Language / Visual Acuity",
+   "headers": [
+    "Language",
+    "Visual Acuity"
+   ],
+   "rows": [
+    [
+     "Combines words, IDs one picture, names six body parts, points to",
+     "Vision: 20/50"
+    ],
+    [
+     "four pictures, speech half understandable",
+     ""
+    ],
+    [
+     "Knows two actions, two adjectives, names one color, uses two",
+     "Vision: 20/40"
+    ],
+    [
+     "objects, counts one block, names four pictures",
+     ""
+    ],
+    [
+     "Knows four actions, uses three objects, ALL speech understandable,",
+     "Vision: 20/30"
+    ],
+    [
+     "understands four prepositions, names four colors, 1,500-word",
+     ""
+    ],
+    [
+     "vocabulary",
+     ""
+    ]
+   ],
+   "confidence": 0.74
+  },
+  {
+   "section": "Pediatric Growth & Development",
+   "title": "Gross Motor / Fine Motor / Psychosocial Emotional",
+   "headers": [
+    "Gross Motor",
+    "Fine Motor",
+    "Psychosocial Emotional"
+   ],
+   "rows": [
+    [
+     "Balances on each foot 6 P",
+     "icks longer line from choices,",
+     "Prepares cereal, enthusiastic"
+    ],
+    [
+     "seconds, heel-to-toe walking, c",
+     "opies square, draws person in",
+     "about surroundings,"
+    ],
+    [
+     "precise and deliberate s",
+     "ix parts",
+     "identifies left and right, some"
+    ],
+    [
+     "movements",
+     "",
+     "understanding of death and"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Pediatric Growth & Development",
+   "title": "Moral Development / Physical Development",
+   "headers": [
+    "Moral Development",
+    "Physical Development"
+   ],
+   "rows": [
+    [
+     "Rules are absolute, values consequences",
+     "Visual acuity: 20/20, tonsils & adenoids reach"
+    ],
+    [
+     "over intentions with a focus on avoiding",
+     "largest size, retina fully developed, eustachian"
+    ],
+    [
+     "punishment.",
+     "tube becomes longer and more slanted,"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Pediatric Growth & Development",
+   "title": "Male Physical Development / Female Physical Development",
+   "headers": [
+    "Male Physical Development",
+    "Female Physical Development"
+   ],
+   "rows": [
+    [
+     "Rapid height gains (10 cm/year),",
+     "Increased coordination and strength,"
+    ],
+    [
+     "ravenous appetite, metabolism",
+     "rapid vertical growth, body proportions"
+    ],
+    [
+     "fluctuations, extreme restlessness,",
+     "similar to adult"
+    ],
+    [
+     "body proportions similar to adult",
+     ""
+    ],
+    [
+     "Nearing completion of vertical growth,",
+     "Nearing completion of vertical growth,"
+    ],
+    [
+     "acne and body odor prevalent, periods",
+     "height completion ceases 2\u20132.5 years"
+    ],
+    [
+     "of excessive physical activity followed",
+     "after menarche, acne and body odor"
+    ],
+    [
+     "by periods of lethargy",
+     "prevalent, periods of excessive physical"
+    ]
+   ],
+   "confidence": 0.94
+  },
+  {
+   "section": "Pediatric Growth & Development",
+   "title": "Step 6 / Principle Postconventional",
+   "headers": [
+    "Step 6",
+    "Principle Postconventional"
+   ],
+   "rows": [
+    [
+     "5 Social Con",
+     "tract (Adulthood)"
+    ],
+    [
+     "",
+     "Conventional"
+    ]
+   ],
+   "confidence": 0.78
+  }
+ ],
+ "entry-into-practice": [
+  {
+   "section": "Entry Into Practice",
+   "title": "AANP / ANCC / AACN / PNCB / NCC",
+   "headers": [
+    "AANP",
+    "ANCC",
+    "AACN",
+    "PNCB",
+    "NCC"
+   ],
+   "rows": [
+    [
+     "FNP",
+     "FNP",
+     "ACNPC-AG",
+     "CPNP-AC",
+     "NNP-BC"
+    ],
+    [
+     "AGNP",
+     "AGPCNP",
+     "ACNPC- Adult",
+     "CPNP-PC",
+     "WHNP-BC"
+    ],
+    [
+     "PMHNP",
+     "AGACNP",
+     "",
+     "PMHS",
+     ""
+    ],
+    [
+     "ENP",
+     "PMHNP",
+     "",
+     "",
+     ""
+    ]
+   ],
+   "confidence": 0.78
+  },
+  {
+   "section": "Entry Into Practice",
+   "title": "Board certification / FNP-BC, AGPCNP-BC, AGACNP-BC, / FNP-C, AGNP-C",
+   "headers": [
+    "Board certification",
+    "FNP-BC, AGPCNP-BC, AGACNP-BC,",
+    "FNP-C, AGNP-C"
+   ],
+   "rows": [
+    [
+     "credential",
+     "PMHNP-BC",
+     ""
+    ],
+    [
+     "Costs\u2014nonmember",
+     "$395 ($295/member)",
+     "$315 ($240/member)"
+    ],
+    [
+     "Questions",
+     "175: 150 scored, 25 pretest",
+     "150: 135 scored, 15 pretest"
+    ],
+    [
+     "Format",
+     "Multiple choice, drop and drag, hot spot,",
+     "Multiple choice"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Entry Into Practice",
+   "title": "AACN / PNCB / NCC",
+   "headers": [
+    "AACN",
+    "PNCB",
+    "NCC"
+   ],
+   "rows": [
+    [
+     "On eligibility letter",
+     "Predefined testing windows",
+     "90-day, 30-day schedule"
+    ],
+    [
+     "",
+     "w/application deadlines",
+     "window"
+    ],
+    [
+     "ACNPC-AG",
+     "CPNP, CPNP-AC",
+     "WHNP-BC, NNP-BC"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Entry Into Practice",
+   "title": "Format / Multiple choice / Multiple choice / Multiple choice",
+   "headers": [
+    "Format",
+    "Multiple choice",
+    "Multiple choice",
+    "Multiple choice"
+   ],
+   "rows": [
+    [
+     "Time to complete",
+     "3.5 h",
+     "3h",
+     "3h"
+    ],
+    [
+     "Results",
+     "Immediate; official letter Im",
+     "mediate; official letter in",
+     "Mailed within 15 days;"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Entry Into Practice",
+   "title": "AACN / PNCB / NCC",
+   "headers": [
+    "AACN",
+    "PNCB",
+    "NCC"
+   ],
+   "rows": [
+    [
+     "5 years",
+     "Yearly; 7-year cycle",
+     "3 years"
+    ],
+    [
+     "$340 option 1/$305",
+     "Variable",
+     "$100\u2013$175"
+    ],
+    [
+     "options 2 & 3",
+     "",
+     ""
+    ],
+    [
+     "1,000 verifiable practice",
+     "Practice hours:",
+     "Continuing competency assessment"
+    ],
+    [
+     "hours",
+     "400 = CH",
+     "(starts the assessment cycle, IEP)"
+    ],
+    [
+     "150 total",
+     "15",
+     "10\u201350 hours: core competency"
+    ],
+    [
+     "75 in Cat 1 (acute care)",
+     "CH = PPL, practice,",
+     ""
+    ]
+   ],
+   "confidence": 0.94
+  }
+ ],
+ "professional-role-competencies-issues": [
+  {
+   "section": "Professional Role, Competencies & Issues",
+   "title": "Employment settings / Bureau of Labor Statistics",
+   "headers": [
+    "Employment settings",
+    "Bureau of Labor Statistics"
+   ],
+   "rows": [
+    [
+     "\u2022 48% physician offices",
+     "\u2022 Employment of NPs"
+    ],
+    [
+     "\u2022 22% hospitals",
+     "\u2022 45% from 2022 to 2032"
+    ],
+    [
+     "\u2022 9% outpatient care centers",
+     "\u2022 118,600 new jobs for NPs"
+    ],
+    [
+     "\u2022 4% offices of other health practitioners",
+     ""
+    ]
+   ],
+   "confidence": 0.89
+  },
+  {
+   "section": "Professional Role, Competencies & Issues",
+   "title": "Framework / Ask Yourself:",
+   "headers": [
+    "Framework",
+    "Ask Yourself:"
+   ],
+   "rows": [
+    [
+     "Patient problem or",
+     "Does my patient meet the criteria of those studied according to age, ethnicity,"
+    ],
+    [
+     "population",
+     "socioeconomic status, gender, or problem type? How is the enrolled population"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Professional Role, Competencies & Issues",
+   "title": "Recommendation / Basis for Recommendation",
+   "headers": [
+    "Recommendation",
+    "Basis for Recommendation"
+   ],
+   "rows": [
+    [
+     "Very low",
+     "True effect is probably markedly different from the estimated effect."
+    ],
+    [
+     "Low",
+     "True effect might be markedly different from the estimated effect."
+    ],
+    [
+     "Moderate",
+     "The authors believe that the true effect is probably close to the estimated effect."
+    ],
+    [
+     "High",
+     "The authors have a lot of confidence that the true effect is similar to the estimated"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Professional Role, Competencies & Issues",
+   "title": "Types of the Theory / Advantages / Disadvantages",
+   "headers": [
+    "Types of the Theory",
+    "Advantages",
+    "Disadvantages"
+   ],
+   "rows": [
+    [
+     "Consequence-based",
+     "Stresses promotion of happiness I",
+     "gnores concerns of justice for the minority"
+    ],
+    [
+     "(Consequentialism/",
+     "and utility p",
+     "opulation"
+    ],
+    [
+     "Utilitarian)",
+     "",
+     ""
+    ],
+    [
+     "Duty-based (Deontology)",
+     "Stresses the role of duty and",
+     "Underestimates the importance of happiness"
+    ]
+   ],
+   "confidence": 0.89
+  },
+  {
+   "section": "Professional Role, Competencies & Issues",
+   "title": "Year / Bill Title / Summary",
+   "headers": [
+    "Year",
+    "Bill Title",
+    "Summary"
+   ],
+   "rows": [
+    [
+     "1996",
+     "Welfare Reform Act",
+     "Separated Medicaid from welfare"
+    ],
+    [
+     "1996",
+     "Health Insurance Portability",
+     "\u2022 Created federal standards for insurers, HMOs, and employer"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Professional Role, Competencies & Issues",
+   "title": "Waterborne Diseases / Other Diseases",
+   "headers": [
+    "Waterborne Diseases",
+    "Other Diseases"
+   ],
+   "rows": [
+    [
+     "\u2022 Cholera",
+     "\u2022 Cancer"
+    ],
+    [
+     "\u2022 Crytosporiodiosis",
+     "\u2022 Chancroid"
+    ],
+    [
+     "\u2022 Cyclosporiasis",
+     "\u2022 Chlamydia trachomatis"
+    ],
+    [
+     "\u2022 Giardiasis",
+     "\u2022 Coronavirus Disease-19"
+    ],
+    [
+     "\u2022 Hepatitis A",
+     "\u2022 Gonorrhea"
+    ],
+    [
+     "\u2022 Legionellosis",
+     "\u2022 HIV"
+    ],
+    [
+     "\u2022 Malaria",
+     "\u2022 Influenza-associated pediatric mortality"
+    ],
+    [
+     "\u2022 Salmonellosis",
+     "\u2022 Lyme disease"
+    ],
+    [
+     "\u2022 Shigellosis",
+     "\u2022 Mumps"
+    ],
+    [
+     "\u2022 Typhoid fever",
+     "\u2022 Pertussis"
+    ],
+    [
+     "\u2022 Vibriosis",
+     "\u2022 And many, many more"
+    ],
+    [
+     "\u2022 Yellow fever",
+     ""
+    ],
+    [
+     "https://www.cdc.gov/healthy-water-data/abo",
+     "ut/nationally-notifiable-waterborne-diseases.html"
+    ],
+    [
+     "https://ndc.services.cdc.gov/search-result",
+     "s-year/"
+    ]
+   ],
+   "confidence": 0.97
+  },
+  {
+   "section": "Professional Role, Competencies & Issues",
+   "title": "Concept / Definition / Measurement Approach",
+   "headers": [
+    "Concept",
+    "Definition",
+    "Measurement Approach"
+   ],
+   "rows": [
+    [
+     "Behavioral",
+     "Perceived likelihood of performing",
+     "Are you likely or unlikely to perform"
+    ],
+    [
+     "Attitude",
+     "Personal evaluation of the behavior",
+     "Do you see the behavior as good, bad,"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Professional Role, Competencies & Issues",
+   "title": "Partnership / PCP: nonjudgmental,",
+   "headers": [
+    "Partnership",
+    "PCP: nonjudgmental,"
+   ],
+   "rows": [
+    [
+     "is an expert in",
+     "empathetic, seeks to"
+    ],
+    [
+     "g people change.",
+     "understand the"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Professional Role, Competencies & Issues",
+   "title": "B / E / L / T",
+   "headers": [
+    "B",
+    "E",
+    "L",
+    "T"
+   ],
+   "rows": [
+    [
+     "dband \u2022 Educ",
+     "ation \u2022 Leade",
+     "rship \u2022 Techn",
+     "ology"
+    ],
+    [
+     "width \u2022 Envi",
+     "ronment \u2022 Champ",
+     "ion \u2022 Hardw",
+     "are,"
+    ]
+   ],
+   "confidence": 1.0
+  },
+  {
+   "section": "Professional Role, Competencies & Issues",
+   "title": "Opposition Argument / Facts",
+   "headers": [
+    "Opposition Argument",
+    "Facts"
+   ],
+   "rows": [
+    [
+     "NPs spend more and cost the health care system",
+     "$70,000 a year since moving to FPA in 2017"
+    ],
+    [
+     "NPs aren\u2019t safe without oversight.",
+     "26 states and DC have FPA, some for >30 years. Never"
+    ]
+   ],
+   "confidence": 1.0
+  }
+ ]
+}

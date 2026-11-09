@@ -1,0 +1,180 @@
+{
+  "patches": [
+    {
+      "id": "hematology-q4",
+      "options": [
+        "Iron deficiency anemia — evaluate for occult GI blood loss",
+        "Hemolytic anemia — start corticosteroids",
+        "B12 deficiency — give IM cyanocobalamin",
+        "Anemia of chronic disease — transfuse if Hgb <7"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": "hematology-q7",
+      "options": [
+        "Thalassemia trait — order hemoglobin electrophoresis; do not give iron",
+        "Iron deficiency — prescribe oral ferrous sulfate",
+        "Lead toxicity — chelation therapy",
+        "Sideroblastic anemia — pyridoxine trial"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": "hematology-q8",
+      "options": [
+        "Macrocytic anemia with neuropathy — suspect B12 deficiency; check B12 ± MMA",
+        "Microcytic IDA — ferritin and TIBC",
+        "Normocytic anemia of inflammation only",
+        "Hemolytic anemia — start steroids"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": "neurologic-disorders-q11",
+      "options": [
+        "Parkinson = unilateral resting tremor; essential = symmetric voice/head tremor; drug-induced with valproate; essential treated with primidone/propranolol; PD with bradykinesia/rigidity; hyperthyroidism with anxiety/heat intolerance",
+        "All tremors are essential tremor until proven otherwise",
+        "Valproic acid treats essential tremor; propranolol treats drug-induced tremor",
+        "Resting tremor always indicates hyperthyroidism"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": "gastrointestinal-disorders-q11",
+      "options": [
+        "Acute hepatitis A (IgM anti-HAV positive)",
+        "Chronic hepatitis B",
+        "Autoimmune hepatitis",
+        "Alcoholic hepatitis"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": "urology-and-sexually-transmitted-infections-q11",
+      "options": [
+        "Syphilis (including rapid resurgence / congenital syphilis)",
+        "Chancroid",
+        "Lymphogranuloma venereum",
+        "Granuloma inguinale"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": "urology-and-sexually-transmitted-infections-q13",
+      "options": [
+        "Confirm HSV type; repeat low-index IgG; counsel — no treatment without lesions",
+        "Treat empirically with valacyclovir regardless of symptoms",
+        "Disregard positive IgG — it is never clinically relevant",
+        "Order only IgM and treat if positive"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": "endocrine-disorders-q3",
+      "options": [
+        "Acanthosis nigricans — check A1c or FPG and lipids for insulin resistance",
+        "Addison disease — start hydrocortisone",
+        "Cushing syndrome — order low-dose dexamethasone suppression",
+        "Hypothyroidism — start levothyroxine"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": "orthopedic-disorders-q5",
+      "options": [
+        "Lateral epicondylitis (tennis elbow)",
+        "Medial epicondylitis (golfer's elbow)",
+        "Carpal tunnel syndrome",
+        "Olecranon bursitis"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": "dermatology-q1",
+      "options": [
+        "Impetigo",
+        "Atopic dermatitis",
+        "Herpes simplex labialis",
+        "Tinea corporis"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": "pregnancy-in-primary-care-q10",
+      "options": [
+        "Chlamydia: azithromycin 1 g once + test of cure; Gonorrhea: ceftriaxone 500 mg IM; PID: inpatient IV regimens; Syphilis: penicillin G per stage",
+        "Chlamydia: doxycycline 7 days without test of cure; Gonorrhea: oral cephalexin; PID: outpatient only; Syphilis: azithromycin",
+        "No STI treatment is safe in pregnancy",
+        "Treat all with metronidazole gel only"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": "pregnancy-in-primary-care-q11",
+      "options": [
+        "Trichomonas: oral metronidazole (not vaginal gel); BV: oral metronidazole; Candida: topical azoles only (avoid oral fluconazole)",
+        "Trichomonas: metronidazole gel only; BV: fluconazole; Candida: oral fluconazole 150 mg",
+        "Treat all vaginitis with oral fluconazole",
+        "No treatment needed in pregnancy for BV or trichomonas"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": "pediatrics-q14",
+      "options": [
+        "Hemolytic causes — G6PD deficiency (also ABO incompatibility, spherocytosis); review peripheral smear",
+        "Iron deficiency anemia only — start oral iron",
+        "Normal physiologic jaundice — discharge without workup",
+        "Biliary atresia — immediate Kasai without bilirubin trend"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": "endocrine-disorders-q14",
+      "stem": "Levothyroxine starting doses: 55-year-old with OA; 72-year-old with hypertension; 28-year-old with asthma; 46-year-old healthy female. Which starting dose strategy is appropriate?",
+      "options": [
+        "Use full calculated dose for younger patients without cardiovascular disease; start low (~25 mcg) in the 72-year-old with HTN/CVD risk",
+        "Start all patients at 200 mcg regardless of age",
+        "Withhold levothyroxine in asthma until pulmonary clearance",
+        "Use the same 112 mcg start dose for every patient"
+      ],
+      "correctIndex": 0,
+      "explanation": "Healthy younger adults can start near full weight-based dose. Older adults with cardiovascular disease start low and titrate slowly."
+    },
+    {
+      "id": "endocrine-disorders-q16",
+      "stem": "Fatigue, weight loss, hyperpigmentation, postural hypotension — name the condition:",
+      "options": [
+        "Primary adrenal insufficiency (Addison disease)",
+        "Cushing syndrome from adrenal tumor",
+        "Asymptomatic hyperparathyroidism",
+        "Iatrogenic Cushing from chronic prednisone"
+      ],
+      "correctIndex": 0,
+      "explanation": "Hyperpigmentation + hypotension + weight loss = adrenal insufficiency."
+    },
+    {
+      "id": "eye-ear-nose-and-throat-eent-q4",
+      "options": [
+        "Only the 13-year-old with Centor score 3",
+        "Both the 13-year-old and the 60-year-old daycare worker",
+        "All three patients regardless of Centor score",
+        "Only the adult with cough and Centor score 0"
+      ],
+      "correctIndex": 0
+    },
+    {
+      "id": "eye-ear-nose-and-throat-eent-q8",
+      "options": [
+        "All four: trigeminal neuralgia, TMJ dysfunction, acute rhinosinusitis, and dental infection",
+        "Trigeminal neuralgia only — rule out everything else",
+        "TMJ dysfunction only",
+        "Acute rhinosinusitis only"
+      ],
+      "correctIndex": 0,
+      "explanation": "Intermittent jaw/cheek pain differential includes all four listed diagnoses."
+    }
+  ],
+  "extra": []
+}
