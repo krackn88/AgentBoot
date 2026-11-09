@@ -1,9 +1,15 @@
 {
   "set": [
+    { "id": "manual-03-q1", "correctIndex": 2, "explanation": "Penicillins and cephalosporins commonly cause morbilliform (maculopapular) drug eruptions." },
+    { "id": "manual-03-q2", "correctIndex": 3, "explanation": "Recent amoxicillin raises beta-lactamase–producing organism risk in sinusitis." },
     { "id": "manual-03-q3", "correctIndex": 0, "explanation": "Clindamycin has high C. difficile risk." },
     { "id": "manual-03-q4", "correctIndex": 2, "explanation": "Doxycycline causes photosensitivity — use sunscreen." },
     { "id": "manual-03-q5", "correctIndex": 1, "explanation": "Azithromycin can prolong QT → torsades de pointes." },
-    { "id": "manual-05-q1", "correctIndex": 3, "explanation": "Anemia = low Hgb, Hct, or RBC (any one measure)." },
-    { "id": "manual-03-q2", "correctIndex": 3, "explanation": "Recent amoxicillin raises beta-lactamase–producing organism risk in sinusitis." }
+    { "id": "manual-04-q1", "correctIndex": 3, "explanation": "Acute bronchitis in a healthy adult: supportive care (rest, fluids); antibiotics are not indicated." },
+    { "id": "manual-04-q2", "correctIndex": 0, "explanation": "Screening tests (rule out disease) should have high sensitivity." },
+    { "id": "manual-04-q3", "correctIndex": 2, "explanation": "Typical bacterial CAP often shows lobar infiltrates on chest imaging." },
+    { "id": "manual-04-q4", "correctIndex": 1, "explanation": "Healthy outpatient CAP without comorbidities: macrolide such as azithromycin is first-line." },
+    { "id": "manual-04-q5", "correctIndex": 3, "explanation": "PCN allergy (hives): azithromycin is an appropriate respiratory fluoroquinolone/macrolide alternative." },
+    { "id": "manual-05-q1", "correctIndex": 3, "explanation": "Anemia = reduction in at least one RBC measure (Hgb, Hct, or RBC count)." }
   ]
 }

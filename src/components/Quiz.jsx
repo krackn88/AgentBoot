@@ -120,7 +120,7 @@ export default function Quiz({ guide, store, update, preset, onDone, questionPoo
   return (
     <div style={{ maxWidth: 760, margin: '0 auto' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 8 }}>
-        <p className="label">{session.title ? `${session.title} · ` : ''}Question {idx + 1} / {session.questions.length} · {q.chapterTitle}</p>
+        <p className="label">{session.title ? `${session.title} · ` : ''}Question {idx + 1} / {session.questions.length} · {q.chapterTitle}{q.source === 'manual' && <span className="pill" style={{ marginLeft: 6 }}>Manual slide</span>}</p>
         <p className="label">{session.mode === 'exam' ? `⏱ ${Math.max(0, Math.floor(timeLeft / 60))}:${String(Math.max(0, timeLeft % 60)).padStart(2, '0')} left` : `⏱ ${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`}</p>
       </div>
       <div className="bar"><i style={{ width: `${(idx + 1) / session.questions.length * 100}%` }} /></div>

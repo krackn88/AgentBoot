@@ -39,7 +39,7 @@ export function buildTests(guide, questionPool) {
       testId: `manual-mock-${i + 1}`,
       kind: 'mock',
       title: `Course Manual Mock ${String.fromCharCode(65 + i)}`,
-      blurb: `${f.length} unique slide MCQs from the original APEA manuals — separate from the study-guide bank.`,
+      blurb: `${f.length} unique slide MCQs from the original APEA manuals (auto-graded where slide context allows; curated overrides for high-yield items).`,
       count: f.length,
       minutes: Math.round(f.length * 1.2),
       ids: f,

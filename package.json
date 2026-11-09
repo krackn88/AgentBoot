@@ -11,6 +11,7 @@
     "sync:manuals": "python3 scripts/sync_manuals.py",
     "enrich": "python3 scripts/enrich_from_manuals.py",
     "extract:questions": "python3 scripts/extract_manual_questions.py",
+    "suggest:manual-answers": "python3 scripts/suggest_manual_overrides.py",
     "content:build": "npm run enrich && npm run extract:questions"
   },
   "dependencies": {
