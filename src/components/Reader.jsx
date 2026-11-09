@@ -3,6 +3,12 @@ import { pdfUrlForChapter } from '../lib/pdfs'
 
 export function Blocks({ blocks }) {
   return blocks.map((b, i) => {
+    if (b.type === 'manual-note') return (
+      <aside className="manual-note" key={i}>
+        <p className="label">From the course manual{b.source ? ` · ${b.source}` : ''}</p>
+        <p>{b.text}</p>
+      </aside>
+    )
     if (b.type === 'p') return <p key={i}>{b.text}</p>
     if (b.type === 'list') return <ul key={i}>{b.items.map((it, j) => <li key={j}>{it}</li>)}</ul>
     if (b.type === 'table') return (

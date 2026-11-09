@@ -4,171 +4,172 @@
       "id": "exam-prep-and-how-to-use-this-guide",
       "number": 1,
       "title": "Exam Prep and How to Use This Guide",
-      "sections": 22,
+      "sections": 24,
       "pearls": 5,
-      "words": 650
+      "words": 689
     },
     {
       "id": "antibiotics",
       "number": 2,
       "title": "Antibiotics",
-      "sections": 38,
-      "pearls": 9,
-      "words": 1030
+      "sections": 28,
+      "pearls": 11,
+      "words": 954
     },
     {
       "id": "pulmonary-disorders",
       "number": 3,
       "title": "Pulmonary Disorders",
-      "sections": 45,
-      "pearls": 23,
-      "words": 1278
+      "sections": 49,
+      "pearls": 16,
+      "words": 2209
     },
     {
       "id": "hematology",
       "number": 4,
       "title": "Hematology",
-      "sections": 45,
-      "pearls": 6,
-      "words": 1103
+      "sections": 39,
+      "pearls": 7,
+      "words": 1525
     },
     {
       "id": "neurologic-disorders",
       "number": 5,
       "title": "Neurologic Disorders",
-      "sections": 45,
-      "pearls": 13,
-      "words": 1559
+      "sections": 43,
+      "pearls": 11,
+      "words": 2155
     },
     {
       "id": "mental-health-in-primary-care",
       "number": 6,
       "title": "Mental Health in Primary Care",
-      "sections": 45,
-      "pearls": 14,
-      "words": 1527
+      "sections": 48,
+      "pearls": 13,
+      "words": 2313
     },
     {
       "id": "gastrointestinal-disorders",
       "number": 7,
       "title": "Gastrointestinal Disorders",
-      "sections": 45,
+      "sections": 36,
       "pearls": 6,
-      "words": 1421
+      "words": 1820
     },
     {
       "id": "urology-and-sexually-transmitted-infections",
       "number": 8,
       "title": "Urology and Sexually Transmitted Infections",
-      "sections": 45,
-      "pearls": 22,
-      "words": 1523
+      "sections": 51,
+      "pearls": 23,
+      "words": 2751
     },
     {
       "id": "cardiovascular-and-peripheral-vascular-disorders",
       "number": 9,
       "title": "Cardiovascular and Peripheral Vascular Disorders",
-      "sections": 45,
-      "pearls": 23,
-      "words": 1262
+      "sections": 37,
+      "pearls": 19,
+      "words": 1634
     },
     {
       "id": "endocrine-disorders",
       "number": 10,
       "title": "Endocrine Disorders",
-      "sections": 45,
-      "pearls": 32,
-      "words": 1740
+      "sections": 51,
+      "pearls": 33,
+      "words": 2646
     },
     {
       "id": "women-s-health",
       "number": 11,
       "title": "Women's Health",
-      "sections": 45,
-      "pearls": 11,
-      "words": 1464
+      "sections": 46,
+      "pearls": 12,
+      "words": 2134
     },
     {
       "id": "men-s-health",
       "number": 12,
       "title": "Men's Health",
-      "sections": 45,
-      "pearls": 7,
-      "words": 1614
+      "sections": 39,
+      "pearls": 8,
+      "words": 1590
     },
     {
       "id": "orthopedic-disorders",
       "number": 13,
       "title": "Orthopedic Disorders",
-      "sections": 45,
-      "pearls": 7,
-      "words": 1219
+      "sections": 39,
+      "pearls": 5,
+      "words": 1828
     },
     {
       "id": "dermatology",
       "number": 14,
       "title": "Dermatology",
-      "sections": 45,
-      "pearls": 6,
-      "words": 1818
+      "sections": 30,
+      "pearls": 8,
+      "words": 2216
     },
     {
       "id": "eye-ear-nose-and-throat-eent",
       "number": 15,
       "title": "Eye, Ear, Nose and Throat (EENT)",
-      "sections": 45,
+      "sections": 38,
       "pearls": 9,
-      "words": 1065
+      "words": 1837
     },
     {
       "id": "care-of-the-aging-adult",
       "number": 16,
       "title": "Care of the Aging Adult",
-      "sections": 45,
-      "pearls": 6,
-      "words": 1567
+      "sections": 61,
+      "pearls": 5,
+      "words": 3370
     },
     {
       "id": "pregnancy-in-primary-care",
       "number": 17,
       "title": "Pregnancy in Primary Care",
-      "sections": 45,
-      "pearls": 4,
-      "words": 1944
+      "sections": 39,
+      "pearls": 6,
+      "words": 2916
     },
     {
       "id": "pediatrics",
       "number": 18,
       "title": "Pediatrics",
-      "sections": 45,
-      "pearls": 22,
-      "words": 1906
+      "sections": 70,
+      "pearls": 23,
+      "words": 6005
     },
     {
       "id": "pediatric-growth-development",
       "number": 19,
       "title": "Pediatric Growth & Development",
-      "sections": 45,
-      "pearls": 4,
-      "words": 1339
+      "sections": 36,
+      "pearls": 5,
+      "words": 2715
     },
     {
       "id": "entry-into-practice",
       "number": 20,
       "title": "Entry Into Practice",
-      "sections": 45,
+      "sections": 54,
       "pearls": 1,
-      "words": 1516
+      "words": 2212
     },
     {
       "id": "professional-role-competencies-issues",
       "number": 21,
       "title": "Professional Role, Competencies & Issues",
-      "sections": 45,
+      "sections": 70,
       "pearls": 5,
-      "words": 1957
+      "words": 8140
     }
   ],
-  "pearls_total": 235,
-  "generated": true
+  "pearls_total": 231,
+  "generated": true,
+  "supplements_added": 22
 }

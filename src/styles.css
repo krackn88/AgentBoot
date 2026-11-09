@@ -182,6 +182,9 @@ input[type=text],input[type=email],input[type=date],select{padding:11px 13px;bor
 .pearl-card{display:grid;grid-template-columns:36px 1fr;gap:12px;padding:14px 16px;background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
 .pearl-card p{margin:0;line-height:1.6;color:var(--ink2)}
 .pearl-num{font-family:'Fraunces',serif;font-weight:800;color:var(--brand2);font-size:18px}
+.manual-note{margin:16px 0;padding:14px 18px;background:#f4f8fb;border-left:4px solid var(--brand2);border-radius:0 12px 12px 0}
+.manual-note p{margin:6px 0 0;line-height:1.65;color:var(--ink2)}
+.manual-note .label{margin:0;color:var(--brand)}
 .search-hit .pill{margin-left:6px;font-size:10px}
 
 @media print{

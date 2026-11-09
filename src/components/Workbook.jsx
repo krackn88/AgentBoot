@@ -36,7 +36,19 @@ export function workbookStats(guide, store) {
   return { total, done }
 }
 
-export default function Workbook({ guide, store, update }) {
+function pearlDrillsForChapter(chapter, pearlCards = []) {
+  return pearlCards.filter(p => p.chapterId === chapter.id).map((p, i) => ({
+    id: p.id,
+    section: 'Clinical pearl',
+    row: 'Recall this board pearl',
+    column: p.front.slice(0, 140) + (p.front.length > 140 ? '…' : ''),
+    answer: p.front,
+    table: { headers: ['Pearl'], rows: [[p.front]] },
+    pearl: true,
+  }))
+}
+
+export default function Workbook({ guide, store, update, pearlCards = [] }) {
   const [chapterId, setChapterId] = useState(null)
   const chapter = guide.chapters.find(c => c.id === chapterId)
   const wb = store.workbook || {}
@@ -47,10 +59,10 @@ export default function Workbook({ guide, store, update }) {
         <div>
           <p className="eyebrow">Active-recall workbooks</p>
           <h1>A workbook for every chapter</h1>
-          <p>Reading is not studying. Each workbook turns the manual's own tables, criteria and doses into fill-in drills, adds case studies with model answers, and keeps your notes in one place. Print any of them as a worksheet with an answer key.</p>
+          <p>Reading is not studying. Each workbook turns the manual's tables, clinical pearls, and criteria into fill-in drills, adds case studies with model answers, and keeps your notes in one place. Print any chapter as a worksheet with an answer key.</p>
         </div>
         <div className="source-proof">
-          <span><strong>{guide.chapters.reduce((a, c) => a + tableDrills(c).length, 0).toLocaleString()}</strong> recall drills</span>
+          <span><strong>{guide.chapters.reduce((a, c) => a + tableDrills(c).length + pearlDrillsForChapter(c, pearlCards).length, 0).toLocaleString()}</strong> recall drills</span>
           <span><strong>{guide.chapters.reduce((a, c) => a + caseStudies(c).length, 0)}</strong> case studies</span>
           <span><strong>{guide.chapters.reduce((a, c) => a + chapterTables(c).length, 0)}</strong> clinical tables</span>
         </div>
@@ -58,13 +70,13 @@ export default function Workbook({ guide, store, update }) {
       <div className="section-title"><div><p className="eyebrow">Choose a chapter</p><h2>Workbooks</h2></div></div>
       <div className="manual-grid">
         {guide.chapters.map(c => {
-          const drills = tableDrills(c).length
+          const drills = tableDrills(c).length + pearlDrillsForChapter(c, pearlCards).length
           const doneN = Math.min(drills, Object.keys(wb[c.id]?.drills || {}).length)
           const right = Object.values(wb[c.id]?.drills || {}).filter(Boolean).length
           return (
             <article key={c.id} className="manual-card workbook-card" onClick={() => setChapterId(c.id)}>
               <div className="manual-number">{c.number}</div>
-              <div><h3>{c.shortTitle}</h3><p>{drills} drills · {caseStudies(c).length} cases · {chapterTables(c).length} tables</p></div>
+              <div><h3>{c.shortTitle}</h3><p>{tableDrills(c).length + pearlDrillsForChapter(c, pearlCards).length} drills · {caseStudies(c).length} cases · {chapterTables(c).length} tables</p></div>
               <div className="wb-progress">
                 <div className="bar"><i style={{ width: `${drills ? doneN / drills * 100 : 0}%` }} /></div>
                 <span className="small muted">{drills ? `${doneN}/${drills} done${doneN ? ` · ${Math.round(right / doneN * 100)}% recalled` : ''}` : 'Notes and print worksheet'}</span>
@@ -76,11 +88,11 @@ export default function Workbook({ guide, store, update }) {
     </div>
   )
 
-  return <ChapterWorkbook chapter={chapter} store={store} update={update} onBack={() => setChapterId(null)} />
+  return <ChapterWorkbook chapter={chapter} store={store} update={update} pearlCards={pearlCards} onBack={() => setChapterId(null)} />
 }
 
-function ChapterWorkbook({ chapter, store, update, onBack }) {
-  const drills = useMemo(() => tableDrills(chapter), [chapter])
+function ChapterWorkbook({ chapter, store, update, pearlCards, onBack }) {
+  const drills = useMemo(() => [...tableDrills(chapter), ...pearlDrillsForChapter(chapter, pearlCards)], [chapter, pearlCards])
   const cases = useMemo(() => caseStudies(chapter), [chapter])
   const tables = useMemo(() => chapterTables(chapter), [chapter])
   const [tab, setTab] = useState(drills.length ? 'drills' : cases.length ? 'cases' : 'notes')

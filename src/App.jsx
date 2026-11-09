@@ -158,7 +158,7 @@ function StudyApp({ guide }) {
                 </div>
               </div>
               <h2 style={{ marginTop: 28 }}>Chapters</h2>
-              <div className="card">{chapters.slice(0, 6).map(c => <ChapterRow key={c.id} c={c} store={store} onOpen={() => openChapter(c.id)} />)}
+              <div className="card">{chapters.slice(0, 6).map(c => <ChapterRow key={c.id} c={c} store={store} contentMeta={contentMeta} onOpen={() => openChapter(c.id)} />)}
                 <button className="btn ghost" style={{ marginTop: 12 }} onClick={() => go('library')}>View all {chapters.length} chapters →</button></div>
             </div>
           )}
@@ -166,7 +166,7 @@ function StudyApp({ guide }) {
           {view === 'library' && (
             <div>
               <PageHeader eyebrow="Study guide" title={`All ${chapters.length} chapters`} subtitle="Condensed guide plus Course manual depth and Clinical pearls tabs in each chapter — sourced from the full APEA manuals on your server." />
-              <div className="card">{chapters.map(c => <ChapterRow key={c.id} c={c} store={store} onOpen={() => openChapter(c.id)} />)}</div>
+              <div className="card">{chapters.map(c => <ChapterRow key={c.id} c={c} store={store} contentMeta={contentMeta} onOpen={() => openChapter(c.id)} />)}</div>
             </div>
           )}
 
@@ -182,14 +182,24 @@ function StudyApp({ guide }) {
           {view === 'quiz' && <Quiz key={quizPreset ? (quizPreset.testId || quizPreset.chapterId + quizPreset.mode) : 'setup'} guide={guide} store={store} update={update} preset={quizPreset} />}
           {view === 'flashcards' && <Flashcards guide={guide} store={store} update={update} pearlCards={pearlCards} />}
           {view === 'tests' && <Tests guide={guide} store={store} onStart={(p) => { setQuizPreset(p); setView('quiz'); location.hash = '#/quiz'; window.scrollTo(0, 0) }} />}
-          {view === 'workbooks' && <Workbook guide={guide} store={store} update={update} />}
+          {view === 'workbooks' && <Workbook guide={guide} store={store} update={update} pearlCards={pearlCards} />}
 
           {view === 'quickref' && (
-            <div style={{ maxWidth: 860, margin: '0 auto' }}><h1>⚡ High-Yield Quick Reference</h1>
-              <p className="muted">The numbers and rules the exam loves — from the guide's Quick Reference plus the labs to commit to memory. Search it, then drill it in Flashcards.</p>
-              {(guide.quickRef?.sections || []).map(s => <div key={s.id}><h3>{s.title}</h3><Blocks blocks={s.blocks} /></div>)}
-              {chapters[0].sections.filter(s => /labs/i.test(s.title)).map(s => <div key={s.id}><h3>{s.title}</h3><Blocks blocks={s.blocks} /></div>)}
-              <button className="btn" onClick={() => go('flashcards')}>Drill these as flashcards →</button>
+            <div style={{ maxWidth: 860, margin: '0 auto' }}>
+              <PageHeader eyebrow="High yield" title="Quick reference + clinical pearls" subtitle="Condensed rules from the study guide, labs to memorize, and the highest-signal lines pulled from all 22 course manuals." />
+              {(guide.quickRef?.sections || []).map(s => <div key={s.id} className="card" style={{ marginBottom: 16 }}><h3>{s.title}</h3><Blocks blocks={s.blocks} /></div>)}
+              {chapters[0].sections.filter(s => /labs/i.test(s.title)).map(s => <div key={s.id} className="card" style={{ marginBottom: 16 }}><h3>{s.title}</h3><Blocks blocks={s.blocks} /></div>)}
+              {pearlCards.length > 0 && (
+                <div className="card">
+                  <h3>Clinical pearls sampler</h3>
+                  <p className="muted small">A taste of the {pearlCards.length} pearl cards — open any chapter's Clinical pearls tab or drill the full deck in Flashcards.</p>
+                  <div className="pearl-grid">{pearlCards.slice(0, 12).map((p, i) => (
+                    <div key={p.id} className="pearl-card"><span className="pearl-num">{i + 1}</span><p>{p.front}</p></div>
+                  ))}</div>
+                  <button className="btn" style={{ marginTop: 14 }} onClick={() => go('flashcards')}>Drill all pearls in flashcards →</button>
+                </div>
+              )}
+              <button className="btn ghost" onClick={() => go('flashcards')}>High-yield & lab flashcard decks →</button>
             </div>
           )}
 
@@ -283,14 +293,15 @@ function Blueprint({ guide }) {
   )
 }
 
-function ChapterRow({ c, store, onOpen }) {
+function ChapterRow({ c, store, onOpen, contentMeta }) {
   const done = !!store.completed[c.id]
+  const depth = contentMeta?.chapters?.find(x => x.id === c.id)
   return (
     <div className="chapter">
       <div className={`num ${done ? 'done' : ''}`}>{done ? '✓' : c.number}</div>
       <div style={{ flex: 1, cursor: 'pointer' }} onClick={onOpen}>
         <strong>{c.shortTitle}</strong>
-        <p className="small muted" style={{ margin: 2 }}>{c.sections.length} sections · ~{Math.max(1, Math.round(c.wordCount / 200))} min · {c.questions.length} questions {store.bookmarks.includes(c.id) ? '· ★ bookmarked' : ''}</p>
+        <p className="small muted" style={{ margin: 2 }}>{c.sections.length} sections · ~{Math.max(1, Math.round(c.wordCount / 200))} min · {c.questions.length} questions{depth ? ` · ${depth.pearls} pearls` : ''} {store.bookmarks.includes(c.id) ? '· ★ bookmarked' : ''}</p>
       </div>
       <a className="pill" href={pdfUrlForChapter(c)} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}>PDF</a>
       <button className="btn ghost" onClick={onOpen}>Study →</button>
