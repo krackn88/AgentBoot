@@ -4,6 +4,7 @@ import { PageHeader } from './AppShell.jsx'
 import { gradable } from '../lib/questions'
 import { pdfUrlForChapter } from '../lib/pdfs'
 import VerifySource from './VerifySource.jsx'
+import { examUsable } from '../lib/examPool'
 
 export default function Quiz({ guide, store, update, preset, onDone, questionPool, onSearch }) {
   const allQ = useMemo(
@@ -44,7 +45,8 @@ export default function Quiz({ guide, store, update, preset, onDone, questionPoo
 
   function pool(m, ch) {
     let p = ch === 'all' ? allQ : allQ.filter(q => q.chapterId === ch)
-    if (m === 'exam' || m === 'mixed') p = p.filter(q => q.correctIndex != null && q.options.length >= 2 && !q.duplicateOf)
+    if (m === 'exam') p = p.filter(examUsable)
+    if (m === 'mixed') p = p.filter(q => q.correctIndex != null && q.options.length >= 2 && !q.duplicateOf)
     if (m === 'missed') p = p.filter(q => store.answers[q.id] && !store.answers[q.id].correct)
     return p
   }

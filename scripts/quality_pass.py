@@ -30,6 +30,8 @@ def clean_option(text: str) -> str:
     t = re.sub(r"\s+", " ", text or "").strip()
     t = re.sub(r"\s*•\s*", " ", t)
     t = re.sub(r"\s+", " ", t).strip()
+    # Slide punctuation artefacts left over from the PDF "$" bullet glyph
+    t = re.sub(r"\s*\$\s*", " ", t).strip()
     if len(t) > 110 and HEADER_TAIL.search(t):
         t = HEADER_TAIL.sub("", t).strip()
     # Strip a dangling bullet fragment like "imaging! Follow the rules" tails
@@ -40,35 +42,51 @@ def clean_option(text: str) -> str:
 def truncate_contaminated(options: list[str]) -> list[str]:
     """Slide titles/body often ran into the last option during extraction.
 
-    Real options in this bank are short. If one option is far longer than its
-    siblings, keep only the leading clinical phrase.
+    Real options in this bank are short. When one option is far longer than its
+    siblings, keep only the leading clinical phrase. Cut at the *earliest*
+    plausible boundary, and only accept a boundary that is followed by what
+    looks like a slide title (two or more consecutive capitalised words) so a
+    legitimate mid-sentence acronym ("budesonide BID and PRN") is never cut.
     """
     lens = sorted(len(o) for o in options if o)
     if not lens:
         return options
     median = lens[len(lens) // 2]
     cap = max(90, int(median * 1.8))
+
+    TITLEISH = re.compile(r"^[A-Z][A-Za-z0-9/&\-']+(?:\s+[A-Z][A-Za-z0-9/&\-']+)+")
+
+    def cut_point(text: str):
+        best = None
+        for m in re.finditer(r"[.?!]\s+(?=[A-Z])", text):
+            if m.start() >= 12:
+                best = m.start() + 1
+                break
+        for m in re.finditer(r"(?<=[a-z\)%])\s+(?=[A-Z])", text):
+            if m.start() < 12:
+                continue
+            if not TITLEISH.match(text[m.end():]):
+                continue
+            if best is None or m.start() < best:
+                best = m.start()
+            break
+        return best
+
     out = []
     for o in options:
         if len(o) > cap:
-            # 1) a sentence end followed by a capitalized slide title
-            m = re.search(r"[.?!]\s+[A-Z]", o)
-            if m and m.start() >= 24:
-                o = o[: m.start() + 1].strip()
+            cut = cut_point(o)
+            if cut:
+                o = o[:cut].strip().rstrip(",;:")
+                if o and o[-1] not in ".?!":
+                    o += "."
             else:
-                # 2) lowercase word immediately followed by a capitalized run
-                m2 = re.search(r"(?<=[a-z\)]) (?=[A-Z])", o)
-                if m2 and m2.start() >= 12:
-                    o = o[: m2.start()].strip()
-                    if o and o[-1] not in ".?!":
-                        o += "."
-                else:
-                    o = o[:cap].rsplit(" ", 1)[0].strip()
-                    if o and o[-1] not in ".?!":
-                        o += "."
+                o = o[:cap].rsplit(" ", 1)[0].strip().rstrip(",;:")
+                if o and o[-1] not in ".?!":
+                    o += "."
         out.append(o.strip())
-    # Final guard: nothing in this bank is a paragraph. Hard-cap at 200 chars.
-    return [o if len(o) <= 200 else o[:200].rsplit(" ", 1)[0].rstrip(".,;:") + "." for o in out]
+    # Final guard: nothing in this bank is a paragraph. Hard-cap at 160 chars.
+    return [o if len(o) <= 160 else o[:160].rsplit(" ", 1)[0].rstrip(".,;:") + "." for o in out]
 
 
 def norm(s: str) -> str:
@@ -176,6 +194,8 @@ def main() -> int:
     manual = load(DATA / "manual-questions.json", {})
     guide_qs = [q for c in guide.get("chapters", []) for q in c.get("questions", [])]
     manual_qs = manual.get("questions", [])
+    # Pristine copy of source options, so cleanup is always idempotent.
+    raw_options = {q["id"]: list(q.get("options", [])) for q in guide_qs + manual_qs}
 
     modules = {}
     for p in sorted((DATA / "modules").glob("*.json")):
@@ -187,7 +207,11 @@ def main() -> int:
     fixed = {}
     dirty_count = 0
     for q in guide_qs + manual_qs:
-        new_opts = truncate_contaminated([clean_option(o) for o in q.get("options", [])])
+        # Always start from the pristine source options. Reading the previously
+        # emitted overlay made this pass order-dependent: re-runs truncated
+        # already-truncated text and the contamination accumulated.
+        src = raw_options.get(q["id"], q.get("options", []))
+        new_opts = truncate_contaminated([clean_option(o) for o in src])
         if new_opts != q.get("options", []):
             dirty_count += 1
             fixed[q["id"]] = {"options": new_opts}

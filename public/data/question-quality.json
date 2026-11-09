@@ -1,6 +1,6 @@
 {
  "meta": {
-  "generated": "2026-11-09T02:34:21Z",
+  "generated": "2026-11-09T02:38:19Z",
   "optionsCleaned": 129,
   "duplicates": 49,
   "anchored": 527,
@@ -18,7 +18,7 @@
   },
   "endocrine-disorders-q14": {
    "options": [
-    "Use full calculated dose for younger patients without cardiovascular disease; start low (~25 mcg) in the 72-year-old with.",
+    "Use full calculated dose for younger patients without cardiovascular disease; start low (~25 mcg) in.",
     "Start all patients at 200 mcg regardless of age",
     "Withhold levothyroxine in asthma until pulmonary clearance",
     "Use the same 112 mcg start dose for every patient"
@@ -165,7 +165,7 @@
     "Amitriptyline",
     "Quetiapine",
     "Escitalopram",
-    "Buspirone Treatment of Major Depressive Disorder (MDD) Shared decision making and."
+    "Buspirone Treatment of."
    ]
   },
   "manual-07-q3": {
@@ -173,7 +173,7 @@
     "Obsessive compulsive disorder",
     "Panic disorder",
     "Bipolar disorder",
-    "Generalized anxiety disorder."
+    "Generalized anxiety disorder Screen for."
    ]
   },
   "manual-07-q4": {
@@ -181,7 +181,7 @@
     "25 mg once daily\u200b Start Low",
     "50 mg once daily\u200b",
     "75 mg once daily\u200b Go Slow",
-    "100 mg once daily."
+    "100 mg once daily Don\u2019t."
    ]
   },
   "manual-07-q6": {
@@ -189,7 +189,7 @@
     "Switch the patient to fluoxetine.",
     "Continue sertraline and add olanzapine.",
     "Switch the patient to amitriptyline",
-    "Switch the patient to desvenlafaxine."
+    "Switch the patient to desvenlafaxine Serotonin\u2013Norepinephrine."
    ]
   },
   "manual-07-q7": {
@@ -213,7 +213,7 @@
     "Trazodone",
     "Quetiapine (Seroquel)",
     "Doxepin (Silenor)",
-    "Amitriptyline (Elavil) TIP: Always consult the Beers Criteria when prescribing for geriatric patients."
+    "Amitriptyline (Elavil) TIP: Always consult the."
    ]
   },
   "manual-08-q1": {
@@ -229,7 +229,7 @@
     "Pyloric stenosis",
     "Small bowel obstruction",
     "Gastroesophageal reflux disease",
-    "Cholelithiasis."
+    "Cholelithiasis Pathophysiology of."
    ]
   },
   "manual-09-q1": {
@@ -237,7 +237,7 @@
     "has an indwelling urinary catheter.",
     "is immunocompromised.",
     "is younger than 7 years.",
-    "is currently pregnant. Empiric.",
+    "is currently pregnant.",
     "Fosfomycin (off-label for males)",
     "Trimethoprim-sulfamethoxazole (if local resistance is <20%)."
    ]
@@ -247,7 +247,7 @@
     "A 25-year-old female with mild suprapubic pain",
     "A 60-year-old male who has benign prostatic hypertrophy",
     "A 40-year-old female who had a UTI one year ago",
-    "A 50-year-old female with perimenopausal symptoms When to Get a Urine Culture?"
+    "A 50-year-old female with perimenopausal symptoms When to Get a."
    ]
   },
   "manual-09-q5": {
@@ -279,7 +279,7 @@
     "Ceftriaxone 500 mg IM \u00d7 1",
     "Azithromycin 1 g oral single dose",
     "Levofloxacin 500 mg oral \u00d7 7 days",
-    "Doxycycline 100 mg orally."
+    "Doxycycline 100 mg orally BID for 7 days."
    ]
   },
   "manual-09-q9": {
@@ -311,7 +311,7 @@
     "All patients aged 13\u201364 years",
     "Patients being treated for tuberculosis or hepatitis",
     "Patients who have recurrent urinary tract infections",
-    "More than one sex partner since last."
+    "More than one sex partner since last HIV test HIV: Screening."
    ]
   },
   "manual-09-q16": {
@@ -343,7 +343,7 @@
     "Rhonchi on auscultation",
     "Peripheral edema",
     "Split S2 heart sound",
-    "Bradypnea Heart Failure (HF) Signs and symptoms Resting tachycardia Abnormal ECG Tachypnea Crackles Diaphoretic S3 and/or S4 PMI may be displaced."
+    "Bradypnea Heart Failure (HF) Signs and symptoms Resting tachycardia."
    ]
   },
   "manual-10-q10": {
@@ -367,7 +367,7 @@
     "Mitral",
     "Aortic",
     "Tricuspid",
-    "Pulmonic Mitral Valve Prolapse Use APEA\u2019s Three Easy Steps Step Question Answer 1."
+    "Pulmonic Mitral."
    ]
   },
   "manual-10-q16": {
@@ -375,7 +375,7 @@
     "A diastolic murmur heard best near the apex",
     "Systolic heard loudest near the second ICS, RSB",
     "Diastolic murmur near the RSB, second ICS",
-    "Systolic murmur with wide fixed split S2, LSB, second ICS Aortic Regurgitation Use APEA\u2019s three easy steps."
+    "Systolic murmur with wide fixed split S2, LSB, second."
    ]
   },
   "manual-11-q1": {
@@ -391,7 +391,7 @@
     "An older patient who has been controlled on their oral medications for 5 years",
     "A patient with advanced CVD who has frequent episodes of hypoglycemia",
     "A medically complex patient whose HbA1c is stable at 6.9% on the current regimen",
-    "An adult who is well controlled on oral meds but has been diagnosed with early."
+    "An adult who is well controlled on oral meds but has been diagnosed with early Alzheimer\u2019s disease."
    ]
   },
   "manual-11-q7": {
@@ -463,7 +463,7 @@
     "The patient can douche to help prevent future episodes.",
     "The patient should abstain from sexual contact for 2 months.",
     "The patient should be screened for immunocompromising conditions.",
-    "The patient should have their Mirena IUD removed."
+    "The patient should have their."
    ]
   },
   "manual-13-q1": {
@@ -471,7 +471,7 @@
     "Nocturia",
     "Postvoid dribbling",
     "Hematuria",
-    "Weak urinary stream."
+    "Weak urinary stream BPH: Assessment."
    ]
   },
   "manual-13-q7": {
@@ -503,7 +503,7 @@
     "Unilateral swelling of one testis",
     "Painless, firm nodule in the testis",
     "History of cryptorchidism",
-    "History of hernia repair surgery Testicular Cancer Testicular Cancer Males 15\u201335 years old Hx of cryptorchidism (even with orchiopexy) Either testis affected Risk is greater in undescended one."
+    "History of hernia repair surgery."
    ]
   },
   "manual-13-q12": {
@@ -511,7 +511,7 @@
     "Ventral hernia",
     "Umbilical hernia",
     "Inguinal hernia",
-    "Incarcerated hernia Inguinal Hernias Two-thirds of inguinal hernias are on the right side."
+    "Incarcerated hernia."
    ]
   },
   "manual-13-q13": {
@@ -601,7 +601,7 @@
     "Trigeminal neuralgia",
     "Temporomandibular joint (TMJ) dysfunction",
     "Acute rhinosinusitis",
-    "Dental infection."
+    "Dental infection TIP: Consider dental etiology when patient is present with facial/jaw."
    ]
   },
   "manual-16-q10": {
@@ -625,7 +625,7 @@
     "Presbyopia",
     "Word finding difficulty",
     "Presbycusis",
-    "Dementia Pathologic Aging Occurs when the normal processes of aging accelerate to the."
+    "Dementia Pathologic."
    ]
   },
   "manual-17-q2": {
@@ -649,7 +649,7 @@
     "Ramelteon (Rozerem)",
     "Temazepam (Restoril)",
     "Zolpidem (Ambien)",
-    "Trazodone (Desyrel)."
+    "Trazodone (Desyrel) Medications for."
    ]
   },
   "manual-17-q5": {
@@ -673,7 +673,7 @@
     "Hyponatremia",
     "Sinus tachycardia",
     "Anorexia",
-    "Parkinsonism."
+    "Parkinsonism Mrs."
    ]
   },
   "manual-17-q9": {
@@ -681,7 +681,7 @@
     "Ankle-brachial pressure index",
     "Treadmill exercise stress test",
     "Tilt-table testing",
-    "Orthostatic BP measurement Orthostatic Hypotension Significant drop in blood pressure (BP) that occurs upon standing Systolic BP drops by 20 mmHg or more."
+    "Orthostatic BP measurement."
    ]
   },
   "manual-17-q11": {
@@ -721,7 +721,7 @@
     "Nasal congestion",
     "Mild exertional dyspnea",
     "Increased blood pressure",
-    "Soft systolic heart murmur Pregnancy Symptoms: Amenorrhea, nausea, breast changes, fatigue, constipation, food aversions or cravings, mood changes, urinary frequency, etc."
+    "Soft systolic heart murmur."
    ]
   },
   "manual-18-q5": {
@@ -737,7 +737,7 @@
     "Mineral oil",
     "Polyethylene glycol 3350 (MiraLax)",
     "Psyllium (Metamucil)",
-    "Castor oil Prescribing for Pregnant Patients Avoid fetal drug exposure when possible."
+    "Castor oil Prescribing for."
    ]
   },
   "manual-18-q13": {
@@ -745,7 +745,7 @@
     "Boxing",
     "Hot yoga",
     "Horseback riding",
-    "Running Substance Use Screen all pregnant patients for alcohol, tobacco, opioids,."
+    "Running Substance."
    ]
   },
   "manual-18-q14": {
@@ -785,7 +785,7 @@
     "Perform titers for antibodies to vaccine-preventable illnesses.",
     "Vaccinate or revaccinate the child as if they have never been vaccinated.",
     "A combination of 1 and 2",
-    "Only option 2 CDC Advice: How to Address Caregiver Concerns About Vaccines Take time to listen to concerns."
+    "Only option 2 CDC Advice: How to."
    ]
   },
   "manual-19-q6": {
@@ -841,7 +841,7 @@
     "A 5-year-old who has type 1 diabetes",
     "A 7-year-old who has mild persistent asthma",
     "A 4-year-old who has leukemia",
-    "A 6-year-old who has a cochlear implant."
+    "A 6-year-old who has a cochlear implant Bronchiolitis: History Self-limited lower."
    ]
   },
   "manual-19-q23": {
@@ -857,7 +857,7 @@
     "Nebulized epinephrine",
     "Single dose of oral dexamethasone",
     "Guaifenesin/dextromethorphan prn for cough",
-    "3 days of oral prednisolone 1 mg/kg Asthma Most common chronic illness in children Risk factors Frequent cause of missed school days Sensitivity in certain environments History Sensitivity to."
+    "3 days of oral prednisolone 1 mg/kg."
    ]
   },
   "manual-19-q27": {
@@ -889,7 +889,7 @@
     "Gastroesophageal reflux",
     "Milk protein intolerance",
     "Intestinal obstruction",
-    "Pyloric stenosis Pyloric Stenosis Narrowing of the pyloric sphincter due to hypertrophy of the pyloric muscle Occurs in infancy Occurs in 3.5/1,000 births More common in boys!"
+    "Pyloric stenosis."
    ]
   },
   "manual-19-q36": {
@@ -897,7 +897,7 @@
     "Loose stools with blood and mucous",
     "Cough with eating",
     "Constipation",
-    "Strong family history of atopy."
+    "Strong family history of atopy GER: Pharmacologic."
    ]
   },
   "manual-19-q37": {
@@ -913,7 +913,7 @@
     "Hepatitis A",
     "Rotavirus",
     "Hepatitis B",
-    "MMR Constipation."
+    "MMR Constipation Normal stool frequency Constipation: Infants Infrequent bowel movements."
    ]
   },
   "manual-19-q39": {
@@ -969,7 +969,7 @@
     "Erythema, warmth of the tibial tuberosity",
     "Anterior knee pain reproduced by extending the knee against resistance",
     "Pain occurs over the patellar tendon",
-    "Posterior knee pain exacerbated by excessive forefoot pronation."
+    "Posterior knee pain exacerbated by excessive forefoot pronation Osgood\u2013Schlatter."
    ]
   },
   "manual-19-q56": {
@@ -977,7 +977,7 @@
     "septic arthritis.",
     "rheumatoid arthritis.",
     "Legg-Calv\u00e9-Perthes.",
-    "transient synovitis. Pediatric."
+    "transient synovitis."
    ]
   },
   "manual-20-q1": {
@@ -993,7 +993,7 @@
     "Indicates the maturity of the nervous system",
     "Indicates normal muscle tone",
     "Rules out neurologic disorders",
-    "Assesses the gestational age of the infant."
+    "Assesses the gestational age of the infant Newborn: Reflexes Present at."
    ]
   },
   "manual-20-q6": {
@@ -1001,7 +1001,7 @@
     "hearing loss.",
     "central nervous system damage.",
     "a visual defect.",
-    "developmental delays. Newborns: Ears."
+    "developmental delays."
    ]
   },
   "manual-20-q7": {
@@ -1009,7 +1009,7 @@
     "16 pounds",
     "19 pounds",
     "21 pounds",
-    "24 pounds Growth in Infants Newborns lose 5\u20137% of their birth weight in the first days."
+    "24 pounds Growth in."
    ]
   },
   "manual-20-q8": {
@@ -1041,7 +1041,7 @@
     "Preconventional level\u2014Stage 1: obedience and punishment orientation",
     "Preconventional level\u2014Stage 2: individualism and exchange (self-interest)",
     "Conventional level\u2014Stage 3: good interpersonal relationships",
-    "Postconventional level\u2014Stage 5: social contract and individual rights."
+    "Postconventional level\u2014Stage 5: social contract and individual rights Progression of."
    ]
   }
  },
