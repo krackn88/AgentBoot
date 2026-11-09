@@ -114,7 +114,11 @@ export default function Reader({ chapter, store, update, onBack, onQuiz, onNext,
             </div>
           )}
           <div className="pearl-grid">{chapterPearls.map((p, i) => (
-            <div key={p.id || i} className="pearl-card"><span className="pearl-num">{i + 1}</span><p>{p.front || p}</p></div>
+            <div key={p.id || i} className={`pearl-card ${p.kind === 'tip' ? 'pearl-tip' : ''}`}>
+              <span className="pearl-num">{i + 1}</span>
+              {p.kind === 'tip' && <span className="pearl-badge">Instructor tip</span>}
+              <p>{p.front || p}</p>
+            </div>
           ))}</div>
         </div>
       )}

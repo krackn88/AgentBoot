@@ -156,6 +156,26 @@ def main() -> int:
             if 45 <= len(sentence) <= 200:
                 add(cid, tag, sentence, "rationale")
 
+    # 4. TIP/PEARL lines printed on the slides, extracted from the PDF text layer.
+    #    These are the instructor's own call-outs and are already complete sentences.
+    extract_dir = DATA / "pdf-extract"
+    if extract_dir.exists():
+        chapter_titles = {c["id"]: (c.get("shortTitle") or c.get("title")) for c in GUIDE["chapters"]}
+        import glob as _glob
+        for path in sorted(_glob.glob(str(extract_dir / "*.json"))):
+            if path.endswith("_summary.json"):
+                continue
+            doc = json.loads(Path(path).read_text())
+            cid = doc.get("chapterId", "")
+            tag = chapter_titles.get(cid, "")
+            for tip in doc.get("tips", []):
+                t = strip_label(clean(tip))
+                if not t.endswith((".", "!", "?")):
+                    # a tip cut off mid-sentence is not a usable pearl
+                    continue
+                if 30 <= len(t) <= 220 and not looks_glued(t):
+                    add(cid, tag, t, "tip")
+
     payload = {
         "meta": {
             "count": len(pearls),

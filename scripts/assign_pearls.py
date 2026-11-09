@@ -29,7 +29,8 @@ RULES = [
     (r"\b(depress|anxiety|ssri|mental|phq|gad)\b", "mental-health-in-primary-care"),
     (r"\b(anemia|hemoglobin|ferritin|platelet|coagul|inr|cbc)\b", "hematology"),
     (r"\b(asthma|copd|pneumonia|curb|spiromet|cough|dyspnea|pulmon)\b", "pulmonary-disorders"),
-    (r"\b(gerd|ppl|ppi|h2 blocker|ulcer|constipat|diarrhea|gastro|ibd|liver)\b", "gastrointestinal-disorders"),
+    (r"\b(gerd|ppi|h2 blocker|ulcer|constipat|diarrhea|gastro|ibd|liver|dental|jaw)\b", "gastrointestinal-disorders"),
+    (r"\b(pad\b|abi\b|anticholinerg|ssri|taper|menopaus|endometrial|postmenopausal)\b", None),
     (r"\b(stroke|seizure|migraine|headache|neuro|vertigo|triptan)\b", "neurologic-disorders"),
     (r"\b(rash|dermat|acne|psoriasis|eczema|lesion)\b", "dermatology"),
     (r"\b(eye|ear\b|nose|throat|eent|conjunctiv|hearing|vision)\b", "eye-ear-nose-and-throat-eent"),
@@ -58,9 +59,11 @@ def main() -> int:
     general = 0
     for p in data["pearls"]:
         # rationale pearls already know their chapter - trust it over keyword guesses
-        if p.get("kind") == "rationale" and p.get("chapterId") in CHAPTER_IDS:
+        if p.get("kind") in ("rationale", "tip") and p.get("chapterId") in CHAPTER_IDS:
             continue
         target = assign(p["front"])
+        if target is None:
+            continue
         if target and target != p["chapterId"]:
             p["chapterId"] = target
             p["tag"] = TITLES.get(target, p["tag"])

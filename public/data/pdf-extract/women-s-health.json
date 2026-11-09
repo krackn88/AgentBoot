@@ -1,0 +1,1347 @@
+{
+ "chapterId": "women-s-health",
+ "title": "Women's Health",
+ "pdf": "12-womens-health-course-manual.pdf",
+ "pages": [
+  {
+   "n": 0,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 1,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 2,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 3,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 4,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 5,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 6,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 7,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 8,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 9,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 10,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 11,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 12,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 13,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 14,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 15,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 16,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 17,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 18,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 19,
+   "width": 639.0,
+   "height": 810.0
+  }
+ ],
+ "blocks": [
+  {
+   "type": "para",
+   "text": "CHAPTER 11",
+   "page": 0
+  },
+  {
+   "type": "para",
+   "text": "Women’s Health",
+   "page": 0
+  },
+  {
+   "type": "list",
+   "items": [
+    "Tanner stages",
+    "Breast cancer screening",
+    "Breast mass",
+    "Dysmenorrhea",
+    "Abnormal uterine bleeding",
+    "Endometrial cancer",
+    "Polycystic ovary syndrome",
+    "Contraception",
+    "Cervical cancer screening",
+    "Pelvic exam/abnormal Pap Results",
+    "Vulvovaginitis",
+    "Menopause",
+    "Genitourinary syndrome of menopause",
+    "Osteoporosis screening"
+   ],
+   "page": 0
+  },
+  {
+   "type": "para",
+   "text": "Chapter 11  Women’s Health | Tanner Stages",
+   "page": 1
+  },
+  {
+   "type": "list",
+   "items": [
+    "Joshua Lanclos/APEA",
+    "TANNER STAGES",
+    "Stage 1 Stage 2 Stage 3",
+    "No pubic Sparse, Darker, coarse,",
+    "hair; nipple long, curly, sparse hair",
+    "elevation straight over mons pubis;",
+    "begins hair; breast breast and areola",
+    "budding enlarge without",
+    "distinct",
+    "separation",
+    "between them",
+    "Stage 4 Stage 5",
+    "Dark, curly, abundant hair Adult triangle pattern with",
+    "over mons pubis; hair growth on medial",
+    "secondary mound forms thighs; nipple projects and",
+    "beyond original breast areola becomes part of",
+    "mound as areola and the breast contour",
+    "nipple project",
+    "176 FNP/AGPCNP Review"
+   ],
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "Chapter 11  Women’s Health | Tanner Stages",
+   "page": 2
+  },
+  {
+   "type": "question",
+   "text": "Which of the following patients is at highest risk for developing breast cancer?",
+   "items": [
+    "A 45-year-old female who had six pregnancies",
+    "A 61-year-old nulliparous female with dense breast tissue",
+    "A 50-year-old female who has a higher body mass",
+    "A 32-year-old transgender female on hormone replacement therapy for 2 years Breast Cancer: Increased Risk Age Increased estrogen exposure"
+   ],
+   "page": 2
+  },
+  {
+   "type": "list",
+   "items": [
+    "Combined hormonal contraceptives (CHC), Hormone Replacement Therapy (HRT)",
+    "Early menarche (<age 12), late menopause (>age 55)",
+    "Nulliparous",
+    "Family history/genetic risk",
+    "Can be estimated using screening tools",
+    "$ BCRAT, Ontario tool",
+    "BRCA 1 & 2 genetic testing: REFER",
+    "Lifestyle: alcohol, obesity, smoking, etc.",
+    "Breast Cancer Screening",
+    "Females who have average breast cancer risk",
+    "Organization Age Frequency of Screening Mammogram",
+    "ACS (2023) 40–44 Offer screening",
+    "45–54 Annually",
+    ">55 Every 1–2 years",
+    "ACOG (2025) 40–75 Q 1–2 years",
+    "USPSTF (2024) 40–74 Q 2 years",
+    "Order: Bilateral screening mammogram, 3D (tomosynthesis) preferred",
+    "Breast Masses",
+    "Benign • Malignant: mimics benign!",
+    "$ Fibroadenomas $ About 9% occur in females"
+   ],
+   "page": 2
+  },
+  {
+   "type": "list",
+   "items": [
+    "$ Cysts <45 years of age",
+    "$ Fibrocystic breasts $ Signs:",
+    "Change in breast size/symmetry",
+    "Change in skin texture",
+    "Nipple inversion or discharge",
+    "© 2026 Advanced Practice Education Associates 177"
+   ],
+   "page": 2
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 11  Women’s Health | Tanner Stages",
+    "NOTES Workup for Breast Mass",
+    "Start with a complete history and physical exam.",
+    "Imaging based on age:",
+    "<30 years Age 30–39 40 and older",
+    "Ultrasound • Ultrasound or diagnostic • Diagnostic mammogram",
+    "mammogram acceptable • Tomosynthesis (3D) preferred",
+    "TIP: These are the INITIAL best tests to order based on age; other",
+    "diagnostics may be ordered based on initial results.",
+    "Dysmenorrhea",
+    "Refers to PAIN associated with menses",
+    "Primary Secondary",
+    "Onset since menarche • Onset mid-20s or older",
+    "Severity stable • Increasing in severity",
+    "Improves with parity • Endometriosis, PID, etc.",
+    "Dyspareunia unusual • Dyspareunia, especially deep",
+    "Manage in primary care Refer to OBGYN",
+    "QUESTION #2"
+   ],
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "A 28-year-old patient reports progressively worsening menstrual pain after",
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "pregnancy 2 years ago. There was no history of menstrual cramping prior to",
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "pregnancy. What should be the understanding?",
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "1. This is a normal finding in patients who have previously given birth.",
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "2. Taking an NSAID will eliminate menstrual pain.",
+   "page": 3
+  },
+  {
+   "type": "list",
+   "items": [
+    "3. Symptoms suggest that there may be an underlying structural",
+    "problem.",
+    "4. This pain can be managed with lifestyle modifications.",
+    "Dysmenorrhea Workup",
+    "History",
+    "Physical exam",
+    "$ Rule out abdominal/pelvic abnormalities",
+    "(secondary causes)",
+    "$ Pelvic exam may be deferred if young, no sexual",
+    "activity",
+    "Labs: STI, pregnancy, UTI",
+    "Transvaginal ultrasound (or refer): if pathology",
+    "suspected",
+    "178 FNP/AGPCNP Review"
+   ],
+   "page": 3
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 11  Women’s Health | Tanner Stages",
+    "Primary Dysmenorrhea Management NOTES",
+    "Nonpharmacologic: heat and exercise",
+    "Pharmacologic:",
+    "$ NSAIDs: initiated at onset (or a few days prior) to menses",
+    "$ Hormonal contraceptives",
+    "Combined hormonal contraceptives: pill, patch, ring",
+    "Progestin injections: medroxyprogesterone acetate (Depo-Provera) (q3 months)",
+    "Progestin IUDs: Mirena and Liletta (8 years), Kyleena (5 years), and Skyla (3 years);",
+    "all release levonorgestrel",
+    "No relief? Not following expected course?",
+    "$ Look for secondary cause and refer!",
+    "Normal Menstrual Cycle",
+    "© Dee-sign/Shutterstock",
+    "Hormone Function",
+    "Follicle-stimulating hormone Follicular growth & development",
+    "Estrogen Endometrium preparation",
+    "Luteinizing hormone Liberates the egg",
+    "Progesterone Prepares for implantation",
+    "© 2026 Advanced Practice Education Associates 179"
+   ],
+   "page": 4
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 11  Women’s Health | Tanner Stages",
+    "NOTES Abnormal Uterine Bleeding (AUB)",
+    "Abnormal in...",
+    "Quantity",
+    "Heavy bleeding (>1 tampon/pad per hour)",
+    "Lasts >7 days",
+    "Timing",
+    "Between periods (intermenstrual)",
+    "After intercourse, after menopause",
+    "Variable length (>7–9 days)",
+    "Schedule",
+    "Cycles >35 days (infrequent) or <21 days (frequent)",
+    "Infrequent periods (Absent for 3–6 months)",
+    "AUB—Differential Diagnosis",
+    "Consider differential by age/history.",
+    "Possible causes—PALM-COEIN classification",
+    "Cause Consider by AGE:",
+    "Structural P Polyps >30 years of age",
+    "causes",
+    "A Adenomyosis"
+   ],
+   "page": 5
+  },
+  {
+   "type": "para",
+   "text": "L Leiomyoma/fibroids",
+   "page": 5
+  },
+  {
+   "type": "para",
+   "text": "M Malignancy/hyperplasia Premenopausal with risk factors (obesity, DM, PCOS)",
+   "page": 5
+  },
+  {
+   "type": "list",
+   "items": [
+    "or postmenopausal",
+    "*Must consider in all females of reproductive age!",
+    "May have more than one!",
+    "AUB—Differential Diagnosis",
+    "Consider differential by age/history.",
+    "Possible causes—PALM-COEIN classification",
+    "Cause Consider by AGE:",
+    "Nonstructural C Coagulopathy Any age",
+    "causes",
+    "O Ovulatory dysfunction",
+    "E Endometrial",
+    "I Iatrogenic, medications",
+    "N Not classified",
+    "May have more than one!",
+    "180 FNP/AGPCNP Review"
+   ],
+   "page": 5
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 11  Women’s Health | Tanner Stages",
+    "Endometrial Cancer NOTES",
+    "AUB is cardinal sign.",
+    "Risks:",
+    "$ Prolonged or increased estrogen",
+    "$ Unopposed estrogen",
+    "$ Chronic anovulation",
+    "Evaluation:",
+    "$ Transvaginal US",
+    "$ Endometrial “stripe” thickness"
+   ],
+   "page": 6
+  },
+  {
+   "type": "tip",
+   "text": "Postmenopausal and intermenstrual bleeding is always concerning for endometrial cancer!",
+   "page": 6
+  },
+  {
+   "type": "question",
+   "text": "A 23-year-old female presents to the clinic with concerns related to irregular menses. She is overweight and reports hirsutism since puberty. Which of the following statements is true?",
+   "items": [
+    "A pelvic ultrasound is required to diagnose PCOS.",
+    "Fibroids are the most likely diagnosis.",
+    "An androgen producing tumor is most likely the cause of symptoms.",
+    "Polycystic ovarian syndrome diagnostic criteria has been met."
+   ],
+   "page": 6
+  },
+  {
+   "type": "table",
+   "headers": [
+    "PCOS:",
+    "Diagnosis"
+   ],
+   "rows": [
+    [
+     "Complex",
+     "endocrinopathy"
+    ],
+    [
+     "Pathophysiology",
+     "is unclear."
+    ]
+   ],
+   "columns": [
+    64.0,
+    108.0
+   ],
+   "page": 6
+  },
+  {
+   "type": "para",
+   "text": "In most cases, PCOS is a clinical diagnosis.",
+   "page": 6
+  },
+  {
+   "type": "list",
+   "items": [
+    "Rotterdam criteria (2 of 3 required): irregular menses,",
+    "hyperandrogenism, cystic ovaries",
+    "If diagnosis is unclear",
+    "Pelvic ultrasound Hormone testing",
+    "© 2026 Advanced Practice Education Associates 181"
+   ],
+   "page": 6
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 11  Women’s Health | Tanner Stages",
+    "NOTES PCOS Differential Diagnosis",
+    "Differential Diagnosis Characteristic Workup"
+   ],
+   "page": 7
+  },
+  {
+   "type": "table",
+   "headers": [
+    "Nonclassic congenital",
+    "• Hyperandrogenism, • 17-hydroxyprogesterone at 8 a.m."
+   ],
+   "rows": [
+    [
+     "adrenal hyperplasia",
+     "oligomenorrhea, polycystic ovaries,"
+    ],
+    [
+     "(NCCAH)",
+     "possible premature pubarche"
+    ]
+   ],
+   "columns": [
+    128.0,
+    229.0
+   ],
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "• Increased risk: Mediterranean, Hispanic,",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "Ashkenazi Jewish females",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "Androgen-secreting • Recent onset of severe hirsutism, • Serum testosterone",
+   "page": 7
+  },
+  {
+   "type": "list",
+   "items": [
+    "tumors progressive worsening, signs of • Serum DHEAS",
+    "virilization",
+    "Postmenopausal more common",
+    "Thyroid disorder, • Oligomenorrhea • TSH",
+    "hyperprolactinemia • Prolactin level"
+   ],
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "Cushing syndrome • Moon facies, facial • 24-hour urine: free cortisol and",
+   "page": 7
+  },
+  {
+   "type": "list",
+   "items": [
+    "plethora, supraclavicular fat pads, purple creatinine",
+    "striae • Dexamethasone suppression test",
+    "Polycystic Ovarian Syndrome (PCOS)",
+    "Complex endocrinopathy",
+    "50–70% have insulin resistance.",
+    "Diabetes mellitus",
+    "Metabolic syndrome",
+    "Obesity",
+    "CVD",
+    "Endometrial cancer",
+    "Infertility",
+    "And more!",
+    "Diagnostics to order:",
+    "hCG Lipids",
+    "CBC Glucose/A1C",
+    "TSH",
+    "© Jones & Bartlett Learning",
+    "182 FNP/AGPCNP Review"
+   ],
+   "page": 7
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 11  Women’s Health | Tanner Stages",
+    "PCOS Management NOTES",
+    "Lifestyle",
+    "management",
+    "Desires Lifestyle Desires",
+    "contraception conception",
+    "management:",
+    "Weight loss",
+    "Exercise Refer to",
+    "CHC first-line",
+    "Nutrition fertility",
+    "Stress reduction specialist",
+    "Hyperandrogenism",
+    "persists >6 mo",
+    "Antiandrogens",
+    "(spironolactone,",
+    "finasteride)",
+    "QUESTION #4"
+   ],
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "In counseling a patient who desires contraception, which advice is accurate?",
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "1. An IUD can be used if the patient has a nulliparous cervix.",
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "2. Combined oral contraceptives may be used if the patient has a history of",
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "deep vein thrombosis.",
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "3. Patient must be referred to a specialist to insert long-acting reversible",
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "contraceptives.",
+   "page": 8
+  },
+  {
+   "type": "list",
+   "items": [
+    "4. Combined hormonal contraceptives cannot be used if patient is",
+    "breastfeeding their 9-month-old.",
+    "Contraceptive Selection/Counseling",
+    "Patient expresses",
+    "UPT",
+    "desire for",
+    "Negative",
+    "contraception",
+    "Contraceptive",
+    "UPT preference",
+    "Positive Negative",
+    "First day of First day of",
+    "LMP ≤7 days LMP >7 days",
+    "Start today Unprotected sex",
+    "Back-up method × since LMP",
+    "1 week",
+    "Quick",
+    "start",
+    "method If pt Emergency contraception (≤5 days)",
+    "desires Educate patient"
+   ],
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "Repeat pregnancy test in 2 weeks",
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "© 2026 Advanced Practice Education Associates 183",
+   "page": 8
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 11  Women’s Health | Tanner Stages",
+    "NOTES CHC Prescribing Tips",
+    "Hormone Considerations Adjustment Tips",
+    "Estrogen Ethinylestradiol component • Increase estrogen dose if:",
+    "Ultra-low dose: <20 mcg $ Breakthrough bleeding",
+    "Low lose: 20–35 mcg CHCs $ Acne or hirsutism",
+    "Highest dose: ≥50 mcg • Decrease estrogen dose if",
+    "Assess unacceptable risk $ Nausea",
+    "Know when risks outweigh benefits $ Breast tenderness",
+    "$ Headaches"
+   ],
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "Progestin Androgenic activity: may cause acne, oily skin, • Norethindrone may reduce breakthrough",
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "hair growth bleeding",
+    "High: norgestrel, levonorgestrel • If acne or hirsutism occurs, switch to low-",
+    "Middle: norethindrone androgen progestin",
+    "Low: ethynodiol, norgestimate, desogestrel,",
+    "drospirenone, dienogest"
+   ],
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "Note: No longer have “high” dose estrogen, just low, a little higher, and highest",
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "CHC Contraceptive Risk",
+    "CHC known to increase risk for DVT, heart attack, stroke",
+    "Absolute contraindications:",
+    "≥35 years + smoking 15 cig/day",
+    "CVD risks: hypertension (uncontrolled), ischemic heart disease, valvular heart disease, diabetes",
+    "(with vascular complications)",
+    "History DVT, PE, stroke, MI",
+    "Migraine with aura",
+    "<3 weeks postpartum",
+    "History of breast/endometrial CA",
+    "Cirrhosis",
+    "TIP: If patient is high risk for thromboembolic event = Copper IUD",
+    "Contraceptive Options",
+    "© elenabsl/Shutterstock",
+    "184 FNP/AGPCNP Review"
+   ],
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "Chapter 11  Women’s Health | Tanner Stages",
+   "page": 10
+  },
+  {
+   "type": "para",
+   "text": "Method Indications Contraindications NOTES",
+   "page": 10
+  },
+  {
+   "type": "para",
+   "text": "Copper IUD Hx of breast cancer, CKD, cirrhosis, high Distorted uterine cavity, Unexplained AUB,",
+   "page": 10
+  },
+  {
+   "type": "list",
+   "items": [
+    "risk of DVT, multiple risk factors for CVD, Untreated PID",
+    "postpartum (<10 min after delivery)",
+    "Levenorgestrel Patient preference Distorted uterine cavity"
+   ],
+   "page": 10
+  },
+  {
+   "type": "para",
+   "text": "lUD Postpartum (<10 min after delivery) Unexplained AUB, Untreated PID, Breast",
+   "page": 10
+  },
+  {
+   "type": "para",
+   "text": "cancer",
+   "page": 10
+  },
+  {
+   "type": "para",
+   "text": "Progestin only Patient preference Anticonvulsant use, Rifampin therapy,",
+   "page": 10
+  },
+  {
+   "type": "list",
+   "items": [
+    "Postpartum with risk factors of DVT (oral Bariatric surgery",
+    "option)",
+    "Breastfeeding",
+    "Depo-Provera Breastfeeding Breast cancer, Chronic kidney disease",
+    "Cervical Cancer Ubiquitous!!!",
+    "Caused by the human papillomavirus (HPV)",
+    "HPV usually clears within 8–24 months",
+    "(especially if ≤24 years old).",
+    "$ Persistent infection—causes cancer",
+    "High-risk (hrHPV) subtypes",
+    "$ Types 16, 18: 70% HPV-related cancers",
+    "$ 12 other known hrHPV subtypes",
+    "$ Other cancers:",
+    "Oropharynx",
+    "Penis © Jones & Bartlett Learning",
+    "",
+    "Anal",
+    "Cervix",
+    "Vagina, vulva",
+    "HPV Vaccination: Gardasil"
+   ],
+   "page": 10
+  },
+  {
+   "type": "list",
+   "items": [
+    "Covers nine of the HPV subtypes (including two strains that commonly cause genital warts!)",
+    "Immunization schedule:",
+    "Ages 9–14:",
+    "$ 2 doses, given 6–12 months apart",
+    "Ages 15–26 or if immunocompromised:",
+    "$ 3 doses, given at 0, 1–2, 6 months",
+    "Ages 27–45:",
+    "$ shared decision making",
+    "Cervical Screening Average Risk Patients",
+    "Average risk",
+    "Asymptomatic",
+    "Immunocompetent",
+    "Hx of normal screening results (if previously screened)",
+    "© 2026 Advanced Practice Education Associates 185"
+   ],
+   "page": 10
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 11  Women’s Health | Tanner Stages",
+    "NOTES Age 21–29 Age 30–65",
+    "Cytology q3 years • Cotesting (cytology + HPV) q5 years",
+    "ACS: initiate age 25 (HPV preferred q5 (preferred)",
+    "years) • Cytology q3 years",
+    "HPV q5 years",
+    "Special Consideration for Cervical Screening",
+    "Stop screening if:",
+    "Total hysterectomy (removal of cervix) for benign reasons (no evidence of CIN2, CIN3, A1S, or",
+    "cervical cancer)",
+    "≥65 years: if three negative Pap tests or two negative HPV tests in last 10 years",
+    "More frequent screening if:",
+    "HIV",
+    "Immunocompromised",
+    "History of cervical cancer",
+    "Exposed to diethylstilbestrol before birth",
+    "Previous abnormal cervical cytology or positive HPV"
+   ],
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "Patients with abnormal screening results rarely return to average risk screening guidelines.",
+   "page": 11
+  },
+  {
+   "type": "list",
+   "items": [
+    "Tips for the Pelvic Exam",
+    "Prior to speculum insertion",
+    "$ Apply scant lubrication to finger.",
+    "$ Press down while inserting finger.",
+    "$ Sweep vagina to locate cervix.",
+    "Introital tone: guides speculum selection",
+    "© MedicalArtInc/iStock",
+    "186 FNP/AGPCNP Review"
+   ],
+   "page": 11
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 11  Women’s Health | Tanner Stages",
+    "Proper Pap Collection NOTES",
+    "Collect cells from TZ & SCJ",
+    "360° clockwise rotation",
+    "**Never reverse direction!",
+    "Cervix brush: 5 rotations",
+    "Spatula: 1 rotation",
+    "Cytobrush: 2–3 rotations",
+    "Transformation zone (TZ) Squamocolumnar junction (SCJ)",
+    "Cervix brush/broom Spatula followed by Cytobrush",
+    "OR",
+    "© Jones & Bartlett Learning",
+    "© Jones & Bartlett Learning",
+    "Management of Abnormal Pap Results"
+   ],
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "ASCCP Recommendations are based on risks (current results, past history) for developing CIN3+",
+   "page": 12
+  },
+  {
+   "type": "table",
+   "headers": [
+    "Results",
+    "Action"
+   ],
+   "rows": [
+    [
+     "Unsatisfactory sample",
+     "Repeat testing ASAP (no more than 4 months)"
+    ],
+    [
+     "CIN 1",
+     "Observation; repeat cytology in 1 year"
+    ],
+    [
+     "Positive HPV",
+     "Reflex cytology testing"
+    ]
+   ],
+   "columns": [
+    68.0,
+    249.0
+   ],
+   "page": 12
+  },
+  {
+   "type": "list",
+   "items": [
+    "IF HPV 16–18: colposcopy with biopsy",
+    "HPV + ASCUS or higher Refer for colposcopy if immunocompromised",
+    "LSIL (HPV pos or neg) Refer for colposcopy if immunocompromised",
+    "HSIL (CIN2 or CIN3) or AIS Refer for excision",
+    "CIN: Cervical intraepithelial neoplasia",
+    "AIS: Cervical adenocarcinoma in situ",
+    "LSIL: Low-grade squamous intraepithelial lesion",
+    "HSIL: High-grade squamous intraepithelial lesion",
+    "© 2026 Advanced Practice Education Associates 187"
+   ],
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "Chapter 11  Women’s Health | Tanner Stages",
+   "page": 13
+  },
+  {
+   "type": "question",
+   "text": "A 25-year-old patient reports vaginal discharge and itching. Vaginitis is suspected. What should be the understanding?",
+   "items": [
+    "The color and consistency of the discharge will determine the cause.",
+    "The most likely diagnosis is candidiasis due to the report of discharge.",
+    "Sexually transmitted diseases are not likely due to the report of itching.",
+    "Further information is required to determine the etiology."
+   ],
+   "page": 13
+  },
+  {
+   "type": "list",
+   "items": [
+    "Vulvovaginitis",
+    "Inflammation causing change in odor",
+    "or discharge, associated itching and",
+    "discomfort",
+    "Differential diagnosis",
+    "$ Bacterial vaginosis (BV)",
+    "$ Vulvovaginal candidiasis",
+    "$ Trichomonas vaginalis infection",
+    "$ Other STIs causing cervicitis and",
+    "discharge",
+    "Self-diagnosis often inaccurate!",
+    "Vulvovaginitis Assessment",
+    "DIFFERENTIAL DIAGNOSIS",
+    "Bacterial Vaginosis Vulvovaginal Candidiasis Trichomoniasis"
+   ],
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "Patients most Multiple partners, no Pregnancy, CHC use, diabetes, Multiple sex partners, no condom",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "susceptible condoms, douching, weakened immune system, use, HIV infection, teens, and older",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "HSV-2 infection recent antibiotic use females",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "Organisms Aerobe overgrowth Candida albicans Trichomonas vaginalis",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "Discharge Thin, milky, Thick, cheesy or curd-like, Malodorous, yellow-green,",
+   "page": 13
+  },
+  {
+   "type": "list",
+   "items": [
+    "malodorous white or yellow copious, frothy",
+    "Coats walls of vagina",
+    "Vaginal pH >4.5 (elevated) <4.5 (normal) >4.5 (elevated)",
+    "Testing Positive KOH whiff NAAT NAAT",
+    "test",
+    "Microscopy Clue cells Buds, hyphae, with KOH Trichomonads"
+   ],
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "Treatment Metronidazole PO Vaginal–azole cream or ovule Metronidazole 500 mg PO BID",
+   "page": 13
+  },
+  {
+   "type": "list",
+   "items": [
+    "500 mg BID ×7 days (suppository); fluconazole ×7 days",
+    "or vaginal gel daily 150 mg PO once",
+    "×5 days",
+    "188 FNP/AGPCNP Review"
+   ],
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "Chapter 11  Women’s Health | Tanner Stages",
+   "page": 14
+  },
+  {
+   "type": "question",
+   "text": "A patient has a diagnosis of vulvovaginal candidiasis. This is the patient’s third episode of candidiasis in 4 months. Which of the following should be recommended?",
+   "items": [
+    "The patient can douche to help prevent future episodes.",
+    "The patient should abstain from sexual contact for 2 months.",
+    "The patient should be screened for immunocompromising conditions.",
+    "The patient should have their Mirena IUD removed."
+   ],
+   "page": 14
+  },
+  {
+   "type": "list",
+   "items": [
+    "Perimenopause",
+    "Body’s transition to menopause:",
+    "Mean length 4 years​; median duration 7–10 years!",
+    "Starts at different ages (as early as mid-30s!)​",
+    "Low estrogen states: hormonal testing not useful",
+    "Symptoms Genitourinary symptoms",
+    "Irregular menses • Vaginal dryness",
+    "Cognitive changes (“Brain Fog”) • Dyspareunia",
+    "Sleep/mood changes • Urinary urgency",
+    "Hot flashes and night sweats • Urinary frequency",
+    "Osteoporosis risk • Recurrent UTIs",
+    "Cardiovascular risk",
+    "Menopausal Management",
+    "Hormone replacement therapy (first-line)",
+    "COC: perimenopause and desire contraception",
+    "Estrogen only: total hysterectomy",
+    "Estrogen + Progestin: if uterus present",
+    "Contraindications: same as CHC",
+    "Nonhormonal therapy (useful for contraindications/patient wishes)",
+    "FDA approved:"
+   ],
+   "page": 14
+  },
+  {
+   "type": "list",
+   "items": [
+    "$ Paroxetine (Brisdelle) 7.5 mg daily",
+    "$ Fezolinetant 45 mg daily",
+    "Off-label: Supported by the North American Menopause Society",
+    "$ SSRIs: citalopram, escitalopram",
+    "$ SNRIs: desvenlafaxine, venlafaxine",
+    "$ Gabapentinoids: gabapentin"
+   ],
+   "page": 14
+  },
+  {
+   "type": "tip",
+   "text": "Use the lowest effective dose for the shortest amount of time for symptoms.",
+   "page": 14
+  },
+  {
+   "type": "para",
+   "text": "© 2026 Advanced Practice Education Associates 189",
+   "page": 14
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 11  Women’s Health | Tanner Stages",
+    "NOTES Genitourinary Syndrome of Menopause (Vulvovaginal Atrophy)",
+    "Low-estrogen state",
+    "Assessment",
+    "$ Pale, dry, smooth, and shiny epithelium with loss of vaginal rugae",
+    "$ Tissue fragility/petechiae",
+    "$ Vulvovaginal dryness",
+    "$ Abnormal discharge",
+    "$ Vaginal pH >5",
+    "© KAMAKSI/Shutterstock",
+    "Vulvovaginal Atrophy (VVA) Management",
+    "Vaginal moisturizers/lubricants",
+    "Topical (vaginal) estrogen: cream, tablets, ring, capsule",
+    "$ Preferred to systemic if only VVA symptoms",
+    "Ospemifene: oral",
+    "$ Common selective estrogen receptor modulator SE = hot flashes",
+    "Vaginal DHEA (prasterone): inserted daily",
+    "QUESTION #7"
+   ],
+   "page": 15
+  },
+  {
+   "type": "para",
+   "text": "An Asian female patient asks about their risk factors for osteoporosis. What",
+   "page": 15
+  },
+  {
+   "type": "para",
+   "text": "should be the response?",
+   "page": 15
+  },
+  {
+   "type": "para",
+   "text": "1. “Your sex and ethnicity mean you have a lower risk for osteoporosis.”",
+   "page": 15
+  },
+  {
+   "type": "para",
+   "text": "2. “Drinking three glasses of wine per week increases your risk.”",
+   "page": 15
+  },
+  {
+   "type": "para",
+   "text": "3. “Your history of having a spontaneous fracture puts you at higher risk.”",
+   "page": 15
+  },
+  {
+   "type": "list",
+   "items": [
+    "4. “Your current weight of 120 pounds is protective against",
+    "osteoporosis.”",
+    "190 FNP/AGPCNP Review"
+   ],
+   "page": 15
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 11  Women’s Health | Tanner Stages",
+    "Bone Health NOTES",
+    "Calcium",
+    "$ Ensure sufficient intake (≥1,200 mg daily)",
+    "Vitamin D",
+    "$ Ensure sufficient intake (800–1,000 IU daily)",
+    "$ Supplement with vitamin D3 (cholecalciferol)",
+    "Modifiable risk factors for osteoporosis",
+    "$ Reduce smoking, alcohol, medications/oral steroids",
+    "$ Weight-bearing, balance, and resistance exercises",
+    "$ Fall prevention",
+    "Osteoporosis Screening",
+    "Risk factors",
+    "Advanced age",
+    "Previous fragility fracture",
+    "Low body weight",
+    "Parental history of hip fracture",
+    "Rheumatoid arthritis",
+    "Cigarette smoking",
+    "Excess alcohol intake"
+   ],
+   "page": 16
+  },
+  {
+   "type": "list",
+   "items": [
+    "Early menopause",
+    "Long-term glucocorticoid therapy",
+    "Risk factor assessment (FRAX tool)",
+    "10-year probability of osteoporotic fracture",
+    "Screening: DEXA scan (Gold standard)",
+    "Females ≥65 years old",
+    "Females/males at any age with risk factors",
+    "Osteoporosis Diagnosis & Management",
+    "Osteopenia T-Score −1.0 to −2.5",
+    "Osteoporosis T-Score <−2.5",
+    "Who needs pharmacologic therapy?",
+    "1. Osteopenia + increased FRAX score",
+    "2. Osteopenia + Hx of fragility fracture",
+    "3. Osteoporosis",
+    "First-line: bisphosphonates",
+    "Alendronate (Fosamax)",
+    "Risedronate (Actonel, Atelvia)",
+    "Ibandronate (Boniva)",
+    "Zoledronic acid (Reclast)",
+    "© 2026 Advanced Practice Education Associates 191"
+   ],
+   "page": 16
+  },
+  {
+   "type": "para",
+   "text": "Chapter 11  Women’s Health | Tanner Stages",
+   "page": 17
+  },
+  {
+   "type": "question",
+   "text": "Which of the following conditions is not a contraindication for prescribing alendronate?",
+   "items": [
+    "History of bariatric surgery",
+    "Hypocalcemia",
+    "Postmenopausal",
+    "Barrett esophagus Osteoporosis Management ALTERNATIVES Denosumab (Prolia): monoclonal antibody • Intolerant or unresponsive to bisphosphonates"
+   ],
+   "page": 17
+  },
+  {
+   "type": "list",
+   "items": [
+    "BMD decreases rapidly when dc’d.",
+    "$ MUST start another medication ASAP",
+    "Raloxifene: Selective Estrogen Receptor Modulator (SERM)",
+    "Postmenopausal women not candidates for denosumab or bisphosphonate",
+    "Osteoporosis Evaluation",
+    "Typical duration of tx:",
+    "Oral 5 years",
+    "IV 3 years",
+    "Follow-up DEXA individualized. Consider if:",
+    "1. Clearly defined objectives",
+    "2. Results will influence patient management.",
+    "EXAMPLES:",
+    "New risk factors/new fracture",
+    "Prior to cessation of bisphosphonate therapy",
+    "Resources",
+    "Apps",
+    "$ CDC Contraception App: “Contraception”",
+    "$ Cervical Cancer Screening App: “ASCCP Management Guidelines” ($10)",
+    "$ STI Treatment App: “STI Tx Guide”",
+    "$ USPSTF Recommendations App"
+   ],
+   "page": 17
+  },
+  {
+   "type": "list",
+   "items": [
+    "$ John Hopkins Menopause Guide App",
+    "Websites",
+    "$ Fracture Risk Assessment Tool (FRAX)",
+    "$ American Cancer Society on Breast Cancer",
+    "$ NIH Breast Cancer Risk Assessment Tool",
+    "$ United States Preventive Services Task Force (USPSTF)",
+    "192 FNP/AGPCNP Review"
+   ],
+   "page": 17
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 11  Women’s Health | Exam Checklist",
+    "EXAM CHECKLIST NOTES",
+    "Dysmenorrhea",
+    "Abnormal uterine bleeding (AUB)",
+    "Amenorrhea, polycystic ovary syndrome (PCOS)",
+    "Contraception",
+    "Cervical cancer screening",
+    "Ovarian mass",
+    "Vulvovaginitis",
+    "Osteoporosis",
+    "Breast mass",
+    "Nipple discharge",
+    "Know clinical presentation (subjective, objective findings)",
+    "Know how to diagnose",
+    "What’s in differential diagnosis?",
+    "Pharmacologic, nonpharmacologic management",
+    "Follow-up care",
+    "Recognize normal course",
+    "Recognize complications",
+    "© 2026 Advanced Practice Education Associates 193"
+   ],
+   "page": 18
+  }
+ ],
+ "tables": [
+  {
+   "headers": [
+    "PCOS:",
+    "Diagnosis"
+   ],
+   "rows": [
+    [
+     "Complex",
+     "endocrinopathy"
+    ],
+    [
+     "Pathophysiology",
+     "is unclear."
+    ]
+   ],
+   "columns": [
+    64.0,
+    108.0
+   ],
+   "page": 6
+  },
+  {
+   "headers": [
+    "Nonclassic congenital",
+    "• Hyperandrogenism, • 17-hydroxyprogesterone at 8 a.m."
+   ],
+   "rows": [
+    [
+     "adrenal hyperplasia",
+     "oligomenorrhea, polycystic ovaries,"
+    ],
+    [
+     "(NCCAH)",
+     "possible premature pubarche"
+    ]
+   ],
+   "columns": [
+    128.0,
+    229.0
+   ],
+   "page": 7
+  },
+  {
+   "headers": [
+    "Results",
+    "Action"
+   ],
+   "rows": [
+    [
+     "Unsatisfactory sample",
+     "Repeat testing ASAP (no more than 4 months)"
+    ],
+    [
+     "CIN 1",
+     "Observation; repeat cytology in 1 year"
+    ],
+    [
+     "Positive HPV",
+     "Reflex cytology testing"
+    ]
+   ],
+   "columns": [
+    68.0,
+    249.0
+   ],
+   "page": 12
+  }
+ ],
+ "tips": [
+  "Postmenopausal and intermenstrual bleeding is always concerning for endometrial cancer!",
+  "Use the lowest effective dose for the shortest amount of time for symptoms."
+ ],
+ "questions": [
+  {
+   "stem": "Which of the following patients is at highest risk for developing breast cancer?",
+   "options": [
+    "A 45-year-old female who had six pregnancies",
+    "A 61-year-old nulliparous female with dense breast tissue",
+    "A 50-year-old female who has a higher body mass",
+    "A 32-year-old transgender female on hormone replacement therapy for 2 years Breast Cancer: Increased Risk Age Increased estrogen exposure"
+   ],
+   "page": 2
+  },
+  {
+   "stem": "A 23-year-old female presents to the clinic with concerns related to irregular menses. She is overweight and reports hirsutism since puberty. Which of the following statements is true?",
+   "options": [
+    "A pelvic ultrasound is required to diagnose PCOS.",
+    "Fibroids are the most likely diagnosis.",
+    "An androgen producing tumor is most likely the cause of symptoms.",
+    "Polycystic ovarian syndrome diagnostic criteria has been met."
+   ],
+   "page": 6
+  },
+  {
+   "stem": "A 25-year-old patient reports vaginal discharge and itching. Vaginitis is suspected. What should be the understanding?",
+   "options": [
+    "The color and consistency of the discharge will determine the cause.",
+    "The most likely diagnosis is candidiasis due to the report of discharge.",
+    "Sexually transmitted diseases are not likely due to the report of itching.",
+    "Further information is required to determine the etiology."
+   ],
+   "page": 13
+  },
+  {
+   "stem": "A patient has a diagnosis of vulvovaginal candidiasis. This is the patient’s third episode of candidiasis in 4 months. Which of the following should be recommended?",
+   "options": [
+    "The patient can douche to help prevent future episodes.",
+    "The patient should abstain from sexual contact for 2 months.",
+    "The patient should be screened for immunocompromising conditions.",
+    "The patient should have their Mirena IUD removed."
+   ],
+   "page": 14
+  },
+  {
+   "stem": "Which of the following conditions is not a contraindication for prescribing alendronate?",
+   "options": [
+    "History of bariatric surgery",
+    "Hypocalcemia",
+    "Postmenopausal",
+    "Barrett esophagus Osteoporosis Management ALTERNATIVES Denosumab (Prolia): monoclonal antibody • Intolerant or unresponsive to bisphosphonates"
+   ],
+   "page": 17
+  }
+ ],
+ "quality": {
+  "pages": 20,
+  "tables": 3,
+  "tips": 2,
+  "questions": 5,
+  "chars": 3619
+ }
+}

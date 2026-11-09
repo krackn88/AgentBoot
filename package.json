@@ -22,7 +22,9 @@
     "content:build": "npm run enrich && npm run extract:questions && npm run sync:manual-answers && npm run bulk:manual-answers && npm run extract:questions && npm run tables && npm run depth && npm run quality && npm run rationales && npm run search-index && npm run pearls",
     "smoke": "node scripts/build_smoke_bundle.mjs && node scripts/smoke_render.mjs",
     "verify": "npm run smoke && npm run build",
-    "pearls": "python3 scripts/rebuild_pearls.py && python3 scripts/assign_pearls.py"
+    "pearls": "python3 scripts/rebuild_pearls.py && python3 scripts/assign_pearls.py",
+    "pdf:fetch": "python3 scripts/pdf_fetch.py",
+    "pdf:extract": "python3 scripts/pdf_extract.py"
   },
   "dependencies": {
     "lucide-react": "^1.70.0",

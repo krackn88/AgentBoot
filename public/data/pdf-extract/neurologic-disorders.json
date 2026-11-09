@@ -1,0 +1,1429 @@
+{
+ "chapterId": "neurologic-disorders",
+ "title": "Neurologic Disorders",
+ "pdf": "06-neurologic-disorders-course-manual.pdf",
+ "pages": [
+  {
+   "n": 0,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 1,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 2,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 3,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 4,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 5,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 6,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 7,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 8,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 9,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 10,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 11,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 12,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 13,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 14,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 15,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 16,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 17,
+   "width": 639.0,
+   "height": 810.0
+  }
+ ],
+ "blocks": [
+  {
+   "type": "list",
+   "items": [
+    "CHAPTER 5",
+    "Neurologic",
+    "Disorders"
+   ],
+   "page": 0
+  },
+  {
+   "type": "list",
+   "items": [
+    "Vertigo",
+    "Head trauma",
+    "Concussion",
+    "Bell’s palsy",
+    "Headaches",
+    "Neuropathy",
+    "Tremors",
+    "Dementia/delirium"
+   ],
+   "page": 0
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 5  Neurologic Disorders | Vertigo",
+    "NOTES VERTIGO",
+    "Sensation of spinning, movement, or disequilibrium",
+    "MANY etiologies: get a thorough history.",
+    "Peripheral Central",
+    "Within the vestibular system (inner ear) • Involves the brainstem or cerebellum",
+    "Examples: benign positional vertigo, otitis • Examples: stroke, multiple sclerosis, brain tumor,",
+    "media, Menière’s disease meningitis",
+    "Is Vertigo Peripheral or Central?",
+    "Full neurologic exam",
+    "Dix–Hallpike maneuver: canalithiasis of the posterior semicircular canal (BPPV)",
+    "HINTS: head impulse, nystagmus, test of skew (if abnormal-central etiology)",
+    "Finding Peripheral Central",
+    "Nystagmus Stops with visual fixation Continues with visual fixation",
+    "Gait/balance Normal Impaired",
+    "Hearing May be impaired Normal",
+    "Neurologic exam Normal Impaired",
+    "Peripheral Vertigo Features"
+   ],
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "Episode length and characteristic features can help in identifying the cause of vertigo.",
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "Etiology Duration History Findings Physical Exam",
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "Peripheral Benign positional Seconds Triggered by position Positive Dix–Hallpike",
+   "page": 1
+  },
+  {
+   "type": "list",
+   "items": [
+    "etiologies vertigo changes maneuver",
+    "Associated with",
+    "nausea/vomiting"
+   ],
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "Vestibular migraine Few minutes to History of migraine, visual Abnormal balance",
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "hours aura, photophobia, severe during episodes",
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "headache",
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "Vestibular neuritis Days, single Preceding viral syndrome Horizontal nystagmus",
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "episode toward healthy ear,",
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "resolves with fixation",
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "Ménière’s disease 20 minutes to Spontaneous episodes, Low- or mid-frequency",
+   "page": 1
+  },
+  {
+   "type": "list",
+   "items": [
+    "12 hours fluctuating hearing loss, hearing loss",
+    "tinnitus",
+    "60 FNP/AGPCNP Review"
+   ],
+   "page": 1
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 5  Neurologic Disorders | Vertigo",
+    "Central Vertigo Features NOTES",
+    "Episode",
+    "Etiology Duration History Findings Physical Exam"
+   ],
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "Central Transient ischemic Usually Vascular risk factors, older age Temporary neurologic",
+   "page": 2
+  },
+  {
+   "type": "list",
+   "items": [
+    "etiologies attack <1 hour Sudden onset, single or deficits",
+    "recurrent Multidirectional nystagmus",
+    "Stroke Days to Vascular risk factors Neurologic deficits,",
+    "weeks, Sudden onset may have hemodynamic",
+    "persistent instability",
+    "Multidirectional nystagmus"
+   ],
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "Multiple sclerosis Hours to days Fatigue, sensory loss; may Optic neuritis",
+   "page": 2
+  },
+  {
+   "type": "list",
+   "items": [
+    "have relapsing, remitting Intermittent",
+    "symptoms neuropsychiatric changes",
+    "QUESTION #1"
+   ],
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "A patient who has vertigo is examined. Which assessment finding suggests a",
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "central etiology of vertigo?",
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "1. Nystagmus stops when the gaze is fixed on a stable object.",
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "2. Vertigo is associated with hearing impairment.",
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "3. The patient’s neurologic exam is normal.",
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "4. The patient is unable to maintain balance while walking.",
+   "page": 2
+  },
+  {
+   "type": "question",
+   "text": "Ms. H presents with intermittent dizziness and nausea. A Dix–Hallpike maneuver is performed. Which of the following would be considered a positive Dix–Hallpike?",
+   "items": [
+    "Dizziness resolves immediately upon performing the maneuver.",
+    "A doll eye (oculocephalic) reflex is observed.",
+    "Nystagmus of <60 seconds is observed.",
+    "The patient vomits on the NP’s shoes."
+   ],
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "What is the patient’s likely diagnosis?",
+   "page": 2
+  },
+  {
+   "type": "list",
+   "items": [
+    "Benign Paroxysmal Positional Vertigo",
+    "Managed in primary care",
+    "Repositioning maneuvers (Epley maneuver)",
+    "First-generation antihistamines",
+    "$ Best evidence: meclizine (Antivert) 25–100 mg",
+    "$ Reserved for highly disruptive symptoms",
+    "$ Watch for anticholinergic side effects!",
+    "Symptom management with anti-nausea medications",
+    "TIP: Refer for everything except BPPV!",
+    "© 2026 Advanced Practice Education Associates 61"
+   ],
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "Chapter 5  Neurologic Disorders | Vertigo",
+   "page": 3
+  },
+  {
+   "type": "question",
+   "text": "A 65-year-old patient fell and struck their head 2 hours ago. The patient should be referred to the ER for CT of the head if:",
+   "items": [
+    "the patient’s current Glasgow Coma Scale (GCS) score is 15.",
+    "the patient vomited once after the injury.",
+    "there is a laceration on the forehead.",
+    "the patient is 65-years old."
+   ],
+   "page": 3
+  },
+  {
+   "type": "list",
+   "items": [
+    "Head Trauma Imaging Criteria",
+    "Neurologic deficits Suspected skull fracture Risk factors for",
+    "intracranial bleeding",
+    "GCS <13 at initial assessment • Open, depressed, or basilar",
+    "or <15 2 hours after injury skull fracture • Bleeding disorder or",
+    "Seizure associated with injury • Signs: hemotympanum, anticoagulant treatment",
+    "Vomiting two or more times periorbital bruising, otorrhea, • High-velocity injury (e.g.,",
+    "rhinorrhea motor vehicle accident, fall",
+    "Retrograde amnesia",
+    ">3 feet)",
+    ">30 minutes",
+    "Age >60 (NOC)",
+    "Age ≥65 (CCHR)",
+    "New Orleans Criteria (NOC) Guidelines",
+    "Canadian CT Head Injury/Trauma Rule (CCHR)",
+    "Concussion",
+    "Mild acute traumatic brain injury",
+    "Expected course • Common symptoms"
+   ],
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "$ Progressive symptom improvement within $ Emotional lability or irritability",
+   "page": 3
+  },
+  {
+   "type": "list",
+   "items": [
+    "7–10 days Headaches",
+    "$",
+    "$ Symptom resolution by 1 month Dizziness",
+    "$",
+    "$ May need accommodations for school or Abnormal balance",
+    "$",
+    "work Mental fogginess",
+    "$",
+    "$ Concentration or memory deficits",
+    "$ Sleep changes",
+    "TIP: Refer if signs of neurologic decompensation",
+    "62 FNP/AGPCNP Review"
+   ],
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "Chapter 5  Neurologic Disorders | Vertigo",
+   "page": 4
+  },
+  {
+   "type": "question",
+   "text": "A 12-year-old sustained a mild concussion today during cheerleading practice. The neurologic exam is normal. The patient is advised to return to full activity:",
+   "items": [
+    "after 48 hours of physical and cognitive rest.",
+    "when the patient can tolerate a full day of school activities.",
+    "when the headache has resolved completely.",
+    "after a 6-day return-to-play protocol without recurrent symptoms."
+   ],
+   "page": 4
+  },
+  {
+   "type": "list",
+   "items": [
+    "Graduated Return to Play",
+    "Full",
+    "Non-",
+    "Full-Contact Activity",
+    "Contact",
+    "Training Practice",
+    "Sport- Day 6",
+    "Specific Drills",
+    "Light Day 5",
+    "Exercise",
+    "Aerobic",
+    "Day 4",
+    "Exercise Restore",
+    "Day 3 confidence;",
+    "ADL",
+    "Day 2 Exercise, assess functional",
+    "Add coordination, skills (coach)",
+    "Day 1",
+    "movement thinking",
+    "Increase"
+   ],
+   "page": 4
+  },
+  {
+   "type": "para",
+   "text": "Increase in HR",
+   "page": 4
+  },
+  {
+   "type": "para",
+   "text": "activity",
+   "page": 4
+  },
+  {
+   "type": "para",
+   "text": "If symptoms recur, must go back to previous step for minimum of 24 hours. Do not advance until",
+   "page": 4
+  },
+  {
+   "type": "para",
+   "text": "resolution of symptoms.",
+   "page": 4
+  },
+  {
+   "type": "question",
+   "text": "An adult patient presents with sudden onset of unilateral facial drooping and the inability to raise their right eyebrow or blink. The symptoms were present upon waking. The patient’s physical exam is otherwise normal. What is the most likely diagnosis?",
+   "items": [
+    "Lyme disease",
+    "Bell’s palsy",
+    "Stroke",
+    "Tumor © 2026 Advanced Practice Education Associates 63"
+   ],
+   "page": 4
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 5  Neurologic Disorders | Headaches",
+    "NOTES Bell’s Palsy Clinical Presentation Flattening of forehead",
+    "CN VII palsy",
+    "Idiopathic, acute, and spontaneous Otalgia",
+    "facial paralysis",
+    "Clinical diagnosis Altered tearing (dry or spilling)",
+    "Poor eyelid closure",
+    "House–Brackmann scale",
+    "$ Grades severity from I (normal) to Loss of nasolabial fold;",
+    "VI (complete paralysis) tingling, numbness",
+    "Drooping,",
+    "Taste disturbance",
+    "Bell’s Palsy: Management",
+    "Medical management depends upon",
+    "severity (House–Brackmann [H–B] grade)",
+    "Glucocorticoids Antivirals",
+    "All H–B Grades H–B Grade IV or higher",
+    "Initiate ≤72 hours onset Evidence of herpes",
+    "60–80 mg daily ×7 days, then taper",
+    "Peak Stable Improved Recovery"
+   ],
+   "page": 5
+  },
+  {
+   "type": "para",
+   "text": "symptoms symptoms symptoms",
+   "page": 5
+  },
+  {
+   "type": "para",
+   "text": "• 1–2 days • 3 weeks • 2–3 months • 3–6 months",
+   "page": 5
+  },
+  {
+   "type": "tip",
+   "text": "Prevent complications: corneal abrasion and psychological distress",
+   "page": 5
+  },
+  {
+   "type": "list",
+   "items": [
+    "HEADACHES",
+    "Headaches",
+    "DEFINED AS EITHER PRIMARY OR SECONDARY",
+    "Primary headaches",
+    "$ Caused by overactivity of pain-sensing structures in the brain",
+    "$ Types: migraine, tension, cluster",
+    "Secondary headaches",
+    "$ Underlying pathology causes headache",
+    "$ Often have “red flag” symptoms",
+    "$ Examples: sinusitis, medication overuse, hypertension, stroke",
+    "64 FNP/AGPCNP Review"
+   ],
+   "page": 5
+  },
+  {
+   "type": "para",
+   "text": "Chapter 5  Neurologic Disorders | Headaches",
+   "page": 6
+  },
+  {
+   "type": "question",
+   "text": "Which clinical feature of headache suggests the need for intracranial imaging?",
+   "items": [
+    "Explosive eye pain resolving in 1 hour",
+    "Severe headache in patient taking dabigatran",
+    "Associated with nausea and vomiting",
+    "Visual distortion occurred pre-headache Headache Red Flags SNOOP-10 Headache Red Flags Suggest a secondary or emergent cause of headache"
+   ],
+   "page": 6
+  },
+  {
+   "type": "list",
+   "items": [
+    "S Systemic symptoms",
+    "Secondary risk factors",
+    "N Neurologic symptoms (altered mental status)",
+    "O Onset is abrupt (thunderclap)",
+    "O Older (new or progressive in adults >50 years of age)",
+    "P Pattern change Pregnancy",
+    "Papilledema Posttraumatic",
+    "Positional Painful eye",
+    "Precipitated by Valsalva Pathology of immune system",
+    "Progressive Painkiller use",
+    "10 10/10 in severity",
+    "Papilledema",
+    "Swelling of the optic disc due to increased intracranial pressure",
+    "TIP: Papilledema is almost always bilateral",
+    "© 2026 Advanced Practice Education Associates 65"
+   ],
+   "page": 6
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 5  Neurologic Disorders | Headaches",
+    "NOTES Etiologies of Secondary Headaches",
+    "Etiology Key History/Characteristics",
+    "Cerebrovascular accident (CVA) • History of cardiovascular disease"
+   ],
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "or transient ischemic attack • Sudden onset of focal neurologic change; hemodynamic instability;",
+   "page": 7
+  },
+  {
+   "type": "list",
+   "items": [
+    "abnormal neuro exam",
+    "Idiopathic intracranial • Transient vision changes",
+    "hypertension (pseudotumor • Papilledema",
+    "cerebri)",
+    "Subdural hematoma • History of trauma or blood thinner use",
+    "Insidious degeneration of neural function",
+    "May be unprovoked",
+    "Giant cell arteritis (temporal • Age >50 years"
+   ],
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "arteritis) • Temple pain, fever, fatigue, jaw claudication, vision changes",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "• Elevated ESR/CRP",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "Trigeminal neuralgia • Acute, severe, stabbing pain of the unilateral face (5th CN branch",
+   "page": 7
+  },
+  {
+   "type": "list",
+   "items": [
+    "distribution)",
+    "May have pain between attacks",
+    "Migraine Without Aura",
+    "Time: headache lasts 4–72 hours",
+    "Characteristics: (at least two of the following)",
+    "$ Unilateral, pulsating quality",
+    "$ Moderate to severe intensity",
+    "$ Aggravated by routine activity",
+    "Associated symptoms: (at least one of the following)",
+    "$ Nausea and/or vomiting, photophobia, OR phonophobia",
+    "Number of attacks: five or more episodes",
+    "$ Less than five attacks: “Probable Migraine Disorder”",
+    "No other reason for the headache occurrence"
+   ],
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "International Classification of Headache Disorders, ​3rd edition (ICHD3)​",
+   "page": 7
+  },
+  {
+   "type": "list",
+   "items": [
+    "Migraine With Aura Visual Aura",
+    "25% of patients with migraine have an aura",
+    "ICHD-3 Diagnostic Criteria",
+    "$ Meets criteria for migraine headaches",
+    "$ At least two attacks of migraine with aura",
+    "Aura features",
+    "$ Fully reversible visual, sensory, motor, brainstem,",
+    "retinal, or speech changes",
+    "$ Develop over 5–60 minutes preceding a headache",
+    "66 FNP/AGPCNP Review"
+   ],
+   "page": 7
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 5  Neurologic Disorders | Headaches",
+    "Migraine Headaches NOTES",
+    "Risk factors: female sex, age 30 to 39 years, genetic susceptibility",
+    "Identify triggers",
+    "Triggers",
+    "Stress Hormones",
+    "Weather",
+    "Fasting",
+    "changes",
+    "Sleep Food or",
+    "disruption drink",
+    "Migraine: Acute Treatment",
+    "Medication Class Examples of Medications Considerations",
+    "Simple analgesics Acetaminophen Best for mild to moderate headache"
+   ],
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "NSAIDs Aspirin, ibuprofen, naproxen, Consider contraindications and adverse effects;",
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "ketorolac more efficacious when combined with triptans",
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "Triptans Sumatriptan, zolmitriptan, Contraindicated if basilar migraine, ischemic",
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "naratriptan, rizatriptan, stroke, myocardial infarction, Prinzmetal angina,",
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "almotriptan, eletriptan, uncontrolled hypertension",
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "frovatriptan",
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "Calcitonin gene-related Zavegepant (Zavzpret); Zavegepant is intranasal, others oral; Nurtec",
+   "page": 8
+  },
+  {
+   "type": "list",
+   "items": [
+    "peptide (CGRPs) Ubrogepant (Ubrelvy); ODT is also prophylactic",
+    "receptor antagonists Expensive",
+    "Rimegepant (Nurtec ODT)"
+   ],
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "Serotonin agonist Lasmiditan (Reyvow) Not vasoconstrictive, may be safer than triptans",
+   "page": 8
+  },
+  {
+   "type": "list",
+   "items": [
+    "(5HT1-F) for some patients",
+    "May reduce nausea/vomiting",
+    "Not first-line therapy",
+    "QUESTION #7",
+    "Which of the following is true about prescribing triptans?",
+    "1. If one triptan doesn’t work, switch to a different drug class.",
+    "2. Triptans should be limited to no more than 2 days per month.",
+    "3. Sumatriptan SQ is recommended for cluster headaches.",
+    "4. Triptans may never be given at the same time as NSAID.",
+    "© 2026 Advanced Practice Education Associates 67"
+   ],
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "Chapter 5  Neurologic Disorders | Headaches",
+   "page": 9
+  },
+  {
+   "type": "question",
+   "text": "Which of the following drug classes may cause medication overuse headaches?",
+   "items": [
+    "Opioids",
+    "Triptans",
+    "Simple analgesics",
+    "All of the above Medication Overuse Headache • ICHD-3 diagnostic criteria $ Presence of a preexisting headache disorder"
+   ],
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "$ Headache occurs 15 or more days per month",
+    "$ Regular overuse of acute medications for >3 months",
+    ">10 days per month regular intake of ergotamine, triptans, opioids, or combination",
+    "analgesics, or any combination",
+    ">15 days per month of simple analgesics",
+    "$ No diagnosis better explains the symptoms",
+    "Management: withdrawal of overused medication; initiate prophylactic headache treatment",
+    "Migraine Prophylaxis",
+    "Indications",
+    "$ Frequent or long-lasting migraine",
+    ">4 attacks per month or >12 hours per migraine",
+    "$ Significant disability or quality of life",
+    "$ At risk for medication overuse headache"
+   ],
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "$ Abortive treatments are ineffective, contraindicated, or result in adverse effects",
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "$ Menstrual migraine",
+    "Initiation (3- to 6-month trial): Start at low dose, titrate to therapeutic benefit",
+    "Migraine: Prophylactic Agents",
+    "Class Medications Considerations",
+    "Nonselective Timolol, • Angina, hypertension, anxiety, younger"
+   ],
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "beta blockers propranolol, • SE: weight gain, fatigue, decreased BP or HR, activity intolerance,",
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "metoprolol* bronchospasm",
+    "Avoid in bradycardia!",
+    "Caution in asthma, diabetes mellitus, depression",
+    "Anticonvulsants Valproate • SE: weight gain, somnolence, hair loss",
+    "Highly teratogenic"
+   ],
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "Topiramate • SE: weight loss, concentration, fatigue, anorexia, paresthesia",
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "Avoid in pregnancy",
+    "Antidepressants Amitriptyline* • Sedating, given in evening",
+    "SE: anticholinergic activity",
+    "Venlafaxine* • Panic disorder, GAD, SAD, MDD",
+    "SE: nausea, dizziness, insomnia",
+    "*Not FDA-approved for migraines",
+    "68 FNP/AGPCNP Review"
+   ],
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 5  Neurologic Disorders | Headaches",
+    "Other Primary Headaches NOTES",
+    "Tension-Type Cluster",
+    "Diagnostic criteria 10 episodes with Five attacks",
+    "2 of the following: Severe unilateral orbital/temporal pain",
+    "Bilateral Both or either",
+    "Pressing (nonpulsating) • At least one (ipsilateral to HA)",
+    "Mild to moderate $ Conjunctival injection/lacrimation",
+    "Not aggravated by routine activity $ Nasal congestion",
+    "Both of the following: $ Rhinorrhea",
+    "<1episode of Photophobia or $ Eyelid edema",
+    "phonophobia Forehead and facial sweating",
+    "$",
+    "No nausea or vomiting Miosis and/or ptosis",
+    "$",
+    "A sense of restlessness or agitation",
+    "Duration 30 minutes to 7 days 15–180 minutes",
+    "Active time course; 4–8 times per day",
+    "Treatment NSAIDs, aspirin Acute",
+    "Acetaminophen • 100% oxygen therapy"
+   ],
+   "page": 10
+  },
+  {
+   "type": "list",
+   "items": [
+    "Acetaminophen-aspirin-caffeine • SQ or nasal sumatriptan",
+    "No opioids or barbiturates Prevention",
+    "Verapamil*, glucocorticoids",
+    "* = off-label",
+    "QUESTION #9",
+    "A patient who has diabetes reports numbness and tingling of the toes",
+    "bilaterally. Which statement is true of diabetic neuropathy?",
+    "1. Duration and severity of hyperglycemia are primary risk factors."
+   ],
+   "page": 10
+  },
+  {
+   "type": "para",
+   "text": "2. Symptoms typically begin with unilateral, distal paresthesia of a limb.",
+   "page": 10
+  },
+  {
+   "type": "para",
+   "text": "3. Diabetic neuropathy is reversible with adequate blood glucose control.",
+   "page": 10
+  },
+  {
+   "type": "list",
+   "items": [
+    "4. Foot inspections should be performed at least weekly to",
+    "prevent amputations.",
+    "Diabetic Neuropathy",
+    "Distal symmetric polyneuropathy (DSPN) = diabetic neuropathy",
+    "15–20% of patients with diabetic neuropathy have pain.",
+    "Symptomatic neuropathy is not usually reversible.",
+    "Prevention!",
+    "© 2026 Advanced Practice Education Associates 69"
+   ],
+   "page": 10
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 5  Neurologic Disorders | Headaches",
+    "NOTES Differential Diagnosis of Neuropathy",
+    "Neuropathy Examples",
+    "Metabolic • Diabetes (most common)",
+    "B12 deficiency",
+    "Hypothyroidism",
+    "Toxic • Alcohol",
+    "Diffuse motor without sensory • Guillain–Barré syndrome",
+    "Myasthenia gravis",
+    "Inflammatory/infectious • Sarcoidosis",
+    "Lupus",
+    "Lyme disease",
+    "Compressive • Carpal tunnel syndrome",
+    "Tarsal tunnel syndrome",
+    "Sciatica",
+    "Pharmacologic Treatment of Diabetic Neuropathy",
+    "Most likely to be on certification exam",
+    "Drug Class FDA-Approved Drugs Evidence-Based Off-Label Alternatives"
+   ],
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "Serotonin norepinephrine reuptake Duloxetine (Cymbalta) Venlafaxine (Effexor)",
+   "page": 11
+  },
+  {
+   "type": "list",
+   "items": [
+    "inhibitors (SNRIs)",
+    "Tricyclic antidepressants (TCAs) — Amitriptyline Desipramine",
+    "Nortriptyline",
+    "Gabapentinoids Pregabalin (Lyrica) Gabapentin (Neurontin)",
+    "QUESTION #10"
+   ],
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "A 62-year-old patient has a new-onset hand tremor. A diagnosis of essential",
+   "page": 11
+  },
+  {
+   "type": "list",
+   "items": [
+    "tremor would be suspected if the tremor:",
+    "1. starts unilaterally and looks like pill-rolling.",
+    "2. is most apparent when the hand is supported.",
+    "3. is associated with generalized bradykinesia.",
+    "4. occurs at the end of goal-directed movement.",
+    "70 FNP/AGPCNP Review"
+   ],
+   "page": 11
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 5  Neurologic Disorders | Cognitive Impairment and Dementia",
+    "Essential Tremor vs. Parkinson Disease NOTES",
+    "Essential Tremor Parkinson Disease",
+    "Onset 20s–30s and 60s–70s Average age 60s",
+    "Tremor characteristics Bilateral action tremor Resting tremor",
+    "Worse with anxiety or caffeine Begins unilaterally, then spreads",
+    "Improves with alcohol bilaterally"
+   ],
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "Associated findings Mild gait disorder may be present Bradykinesia, rigidity, gait",
+   "page": 12
+  },
+  {
+   "type": "list",
+   "items": [
+    "disturbance, postural instability",
+    "Diagnosis Clinical diagnosis once tremor present at Clinical diagnosis",
+    "least 3 years; rule out alternatives (thyroid)",
+    "Symptom management Propranolol, primidone Levodopa",
+    "QUESTION #11"
+   ],
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "Based on the presentation, what is the most likely diagnosis causing each",
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "tremor?",
+   "page": 12
+  },
+  {
+   "type": "list",
+   "items": [
+    "Tremor Characteristics Most Likely Diagnosis",
+    "Unilateral onset, affects the foot",
+    "at rest",
+    "Symmetric, affecting the voice and",
+    "head",
+    "Induced by valproic acid",
+    "Managed with primidone or",
+    "propranolol",
+    "Accompanied by bradykinesia and",
+    "rigidity",
+    "Symptoms of anxiety, heat",
+    "intolerance, and fatigue",
+    "COGNITIVE IMPAIRMENT AND DEMENTIA",
+    "Memory Deficits",
+    "Age-Associated Dementia",
+    "Onset​ 30s, 40s, 50s, and up​ After age 60​",
+    "Progression​ Subtle decline​ Insidious progressive decline​",
+    "QOL​ No disruption​ Significant disruption​",
+    "Key features​ Memory impairment​ Memory impairment​",
+    "Slow processing speed​ (Impaired ability to)​"
+   ],
+   "page": 12
+  },
+  {
+   "type": "list",
+   "items": [
+    "Conceptual reasoning • Recall recent events​",
+    "(problem-solving)​ • Learn new things​",
+    "Memory (delayed recall, • Complete familiar tasks",
+    "remembering to take",
+    "Complete executive tasks​",
+    "medications)​",
+    "© 2026 Advanced Practice Education Associates 71"
+   ],
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "Chapter 5  Neurologic Disorders | Cognitive Impairment and Dementia",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "NOTES Dementia",
+   "page": 13
+  },
+  {
+   "type": "table",
+   "headers": [
+    "Umbrella term for a group",
+    "of disorders causing memory or cognitive impairments"
+   ],
+   "rows": [
+    [
+     "Diagnosis",
+     "Characteristics"
+    ],
+    [
+     "Alzheimer dementia",
+     "Insidious onset, progressive decline in multiple cognitive domains"
+    ],
+    [
+     "Vascular or multi-infarct",
+     "CVD; history of ischemic or hemorrhagic stroke; may cause rapid or slow"
+    ],
+    [
+     "dementia",
+     "decline"
+    ],
+    [
+     "Lewy body dementia",
+     "Early appearance of visual hallucinations, cognitive fluctuations, REM sleep"
+    ]
+   ],
+   "columns": [
+    128.0,
+    254.0
+   ],
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "disorder, with or without parkinsonism",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "Frontotemporal dementia Early alteration of personality, social and emotional behavior, primary",
+   "page": 13
+  },
+  {
+   "type": "list",
+   "items": [
+    "progressive aphasia",
+    "Dementia Risk Factors",
+    "Cardiometabolic diseases",
+    "$ HTN, hyperlipidemia, obesity, diabetes",
+    "Depression and isolation",
+    "Cognitive and physical inactivity",
+    "Smoking, alcohol",
+    "Hearing loss",
+    "Head injury",
+    "Advancing age",
+    "QUESTION #12"
+   ],
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "An older patient is brought to the clinic by a family member. The family",
+   "page": 13
+  },
+  {
+   "type": "list",
+   "items": [
+    "member reports concerns of cognitive decline. Which of the following",
+    "statements are true?",
+    "1. The patient should be examined without the family member’s input.",
+    "2. The patient is always aware of their own cognitive impairment.",
+    "3. A thorough medication review should be completed.",
+    "4. Determine if the family member has medical power",
+    "of attorney.",
+    "Dementia: Approach to Workup",
+    "Thorough history from patient and significant other, if possible",
+    "Cognitive testing",
+    "$ Montreal Cognitive Assessment (MoCA)",
+    "≥94% sensitivity, ≤60% specificity",
+    "Free, online, several languages",
+    "$ MMSE: sensitive and reliable, but not free",
+    "Diagnostics",
+    "$ Laboratory testing to rule out look-alikes (CBC, B12, TSH)",
+    "$ Identified biomarkers (CSF, serum, PET): Research is ongoing!",
+    "$ Consider referral if diagnosis is unclear or atypical features!",
+    "72 FNP/AGPCNP Review"
+   ],
+   "page": 13
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 5  Neurologic Disorders | Cognitive Impairment and Dementia",
+    "Always screen for depression! NOTES",
+    "Depression can worsen cognitive impairment.",
+    "PHQ-2",
+    "In the past 2 weeks, how often have you:",
+    "1. had little interest in doing things?",
+    "2. felt down, depressed, or hopeless?",
+    "Presumptive Alzheimer Disease Diagnosis",
+    "1. Cognitive impairment in more than one domain",
+    "2. Significant, insidious decline from previous level of function"
+   ],
+   "page": 14
+  },
+  {
+   "type": "para",
+   "text": "3. Pattern and severity of decline in cognitive function impairs ability to perform ADLs",
+   "page": 14
+  },
+  {
+   "type": "table",
+   "headers": [
+    "4. Delirium and other mental disorders (depression,",
+    "schizophrenia, etc.) have been excluded"
+   ],
+   "rows": [
+    [
+     "Domains of",
+     "Cognition"
+    ],
+    [
+     "Learning and Language Executive",
+     "Complex Perceptual Social Cognition"
+    ],
+    [
+     "Memory Function",
+     "Attention Motor Skills"
+    ],
+    [
+     "Diagnosis: Probable Alzheimer Disease",
+     "(AD)"
+    ],
+    [
+     "Agreement between history and mental exam is highly",
+     "suggestive of Alzheimer dementia."
+    ]
+   ],
+   "columns": [
+    64.0,
+    308.0
+   ],
+   "page": 14
+  },
+  {
+   "type": "list",
+   "items": [
+    "AD Pharmacologic Management",
+    "Mild to moderate Moderate to severe",
+    "Cholinesterase N-methyl-D-",
+    "inhibitors (CI) aspartate (NMDA)",
+    "Donepezil",
+    "Memantine",
+    "(Aricept)—",
+    "(Namenda)",
+    "disintegrating tab",
+    "Rivastigmine",
+    "(Exelon)—patch",
+    "Galantamine",
+    "(Razadyne) IR or",
+    "ER"
+   ],
+   "page": 14
+  },
+  {
+   "type": "para",
+   "text": "Patients may meet criteria for monoclonal antibodies lecanemab and doneanemab.",
+   "page": 14
+  },
+  {
+   "type": "para",
+   "text": "© 2026 Advanced Practice Education Associates 73",
+   "page": 14
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 5  Neurologic Disorders | Cognitive Impairment and Dementia",
+    "NOTES Neurocognitive Decline Management",
+    "Prioritize Safety!!!",
+    "Safety alerts",
+    "Locks on doors",
+    "Locked medication cabinets",
+    "Minimize anxiety",
+    "Distract and redirect",
+    "Establish and maintain routine",
+    "Calm and reassuring responses",
+    "Neuropsychiatric Symptoms",
+    "Assess for other causes",
+    "Nonpharmacotherapy first-line",
+    "Manage persistent symptoms",
+    "$ Depression: SSRI, SNRI",
+    "$ Delusions/hallucinations/agitation:",
+    "Brexpiprazole (Rexulti)",
+    "Antipsychotics (Olanzapine, quetiapine—off label)",
+    "$ Sleep disorders: melatonin, suvorexant (Belsomra)",
+    "QUESTION #13"
+   ],
+   "page": 15
+  },
+  {
+   "type": "para",
+   "text": "A 70-year-old patient is brought to the clinic by a caregiver who has noticed",
+   "page": 15
+  },
+  {
+   "type": "para",
+   "text": "progressive memory changes over the past 3 months. Which diagnosis is least",
+   "page": 15
+  },
+  {
+   "type": "para",
+   "text": "likely to be causing this patient’s symptoms?",
+   "page": 15
+  },
+  {
+   "type": "list",
+   "items": [
+    "1. B12 deficiency",
+    "2. Depression",
+    "3. Syphilis",
+    "4. Delirium",
+    "Delirium",
+    "Sudden, significant change in brain function",
+    "Common etiologies",
+    "$ Drug use: medication change, substance use"
+   ],
+   "page": 15
+  },
+  {
+   "type": "para",
+   "text": "$ Medical conditions: atrial fibrillation, electrolyte disturbance, dehydration, nutritional",
+   "page": 15
+  },
+  {
+   "type": "list",
+   "items": [
+    "deficiency",
+    "$ Infection: UTI, pneumonia",
+    "$ Brain insults: head injury, intracranial infection",
+    "$ Environmental disruption: hospitalization, sensory deprivation",
+    "74 FNP/AGPCNP Review"
+   ],
+   "page": 15
+  },
+  {
+   "type": "para",
+   "text": "Chapter 5  Neurologic Disorders | Exam Checklist",
+   "page": 16
+  },
+  {
+   "type": "para",
+   "text": "Cranial Nerves NOTES",
+   "page": 16
+  },
+  {
+   "type": "list",
+   "items": [
+    "Headaches",
+    "Concussion",
+    "Vertigo",
+    "Neuropathy",
+    "Tremors",
+    "Dementia vs. delirium",
+    "Bell’s palsy",
+    "Cranial nerves",
+    "Know clinical presentation (subjective, objective findings)",
+    "Know how to diagnose",
+    "What is in differential diagnosis?",
+    "Pharmacologic, nonpharmacologic management",
+    "Follow-up labs/care",
+    "When to refer!",
+    "© 2026 Advanced Practice Education Associates 75"
+   ],
+   "page": 16
+  }
+ ],
+ "tables": [
+  {
+   "headers": [
+    "Umbrella term for a group",
+    "of disorders causing memory or cognitive impairments"
+   ],
+   "rows": [
+    [
+     "Diagnosis",
+     "Characteristics"
+    ],
+    [
+     "Alzheimer dementia",
+     "Insidious onset, progressive decline in multiple cognitive domains"
+    ],
+    [
+     "Vascular or multi-infarct",
+     "CVD; history of ischemic or hemorrhagic stroke; may cause rapid or slow"
+    ],
+    [
+     "dementia",
+     "decline"
+    ],
+    [
+     "Lewy body dementia",
+     "Early appearance of visual hallucinations, cognitive fluctuations, REM sleep"
+    ]
+   ],
+   "columns": [
+    128.0,
+    254.0
+   ],
+   "page": 13
+  },
+  {
+   "headers": [
+    "4. Delirium and other mental disorders (depression,",
+    "schizophrenia, etc.) have been excluded"
+   ],
+   "rows": [
+    [
+     "Domains of",
+     "Cognition"
+    ],
+    [
+     "Learning and Language Executive",
+     "Complex Perceptual Social Cognition"
+    ],
+    [
+     "Memory Function",
+     "Attention Motor Skills"
+    ],
+    [
+     "Diagnosis: Probable Alzheimer Disease",
+     "(AD)"
+    ],
+    [
+     "Agreement between history and mental exam is highly",
+     "suggestive of Alzheimer dementia."
+    ]
+   ],
+   "columns": [
+    64.0,
+    308.0
+   ],
+   "page": 14
+  }
+ ],
+ "tips": [
+  "Prevent complications: corneal abrasion and psychological distress"
+ ],
+ "questions": [
+  {
+   "stem": "Ms. H presents with intermittent dizziness and nausea. A Dix–Hallpike maneuver is performed. Which of the following would be considered a positive Dix–Hallpike?",
+   "options": [
+    "Dizziness resolves immediately upon performing the maneuver.",
+    "A doll eye (oculocephalic) reflex is observed.",
+    "Nystagmus of <60 seconds is observed.",
+    "The patient vomits on the NP’s shoes."
+   ],
+   "page": 2
+  },
+  {
+   "stem": "A 65-year-old patient fell and struck their head 2 hours ago. The patient should be referred to the ER for CT of the head if:",
+   "options": [
+    "the patient’s current Glasgow Coma Scale (GCS) score is 15.",
+    "the patient vomited once after the injury.",
+    "there is a laceration on the forehead.",
+    "the patient is 65-years old."
+   ],
+   "page": 3
+  },
+  {
+   "stem": "A 12-year-old sustained a mild concussion today during cheerleading practice. The neurologic exam is normal. The patient is advised to return to full activity:",
+   "options": [
+    "after 48 hours of physical and cognitive rest.",
+    "when the patient can tolerate a full day of school activities.",
+    "when the headache has resolved completely.",
+    "after a 6-day return-to-play protocol without recurrent symptoms."
+   ],
+   "page": 4
+  },
+  {
+   "stem": "An adult patient presents with sudden onset of unilateral facial drooping and the inability to raise their right eyebrow or blink. The symptoms were present upon waking. The patient’s physical exam is otherwise normal. What is the most likely diagnosis?",
+   "options": [
+    "Lyme disease",
+    "Bell’s palsy",
+    "Stroke",
+    "Tumor © 2026 Advanced Practice Education Associates 63"
+   ],
+   "page": 4
+  },
+  {
+   "stem": "Which clinical feature of headache suggests the need for intracranial imaging?",
+   "options": [
+    "Explosive eye pain resolving in 1 hour",
+    "Severe headache in patient taking dabigatran",
+    "Associated with nausea and vomiting",
+    "Visual distortion occurred pre-headache Headache Red Flags SNOOP-10 Headache Red Flags Suggest a secondary or emergent cause of headache"
+   ],
+   "page": 6
+  },
+  {
+   "stem": "Which of the following drug classes may cause medication overuse headaches?",
+   "options": [
+    "Opioids",
+    "Triptans",
+    "Simple analgesics",
+    "All of the above Medication Overuse Headache • ICHD-3 diagnostic criteria $ Presence of a preexisting headache disorder"
+   ],
+   "page": 9
+  }
+ ],
+ "quality": {
+  "pages": 18,
+  "tables": 2,
+  "tips": 1,
+  "questions": 6,
+  "chars": 4896
+ }
+}

@@ -472,3 +472,8 @@ input[type=text],input[type=email],input[type=date],select{padding:11px 13px;bor
 .packet-table{width:100%;border-collapse:collapse;font-size:10pt;margin:8px 0}
 .packet-table th,.packet-table td{border:1px solid #999;padding:5px 7px;text-align:left;vertical-align:top}
 .packet-table th{background:#eee}
+
+/* Instructor TIP call-outs extracted from the PDF text layer */
+.pearl-card.pearl-tip{border-color:#c5e5de;background:linear-gradient(180deg,#fff,#f5fbf9)}
+.pearl-badge{display:inline-block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;
+  color:#0a5c50;background:#e4f5f0;border-radius:5px;padding:2px 7px;margin:0 0 8px 8px;vertical-align:top}

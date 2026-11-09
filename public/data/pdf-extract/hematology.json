@@ -1,0 +1,1363 @@
+{
+ "chapterId": "hematology",
+ "title": "Hematology",
+ "pdf": "05-hematology-course-manual.pdf",
+ "pages": [
+  {
+   "n": 0,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 1,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 2,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 3,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 4,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 5,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 6,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 7,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 8,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 9,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 10,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 11,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 12,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 13,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 14,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 15,
+   "width": 639.0,
+   "height": 810.0
+  }
+ ],
+ "blocks": [
+  {
+   "type": "para",
+   "text": "CHAPTER 4",
+   "page": 0
+  },
+  {
+   "type": "para",
+   "text": "Hematology",
+   "page": 0
+  },
+  {
+   "type": "list",
+   "items": [
+    "Laboratory tests to know",
+    "Anemias",
+    "$ Iron deficiency anemia",
+    "$ Thalassemia",
+    "$ Anemia of chronic disease",
+    "$ Vitamin B12 deficiency",
+    "Platelet disorders",
+    "$ Immune thrombocytopenia purpura (ITP)",
+    "White blood cell interpretation",
+    "$ CBC differentials",
+    "Leukemia"
+   ],
+   "page": 0
+  },
+  {
+   "type": "para",
+   "text": "Chapter 4  Hematology | Anemia",
+   "page": 1
+  },
+  {
+   "type": "question",
+   "text": "Which of the following measures are required to diagnose a patient with anemia?",
+   "items": [
+    "Both low hemoglobin and hematocrit",
+    "Hemoglobin, hematocrit, and red blood cells, all must be low",
+    "Both low hemoglobin and mean corpuscular volume",
+    "Either low hemoglobin, hematocrit, or red blood cells ANEMIA • Reduction in at least one RBC measure $ RBC count $ Hemoglobin $ Hematocrit"
+   ],
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "Anemia Is NEVER Normal!",
+   "page": 1
+  },
+  {
+   "type": "list",
+   "items": [
+    "Joshua Lanclos/APEA",
+    "Always suspect that something is going on with the patient!",
+    "Normal Doesn’t Always Mean Normal"
+   ],
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "A perimenopausal patient experiences shortness of breath and fatigue following a very heavy",
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "menstrual cycle.",
+   "page": 1
+  },
+  {
+   "type": "list",
+   "items": [
+    "Hgb Level Pre-cycle Hgb Post-cycle Hgb",
+    "Normal 12.1–15.2 g/dL 14.6 g/dL 12.5 g/dL",
+    "Anemia Classification"
+   ],
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "Every anemia in the world is categorized by describing the size and color of RBCs",
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "______ cytic (Size) ______ chromic (Color)",
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "44 FNP/AGPCNP Review",
+   "page": 1
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 4  Hematology | Anemia",
+    "How Do You Know the Size of RBCs? NOTES",
+    "Look at the MCV value",
+    "$ MCV = Mean Corpuscular Volume",
+    "$ ______-cytic",
+    "MCV Value Cell Size Name",
+    "Low Too small Microcytic",
+    "Normal Normal Normocytic",
+    "High Too big Macrocytic",
+    "“cytic” refers to the cell",
+    "MCV Value",
+    "Too big",
+    "Just right",
+    "Too small",
+    "Microcytic Normocytic Macrocytic",
+    "<80 fL 80–96 fL >96 fL",
+    "How Do You Know the Color of RBCs?",
+    "Look at the MCH value",
+    "$ MCH = Mean Corpuscular Hemoglobin",
+    "$ ______-chromic"
+   ],
+   "page": 2
+  },
+  {
+   "type": "table",
+   "headers": [
+    "MCH Value",
+    "Cell Color",
+    "Name"
+   ],
+   "rows": [
+    [
+     "Low",
+     "Too pale",
+     "Hypochromic"
+    ],
+    [
+     "Normal",
+     "Just right",
+     "Normochromic"
+    ],
+    [
+     "High",
+     "Too dark",
+     "Hyperchromic"
+    ]
+   ],
+   "columns": [
+    68.0,
+    218.0,
+    367.0
+   ],
+   "page": 2
+  },
+  {
+   "type": "list",
+   "items": [
+    "“chromic” means color",
+    "MCH Value",
+    "Too pale Just right Too dark",
+    "Hypochromic Normochromic Hyperchromic",
+    "<26 pg 26–33 pg >33 pg",
+    "© 2026 Advanced Practice Education Associates 45"
+   ],
+   "page": 2
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 4  Hematology | Anemia",
+    "NOTES Is This Patient Anemic?",
+    "Patient Normal Range",
+    "RBC 3.8 4.2–4.9 million/mcL",
+    "HGB 12.1 g/dL 12.0–15.4 g/dL",
+    "HCT 37.8% 37–51%",
+    "MCV 69 80–96",
+    "MCH 21.5 23.7–28.4",
+    "MCHC 33.4 31.3–35.7",
+    "RDW 14.6 12–17",
+    "PLT 265 150–375",
+    "MPV 7.1 6.5–12",
+    "What kind of anemia?",
+    "Reticulocytes",
+    "Reticulocyte: immature RBC",
+    "Reticulocyte count: normally 0–2.5% for adults",
+    "$ Indicates the bone marrow’s ability to produce",
+    "RBCs",
+    "What would you expect the retic count to be in the",
+    "presence of anemia?"
+   ],
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "Suppose they are anemic, and the retic count is low?",
+   "page": 3
+  },
+  {
+   "type": "list",
+   "items": [
+    "RDW: Red Cell Distribution Width",
+    "Describes the amount of variation in RBC size.",
+    "<15% is normal >15% is abnormal",
+    "46 FNP/AGPCNP Review"
+   ],
+   "page": 3
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 4  Hematology | Anemia",
+    "If These Donuts Were RBCs, Which Would Have a Normal RDW? NOTES",
+    "Group #1 Group #2",
+    "QUESTION #2",
+    "What is the most common reason that the bone marrow would make",
+    "small RBCs?",
+    "1. Low iron",
+    "2. Low GFR",
+    "3. Low folate",
+    "4. Alcohol use disorder",
+    "Iron Panel",
+    "Serum iron:",
+    "Iron in the circulation",
+    "Serum ferritin:",
+    "Iron in storage",
+    "Total iron-binding capacity:",
+    "How much iron can be moved to storage",
+    "Iron’s “chance” of finding a binding site!",
+    "© 2026 Advanced Practice Education Associates 47"
+   ],
+   "page": 4
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 4  Hematology | Anemia",
+    "NOTES Another Way to Think About TIBC",
+    "Egg count is high. Egg count is low.",
+    "Capacity is low. Capacity is high.",
+    "Iron count is high. Iron count is low.",
+    "TIBC is low. TIBC is high.",
+    "Peripheral Smear What the lab tech sees:",
+    "A visual description of blood cells",
+    "Consider ordering a peripheral smear when a",
+    "patient presents with anemia.",
+    "Microcytic Anemias",
+    "What the report reads:",
+    "Common causes",
+    "1. Iron-deficiency anemia",
+    "2. Thalassemia",
+    "Less common causes",
+    "1. Anemia of chronic disease (<20%)",
+    "2. Sideroblastic anemia",
+    "3. Lead toxicity ➔ Presents just like IDA",
+    "Iron-Deficiency Anemia (IDA)"
+   ],
+   "page": 5
+  },
+  {
+   "type": "list",
+   "items": [
+    "Microcytic, hypochromic anemia",
+    "Causes",
+    "$ Blood loss: most common (gynecologic or GI)",
+    "$ Iron deficit",
+    "Low iron intake",
+    "Poor absorption",
+    "Pregnancy (raises iron needs)",
+    "48 FNP/AGPCNP Review"
+   ],
+   "page": 5
+  },
+  {
+   "type": "para",
+   "text": "Chapter 4  Hematology | Anemia",
+   "page": 6
+  },
+  {
+   "type": "question",
+   "text": "Which symptom would be unexpected in a young adult patient who has iron- deficiency anemia?",
+   "items": [
+    "Brittle fingernails",
+    "Fatigue",
+    "Muscle cramps",
+    "Exercise intolerance Iron-Deficiency Anemia: Clinical Presentation • Usually asymptomatic until Hgb ≤10 • Presentation varies by age Age Presentation"
+   ],
+   "page": 6
+  },
+  {
+   "type": "para",
+   "text": "Young, middle adult Fatigue, weakness, HA, irritability, exercise intolerance",
+   "page": 6
+  },
+  {
+   "type": "para",
+   "text": "Older adult Exacerbation of comorbidities (angina, HF, dementia)",
+   "page": 6
+  },
+  {
+   "type": "question",
+   "text": "A 75-year-old patient presents with new-onset atrial fibrillation. A CBC is ordered. Test Patient Normal Range RBC 3.8 (low) 4.2–5.4 HGB 10.5 (low) 12.1–15.1 What is your next step? HCT 31.6 (low) 36.1–44.3",
+   "items": [],
+   "page": 6
+  },
+  {
+   "type": "table",
+   "headers": [
+    "MCV",
+    "76 (low)",
+    "What is the diagnosis? 80–95"
+   ],
+   "rows": [
+    [
+     "MCH",
+     "24 (low)",
+     "27–31"
+    ],
+    [
+     "RDW",
+     "18.6 (high)",
+     "12–15"
+    ],
+    [
+     "PLT",
+     "265",
+     "150–450"
+    ],
+    [
+     "Blood",
+     "Test Decrease",
+     "or Increase?"
+    ],
+    [
+     "Serum",
+     "Fe Decreased",
+     ""
+    ],
+    [
+     "Serum",
+     "ferritin Decreased",
+     ""
+    ],
+    [
+     "TIBC",
+     "Elevated",
+     ""
+    ]
+   ],
+   "columns": [
+    115.0,
+    156.0,
+    213.0
+   ],
+   "page": 6
+  },
+  {
+   "type": "list",
+   "items": [
+    "Iron-Rich Foods",
+    "Liver • Red beans",
+    "Lentils • Rice",
+    "Spinach • Fortified grains",
+    "Clams/oysters",
+    "© 2026 Advanced Practice Education Associates 49"
+   ],
+   "page": 6
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 4  Hematology | Anemia",
+    "NOTES Which Iron Is the Best Supplement Iron Source Elemental Iron",
+    "to Prescribe?",
+    "Ferrous fumarate 325 mg 106 mg (33%)",
+    "Elemental iron replacement",
+    "Ferrous sulfate 325 mg 65 mg (20%)",
+    "Old recommendation: 150–200 mg daily",
+    "Ferrous gluconate 325 mg 36 mg (11.6%)",
+    "New recommendation: 15–20 mg daily",
+    "Extended-release forms ($$) Varies (150 mg)",
+    "QUESTION #5"
+   ],
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "A 53-year-old patient is being treated with supplemental iron three times",
+   "page": 7
+  },
+  {
+   "type": "table",
+   "headers": [
+    "weekly.",
+    "Which of",
+    "the following statements is true?"
+   ],
+   "rows": [
+    [
+     "1.",
+     "Iron stores will",
+     "be replenished in approximately 6 weeks."
+    ],
+    [
+     "2.",
+     "The hemoglobin",
+     "deficit will be halved in approximately 12 weeks."
+    ],
+    [
+     "3.",
+     "IV iron may be",
+     "necessary for patients who have a history of bariatric"
+    ]
+   ],
+   "columns": [
+    181.0,
+    208.0,
+    264.0
+   ],
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "surgery.",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "4. Sustained-release oral capsules will improve iron absorption.",
+   "page": 7
+  },
+  {
+   "type": "question",
+   "text": "A female patient who has heavy menses has a new diagnosis of iron- deficiency anemia. Which of the following statements about iron supplementation is true?",
+   "items": [
+    "Iron supplementation will be life-long.",
+    "IV iron is first choice for iron repletion in all cases.",
+    "Iron deficiency may persist if AUB is not addressed.",
+    "A common side effect of iron supplementation is diarrhea."
+   ],
+   "page": 7
+  },
+  {
+   "type": "question",
+   "text": "An asymptomatic 17-year-old patient has the following CBC results. Test Patient Normal Range RBC 3.5 (low) 4.2–5.4 What lab is needed? HGB 9.5 (low) 12.1–15.1 HCT 28.6 (low) 36.1–44.3 What diagnosis should be suspected?",
+   "items": [],
+   "page": 7
+  },
+  {
+   "type": "list",
+   "items": [
+    "MCV 72 (low) 80–95",
+    "MCH 21.6 (low) 27–31",
+    "What is the next step?",
+    "RDW 13.4 12–15",
+    "PLT 305 150–450",
+    "Iron Panel",
+    "Serum Fe Normal",
+    "Serum ferritin Normal",
+    "TIBC Normal",
+    "50 FNP/AGPCNP Review"
+   ],
+   "page": 7
+  },
+  {
+   "type": "table",
+   "headers": [
+    "Chapter",
+    "4 Hematology | Anemia"
+   ],
+   "rows": [
+    [
+     "Thalassemia",
+     "NOTES"
+    ],
+    [
+     "Genetic abnormality that impairs the formation of hemoglobin and leads",
+     "to abnormal RBCs"
+    ]
+   ],
+   "columns": [
+    64.0,
+    410.0
+   ],
+   "page": 8
+  },
+  {
+   "type": "list",
+   "items": [
+    "Microcytic, hypochromic cells",
+    "Diagnostic test: hemoglobin electrophoresis",
+    "Hemoglobin"
+   ],
+   "page": 8
+  },
+  {
+   "type": "table",
+   "headers": [
+    "Patho: abnormal hemoglobin",
+    "“Target cells” (Nucleated RBCs",
+    "Resulting in hemolysis or"
+   ],
+   "rows": [
+    [
+     "molecule",
+     "on peripheral smear)",
+     "impaired erythropoiesis"
+    ],
+    [
+     "Comparison of Thalassemia",
+     "and Iron-Deficiency Anemia",
+     ""
+    ],
+    [
+     "Thalassemia",
+     "",
+     "Iron-Deficient Anemia"
+    ]
+   ],
+   "columns": [
+    64.0,
+    218.0,
+    402.0
+   ],
+   "page": 8
+  },
+  {
+   "type": "list",
+   "items": [
+    "Hct, Hgb",
+    "MCV, MCH",
+    "Normal RDW",
+    "Normal Serum Fe",
+    "Normal TIBC",
+    "Normal Serum ferritin",
+    "Anemia of Chronic Disease",
+    "Also called “anemia of chronic inflammation”",
+    "Short RBC lifespan",
+    "$ RBCs live 60–90 days (normal 100–120 days)",
+    "$ Normocytic, normochromic anemia (long-standing: may",
+    "be microcytic, hypochromic anemia)",
+    "Management: better control/treatment of underlying",
+    "condition",
+    "Anemia of Chronic Disease Etiologies",
+    "Rheumatoid arthritis",
+    "Morbid obesity",
+    "Colon cancer",
+    "Diabetes mellitus (uncontrolled)",
+    "Congestive heart failure"
+   ],
+   "page": 8
+  },
+  {
+   "type": "list",
+   "items": [
+    "COPD",
+    "Chronic kidney disease",
+    "Autoimmune disease Normal Red Blood Cell",
+    "Chronic infection (HIV)",
+    "Take a good history!",
+    "© 2026 Advanced Practice Education Associates 51"
+   ],
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "Chapter 4  Hematology | Anemia",
+   "page": 9
+  },
+  {
+   "type": "question",
+   "text": "An older adult patient reports peripheral neuropathy. A CBC is ordered. Patient Normal Range RBC 3.9 (low) 4.2–5.4 HGB 10.3 (low) 12.1–15.1 HCT 31.1 (low) 36.1–44.3 MCV 99 (high) 80–95",
+   "items": [],
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "MCH 29.2 27–31",
+    "How would this anemia be",
+    "➔",
+    "described?",
+    "Common Macrocytic Anemias",
+    "B12 (cobalamin) Folate (B9)",
+    "deficiency deficiency",
+    "Macrocytic",
+    "They work together to form RBC, WBC, and platelets.",
+    "Important in making DNA and RNA!",
+    "Deficiencies in BOTH cause megaloblastic anemia!",
+    "B12/Folate Deficiency",
+    "Classic presentation",
+    "$ Asymptomatic",
+    "$ Unexplained neurologic symptoms (severe B12 deficiency):",
+    "Cognitive changes",
+    "Neuropathy",
+    "Glossitis Large Red Blood Cell",
+    "Etiology of B12 and Folate Deficiencies",
+    "Mechanism B12 Deficiency Causes Folate Deficiency Causes"
+   ],
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "Decreased dietary Alcohol misuse, severely restricted diet, malnourishment",
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "intake",
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "Impaired absorption Pernicious anemia (PA), colchicine use Hereditary folate malabsorption",
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "Alterations of GI tract: gastrectomy, ileitis, diverticulosis, sprue, celiac, Crohn",
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "disease, bariatric surgery, H. pylori",
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "Impaired metabolism H2 blockers, metformin, PPI, GLP-1 Antiseizure drugs, triamterene, TMP-",
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "SMX, metformin, methotrexate",
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "Increased needs Pregnancy, lactation, hemodialysis, cancer, hyperthyroidism",
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "52 FNP/AGPCNP Review",
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 4  Hematology | Anemia",
+    "Vitamin B12 Management NOTES",
+    "Symptomatic Asymptomatic",
+    "Vitamin B12 IM until symptoms resolved • Vitamin B12 IM, SQ, or PO until deficiency",
+    "Repeat CBC at 2–3 weeks: increased retic corrected",
+    "count • CBC and vitamin B12 level in 4–8 weeks, then",
+    "6 months, then annual",
+    "TIP: Therapy duration and route depend on the cause.",
+    "Folate Deficiency Management",
+    "Folate: occurs naturally, RDA 200 mcg",
+    "Folic acid: synthetic",
+    "Oral folic acid",
+    "$ 1–5 mg/d for 1–4 months if cause is reversible"
+   ],
+   "page": 10
+  },
+  {
+   "type": "para",
+   "text": "$ Indefinitely if chronic: (e.g., sickle cell, hemolytic anemias, methotrexate use)",
+   "page": 10
+  },
+  {
+   "type": "para",
+   "text": "Warning!",
+   "page": 10
+  },
+  {
+   "type": "para",
+   "text": "Do not administer folic acid without first checking for vitamin B12 deficiency!",
+   "page": 10
+  },
+  {
+   "type": "question",
+   "text": "A patient presents for evaluation of the following rash. There are no other symptoms. Which of the following diagnostic tests should be ordered?",
+   "items": [
+    "Iron panel",
+    "B12 and folate levels",
+    "PT/INR",
+    "CBC What is the suspected diagnosis?"
+   ],
+   "page": 10
+  },
+  {
+   "type": "para",
+   "text": "© 2026 Advanced Practice Education Associates 53",
+   "page": 10
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 4  Hematology | Anemia",
+    "NOTES Thrombocytopenia",
+    "Decrease in platelet count (<150,000)",
+    "$ Petechiae, purpura, and bleeding issues are far more likely",
+    "with lower counts (<50,000)",
+    "$ Platelets only cell affected, or there can be alterations in",
+    "WBCs, RBCs",
+    "Etiology of Thrombocytopenia",
+    "Remainder of CBC normal",
+    "$ Immune thrombocytopenia purpura (“idiopathic”)",
+    "$ Resolved viral/bacterial infection (triggered)",
+    "+ Leukocytosis + Anemia",
+    "Infection • Sepsis",
+    "Inflammation • Autoimmune",
+    "Malignancy • Nutrient deficiencies (folate, B12)",
+    "Infection",
+    "Leukemia",
+    "Drug-induced (“iatrogenic”)",
+    "Management",
+    "Patient teaching • Avoid any activity that may"
+   ],
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "cause injury/bruising!",
+   "page": 11
+  },
+  {
+   "type": "list",
+   "items": [
+    "Avoid aspirin!",
+    "Repeat CBC with",
+    "Follow-up peripheral smear",
+    "HIV and HVC testing",
+    "If patient diagnosed with ITP",
+    "Refer to • Prednisone (4–6 weeks",
+    "duration)",
+    "Hematology",
+    "May need daily prednisone",
+    "for chronic ITP",
+    "54 FNP/AGPCNP Review"
+   ],
+   "page": 11
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 4  Hematology | Anemia",
+    "Leukocytes NOTES",
+    "WBCs (Leukocytes)",
+    "WBC Differential",
+    "Cell Type Function",
+    "Neutrophils 40–60% • First responders (soldiers), phagocytic",
+    "Main cells in purulent drainage",
+    "A.K.A. “NPs”: neutrophils, polys, segs"
+   ],
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "Lymphocytes 20–40% • B cells (plasma cells): produce antibodies (e.g., IgM, IgE)",
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "• T cells: attack & kill antigens (invaders) & create a mugshot (memory) of the",
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "antigen",
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "Monocytes 2–8% • Dendritic cells: collect & identify antigen, sound the alarm to alert other fighter",
+   "page": 12
+  },
+  {
+   "type": "list",
+   "items": [
+    "cells",
+    "Macrophages: ingest, kill, and remove invaders (increase in number after more",
+    "than about 24 hours)",
+    "Eosinophils 1–4% • Allergies, asthma, drug reactions",
+    "Parasitic infections",
+    "Basophils 0.5–1% • Nonspecific immunity; release histamine & heparin",
+    "Only recognize new/unfamiliar pathogens",
+    "© 2026 Advanced Practice Education Associates 55"
+   ],
+   "page": 12
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 4  Hematology | Anemia",
+    "NOTES White Blood Cell Count",
+    "Always interpret the CBC and differential within clinical correlation!",
+    "Increased by Decreased by"
+   ],
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "Medical • Autoimmune and inflammatory diseases • Autoimmune (RA, lupus)",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "conditions • Bacterial and viral infections • Infection (hepatitis, tuberculosis, sepsis,",
+   "page": 13
+  },
+  {
+   "type": "list",
+   "items": [
+    "Allergic reactions Lyme)",
+    "Leukemia or Hodgkin lymphoma • Lymphoma",
+    "Burn or surgery • Leukemia",
+    "Smoking • Problems with liver/spleen",
+    "Drugs • Epinephrine • Antibiotics (beta lactams)",
+    "Allopurinol • Antiseizure medications",
+    "Aspirin • Chemotherapy drugs",
+    "Heparin • Diuretics",
+    "Corticosteroids • Sulfa drugs",
+    "Triamterene",
+    "Interpret This CBC",
+    "Patient Normal Range Is this patient anemic?",
+    "WBC 4.3 4–11",
+    "RBC 4.01 (low) 4.5–5.60 What type?",
+    "HGB 11.4 (low) 13.7–17.3",
+    "HCT 34.8 (low) 37.5–51 What labs should be ordered?",
+    "MCV 103.7 (high) 83.4–96.0",
+    "MCH 28.1 27.8–32.5",
+    "What does the RDW tell us?",
+    "MCHC 34.0 32.5–35.4"
+   ],
+   "page": 13
+  },
+  {
+   "type": "table",
+   "headers": [
+    "RDW",
+    "19 (high) 12–17"
+   ],
+   "rows": [
+    [
+     "PLT",
+     "316 150–375"
+    ],
+    [
+     "MPV",
+     "8.1 6.5–12"
+    ],
+    [
+     "NOW LET’S",
+     "LOOK AT THE WBCS"
+    ]
+   ],
+   "columns": [
+    128.0,
+    176.0
+   ],
+   "page": 13
+  },
+  {
+   "type": "table",
+   "headers": [
+    "Col 1",
+    "Patient",
+    "Normal Range",
+    "Col 4"
+   ],
+   "rows": [
+    [
+     "WBC",
+     "4.3",
+     "4–11",
+     ""
+    ],
+    [
+     "Poly%",
+     "47.5 (low)",
+     "55–75",
+     "⎫"
+    ]
+   ],
+   "columns": [
+    128.0,
+    200.0,
+    277.0,
+    348.0
+   ],
+   "page": 13
+  },
+  {
+   "type": "list",
+   "items": [
+    "⎪",
+    "Lymphs% 42.1 (high) 30–40 ⎪",
+    "⎪",
+    "Mono% 9.8 (high) 0–9 ⎬ Differential (should total to 100%)",
+    "⎪",
+    "EOS% 0.3 0–9 ⎪",
+    "⎪",
+    "BASO% 0.3 0–9 ⎭",
+    "Polys and lymphs similar in number ➔ Think viral!",
+    "Clinical correlation required!",
+    "56 FNP/AGPCNP Review"
+   ],
+   "page": 13
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 4  Hematology | Anemia",
+    "Interpret This CBC NOTES",
+    "Patient Normal Range What kind of anemia?",
+    "WBC 14.9 H 4–11",
+    "RBC 4.08 L 4.5–5.60 What test should be ordered next?",
+    "HGB 10.0 L 13.7–17.3",
+    "HCT 30.0 L 37.5–51 Is the anemia of recent onset?",
+    "MCV 70.4 L 83.4–96.0",
+    "MCH 21.2 L 27.8–32.5",
+    "MCHC 29.4 L 32.5–35.4",
+    "RDW 19.6 H 12–17",
+    "PLT 315 150–375",
+    "MPV 7.1 6.5–12",
+    "L-Low, H-High",
+    "What About the WBCs",
+    "Patient Normal Range • WBC count elevated:",
+    "WBC 14.9 H 4–11",
+    "Poly% 76 H 55–75 • Polys and lymphs far apart:",
+    "Lymphs% 10 L 30–40",
+    "Mono% 11.9 H 0–11 • Presence of bands:"
+   ],
+   "page": 14
+  },
+  {
+   "type": "list",
+   "items": [
+    "EOS% 0.1 0–6",
+    "Bands 0.3 Clinical context: severe LLQ pain, fever, &",
+    "nausea. What is your diagnosis?",
+    "H-High, L-Low",
+    "© 2026 Advanced Practice Education Associates 57"
+   ],
+   "page": 14
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 4  Hematology | Exam Checklist",
+    "NOTES What Is Your Interpretation of This CBC?",
+    "Patient Normal Range Context: fatigue, frequent illnesses, and easy",
+    "bruising.",
+    "WBC 16.9 H 4–11",
+    "RBC 4.08 L 4.2–4.9",
+    "Differential diagnosis?",
+    "HGB 11.0 L 12–15",
+    "HCT 33.0 L 37–51",
+    "MCV 70.4 L 73–85",
+    "MCH 21.2 L 23.7–28.4",
+    "MCHC 33.4 31.3–35.7",
+    "RDW 19.6 H 12–17",
+    "PLT 145 L 150–375",
+    "MPV 7.1 6.5–12",
+    "Poly% 80 H 55–75",
+    "Lymphs% 12 L 30–40",
+    "Mono% 16.9 H 0–12",
+    "EOS% 0.1 0–6",
+    "Blasts 20"
+   ],
+   "page": 15
+  },
+  {
+   "type": "para",
+   "text": "H-High, L-Low",
+   "page": 15
+  },
+  {
+   "type": "list",
+   "items": [
+    "Iron-deficiency anemia",
+    "Thalassemia",
+    "Anemia of chronic disease",
+    "G6PD deficiency",
+    "B12, folate deficiency",
+    "Thrombocytopenia",
+    "CBC differential interpretation",
+    "Know clinical presentation (subjective, objective findings)",
+    "Know how to diagnose",
+    "What’s in differential diagnosis?",
+    "Pharmacologic, nonpharmacologic management",
+    "Follow-up labs",
+    "Follow-up care",
+    "58 FNP/AGPCNP Review"
+   ],
+   "page": 15
+  }
+ ],
+ "tables": [
+  {
+   "headers": [
+    "MCH Value",
+    "Cell Color",
+    "Name"
+   ],
+   "rows": [
+    [
+     "Low",
+     "Too pale",
+     "Hypochromic"
+    ],
+    [
+     "Normal",
+     "Just right",
+     "Normochromic"
+    ],
+    [
+     "High",
+     "Too dark",
+     "Hyperchromic"
+    ]
+   ],
+   "columns": [
+    68.0,
+    218.0,
+    367.0
+   ],
+   "page": 2
+  },
+  {
+   "headers": [
+    "MCV",
+    "76 (low)",
+    "What is the diagnosis? 80–95"
+   ],
+   "rows": [
+    [
+     "MCH",
+     "24 (low)",
+     "27–31"
+    ],
+    [
+     "RDW",
+     "18.6 (high)",
+     "12–15"
+    ],
+    [
+     "PLT",
+     "265",
+     "150–450"
+    ],
+    [
+     "Blood",
+     "Test Decrease",
+     "or Increase?"
+    ],
+    [
+     "Serum",
+     "Fe Decreased",
+     ""
+    ],
+    [
+     "Serum",
+     "ferritin Decreased",
+     ""
+    ],
+    [
+     "TIBC",
+     "Elevated",
+     ""
+    ]
+   ],
+   "columns": [
+    115.0,
+    156.0,
+    213.0
+   ],
+   "page": 6
+  },
+  {
+   "headers": [
+    "weekly.",
+    "Which of",
+    "the following statements is true?"
+   ],
+   "rows": [
+    [
+     "1.",
+     "Iron stores will",
+     "be replenished in approximately 6 weeks."
+    ],
+    [
+     "2.",
+     "The hemoglobin",
+     "deficit will be halved in approximately 12 weeks."
+    ],
+    [
+     "3.",
+     "IV iron may be",
+     "necessary for patients who have a history of bariatric"
+    ]
+   ],
+   "columns": [
+    181.0,
+    208.0,
+    264.0
+   ],
+   "page": 7
+  },
+  {
+   "headers": [
+    "Chapter",
+    "4 Hematology | Anemia"
+   ],
+   "rows": [
+    [
+     "Thalassemia",
+     "NOTES"
+    ],
+    [
+     "Genetic abnormality that impairs the formation of hemoglobin and leads",
+     "to abnormal RBCs"
+    ]
+   ],
+   "columns": [
+    64.0,
+    410.0
+   ],
+   "page": 8
+  },
+  {
+   "headers": [
+    "Patho: abnormal hemoglobin",
+    "“Target cells” (Nucleated RBCs",
+    "Resulting in hemolysis or"
+   ],
+   "rows": [
+    [
+     "molecule",
+     "on peripheral smear)",
+     "impaired erythropoiesis"
+    ],
+    [
+     "Comparison of Thalassemia",
+     "and Iron-Deficiency Anemia",
+     ""
+    ],
+    [
+     "Thalassemia",
+     "",
+     "Iron-Deficient Anemia"
+    ]
+   ],
+   "columns": [
+    64.0,
+    218.0,
+    402.0
+   ],
+   "page": 8
+  },
+  {
+   "headers": [
+    "RDW",
+    "19 (high) 12–17"
+   ],
+   "rows": [
+    [
+     "PLT",
+     "316 150–375"
+    ],
+    [
+     "MPV",
+     "8.1 6.5–12"
+    ],
+    [
+     "NOW LET’S",
+     "LOOK AT THE WBCS"
+    ]
+   ],
+   "columns": [
+    128.0,
+    176.0
+   ],
+   "page": 13
+  },
+  {
+   "headers": [
+    "Col 1",
+    "Patient",
+    "Normal Range",
+    "Col 4"
+   ],
+   "rows": [
+    [
+     "WBC",
+     "4.3",
+     "4–11",
+     ""
+    ],
+    [
+     "Poly%",
+     "47.5 (low)",
+     "55–75",
+     "⎫"
+    ]
+   ],
+   "columns": [
+    128.0,
+    200.0,
+    277.0,
+    348.0
+   ],
+   "page": 13
+  }
+ ],
+ "tips": [],
+ "questions": [
+  {
+   "stem": "Which of the following measures are required to diagnose a patient with anemia?",
+   "options": [
+    "Both low hemoglobin and hematocrit",
+    "Hemoglobin, hematocrit, and red blood cells, all must be low",
+    "Both low hemoglobin and mean corpuscular volume",
+    "Either low hemoglobin, hematocrit, or red blood cells ANEMIA • Reduction in at least one RBC measure $ RBC count $ Hemoglobin $ Hematocrit"
+   ],
+   "page": 1
+  },
+  {
+   "stem": "Which symptom would be unexpected in a young adult patient who has iron- deficiency anemia?",
+   "options": [
+    "Brittle fingernails",
+    "Fatigue",
+    "Muscle cramps",
+    "Exercise intolerance Iron-Deficiency Anemia: Clinical Presentation • Usually asymptomatic until Hgb ≤10 • Presentation varies by age Age Presentation"
+   ],
+   "page": 6
+  },
+  {
+   "stem": "A 75-year-old patient presents with new-onset atrial fibrillation. A CBC is ordered. Test Patient Normal Range RBC 3.8 (low) 4.2–5.4 HGB 10.5 (low) 12.1–15.1 What is your next step? HCT 31.6 (low) 36.1–44.3",
+   "options": [],
+   "page": 6
+  },
+  {
+   "stem": "A female patient who has heavy menses has a new diagnosis of iron- deficiency anemia. Which of the following statements about iron supplementation is true?",
+   "options": [
+    "Iron supplementation will be life-long.",
+    "IV iron is first choice for iron repletion in all cases.",
+    "Iron deficiency may persist if AUB is not addressed.",
+    "A common side effect of iron supplementation is diarrhea."
+   ],
+   "page": 7
+  },
+  {
+   "stem": "An asymptomatic 17-year-old patient has the following CBC results. Test Patient Normal Range RBC 3.5 (low) 4.2–5.4 What lab is needed? HGB 9.5 (low) 12.1–15.1 HCT 28.6 (low) 36.1–44.3 What diagnosis should be suspected?",
+   "options": [],
+   "page": 7
+  },
+  {
+   "stem": "An older adult patient reports peripheral neuropathy. A CBC is ordered. Patient Normal Range RBC 3.9 (low) 4.2–5.4 HGB 10.3 (low) 12.1–15.1 HCT 31.1 (low) 36.1–44.3 MCV 99 (high) 80–95",
+   "options": [],
+   "page": 9
+  },
+  {
+   "stem": "A patient presents for evaluation of the following rash. There are no other symptoms. Which of the following diagnostic tests should be ordered?",
+   "options": [
+    "Iron panel",
+    "B12 and folate levels",
+    "PT/INR",
+    "CBC What is the suspected diagnosis?"
+   ],
+   "page": 10
+  }
+ ],
+ "quality": {
+  "pages": 16,
+  "tables": 7,
+  "tips": 0,
+  "questions": 7,
+  "chars": 2981
+ }
+}

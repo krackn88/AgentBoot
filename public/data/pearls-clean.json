@@ -1,11 +1,11 @@
 {
  "meta": {
-  "count": 57,
+  "count": 72,
   "source": "the hand-curated must-know rule set - every entry is a whole, verifiable statement",
   "replaced": "keyword sentence-mining of column-interleaved slide text, 141 of 231 items of which were artefacts",
   "note": "Reconstructed reference tables stay tables. Flattening a sliced row into a sentence produced cells cut mid-word, which is worse than showing the grid.",
-  "assigned": 24,
-  "general": 3
+  "assigned": 0,
+  "general": 0
  },
  "pearls": [
   {
@@ -463,6 +463,126 @@
    "front": "Live vaccines are not contraindicated in SCD Up to three live vaccines can be administered simultaneously.",
    "back": "Pediatrics — board pearl. Say it out loud once, then flip.",
    "kind": "rationale"
+  },
+  {
+   "id": "pearl-57",
+   "chapterId": "endocrine-disorders",
+   "tag": "Endocrine Disorders",
+   "front": "Consider OSA, renovascular, and endocrine disorders as causes for secondary hypertension.",
+   "back": "Endocrine Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-58",
+   "chapterId": "exam-prep-and-how-to-use-this-guide",
+   "tag": "Must-know rules",
+   "front": "CCBs are used cautiously in heart failure because they decrease cardiac contractility.",
+   "back": "Must-know rule — say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-59",
+   "chapterId": "exam-prep-and-how-to-use-this-guide",
+   "tag": "Must-know rules",
+   "front": "ABI <0.9 or >1.4 is highly suggestive of PAD.",
+   "back": "Must-know rule — say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-60",
+   "chapterId": "exam-prep-and-how-to-use-this-guide",
+   "tag": "Must-know rules",
+   "front": "Deep, nonpurulent infection + systemic symptoms = systemic antibiotics!",
+   "back": "Must-know rule — say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-61",
+   "chapterId": "endocrine-disorders",
+   "tag": "Endocrine Disorders",
+   "front": "In DM2, the ADA recommends trying a GLP-1 or GLP-1/GIP before insulin whenever possible!",
+   "back": "Endocrine Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-62",
+   "chapterId": "exam-prep-and-how-to-use-this-guide",
+   "tag": "Must-know rules",
+   "front": "Lifestyle interventions continue during medical or surgical therapy.",
+   "back": "Must-know rule — say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-63",
+   "chapterId": "exam-prep-and-how-to-use-this-guide",
+   "tag": "Must-know rules",
+   "front": "Consider dental etiology when patient is present with facial/jaw pain.",
+   "back": "Must-know rule — say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-64",
+   "chapterId": "gastrointestinal-disorders",
+   "tag": "Gastrointestinal Disorders",
+   "front": "If there is no symptom relief of GERD after 8 weeks on a PPI—REFER!",
+   "back": "Gastrointestinal Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-65",
+   "chapterId": "mental-health-in-primary-care",
+   "tag": "Mental Health in Primary Care",
+   "front": "Do NOT stop abruptly! Taper over 2–4 weeks for most SSRIs if taking SSRI for ≥6 weeks.",
+   "back": "Mental Health in Primary Care — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-66",
+   "chapterId": "exam-prep-and-how-to-use-this-guide",
+   "tag": "Must-know rules",
+   "front": "Obtain a thorough history, develop differentials, and make your diagnosis!",
+   "back": "Must-know rule — say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-67",
+   "chapterId": "exam-prep-and-how-to-use-this-guide",
+   "tag": "Must-know rules",
+   "front": "Exam questions that contain images will include additional information.",
+   "back": "Must-know rule — say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-68",
+   "chapterId": "exam-prep-and-how-to-use-this-guide",
+   "tag": "Must-know rules",
+   "front": "Clinical guidelines published more than 12 months ago are fair game for the exam.",
+   "back": "Must-know rule — say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-69",
+   "chapterId": "exam-prep-and-how-to-use-this-guide",
+   "tag": "Must-know rules",
+   "front": "Never combine two anticholinergics due to severe anticholinergic side effects.",
+   "back": "Must-know rule — say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-70",
+   "chapterId": "exam-prep-and-how-to-use-this-guide",
+   "tag": "Must-know rules",
+   "front": "Postmenopausal and intermenstrual bleeding is always concerning for endometrial cancer!",
+   "back": "Must-know rule — say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-71",
+   "chapterId": "exam-prep-and-how-to-use-this-guide",
+   "tag": "Must-know rules",
+   "front": "Use the lowest effective dose for the shortest amount of time for symptoms.",
+   "back": "Must-know rule — say it out loud once, then flip.",
+   "kind": "tip"
   }
  ]
 }

@@ -1,0 +1,1462 @@
+{
+ "chapterId": "mental-health-in-primary-care",
+ "title": "Mental Health in Primary Care",
+ "pdf": "07-mental-health-course-manual.pdf",
+ "pages": [
+  {
+   "n": 0,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 1,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 2,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 3,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 4,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 5,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 6,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 7,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 8,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 9,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 10,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 11,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 12,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 13,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 14,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 15,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 16,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 17,
+   "width": 639.0,
+   "height": 810.0
+  }
+ ],
+ "blocks": [
+  {
+   "type": "list",
+   "items": [
+    "CHAPTER 6",
+    "Mental Health",
+    "in Primary Care"
+   ],
+   "page": 0
+  },
+  {
+   "type": "list",
+   "items": [
+    "Depression",
+    "Anxiety",
+    "Suicidality",
+    "PTSD (Posttraumatic stress disorder)",
+    "Substance use disorders",
+    "ADHD (Attention deficit hyperactivity disorder)"
+   ],
+   "page": 0
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 6  Mental Health in Primary Care | Neurobiology",
+    "NOTES NEUROBIOLOGY",
+    "What Controls Mood?",
+    "Biology: neurotransmitters and hormones",
+    "Psychology",
+    "Physiologic states",
+    "Environment",
+    "Neurobiology",
+    "Initial stimulus (Nerve impulse): Postsynaptic nerve impulse:"
+   ],
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "Fatigue, hunger, stress, fear, anger, genetics, Excitatory or inhibitory",
+   "page": 1
+  },
+  {
+   "type": "list",
+   "items": [
+    "toxic substances",
+    "Neurotransmitters: Functions",
+    "Neurotransmitter​ Impulse Function​ (Plays a Role in)"
+   ],
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "Serotonin (5-HT)​ Inhibitory Appetite, mood, anxiety, sleep, sex drive​",
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "Dopamine​ Excitatory and Energy, reward, motivation, mood, attention, executive functions",
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "inhibitory",
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "GABA Inhibitory Produces feeling of calmness and relaxation; anxiety and sleep",
+   "page": 1
+  },
+  {
+   "type": "list",
+   "items": [
+    "Norepinephrine​ Excitatory Mood, alertness, concentration, energy",
+    "Epinephrine Excitatory Memory, attentiveness, sleep",
+    "Neurotransmitters: Balance",
+    "78 FNP/AGPCNP Review"
+   ],
+   "page": 1
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 6  Mental Health in Primary Care | Depression",
+    "DEPRESSION NOTES",
+    "Most common mental health disorder",
+    "50% of patients are NOT diagnosed because the right questions are not asked.",
+    "“Within the last 2 weeks, have you experienced the following symptoms?”",
+    "SIG-E-CAPS",
+    "S SLEEP",
+    "I INTEREST (ANHEDONIA)",
+    "G GUILTY (WORTHLESSNESS)",
+    "E ENERGY",
+    "C CONCENTRATION DIFFICULTIES",
+    "A APPETITE",
+    "P PSYCHOMOTOR AGITATION OR IRRITATION",
+    "S SUICIDALITY",
+    "Depression Screening Instruments",
+    "Tool Uses Population # Questions",
+    "PHQ-2 Prescreening ≥12 years 2",
+    "PHQ-9 Screening, monitoring Tx ≥12 years, cognitive 9",
+    "impairment, nursing home"
+   ],
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "Geriatric Depression Screening ≥60 years, cognitive impairment 5, 15, or 30",
+   "page": 2
+  },
+  {
+   "type": "list",
+   "items": [
+    "Scale (GDS)",
+    "Beck Depression Screening, monitoring Tx 13–80 years 21",
+    "Inventory (BDI)",
+    "Similar sensitivity and specificity",
+    "Thorough History",
+    "History:",
+    "$ Prior depression, course, treatment",
+    "$ Family history (30–40% of cases are genetic)",
+    "$ Stressful life events, social, occupation (60–70% etiology is",
+    "situational/contextual)",
+    "Psychiatric comorbidities (may confound diagnosis)",
+    "$ Bipolar disorder, anxiety disorders, alcohol or drug use disorders",
+    "Medical comorbidities (complicate diagnosis)",
+    "$ Diabetes, heart failure, dementia, COPD, etc.",
+    "© 2026 Advanced Practice Education Associates 79"
+   ],
+   "page": 2
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 6  Mental Health in Primary Care | Depression",
+    "NOTES DSM-5-TR Diagnosis of Unipolar Depression",
+    "Symptoms present ≥2 weeks",
+    "Anhedonia or depressed mood MUST be present for diagnosis",
+    "Major depressive disorder Other specified depressive disorder",
+    "At least five symptoms • Does not meet criteria for MDD but symptoms",
+    "Symptoms present for most of the day, nearly are clinically significant",
+    "every day",
+    "Symptoms must be causing distress",
+    "No other reason for symptoms",
+    "No manic or hypomanic behavior",
+    "QUESTION #1",
+    "Ms. Q is a 70-year-old female who reports foggy thoughts, difficulty"
+   ],
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "concentrating, and poor appetite. She says, “I have no energy to be around",
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "people” and is no longer socializing with friends. What is the next step?",
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "1. Order a TSH, B12 level, and folate level.",
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "2. Screen for depression with the PHQ-9.",
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "3. Order a urinalysis to screen for UTI.",
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "4. Order a CMP, CBC, and TSH.",
+   "page": 3
+  },
+  {
+   "type": "list",
+   "items": [
+    "Lab Considerations",
+    "Consider secondary causes:",
+    "Older patients",
+    "First episode",
+    "Severe depression at onset",
+    "No clear precipitant",
+    "Standard: CBC, CMP, TSH",
+    "$ Older adults: FBG, B12, folate",
+    "$ Impaired nutrition: B12, folate",
+    "$ Fertile females: pregnancy test",
+    "$ Suspected substance use: urine drug screen",
+    "Treatment Plan PHQ-9",
+    "Score Depression Severity Comments",
+    "0–4 Minimal or none Monitor; may not require treatment",
+    "5–9 Mild Treatment offered, use clinical judgment and shared decision",
+    "making to determine treatment",
+    "10–14 Moderate"
+   ],
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "15–19 Moderately severe Warrants active treatment with psychotherapy, medications, or",
+   "page": 3
+  },
+  {
+   "type": "list",
+   "items": [
+    "combination",
+    "20–27 Severe",
+    "80 FNP/AGPCNP Review"
+   ],
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "Chapter 6  Mental Health in Primary Care | Depression",
+   "page": 4
+  },
+  {
+   "type": "question",
+   "text": "A young adult patient with anhedonia has a PHQ-9 score of 12, indicating moderately severe depression and a negative screening for bipolar disorder. Which medication is preferred for the management of depression?",
+   "items": [
+    "Amitriptyline",
+    "Quetiapine",
+    "Escitalopram",
+    "Buspirone Treatment of Major Depressive Disorder (MDD) Shared decision making and individualization of care"
+   ],
+   "page": 4
+  },
+  {
+   "type": "list",
+   "items": [
+    "Depression focused psychotherapy, CBT, others",
+    "Generally, a 2nd generation antidepressant is preferred",
+    "$ SSRI",
+    "$ SNRI",
+    "NDRI (bupropion) and serotonin modulators are also effective `",
+    "Selective Serotonin Reuptake Inhibitors (SSRIs)",
+    "MOA of SSRIs Considerations for choosing an SSRI",
+    "Less CYP450 effect",
+    "Sertraline (Zoloft)",
+    "Citalopram (Celexa)",
+    "Escitalopram (Lexapro)",
+    "More CYP450 effect = more drug/drug",
+    "interactions and side effects",
+    "More CYP450 Effect",
+    "Fluoxetine (Prozac)",
+    "Paroxetine (Paxil)",
+    "Fluvoxamine (Luvox)",
+    "© Jones & Bartlett Learning",
+    "© 2026 Advanced Practice Education Associates 81"
+   ],
+   "page": 4
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 6  Mental Health in Primary Care | Depression",
+    "NOTES SSRIs: Prescribing Considerations",
+    "Side Effect Comments Prescribing Pearls",
+    "Nausea Most common, occurs with all SSRIs Start low, go slow",
+    "Diarrhea More likely with sertraline",
+    "Constipation More likely with paroxetine"
+   ],
+   "page": 5
+  },
+  {
+   "type": "para",
+   "text": "Sexual dysfunction Ejaculatory changes, decreased libido, Lower dose, add bupropion, or",
+   "page": 5
+  },
+  {
+   "type": "para",
+   "text": "anorgasmia; more likely with paroxetine switching to a non-serotoninergic",
+   "page": 5
+  },
+  {
+   "type": "list",
+   "items": [
+    "drug or fluvoxamine",
+    "Somnolence paroxetine, citalopram, fluvoxamine Take at bedtime",
+    "Insomnia Fluoxetine, sertraline Take in the AM"
+   ],
+   "page": 5
+  },
+  {
+   "type": "para",
+   "text": "Weight gain More likely with paroxetine, escitalopram, Diet, exercise; fluoxetine has less",
+   "page": 5
+  },
+  {
+   "type": "list",
+   "items": [
+    "citalopram; 6 months of use effect on weight",
+    "SSRIs in Pregnancy and Lactation",
+    "Pregnancy",
+    "$ Generally safe",
+    "$ Escitalopram (Lexapro) or sertraline (Zoloft) usually preferred",
+    "$ Avoid paroxetine (Paxil)",
+    "$ Discuss the risk/benefits",
+    "Lactation",
+    "$ Generally, low levels pass into breast milk",
+    "$ SSRI used in pregnancy can typically be continued"
+   ],
+   "page": 5
+  },
+  {
+   "type": "para",
+   "text": "Weigh risks of untreated depression in pregnancy/postpartum vs. benefits of treatment",
+   "page": 5
+  },
+  {
+   "type": "question",
+   "text": "A young adult meets the criteria for MDD and is prescribed fluoxetine 20 mg daily. Which of the following differentials must be excluded before prescribing an SSRI?",
+   "items": [
+    "Obsessive compulsive disorder",
+    "Panic disorder",
+    "Bipolar disorder",
+    "Generalized anxiety disorder Screen for Bipolar Disorder • Major depression may be a presenting symptom of bipolar"
+   ],
+   "page": 5
+  },
+  {
+   "type": "list",
+   "items": [
+    "Screen: Mood Disorder Questionnaire (15-item, self-report)",
+    "$ Sensitivity 58%; Specificity 93%",
+    "Mania Hypomania",
+    "Excess energy, grandiosity, fast speech, • Like symptoms of mania, but not severe enough"
+   ],
+   "page": 5
+  },
+  {
+   "type": "para",
+   "text": "distractibility, agitation, hallucinations, impulsive to impact functioning",
+   "page": 5
+  },
+  {
+   "type": "list",
+   "items": [
+    "behavior • Productive increases in goal-directed activities,",
+    "Substance and alcohol misuse, legal problems, enhanced creativity, improved psychosocial",
+    "and relationship issues are common functioning, inflated",
+    "82 FNP/AGPCNP Review"
+   ],
+   "page": 5
+  },
+  {
+   "type": "para",
+   "text": "Chapter 6  Mental Health in Primary Care | Depression",
+   "page": 6
+  },
+  {
+   "type": "table",
+   "headers": [
+    "Bipolar",
+    "Disorder NOTES"
+   ],
+   "rows": [
+    [
+     "Bipolar",
+     "I: one or more manic or hypomanic episode, less likely to have a major depressive episode"
+    ],
+    [
+     "Bipolar",
+     "II: one episode of hypomania, at least one episode of major depression, and no history of"
+    ]
+   ],
+   "columns": [
+    64.0,
+    111.0
+   ],
+   "page": 6
+  },
+  {
+   "type": "list",
+   "items": [
+    "mania",
+    "If bipolar is suspected:",
+    "Do not initiate antidepressants",
+    "REFER!",
+    "QUESTION #4"
+   ],
+   "page": 6
+  },
+  {
+   "type": "para",
+   "text": "Sertraline is prescribed for a 75-year-old female with depression. Which",
+   "page": 6
+  },
+  {
+   "type": "para",
+   "text": "starting dose is reasonable for this patient? (Typical dose: 50 mg–200 mg po",
+   "page": 6
+  },
+  {
+   "type": "list",
+   "items": [
+    "daily)",
+    "1. 25 mg once daily​ Start Low",
+    "2. 50 mg once daily​",
+    "3. 75 mg once daily​ Go Slow",
+    "4. 100 mg once daily",
+    "Don’t Stop",
+    "Be Patient",
+    "SSRI Response",
+    "Age Expect Improvement Expect Relief of Symptoms",
+    "Young to middle Adult 2–4 weeks 6–12 weeks",
+    "Older adult 4–6 weeks 12–16 weeks",
+    "QUESTION #5"
+   ],
+   "page": 6
+  },
+  {
+   "type": "para",
+   "text": "A patient is diagnosed with a first episode of major depression after the",
+   "page": 6
+  },
+  {
+   "type": "para",
+   "text": "recent death of their spouse. Sertraline is prescribed. The patient expresses",
+   "page": 6
+  },
+  {
+   "type": "para",
+   "text": "that she doesn’t want to be on medication long-term. Which response is",
+   "page": 6
+  },
+  {
+   "type": "para",
+   "text": "best?",
+   "page": 6
+  },
+  {
+   "type": "para",
+   "text": "1. You will need this medication for life.",
+   "page": 6
+  },
+  {
+   "type": "para",
+   "text": "2. Medication should be continued for 3 years due to risk of recurrence.",
+   "page": 6
+  },
+  {
+   "type": "para",
+   "text": "3. Medication is recommended for at least 1 year.",
+   "page": 6
+  },
+  {
+   "type": "list",
+   "items": [
+    "4. Medication is recommended for at least 6 months after",
+    "remission is achieved.",
+    "© 2026 Advanced Practice Education Associates 83"
+   ],
+   "page": 6
+  },
+  {
+   "type": "para",
+   "text": "Chapter 6  Mental Health in Primary Care | Depression",
+   "page": 7
+  },
+  {
+   "type": "question",
+   "text": "A patient with major depressive disorder (MDD) reports that citalopram has helped some with symptoms, but not greatly. He was previously on sertraline. His PHQ-9 score has decreased from 16 to 14. Which of the following is the best option for this patient?",
+   "items": [
+    "Switch the patient to fluoxetine.",
+    "Continue sertraline and add olanzapine.",
+    "Switch the patient to amitriptyline",
+    "Switch the patient to desvenlafaxine Serotonin–Norepinephrine Reuptake Inhibitors (SNRIs)"
+   ],
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "Side effects: nausea, dizziness, diaphoresis, increase in blood pressure (except duloxetine), sexual",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "dysfunction, bleeding, hyponatremia",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "Drug Indications/Considerations",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "Duloxetine (Cymbalta) MDD, GAD, fibromyalgia, neuropathy, chronic musculoskeletal pain; Least",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "likely to raise BP",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "Venlafaxine (Effexor) MDD, social anxiety disorder, cataplexy; cautious use in patients at risk of",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "bleeding",
+   "page": 7
+  },
+  {
+   "type": "table",
+   "headers": [
+    "Desvenlafaxine (Pristiq)",
+    "MDD; less risk of sexual dysfunction"
+   ],
+   "rows": [
+    [
+     "Milnacipran (Savella)",
+     "Fibromyalgia; may increase liver enzymes, avoid in end-stage renal disease"
+    ],
+    [
+     "Levomilnacipran (Fetzima)",
+     "MDD; avoid in end-stage renal disease"
+    ],
+    [
+     "Norepinephrine-Dopamine",
+     "Reuptake Inhibitor (NDRI)"
+    ]
+   ],
+   "columns": [
+    128.0,
+    248.0
+   ],
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "• Drug: bupropion (Wellbutrin)",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "• Indications",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "$ MDD, seasonal affective disorder, smoking cessation (Zyban), ADHD (off-label)",
+   "page": 7
+  },
+  {
+   "type": "list",
+   "items": [
+    "$ Bupropion/naltrexone (Contrave): weight loss",
+    "Contraindications",
+    "$ Seizures, uncontrolled hypertension",
+    "Monitor: blood pressure",
+    "Common side effects: dry mouth, nausea, insomnia, anxiety",
+    "Benefits: no sexual side effects or weight gain; less likely to cause withdrawal syndrome",
+    "Discontinuation Syndrome",
+    "Likely to occur if antidepressants are:",
+    "$ Abruptly stopped",
+    "$ Tapered too quickly (2–7 days)",
+    "$ Switch to a new antidepressant with different pharmacokinetics",
+    "$ Skips 3–4 consecutive doses",
+    "$ Switch from branded to generic",
+    "Symptoms: fatigue, headache, nausea, agitation/anxiety, dizziness, insomnia, flulike illness (chills",
+    "without fever, myalgias)"
+   ],
+   "page": 7
+  },
+  {
+   "type": "tip",
+   "text": "Do NOT stop abruptly! Taper over 2–4 weeks for most SSRIs if taking SSRI for ≥6 weeks.",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "84 FNP/AGPCNP Review",
+   "page": 7
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 6  Mental Health in Primary Care | Depression",
+    "Methods for Switching Antidepressants NOTES",
+    "Immediate switch",
+    "Stop one and start the other.",
+    "Use when drugs have similar MOA and half-lives.",
+    "Cross taper",
+    "Taper current medication while increasing the new medication.",
+    "Typically over 1–2 weeks",
+    "Washout period",
+    "Taper current medication, allow a period of five half-lives to pass, and initiate new medication.",
+    "Preferred if the two antidepressants cause significant drug–drug interactions (i.e., MAOI",
+    "inhibitors)",
+    "QUESTION #7"
+   ],
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "Before initiating the SSRI, a medication review is conducted. Which common",
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "herb is used to treat depression and can be dangerous in combination with",
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "SSRIs?",
+   "page": 8
+  },
+  {
+   "type": "list",
+   "items": [
+    "1. Ginkgo biloba",
+    "2. St. John’s wort",
+    "3. Milk thistle",
+    "4. Black cohosh",
+    "Serotonin Syndrome",
+    "EXCESS SEROTONIN (SEROTONIN TOXICITY)",
+    "Etiology"
+   ],
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "$ Combining medications that increase serotonin levels (SSRIs, SNRIs, etc.)",
+   "page": 8
+  },
+  {
+   "type": "list",
+   "items": [
+    "Symptoms",
+    "$ Increased BP, HR, temp",
+    "$ Confusion, restlessness, agitation",
+    "$ Headache, muscle rigidity, N/V, tremors, shivering",
+    "$ High rates of mortality",
+    "Serotonin agents (impact serotonin in the body)",
+    "$ Dextromethorphan",
+    "$ Tramadol",
+    "$ TCAs",
+    "$ Cyclobenzaprine",
+    "$ Others",
+    "Antidepressants and Suicidality",
+    "ALL antidepressants carry a warning of increased suicidality.",
+    "FDA black box warning reports are more prevalent:",
+    "18- to 24-year-olds",
+    "Initial treatment",
+    "First 1–2 months of treatment",
+    "© 2026 Advanced Practice Education Associates 85"
+   ],
+   "page": 8
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 6  Mental Health in Primary Care | Anxiety",
+    "NOTES Efficacy studies found:",
+    "No evidence for higher/lower risk of suicide death",
+    "Initiation of antidepressants does not cause new-onset suicidal ideation.",
+    "SSRIs reduce suicidal ideation",
+    "Weigh risks versus benefits, put supports in place.",
+    "Suicidality Risk 988",
+    "Risk factors:",
+    "Presence of psychiatric disorder",
+    "Hopelessness, impulsivity",
+    "Isolation",
+    "SUICIDE",
+    "Previous attempts",
+    "Family history",
+    "& CRISIS",
+    "Substance use",
+    "Prolonged stress LIFELINE",
+    "Abuse/neglect/trauma",
+    "Highest risk:",
+    "Never married"
+   ],
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "Male > females (4:1 ratio)",
+    "Older age (75+)",
+    "Firearms most common method",
+    "Assess safety: if actively suicidal with a plan, ACTIVATE EMS.",
+    "ANXIETY",
+    "Anxiety Disorders"
+   ],
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "Anxiety is a natural emotion; it becomes pathologic when intensity is disproportionate to the",
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "triggering events.",
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "Differential",
+    "Diagnosis Differing “Worry” Characteristics Screening Tool",
+    "Depression Worry about past events PHQ-9",
+    "Generalized anxiety Worry about future events GAD-7",
+    "disorder"
+   ],
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "Panic disorder Paroxysmal intense worry that lasts for several Panic Disorder Screening (PADIS)",
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "minutes to an hour. Worry about future attacks.",
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "Social anxiety Intense, irrational fear of a specific object, Social Interaction Anxiety Scale",
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "disorder situation, or activity (SIAS-6); Social Phobia Scale",
+    "(SPS-6)",
+    "86 FNP/AGPCNP Review"
+   ],
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 6  Mental Health in Primary Care | Anxiety",
+    "Things That Masquerade as Anxiety NOTES",
+    "Diseases​ Drugs​",
+    "Angina, arrhythmias, MI​ Caffeine, cocaine​",
+    "Anemias​ Pseudoephedrine​",
+    "Hyperthyroidism​ Theophylline​",
+    "Hypoglycemia​ Drug withdrawal (benzodiazepines, alcohol)​",
+    "Essential tremor​ Benadryl​",
+    "Asthma, COPD, PE​ TCAs​",
+    "Carcinoid​ tumor Dopaminergics​",
+    "Generalized Anxiety Disorder",
+    "DSM-5 TR criteria",
+    "$ Excessive anxiety or unrealistic worry",
+    "$ Occurring more days than not for ≥6 months",
+    "$ Clinically significant distress; significantly impairing function",
+    "$ At least three associated symptoms",
+    "Not attributable to substance misuse or another diagnosis",
+    "GAD: Associated Symptoms",
+    "At least three symptoms",
+    "Restlessness/ Muscle"
+   ],
+   "page": 10
+  },
+  {
+   "type": "list",
+   "items": [
+    "Irritability",
+    "on edge tension",
+    "Impaired Easily Sleep",
+    "concentration fatigued disturbances",
+    "© 2026 Advanced Practice Education Associates 87"
+   ],
+   "page": 10
+  },
+  {
+   "type": "para",
+   "text": "Chapter 6  Mental Health in Primary Care | Posttraumatic Stress Disorder",
+   "page": 11
+  },
+  {
+   "type": "list",
+   "items": [
+    "NOTES Generalized Anxiety: Management",
+    "Treatment based on shared",
+    "First-line: SSRIs & SNRIs decision making",
+    "As needed, short-term bridge: Severity, impact on functioning",
+    "Choose based on patient characteristics",
+    "$ Benzodiazepines",
+    "$ Hydroxyzine (nonaddictive)",
+    "Cognitive behavioral therapy or",
+    "Adjunctive therapy Psychotherapy",
+    "Buspirone (BuSpar)",
+    "$ Add on to SSRI or SNRI",
+    "$ Daily dosing",
+    "Pharmacotherapy",
+    "Exercise!",
+    "Smoking cessation",
+    "POSTTRAUMATIC STRESS DISORDER",
+    "Posttraumatic Stress Disorder (PTSD)"
+   ],
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "Marked cognitive, affective, and/or behavioral disruption that develops in response to trauma",
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "88 FNP/AGPCNP Review",
+   "page": 11
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 6  Mental Health in Primary Care | Substance Use Disorder",
+    "PTSD DSM-5-TR Criteria (>6 yoa) NOTES",
+    "Criterion PTSD Cardinal Features",
+    "A: Traumatic event • Threatened death, serious injury, sexual violence",
+    "Directly experience, witnessing, or learning of",
+    "Repeated or extreme exposure (first responders, military)",
+    "B: Intrusion • Recurrent, involuntary, intrusive distressing memories"
+   ],
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "symptoms (≥1) • Recurrent distressing dreams, dissociative reactions (flashbacks)",
+   "page": 12
+  },
+  {
+   "type": "list",
+   "items": [
+    "Intense psychological or physiologic reactions to internal or external clues",
+    "C: Avoidance • Avoidance of stimuli associated with the event",
+    "symptoms",
+    "D: Negative • Inability to remember (dissociative amnesia) all or part"
+   ],
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "cognitions & mood • Persistent exaggerated negative beliefs (“I am bad,” “No one can be trusted”)",
+   "page": 12
+  },
+  {
+   "type": "list",
+   "items": [
+    "(≥2)",
+    "Persistent negative emotional state, disinterest, detachment",
+    "Inability to experience positive emotions"
+   ],
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "E: Arousal & • Irritability/aggression, reckless/self-destructive behavior, on edge, sleep",
+   "page": 12
+  },
+  {
+   "type": "list",
+   "items": [
+    "reactivity changes disturbances, hypervigilance",
+    "Symptoms started AFTER the traumatic event",
+    "QUESTION #8",
+    "A patient has a diagnosis of PTSD secondary to a recent motor vehicle"
+   ],
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "accident. The patient is having intrusive and avoidance symptoms, and sleep",
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "disturbances. The NP understands the first line treatment for PTSD is:",
+   "page": 12
+  },
+  {
+   "type": "list",
+   "items": [
+    "1. trauma focused psychotherapy",
+    "2. stress inoculation therapy.",
+    "3. electroconvulsive therapy (ECT).",
+    "4. serotonin modulating pharmacotherapy."
+   ],
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "Referral for trauma focused psychotherapy and pharmacotherapy as indicated",
+   "page": 12
+  },
+  {
+   "type": "list",
+   "items": [
+    "SUBSTANCE USE DISORDER",
+    "Substance Use Disorder (SUD)",
+    "SUBSTANCES OF MISUSE",
+    "Caffeine",
+    "Social",
+    "Tobacco/nicotine",
+    "acceptability",
+    "Alcohol",
+    "Prescription medications",
+    "$ Opioids, stimulants, gabapentin",
+    "Marijuana",
+    "Illicit drugs",
+    "Cocaine, opioids, heroin, hallucinogens, inhalants",
+    "Joshua Lanclos/APEA",
+    "© 2026 Advanced Practice Education Associates 89"
+   ],
+   "page": 12
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 6  Mental Health in Primary Care | Substance Use Disorder",
+    "NOTES ASSESSMENT",
+    "Ask if ever used, pattern of use, last use, frequency of use",
+    "Consequences of substance use (e.g., lost job, divorce, jail, etc.)",
+    "Patient’s perception of substance use",
+    "Readiness to change",
+    "SUD Screening Tools",
+    "SUD Screening/Assessment Characteristics",
+    "Alcohol Single item How many times in the past year have you",
+    "had 5 (male) or 4 (female) or more drinks",
+    "in a day?",
+    "AUDIT-C 3 items",
+    "Opioid OWLS (overuse, worrying, losing 4 items, primary care setting",
+    "interested, slowed down/sluggish/sedated)",
+    "RODS (Rapid opioid dependence screen) 8 items: assess for dependence"
+   ],
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "Opioid Risk Tool: assesses for risk Complete prior to prescribing; self-report",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "Multiple TAPS-1; TAPS-2—tobacco, alcohol, Patient or clinician administered",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "substances prescription medication, and other TAPS-1, 4 items. TAPS-2 completed if TAPS-1",
+   "page": 13
+  },
+  {
+   "type": "list",
+   "items": [
+    "substances positive",
+    "Diagnostic Criteria: Substance Use Disorder",
+    "DSM-5-TR criteria: ≥2 of the following within a 12-month period",
+    "Taking longer or in larger amounts than intended",
+    "Unable to cut down or stop use",
+    "SUD Severity # Symptoms",
+    "Excessive time spent to obtain, use, or recover",
+    "Mild 2–3",
+    "Craving or a strong desire or urge to use",
+    "Moderate 4–5",
+    "Failure to fulfill major role obligations",
+    "Severe ≥6",
+    "Continued use despite interpersonal problems",
+    "Understand MAT act and",
+    "Forgoing social/recreational activities to use consider referral",
+    "Recurrent use in physically hazardous situations",
+    "Continued use despite physical or psychological problems",
+    "Development of tolerance",
+    "Withdrawal symptoms",
+    "90 FNP/AGPCNP Review"
+   ],
+   "page": 13
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 6  Mental Health in Primary Care | ADHD: Adults",
+    "ADHD: ADULTS NOTES",
+    "ADHD Symptoms/Subtypes",
+    "Predominantly inattentive Combined Predominantly hyperactive-impulsive",
+    "Careless/poor attention to detail • Fidgets",
+    "Diminished attention span • Trouble staying still",
+    "Poor listening skills • Restlessness",
+    "Lacks follow-through • Trouble keeping quiet",
+    "Disorganized • “On the go”",
+    "Avoids tasks requiring concentration • Talks excessively",
+    "Loses things • Impulsively blurts things out",
+    "Easily distracted • Trouble waiting for their turn",
+    "Forgetful • Interrupts/intrudes",
+    "ADHD Assessment",
+    "Rating scales for ADHD assessment",
+    "$ Adult ADHD Self-Report Scale (WHO)",
+    "$ Conners’ Adult ADHD Rating Scale",
+    "$ Wender Utah Rating Scale",
+    "Comprehensive assessment for:",
+    "$ Comorbidities"
+   ],
+   "page": 14
+  },
+  {
+   "type": "list",
+   "items": [
+    "$ Substance use disorder",
+    "$ Age of onset",
+    "ADHD Diagnosis",
+    "DSM-5 Diagnostic Criteria (children and adults)",
+    "Symptoms must be present prior to age 12.",
+    "Symptoms last >6 months.",
+    "Symptoms are evident in two different settings.",
+    "Evidence that symptoms interfere with social, academic, or occupational functioning.",
+    "<17 years >17 years",
+    "Inattention 6 symptoms ≥5 symptoms",
+    "Hyperactivity/impulsivity 6 symptoms ≥5 symptoms",
+    "QUESTION #9"
+   ],
+   "page": 14
+  },
+  {
+   "type": "para",
+   "text": "The NP is evaluating an adult patient for treatment of ADHD. Which of the",
+   "page": 14
+  },
+  {
+   "type": "para",
+   "text": "following would contraindicate prescribing stimulant medication at this time?",
+   "page": 14
+  },
+  {
+   "type": "list",
+   "items": [
+    "1. Depression",
+    "2. Anxiety",
+    "3. Active substance use disorder",
+    "4. Controlled hypertension",
+    "© 2026 Advanced Practice Education Associates 91"
+   ],
+   "page": 14
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 6  Mental Health in Primary Care | Knowledge Check",
+    "NOTES ADHD Management",
+    "Preferred: CBT + pharmacologic treatment",
+    "FIRST-LINE PHARMACOLOGIC:",
+    "Stimulants: amphetamines (Adderall), methylphenidate (Ritalin)",
+    "Side effects:"
+   ],
+   "page": 15
+  },
+  {
+   "type": "para",
+   "text": "$ Common: weight loss, headaches, insomnia, dry mouth, irritability, dysphoria",
+   "page": 15
+  },
+  {
+   "type": "list",
+   "items": [
+    "$ Rare: priapism, elevated blood pressure, tics",
+    "ALTERNATIVE TREATMENT OPTIONS:",
+    "Norepinephrine reuptake inhibitor: atomoxetine (Strattera); viloxazine (Qelbree)",
+    "Bupropion (Wellbutrin): off-label",
+    "ADHD Management: Referral",
+    "Refer when:",
+    "Comorbidities"
+   ],
+   "page": 15
+  },
+  {
+   "type": "para",
+   "text": "$ Psychological disorders (oppositional defiant disorder, emotional problems)",
+   "page": 15
+  },
+  {
+   "type": "list",
+   "items": [
+    "$ Neurologic, medical disorders (tics, autism, sleep disorders)",
+    "Diagnosis is unclear.",
+    "Patient does not respond to treatment as expected.",
+    "KNOWLEDGE CHECK",
+    "QUESTION #10"
+   ],
+   "page": 15
+  },
+  {
+   "type": "para",
+   "text": "An older adult patient is found to have sleep-onset insomnia. Which of the",
+   "page": 15
+  },
+  {
+   "type": "para",
+   "text": "following is FDA-approved for insomnia and has the least risk of dependence?",
+   "page": 15
+  },
+  {
+   "type": "list",
+   "items": [
+    "1. Trazodone",
+    "2. Quetiapine (Seroquel)",
+    "3. Doxepin (Silenor)",
+    "4. Amitriptyline (Elavil)"
+   ],
+   "page": 15
+  },
+  {
+   "type": "tip",
+   "text": "Always consult the Beers Criteria when prescribing for geriatric patients.",
+   "page": 15
+  },
+  {
+   "type": "list",
+   "items": [
+    "Over-the-Counter (OTC) Sleep Aids",
+    "Antihistamines:",
+    "$ Diphenhydramine (e.g., Benadryl)",
+    "$ Doxylamine (e.g., Unisom)",
+    "Melatonin supplements:",
+    "$ Mimic the effects of the natural sleep hormone melatonin.",
+    "Herbal supplements:",
+    "$ Valerian root, chamomile, lavender",
+    "Mechanism of action:",
+    "$ Antihistamines block histamine receptors, inducing drowsiness.",
+    "$ Melatonin supplements regulate the sleep–wake cycle.",
+    "$ Herbal supplements may have a calming or sedative effect.",
+    "92 FNP/AGPCNP Review"
+   ],
+   "page": 15
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 6  Mental Health in Primary Care | Exam Checklist",
+    "Pharmacologic Management of Insomnia NOTES",
+    "Drug Class Drugs Characteristics"
+   ],
+   "page": 16
+  },
+  {
+   "type": "para",
+   "text": "Benzodiazepine Temazepam (Restoril), Lorazepam SE: drowsiness, confusion, anterograde",
+   "page": 16
+  },
+  {
+   "type": "para",
+   "text": "(Ativan), Triazolam (Halcion) amnesia, next day impairment; dependence",
+   "page": 16
+  },
+  {
+   "type": "para",
+   "text": "and tolerance with long-term use",
+   "page": 16
+  },
+  {
+   "type": "para",
+   "text": "Contraindicated: angle-closure glaucoma",
+   "page": 16
+  },
+  {
+   "type": "table",
+   "headers": [
+    "Non-benzodiazepine",
+    "Zolpidem (Ambien), Eszopiclone SE: daytime drowsiness, dizziness,"
+   ],
+   "rows": [
+    [
+     "hypnotics (non-BZD",
+     "(Lunesta), Zaleplon (Sonata), Ramelteon headache, complex sleep behaviors (e.g.,"
+    ],
+    [
+     "or Z-drugs)",
+     "(Rozerem) sleepwalking)"
+    ]
+   ],
+   "columns": [
+    68.0,
+    162.0
+   ],
+   "page": 16
+  },
+  {
+   "type": "list",
+   "items": [
+    "Next day somnolence, rebound insomnia",
+    "Contraindicated: history of complex sleep",
+    "behaviors with drugs of the same class"
+   ],
+   "page": 16
+  },
+  {
+   "type": "para",
+   "text": "Melatonin receptor Ramelteon (Rozerem); Tasimelteon SE: rare, but may include headache,",
+   "page": 16
+  },
+  {
+   "type": "list",
+   "items": [
+    "agonists (Hetlioz); Melatonin dizziness, or daytime drowsiness",
+    "Tricyclic Doxepin (Silenor) SE: anticholinergic",
+    "antidepressant"
+   ],
+   "page": 16
+  },
+  {
+   "type": "para",
+   "text": "Dual Orexin Suvorexant (Belsomra); Lemborexant SE: headache, drowsiness, dizziness, nausea",
+   "page": 16
+  },
+  {
+   "type": "para",
+   "text": "Receptor Antagonists (Dayvigo) Rare: abnormal dreams, anxiety, mood",
+   "page": 16
+  },
+  {
+   "type": "para",
+   "text": "(DORAs) Daridorexant (Quviviq) changes, suicidal thoughts",
+   "page": 16
+  },
+  {
+   "type": "list",
+   "items": [
+    "Anxiety",
+    "Bipolar disorder",
+    "Depression",
+    "Suicide",
+    "PTSD",
+    "Substance use disorders",
+    "ADHD",
+    "Insomnia",
+    "Pharmacology",
+    "Know clinical presentation (subjective, objective findings)",
+    "Screenings",
+    "Diagnostic criteria",
+    "Differential diagnosis",
+    "Pharmacologic, nonpharmacologic management",
+    "Recognize normal course",
+    "Follow-up care",
+    "Know when to refer",
+    "© 2026 Advanced Practice Education Associates 93"
+   ],
+   "page": 16
+  }
+ ],
+ "tables": [
+  {
+   "headers": [
+    "Bipolar",
+    "Disorder NOTES"
+   ],
+   "rows": [
+    [
+     "Bipolar",
+     "I: one or more manic or hypomanic episode, less likely to have a major depressive episode"
+    ],
+    [
+     "Bipolar",
+     "II: one episode of hypomania, at least one episode of major depression, and no history of"
+    ]
+   ],
+   "columns": [
+    64.0,
+    111.0
+   ],
+   "page": 6
+  },
+  {
+   "headers": [
+    "Desvenlafaxine (Pristiq)",
+    "MDD; less risk of sexual dysfunction"
+   ],
+   "rows": [
+    [
+     "Milnacipran (Savella)",
+     "Fibromyalgia; may increase liver enzymes, avoid in end-stage renal disease"
+    ],
+    [
+     "Levomilnacipran (Fetzima)",
+     "MDD; avoid in end-stage renal disease"
+    ],
+    [
+     "Norepinephrine-Dopamine",
+     "Reuptake Inhibitor (NDRI)"
+    ]
+   ],
+   "columns": [
+    128.0,
+    248.0
+   ],
+   "page": 7
+  },
+  {
+   "headers": [
+    "Non-benzodiazepine",
+    "Zolpidem (Ambien), Eszopiclone SE: daytime drowsiness, dizziness,"
+   ],
+   "rows": [
+    [
+     "hypnotics (non-BZD",
+     "(Lunesta), Zaleplon (Sonata), Ramelteon headache, complex sleep behaviors (e.g.,"
+    ],
+    [
+     "or Z-drugs)",
+     "(Rozerem) sleepwalking)"
+    ]
+   ],
+   "columns": [
+    68.0,
+    162.0
+   ],
+   "page": 16
+  }
+ ],
+ "tips": [
+  "Do NOT stop abruptly! Taper over 2–4 weeks for most SSRIs if taking SSRI for ≥6 weeks.",
+  "Always consult the Beers Criteria when prescribing for geriatric patients."
+ ],
+ "questions": [
+  {
+   "stem": "A young adult patient with anhedonia has a PHQ-9 score of 12, indicating moderately severe depression and a negative screening for bipolar disorder. Which medication is preferred for the management of depression?",
+   "options": [
+    "Amitriptyline",
+    "Quetiapine",
+    "Escitalopram",
+    "Buspirone Treatment of Major Depressive Disorder (MDD) Shared decision making and individualization of care"
+   ],
+   "page": 4
+  },
+  {
+   "stem": "A young adult meets the criteria for MDD and is prescribed fluoxetine 20 mg daily. Which of the following differentials must be excluded before prescribing an SSRI?",
+   "options": [
+    "Obsessive compulsive disorder",
+    "Panic disorder",
+    "Bipolar disorder",
+    "Generalized anxiety disorder Screen for Bipolar Disorder • Major depression may be a presenting symptom of bipolar"
+   ],
+   "page": 5
+  },
+  {
+   "stem": "A patient with major depressive disorder (MDD) reports that citalopram has helped some with symptoms, but not greatly. He was previously on sertraline. His PHQ-9 score has decreased from 16 to 14. Which of the following is the best option for this patient?",
+   "options": [
+    "Switch the patient to fluoxetine.",
+    "Continue sertraline and add olanzapine.",
+    "Switch the patient to amitriptyline",
+    "Switch the patient to desvenlafaxine Serotonin–Norepinephrine Reuptake Inhibitors (SNRIs)"
+   ],
+   "page": 7
+  }
+ ],
+ "quality": {
+  "pages": 18,
+  "tables": 3,
+  "tips": 2,
+  "questions": 3,
+  "chars": 5673
+ }
+}
