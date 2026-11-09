@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 import { todayKey } from '../lib/store'
+import { PageHeader } from './AppShell.jsx'
 
 export function buildPlan(guide, examDate) {
   const start = new Date(); start.setHours(0, 0, 0, 0)
@@ -32,8 +33,7 @@ export default function Planner({ guide, store, update }) {
   const doneCount = plan.filter(d => store.planDone[d.key]).length
   return (
     <div style={{ maxWidth: 760, margin: '0 auto' }}>
-      <h1>Study Planner</h1>
-      <p className="muted">The manual's rule: finish the whole course, then study no longer than 3 months. Pick your exam date and get a day-by-day plan weighted by chapter size and question count — ending with timed exams and high-yield review.</p>
+      <PageHeader eyebrow="Schedule" title="Study planner" subtitle="Finish the course, then study ≤3 months before boards. Set your exam date for a day-by-day plan weighted by chapter size — mocks and high-yield review in the final week. Use the 12-week guided path on the Dashboard if you are not exam-dated yet." />
       <div className="card">
         <label className="label">My exam date</label>
         <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>

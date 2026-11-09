@@ -1,12 +1,11 @@
 {
   "meta": {
     "total": 262,
-    "graded": 220,
+    "graded": 262,
     "methods": {
-      "override": 48,
+      "override": 90,
       "guide-match": 92,
       "inferred": 79,
-      "ambiguous": 42,
       "corpus-rescore": 1
     },
     "source": "APEA course manual slide questions"
@@ -260,9 +259,9 @@
         "Quitting smoking will keep COPD symptoms from getting worse.",
         "Avoiding respiratory infections can slow disease progression. COPD Treatment Goals Reduce risk • Relieve symptoms • Improve exercise tolerance • Minimize disease • Improve health status progression • Prevent and treat exacerbations Reduce • Reduce mortality symptoms AND"
       ],
-      "correctIndex": null,
-      "explanation": "Treatment: Nonpharmacologic and pharmacotherapy Beta-Agonists NOTES Causes bronchodilation Class Onset Duration Examples Notes SABAs <5 min 4–6 h Albuterol “Rescue agents” (Short-acting) 8h Levalbuterol Tachycardia <5 min 12 h Formoterol Long-acting but quick onset LABAs 10–20 min 12–24 h Salmeterol Indacaterol NOT a rescue med!!! (Long-acting) Olodaterol Inhaled Anticholinergics (Antimuscarinics) Prevent bronchoconstriction (LABA’s & LAMA’s work well together) Class Examples Duration SAMA Ipratropium (Atrovent) 6h (Short-acting antimuscarinic) LAMA Tiotropium (Spiriva) 12–24 h (Long-acting antimuscarinic) Aclidinium (Tudorza Pressair) Umecli…",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "Quitting smoking slows progression but does not prevent all symptom worsening in established COPD.",
+      "grading": "override"
     },
     {
       "id": "manual-04-q10",
@@ -296,9 +295,9 @@
         "Umeclidinium/vilanterol",
         "Fluticasone/umeclidinium/vilanterol COPD Exacerbations • Increased dyspnea and/or cough and sputum worsens over <14 days ±Tachypnea; Tachycardia, • Increased local and systemic inflammation Confounders or contributors in suspected exacerbations Triggers Differentials"
       ],
-      "correctIndex": null,
-      "explanation": "• Virus (influenza, rhinovirus) • Pneumonia • Bacteria (H. influenzae, M. catarrhalis, S. • Pulmonary embolism pneumoniae) • Heart failure • Environmental pollutants (excessive heat) COPD Exacerbation Severity Mild Moderate (three of five variables) • Dyspnea VAS <5 • Dyspnea VAS ≥5 • RR <24 breaths/min • RR ≥24 breaths/min • HR <95 bpm • HR ≥95 bpm • Resting SaO2 ≥92% & ≤3% baseline change • Resting SaO2 <92% &/or ≥3% baseline change No Dyspnea Visual Analog Score Worst SOB Dyspnea (VAS) 0–10 COPD Exacerbation Management • Mild-to-moderate, usually outpatient • Criteria for inpatient management: Symptoms of severe exacerbation Respiratory di…",
-      "grading": "ambiguous"
+      "correctIndex": 0,
+      "explanation": "Symptomatic COPD: short-acting bronchodilator (e.g. ipratropium/albuterol) per GOLD staging.",
+      "grading": "override"
     },
     {
       "id": "manual-04-q13",
@@ -422,9 +421,9 @@
         "Iron deficiency may persist if AUB is not addressed.",
         "A common side effect of iron supplementation is diarrhea."
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "Treat menorrhagia cause or IDA persists despite iron.",
+      "grading": "override"
     },
     {
       "id": "manual-05-q9",
@@ -476,9 +475,9 @@
         "Nystagmus of <60 seconds is observed.",
         "The patient vomits on the NP’s shoes. What is the patient’s likely diagnosis? Benign Paroxysmal Positional Vertigo Managed in primary care • Repositioning maneuvers (Epley maneuver) • First-generation antihistamines Best evidence: meclizine (Antivert) 25–100 mg Reserved for highly disruptive symptoms Watch for anticholinergic side effects! • Symptom management with anti-nausea medications"
       ],
-      "correctIndex": null,
-      "explanation": "TIP: Refer for everything except BPPV!",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "Positive Dix–Hallpike with brief nystagmus supports BPPV.",
+      "grading": "override"
     },
     {
       "id": "manual-06-q3",
@@ -602,9 +601,9 @@
         "Diabetic neuropathy is reversible with adequate blood glucose control.",
         "Foot inspections should be performed at least weekly to prevent amputations. Diabetic Neuropathy • Distal symmetric polyneuropathy (DSPN) = diabetic neuropathy • 15–20% of patients with diabetic neuropathy have pain. • Symptomatic neuropathy is not usually reversible. • Prevention!"
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 0,
+      "explanation": "Duration/severity of hyperglycemia drives diabetic neuropathy risk.",
+      "grading": "override"
     },
     {
       "id": "manual-06-q10",
@@ -746,9 +745,9 @@
         "Medication is recommended for at least 1 year.",
         "Medication is recommended for at least 6 months after remission is achieved."
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "First MDD episode: continue antidepressant ≥6 months after remission.",
+      "grading": "override"
     },
     {
       "id": "manual-07-q6",
@@ -764,9 +763,9 @@
         "Switch the patient to amitriptyline",
         "Switch the patient to desvenlafaxine Serotonin–Norepinephrine Reuptake Inhibitors (SNRIs) Side effects: nausea, dizziness, diaphoresis, increase in blood pressure (except duloxetine), sexual dysfunction, bleeding, hyponatremia Drug Indications/Considerations Duloxetine (Cymbalta) MDD, GAD, fibromyalgia, neuropathy, chronic musculoskeletal pain; Least likely to raise BP"
       ],
-      "correctIndex": null,
-      "explanation": "Venlafaxine (Effexor) MDD, social anxiety disorder, cataplexy; cautious use in patients at risk of bleeding Desvenlafaxine (Pristiq) MDD; less risk of sexual dysfunction Milnacipran (Savella) Fibromyalgia; may increase liver enzymes, avoid in end-stage renal disease Levomilnacipran (Fetzima) MDD; avoid in end-stage renal disease Norepinephrine-Dopamine Reuptake Inhibitor (NDRI) • Drug: bupropion (Wellbutrin) • Indications MDD, seasonal affective disorder, smoking cessation (Zyban), ADHD (off-label) Bupropion/naltrexone (Contrave): weight loss • Contraindications Seizures, uncontrolled hypertension • Monitor: blood pressure • Common side effec…",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "SSRI nonresponse: switch class (e.g. SNRI) or augment — not tricyclic first line.",
+      "grading": "override"
     },
     {
       "id": "manual-07-q7",
@@ -782,9 +781,9 @@
         "Milk thistle",
         "Black cohosh Serotonin Syndrome EXCESS SEROTONIN (SEROTONIN TOXICITY) • Etiology Combining medications that increase serotonin levels (SSRIs, SNRIs, etc.) • Symptoms Increased BP, HR, temp Confusion, restlessness, agitation Headache, muscle rigidity, N/V, tremors, shivering High rates of mortality • Serotonin agents (impact serotonin in the body) Dextromethorphan Tramadol TCAs Cyclobenzaprine Others"
       ],
-      "correctIndex": null,
-      "explanation": "Antidepressants and Suicidality ALL antidepressants carry a warning of increased suicidality. FDA black box warning reports are more prevalent: • 18- to 24-year-olds • Initial treatment • First 1–2 months of treatment NOTES Efficacy studies found: • No evidence for higher/lower risk of suicide death • Initiation of antidepressants does not cause new-onset suicidal ideation. • SSRIs reduce suicidal ideation Weigh risks versus benefits, put supports in place. Suicidality Risk 988 Risk factors: • Presence of psychiatric disorder • Hopelessness, impulsivity • Isolation • Previous attempts • Family history SUICIDE • Substance use • Prolonged stres…",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "St. John's wort interacts with serotonergic drugs — serotonin syndrome risk.",
+      "grading": "override"
     },
     {
       "id": "manual-07-q8",
@@ -800,9 +799,9 @@
         "electroconvulsive therapy (ECT).",
         "serotonin modulating pharmacotherapy. Referral for trauma focused psychotherapy and pharmacotherapy as indicated"
       ],
-      "correctIndex": null,
-      "explanation": "SUBSTANCE USE DISORDER Substance Use Disorder (SUD) SUBSTANCES OF MISUSE • Caffeine • Tobacco/nicotine Social • Alcohol acceptability • Prescription medications Opioids, stimulants, gabapentin • Marijuana • Illicit drugs Cocaine, opioids, heroin, hallucinogens, inhalants Joshua Lanclos/APEA NOTES ASSESSMENT • Ask if ever used, pattern of use, last use, frequency of use • Consequences of substance use (e.g., lost job, divorce, jail, etc.) • Patient’s perception of substance use • Readiness to change SUD Screening Tools SUD Screening/Assessment Characteristics Alcohol Single item How many times in the past year have you had 5 (male) or 4 (femal…",
-      "grading": "ambiguous"
+      "correctIndex": 0,
+      "explanation": "PTSD first-line: trauma-focused psychotherapy ± SSRI/SNRI.",
+      "grading": "override"
     },
     {
       "id": "manual-07-q9",
@@ -818,9 +817,9 @@
         "Active substance use disorder",
         "Controlled hypertension"
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "Active substance use disorder complicates stimulant ADHD treatment.",
+      "grading": "override"
     },
     {
       "id": "manual-07-q10",
@@ -872,9 +871,9 @@
         "McBurney’s sign",
         "Kehr’s sign Murphy’s Sign"
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "Murphy sign: inspiratory arrest with RUQ palpation in cholecystitis.",
+      "grading": "override"
     },
     {
       "id": "manual-08-q3",
@@ -962,9 +961,9 @@
         "Refer the patient for an endoscopy to confirm GERD.",
         "Discontinue the medication and see if symptoms persist after 2 to 4 weeks."
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "GERD controlled: trial PPI discontinuation to assess ongoing need.",
+      "grading": "override"
     },
     {
       "id": "manual-08-q8",
@@ -980,9 +979,9 @@
         "The patient may be taking his PPI incorrectly.",
         "The patient could be experiencing angina."
       ],
-      "correctIndex": null,
-      "explanation": "Barrett’s Esophagus NOTES Dysplasia of the esophagus that develops secondary to chronic GERD Barrett’s Esophagus: Risk Factors • Male sex • Age 50 or older • non-Hispanic White American • Chronic GERD (5 to 10 years or more) • Cigarette smoking • Hiatal hernia • History of Barrett’s/esophageal cancer in a first-degree relative",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "Chronic GERD in older smoker: consider Barrett's and malignancy.",
+      "grading": "override"
     },
     {
       "id": "manual-08-q9",
@@ -1054,9 +1053,9 @@
         "Fosfomycin (off-label for males)",
         "Trimethoprim-sulfamethoxazole (if local resistance is <20%) Pregnant Cephalexin, fosfomycin, nitrofurantoin, trimethoprim-sulfamethoxazole (see pregnancy module for more information) UTI: Antibiotic Duration Uncomplicated UTI • Nitrofurantoin: 5 days • Trimethoprim-sulfamethoxazole: 3 days • Fosfomycin: 3 g, single dose"
       ],
-      "correctIndex": null,
-      "explanation": "Complicated UTI • Treatment is individualized, 7–14 days UTI Management • Prompt treatment to prevent complications! • Consider phenazopyridine No more than 2 days!​ Discolors urine • UTI prevention: Cranberry products may prevent repeat UTI Adequate hydration Normal voiding schedule: every 2–4 hours, and after sexual intercourse Postmenopausal females: topical estrogen TIP: Hematuria requires further evaluation!!!",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "Asymptomatic bacteriuria: treat in pregnancy only.",
+      "grading": "override"
     },
     {
       "id": "manual-09-q2",
@@ -1072,9 +1071,9 @@
         "A 40-year-old female who had a UTI one year ago",
         "A 50-year-old female with perimenopausal symptoms When to Get a Urine Culture? • High-risk populations Recurrent or refractory infections Risk for complications Urinary catheter use Complicated UTIs Suspected multidrug-resistant infection Diagnosis uncertain"
       ],
-      "correctIndex": null,
-      "explanation": "• Positive culture Midstream catch: >100,000 organisms Catheterization: >1,000 organisms",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "Order urine culture for complicated UTI risk (e.g. male with BPH), not uncomplicated young female cystitis.",
+      "grading": "override"
     },
     {
       "id": "manual-09-q3",
@@ -1090,9 +1089,9 @@
         "discontinues TMP-SMX and prescribe a 2-day course of nitrofurantoin.",
         "discontinue TMP-SMX and prescribe a 5-day course of nitrofurantoin."
       ],
-      "correctIndex": null,
-      "explanation": "Acute Pyelonephritis Pyelonephritis NOTES Infection of the upper urinary tract and renal parenchyma • History UTI symptoms Systemic symptoms • Fever, chills, malaise Flank, pelvic, or perineal pain • Physical exam CVA, abdominal, suprapubic tenderness Patient may be ill-appearing • Diagnostics Urinalysis: pyuria, bacteriuria, hematuria, mild proteinuria, WBC casts CBC: leukocytosis Pyelonephritis Management Outpatient management: • IF clinically stable and can tolerate oral meds • Urine culture: collect before starting antibiotics! First-line: • Fluoroquinolones Levofloxacin QD x 5 days Ciprofloxacin Q12h × 7 days • Trimethoprim/sulfamethoxaz…",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "Empiric UTI failure: switch agent and extend course (e.g. nitrofurantoin).",
+      "grading": "override"
     },
     {
       "id": "manual-09-q4",
@@ -1144,9 +1143,9 @@
         "Urology consultation is helpful for diagnosis and treatment recommendations.",
         "Eliminating bladder irritants may reduce symptoms. Interstitial Cystitis “Bladder pain syndrome” • Symptoms Urinary frequency or urgency Dysuria Bladder pain Pelvic pain • Etiology unknown • Rule out differentials • Urology referral Cystoscopy Bladder biopsy"
       ],
-      "correctIndex": null,
-      "explanation": "Types of Incontinence Estimated prevalence: 25–40% • 40% of females >70 years • <30% of incontinent females seek care Incontinence/OAB: Management Behavioral management: first-line Nonpharmacologic options: • Bladder training • Biofeedback, nerve stimulation • Fluid management • Pessaries—pelvic organ prolapse Minimize fluids after dinner • Surgery—stress incontinence Take diuretics in afternoon, NOT at night • Weight loss—stress incontinence • Pelvic floor exercises (Kegel, yoga, pelvic tilts) Incontinence/OAB: Pharmacotherapy Urge/mixed incontinence Anticholinergics first-line: • Oxybutynin (Ditropan), Tolterodine (Detrol) • Side effects: d…",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "IC/PBS: avoid bladder irritants; multimodal conservative care.",
+      "grading": "override"
     },
     {
       "id": "manual-09-q7",
@@ -1162,9 +1161,9 @@
         "Repeat urinalysis with a first-morning sample.",
         "Perform testing for sexually transmitted infections. TIP: test and treat to minimize complications STI Symptoms Patients are often ASYMPTOMATIC!!! Females Males • Vaginal discharge • Dysuria • Dysuria • Penile discharge • Salpingitis • Pelvic pain • Abnormal vaginal bleeding • Pelvic pain"
       ],
-      "correctIndex": null,
-      "explanation": "Bacterial Vaginosis Sexually associated, NOT sexually transmitted • Risks Associated with multiple sex partners, new partners, douching, IUCs Higher risk for STIs • Diagnosis: Amsel criteria (3 of 4) Thin, milklike discharge, coating vaginal walls Positive whiff amine Clue cells Vaginal pH >4.5 • Treatment Metronidazole 500 mg PO BID × 7 days Metronidazole gel 0.75% one full applicator (5 g) PV, QD × 5 days Clindamycin cream 2% one full applicator (5 g) PV QHS at × 7 days Chlamydia NOTES Most frequently reported infectious disease in the United States, rates increasing • Serious sequelae: PID, ectopic pregnancy, infertility, pelvic pain • Typ…",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "Dysuria + discharge: STI testing before empiric antibiotics only.",
+      "grading": "override"
     },
     {
       "id": "manual-09-q8",
@@ -1216,9 +1215,9 @@
         "Infertility and adverse perinatal outcomes are not associated with PID.",
         "PID may present with dyspareunia, menorrhagia, or abnormal uterine bleeding. PID: Diagnostic Criteria Minimum criteria • Lower abdominal pain and/or tenderness • Cervical motion tenderness, with or without mucous • Adnexal tenderness Additional criteria (one should be present) • Fever >100.4°F (38°C) • Wet mount: WBCs >10 per HPF (predictive) • Pelvic mass on exam • ESR >15 mm/hour • Positive endocervical N. gonorrhoeae or C. trachomatis"
       ],
-      "correctIndex": null,
-      "explanation": "Outpatient PID Treatment N. gonorrhoea • Ceftriaxone 500 or 1000 mg IM × 1 PLUS C. • Doxycycline 100 mg PO trachomatis BID × 14 days PLUS G. vaginalis or T. • Metronidazole 500 vaginalis mg PO BID × 14 days • Do NOT• remove Do NOTIUDremove unless no improvement IUD within 48 to 72within unless no improvement hours. 48 to 72 hours. • Consider inpatient treatment if not responding to regimens, pregnancy, or severe cases. • Consider inpatient treatment if not responding to regimens, pregnancy, or severe cases.",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "PID can present subtly: dyspareunia, abnormal bleeding, pelvic pain.",
+      "grading": "override"
     },
     {
       "id": "manual-09-q12",
@@ -1270,9 +1269,9 @@
         "HIV-1/2 antigen antibody combination immunoassay (ELISA/ELIA)",
         "HIV RNA nucleic acid test (NAAT)"
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "HIV screening: HIV-1/2 Ag/Ab combination assay first.",
+      "grading": "override"
     },
     {
       "id": "manual-09-q16",
@@ -1342,9 +1341,9 @@
         "Increase chlorthalidone to 25 mg daily",
         "Add 5 mg amlodipine."
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "Uncontrolled on chlorthalidone 12.5 mg: increase thiazide dose.",
+      "grading": "override"
     },
     {
       "id": "manual-10-q4",
@@ -1378,9 +1377,9 @@
         "Nifedipine",
         "Chlorthalidone"
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "Uncomplicated HTN: thiazide/CCB/ACE/ARB — chlorthalidone is appropriate.",
+      "grading": "override"
     },
     {
       "id": "manual-10-q6",
@@ -1396,9 +1395,9 @@
         "Daily use of loratadine for seasonal allergies",
         "Unable to reach blood pressure goal despite use of amlodipine"
       ],
-      "correctIndex": null,
-      "explanation": "SECONDARY HTN Primary HTN (essential HTN) is idiopathic in etiology and the most common: 90% Secondary HTN suspected when: • Dx of HTN prepuberty​ • No family history​ • Resistant hypertension (using >3 agents • No risk factors for HTN​ without control)​ • Change in previously controlled BP/labile BP​ • <30 years of age​ • Concurrent electrolyte or metabolic disorder • Nonobese​ TIP: Consider OSA, renovascular, and endocrine disorders as causes for secondary hypertension.",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "Resistant HTN despite combination therapy suggests secondary causes.",
+      "grading": "override"
     },
     {
       "id": "manual-10-q7",
@@ -1414,9 +1413,9 @@
         "calculating the ASCVD risk.",
         "asking the patient about familial hyperlipidemia. Primary Prevention: Who Gets a Statin? Group Characteristics Recommendation 1 LDL >190 mg/dL High-intensity statin (regardless of ASCVD risk estimate) 2 Diabetes mellitus, age 40–75 Moderate-intensity statin High-intensity statin if increased ASCVD risk 3 ASCVD RISK: (Age 40–75; LDL ≥70–≤190 mg/dL; without DM) ASCVD risk estimate ≥7.5–<20% Moderate-intensity statin with risk enhancer ASCVD risk estimate >20% High-intensity statin Or Secondary Prevention"
       ],
-      "correctIndex": null,
-      "explanation": "Risk Enhancer High Intensity Statins Moderate Intensity Statins Family history of early >50% reduction in LDL-C >30% reduction in LDL-C ASCVD, LDL>160 mg/dL, Atorvastatin 40–80 mg Atorvastatin 10–20 mg CKD, metabolic syndrome, Rosuvastatin 20–40 mg Rosuvastatin 5–10 mg preeclampsia, HIV, RA Simvastatin 20–40 mg Pravastatin 40–80 mg",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "Calculate ASCVD risk before statin intensity.",
+      "grading": "override"
     },
     {
       "id": "manual-10-q8",
@@ -1504,9 +1503,9 @@
         "order coronary artery calcium (CAC) test.",
         "calculate CHADS-Vasc2 score to determine need for anticoagulation. TIP: Primary care ➔ Recognize, Work up, Anticoagulate, and Refer!"
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "Intermittent palpitations: CHA2DS2-VASc for stroke risk and anticoagulation.",
+      "grading": "override"
     },
     {
       "id": "manual-10-q13",
@@ -1630,9 +1629,9 @@
         "Positive McMurray test",
         "Abnormal monofilament testing TIP: ABI <0.9 or >1.4 is highly suggestive of PAD."
       ],
-      "correctIndex": null,
-      "explanation": "EXAM CHECKLIST ✓ Hypertension ✓ Hyperlipidemia ✓ Heart failure ✓ Murmurs ✓ Screen AAA ✓ PAD ✓ Atrial fib ✓ Labs: lipids, International normalized ratio (INR) ✓ ECG rhythms • Know clinical presentation (subjective, objective findings) • Know how to diagnose • What is in different diagnoses? • Pharmacologic, nonpharmacologic management • Follow-up care • Recognize normal course • When to refer",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "PAD: exertional leg pain relieved by rest (claudication).",
+      "grading": "override"
     },
     {
       "id": "manual-11-q1",
@@ -1684,9 +1683,9 @@
         "Diagnose with type 2 diabetes and recommend lifestyle modification.",
         "Diagnose with type 2 diabetes and initiate medication."
       ],
-      "correctIndex": null,
-      "explanation": "Diabetes Drug Classes NOTES Drug Class Suffix Examples Biguanide Not Metformin Applicable Sulfonylurea -ride/-zide Glimepiride, glipizide, glyburide (2nd generation) Meglitinides -glinide Repaglinide, nateglinide DPP-4 inhibitor -gliptin Alogliptin, linagliptin, saxagliptin, sitagliptin GLP-1 -atide/-utide Exenatide, liraglutide, dulaglutide, albiglutide, semaglutide Thiazolidinedione (TZD) -azone Pioglitazone, rosiglitazone SGLT-2 -gliflozin Canagliflozin, dapagliflozin, empagliflozin GIP/GLP-1 -tide Tirzepatide TIP: Memorize the characteristics and suffixes of each drug class. Medication Summary Class Mechanism of Action A1c Decrease Commen…",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "Diabetes range labs: diagnose and initiate treatment plus lifestyle.",
+      "grading": "override"
     },
     {
       "id": "manual-11-q5",
@@ -1720,9 +1719,9 @@
         "Elevated blood glucose of 155 mg/dL",
         "Decreased vitamin B12 level of 30 pg/mL"
       ],
-      "correctIndex": null,
-      "explanation": "Metformin Prescribing Pearls NOTES • Titration to full dose • Titration to full dose • 500 mg • 500 mg • 500 mg qAM • 1000 mg nightly BID and 1000 mg • BID nightly • Candiarrhea • Can cause significant cause significant diarrhea Most common reason that patients stop metformin • Most common reason that patients stop Using extended-releasemetformin (ER) formulation helps If diarrhea develops, hold until diarrhea stops, then restart at 500 mg and titrate slowly. • Using extended-release (ER) formulation helps • Caution in liver, renal disease • If diarrhea develops, hold until diarrhea stops, then restart at 500 mg and titrate slowly.",
-      "grading": "ambiguous"
+      "correctIndex": 0,
+      "explanation": "Metformin contraindicated when eGFR <30; caution 30–45.",
+      "grading": "override"
     },
     {
       "id": "manual-11-q7",
@@ -1738,9 +1737,9 @@
         "Patients who lose weight on GLP-1 agonists may regain weight if they stop the medication.",
         "These medications are not recommended in patients with an increased ASCVD risk. DM Drugs and Patient Characteristics Patient Characteristics Beneficial Drugs ASCVD GLP-1, SGLT2, TZD"
       ],
-      "correctIndex": null,
-      "explanation": "HF SGLT2 CKD SGLT2 or GLP-1 Risk for hypoglycemia DPP-4, SGLT2, GLP-1, TZD Obesity SGLT2, GLP-1 A1c ≥10%, BG ≥300 mg/dL, or symptomatic GLP-1, GLP-1/GIP, insulin PCOS Metformin, TZD Pregnancy (or planned) Insulin, metformin Limited financial resources SU, TZD, metformin",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "GLP-1: weight may return after discontinuation.",
+      "grading": "override"
     },
     {
       "id": "manual-11-q8",
@@ -1774,9 +1773,9 @@
         "Add basal insulin and discontinue the GLP-1.",
         "Add basal insulin to the current regimen. When to Consider Basal Insulin • Early use can preserve pancreatic function. • Consider in patients with: A1c ≥ 10% or FPG ≥ 300 mg/dL Symptoms of hyperglycemia Severe hyperglycemia with ketonuria After maxing out orals/injectables Pregnant patients Ongoing catabolism (unexpected weight loss)"
       ],
-      "correctIndex": null,
-      "explanation": "TIP: In DM2, the ADA recommends trying a GLP-1 or GLP-1/GIP before insulin whenever possible! ADA Recommendations for Managing Insulin, 2025 Indication for injectable If basal coverage is inadequate* Consider GLP-1 and A1C is above target or GIP/GLP-1 before starting insulin. A1c less than A1c 8% or 8% greater Add basal Insulin 10 units or 0.1 to 0.2 u/kg. Consider decreasing daily basal insulin by 4 units or 10%. Increase by 2 to 4 units every 3 days Initiate 4 units of rapid-acting insulin (or 10% if not at FPG goal. of basal dose) with largest meal. If hypoglycemia, Increase meal-time insulin dose by 1 to 2 units 2 reduce by 10– times/week…",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "Triple oral therapy failing: add basal insulin without dropping metformin/GLP-1.",
+      "grading": "override"
     },
     {
       "id": "manual-11-q10",
@@ -1792,9 +1791,9 @@
         "Increase the dose by 3 units.",
         "Add 3 units of am insulin to current regimen."
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "Basal insulin: titrate up if fasting glucose above goal.",
+      "grading": "override"
     },
     {
       "id": "manual-11-q11",
@@ -1846,9 +1845,9 @@
         "Evaluate for secondary causes of hypothyroidism.",
         "Order thyroid antibody studies."
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 0,
+      "explanation": "Subclinical hypothyroidism: repeat TSH in 6–12 months if asymptomatic.",
+      "grading": "override"
     },
     {
       "id": "manual-11-q15",
@@ -1864,9 +1863,9 @@
         "Increase levothyroxine dose and recheck TSH in 4–6 weeks.",
         "Prescribe combination T3/T4 therapy. Patient Education About Levothyroxine • Levothyroxine is a picky drug! Must take with water on an empty stomach Interacts with other medications • Hypothyroidism control affected by Weight change of 10% or more Taking levothyroxine with food or other meds Missed or extra medication doses Use of antiepileptic drugs, steroids Pregnancy (increases needs 30%) Biotin interferes with measurement of TSH"
       ],
-      "correctIndex": null,
-      "explanation": "Hyperthyroidism Graves Ophthalmopathy • Presentation Heat intolerance, warm and moist skin Fine tremor in hands Tachycardia or tachyarrhythmias Anxiety, irritability Ophthalmopathy—early or late finding in Graves disease Hyperthyroidism Refer all patients with hyperthyroidism! Thyroid State TSH Free T4 T3 Euthyroid Normal Normal Normal Primary hyperthyroidism Decreased Increased/Normal Increased Subclinical hyperthyroidism Decreased Normal Normal Secondary hyperthyroidism Normal/Increased Increased Increased TIP: Nonspecific beta-blockers (e.g., propranolol) may be prescribed for symptom management while awaiting endocrinology referral. OVERW…",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "Persistent elevated TSH on levothyroxine: increase dose and recheck.",
+      "grading": "override"
     },
     {
       "id": "manual-12-q1",
@@ -1882,9 +1881,9 @@
         "A 50-year-old female who has a higher body mass",
         "A 32-year-old transgender female on hormone replacement therapy for 2 years Breast Cancer: Increased Risk Age Increased estrogen exposure • Combined hormonal contraceptives (CHC), Hormone Replacement Therapy (HRT) • Early menarche (<age 12), late menopause (>age 55) • Nulliparous Family history/genetic risk • Can be estimated using screening tools BCRAT, Ontario tool • BRCA 1 & 2 genetic testing: REFER Lifestyle: alcohol, obesity, smoking, etc."
       ],
-      "correctIndex": null,
-      "explanation": "Breast Cancer Screening Females who have average breast cancer risk Organization Age Frequency of Screening Mammogram ACS (2023) 40–44 Offer screening 45–54 Annually >55 Every 1–2 years ACOG (2025) 40–75 Q 1–2 years USPSTF (2024) 40–74 Q 2 years Order: Bilateral screening mammogram, 3D (tomosynthesis) preferred Breast Masses • Benign • Malignant: mimics benign! Fibroadenomas About 9% occur in females Cysts <45 years of age Fibrocystic breasts Signs: • Change in breast size/symmetry • Change in skin texture • Nipple inversion or discharge NOTES Workup for Breast Mass • Start with a complete history and physical exam. • Imaging based on age: <3…",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "Dense breasts + older nulliparous female: higher breast cancer risk.",
+      "grading": "override"
     },
     {
       "id": "manual-12-q2",
@@ -1972,9 +1971,9 @@
         "The patient should be screened for immunocompromising conditions.",
         "The patient should have their Mirena IUD removed. Perimenopause Body’s transition to menopause: • Mean length 4 years​; median duration 7–10 years! • Starts at different ages (as early as mid-30s!)​ • Low estrogen states: hormonal testing not useful Symptoms Genitourinary symptoms • Irregular menses • Vaginal dryness • Cognitive changes (“Brain Fog”) • Dyspareunia • Sleep/mood changes • Urinary urgency • Hot flashes and night sweats • Urinary frequency • Osteoporosis risk • Recurrent UTIs • Cardiovascular risk"
       ],
-      "correctIndex": null,
-      "explanation": "Menopausal Management Hormone replacement therapy (first-line) • COC: perimenopause and desire contraception • Estrogen only: total hysterectomy • Estrogen + Progestin: if uterus present • Contraindications: same as CHC Nonhormonal therapy (useful for contraindications/patient wishes) • FDA approved: Paroxetine (Brisdelle) 7.5 mg daily Fezolinetant 45 mg daily • Off-label: Supported by the North American Menopause Society SSRIs: citalopram, escitalopram SNRIs: desvenlafaxine, venlafaxine Gabapentinoids: gabapentin TIP: Use the lowest effective dose for the shortest amount of time for symptoms. NOTES Genitourinary Syndrome of Menopause (Vulvov…",
-      "grading": "ambiguous"
+      "correctIndex": 2,
+      "explanation": "Recurrent VVC: evaluate for immunocompromise.",
+      "grading": "override"
     },
     {
       "id": "manual-12-q7",
@@ -2080,9 +2079,9 @@
         "Urinary tract infection",
         "Benign prostatic hypertrophy"
       ],
-      "correctIndex": null,
-      "explanation": "PROSTATE CANCER • Malignancy of the prostate gland • Most common cancer in men • Lifetime risk is 16% • Risk of dying from prostate cancer is 2.9%. Prostate Cancer Risk Factors Prostate Cancer NOTES • Older age Screening Principles • Black men • Risk-based assessment: age 40 • Family history of prostate cancer • Screen with PSA: age 50–55, every 1–2 years First-degree relative • Shared decision-making (risk vs. benefits) <65 years Screen if at least 10 years of longevity • Known or likely BRCA1 or BRCA2 gene Usually stop screening at age 70–75 years mutations • Digital rectal examination (DRE) no longer Men who have risk factors profit most f…",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "Older male LUTS most often BPH.",
+      "grading": "override"
     },
     {
       "id": "manual-13-q5",
@@ -2152,9 +2151,9 @@
         "Tamsulosin",
         "Dapagliflozin"
       ],
-      "correctIndex": null,
-      "explanation": "COMMON CONCERNS",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "Nitrates absolutely contraindicated with PDE5 inhibitors.",
+      "grading": "override"
     },
     {
       "id": "manual-13-q9",
@@ -2188,9 +2187,9 @@
         "Order a urinalysis and urine culture.",
         "Order a KUB radiograph to assess for kidney stones. TWIST Score Testicular Workup for Ischemia and Suspected Torsion • Helps establish or exclude testicular torsion • TWIST score is higher in patients with torsion. Sensitivity 71%; Specificity 97%"
       ],
-      "correctIndex": null,
-      "explanation": "Test Score Testicular swelling 2 points Hard testis 2 points High-riding testis 1 point Absent cremasteric reflex 1 point Nausea/vomiting 1 point TOTAL ≥5 concerns for torsion Testicular Torsion Twisting of testis and spermatic cord results in testicular ischemia if not corrected! Joshua Lanclos/APEA",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "Acute scrotum in teen: TWIST score and emergency urology.",
+      "grading": "override"
     },
     {
       "id": "manual-13-q11",
@@ -2892,9 +2891,9 @@
         "Dix–Hallpike confirms the diagnosis.",
         "Hearing loss may become permanent. Auditory Emergency Refer to ENT or ER for: Hearing loss that is: • Abrupt onset • Unexplained • Unilateral • Sensorineural hearing loss"
       ],
-      "correctIndex": null,
-      "explanation": "Hearing Loss: In Office Testing Weber Test • Conductive loss: louder in affected ear • Sensorineural loss: louder in unaffected ear Rinne Test • Normal: air louder than bone conduction • Abnormal: bone louder than air conduction Unilateral Hearing Loss Algorithm NOTES Name the Diagnosis Presents with tragal tenderness and a narrow, inflamed ear canal Presents with severe ear pain, otorrhea, hearing loss, and tenderness of the mastoid process Presents with ear pain, mild hearing loss, and bulging of the tympanic membrane; may report a recent upper respiratory infection (URI) EYE COMPLAINTS",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "Ménière disease can cause permanent sensorineural hearing loss.",
+      "grading": "override"
     },
     {
       "id": "manual-16-q12",
@@ -3000,9 +2999,9 @@
         "The problem is acute, caused by medication.",
         "More information is needed to determine chronicity. Renal Function and Aging • Kidney function declines with normal aging. 50% reduction in GFR between ages 50 and 90 Decreased kidney mass Fewer functional kidney cells"
       ],
-      "correctIndex": null,
-      "explanation": "Renal Insufficiency NOTES • Pathologic reduction in kidney function Reduced eGFR: <90 mL/min/1.73 m2 Elevated BUN/creatinine, proteinuria may be present Radiology, abnormal pathology may be present Urine output may be decreased Renal Insufficiency: Causes • Uncontrolled chronic diseases • Acute conditions Diabetes mellitus Dehydration Hypertension Infection Cardiovascular disease (CVD) Medication toxicity Rheumatologic diseases Ischemia Others • Medication use Nephrotoxins Renal Insufficiency: Treatment • Assume it is acute until proven otherwise! Remove offending medications. • Nephrotoxins • Medications that depend on renal clearance • Medi…",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "Creatinine trends need context (hydration, meds) before labeling chronicity.",
+      "grading": "override"
     },
     {
       "id": "manual-17-q6",
@@ -3072,9 +3071,9 @@
         "Tilt-table testing",
         "Orthostatic BP measurement Orthostatic Hypotension • Significant drop in blood pressure (BP) that occurs upon standing Systolic BP drops by 20 mmHg or more. Diastolic BP drops by 10 mmHg or more. • Lightheadedness, syncope, and angina may occur when changing positions."
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 3,
+      "explanation": "Orthostatic hypotension confirmed with orthostatic vital signs.",
+      "grading": "override"
     },
     {
       "id": "manual-17-q10",
@@ -3236,9 +3235,9 @@
         "Anencephaly",
         "Encephalocele"
       ],
-      "correctIndex": null,
-      "explanation": "Review the matching section in the original course manual slide.",
-      "grading": "ambiguous"
+      "correctIndex": 1,
+      "explanation": "Folic acid prevents neural tube defects such as spina bifida.",
+      "grading": "override"
     },
     {
       "id": "manual-18-q4",

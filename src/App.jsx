@@ -11,6 +11,7 @@ import Tests from './components/Tests.jsx'
 import Workbook from './components/Workbook.jsx'
 import { Sidebar, PageHeader, MobileNav } from './components/AppShell.jsx'
 import PlatformStats from './components/PlatformStats.jsx'
+import StudyPath from './components/StudyPath.jsx'
 import { usePageTitle } from './lib/usePageTitle'
 import { BETA_OPEN } from './lib/config'
 import { flattenQuestions, gradable } from './lib/questions'
@@ -149,6 +150,7 @@ function StudyApp({ guide }) {
                 <div className="card"><p className="label">Question accuracy</p><p className="stat">{answered ? accuracy + '%' : '—'}</p><p className="small muted">{correctCount}/{answered} correct · {totalQ - answered} untouched<br />75%+ is board-ready pace</p></div>
                 <div className="card"><p className="label">Study streak</p><p className="stat">{streak} day{streak === 1 ? '' : 's'}</p><p className="small muted">{mastered} flashcards mastered · {store.studyDates.length} total study days</p></div>
               </div>
+              <StudyPath guide={guide} store={store} update={update} onOpenChapter={openChapter} onGo={go} />
               <TodayReview store={store} decks={decks} guide={guide} go={go} openQuiz={openQuiz} />
               <WeakAreas guide={guide} store={store} onQuiz={(id) => openQuiz(id)} onRead={(id) => openChapter(id)} />
               <Blueprint guide={guide} />

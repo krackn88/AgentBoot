@@ -195,8 +195,37 @@ input[type=text],input[type=email],input[type=date],select{padding:11px 13px;bor
 .manual-list{background:#fafcfd;border:1px dashed var(--line);padding:12px 16px;border-radius:10px}
 .search-hit .pill{margin-left:6px;font-size:10px}
 
+.print-packet-root{display:none}
+.reader.is-print-packet .reader-sticky,.reader.is-print-packet .reader-tabs,.reader.is-print-packet .reader-actions,.reader.is-print-packet .reader-toc,.reader.is-print-packet .reader-section,.reader.is-print-packet .depth-panel,.reader.is-print-packet .pearls-panel,.reader.is-print-packet .reader-foot{display:none!important}
+.study-path{margin:18px 0}
+.study-path-head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start;margin-bottom:14px}
+.study-path-weeks{display:grid;gap:8px}
+.study-week{border:1px solid var(--line);border-radius:12px;padding:0 14px;background:#fff}
+.study-week.active{border-color:#9fd4ca;box-shadow:0 0 0 1px #9fd4ca}
+.study-week.done{opacity:.85}
+.study-week summary{cursor:pointer;padding:12px 0;font-weight:700;display:flex;gap:10px;align-items:center;list-style:none}
+.study-week summary::-webkit-details-marker{display:none}
+.week-num{font-family:'Fraunces',serif;font-size:17px}
+.week-meta{color:var(--muted);font-size:13px;font-weight:600}
+.study-week-tasks{margin:0 0 12px;padding-left:0;list-style:none}
+.study-week-tasks li{margin:10px 0;line-height:1.5;color:var(--ink2)}
+.study-week-tasks label{display:block;cursor:pointer}
+.study-week-tasks input{margin-right:8px}
+.chapter-print-packet{max-width:800px;margin:0 auto;color:#000}
+.packet-cover{border-bottom:2px solid #333;padding-bottom:16px;margin-bottom:24px}
+.packet-section{margin:18px 0;break-inside:avoid}
+.packet-pearls{line-height:1.6;padding-left:20px}
+.packet-q{margin:14px 0}
+.packet-blank{border:1px solid #999;min-height:24px;margin-top:6px;border-radius:4px}
+.page-break-before{break-before:page;padding-top:12px}
+.packet-answers{background:#f4f6f9;padding:12px;border-radius:8px}
+
 @media print{
-  .sidebar,.bottomnav,.top-search,.no-print{display:none!important}
+  .sidebar,.bottomnav,.top-search,.no-print,.study-path,.platform-stats,.beta-banner{display:none!important}
   .worksheet{border:0;padding:0}
   .layout{grid-template-columns:1fr}main{padding:10px}.btn{display:none!important}body{background:#fff}
+  .reader.is-print-packet .print-packet-root{display:block!important}
+  .reader.is-print-packet .reader-sticky,.reader.is-print-packet .label,.reader.is-print-packet .reader-title,.reader.is-print-packet .reader-toc{display:none!important}
+  .chapter-print-packet{font-size:11pt}
+  .chapter-print-packet table{font-size:10pt}
 }

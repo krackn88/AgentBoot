@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { pdfUrlForChapter } from '../lib/pdfs'
+import ChapterPrintPacket from './ChapterPrintPacket.jsx'
 
 export function Blocks({ blocks }) {
   return blocks.map((b, i) => {
@@ -27,6 +28,7 @@ export default function Reader({ chapter, store, update, onBack, onQuiz, onNext,
   const [tab, setTab] = useState('guide')
   const [module, setModule] = useState(null)
   const [modErr, setModErr] = useState('')
+  const [printingPacket, setPrintingPacket] = useState(false)
 
   useEffect(() => { window.scrollTo(0, 0); setTab('guide') }, [chapter.id])
   useEffect(() => {
@@ -52,11 +54,11 @@ export default function Reader({ chapter, store, update, onBack, onQuiz, onNext,
   const bookmarked = store.bookmarks.includes(chapter.id)
 
   return (
-    <div className="reader" ref={ref} style={{ fontSize: store.fontSize }}>
+    <div className={`reader ${printingPacket ? 'is-print-packet' : ''}`} ref={ref} style={{ fontSize: store.fontSize }}>
       <div className="reader-sticky no-print">
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
           <button type="button" className="btn ghost" onClick={onBack}>← All chapters</button>
-          <button type="button" className="btn ghost" onClick={() => window.print()}>Print</button>
+          <button type="button" className="btn ghost" onClick={() => { setPrintingPacket(true); setTimeout(() => { window.print(); setPrintingPacket(false) }, 120) }}>Print study packet</button>
           <span className="small muted">{progress}% read</span>
         </div>
         <div className="bar" style={{ marginTop: 8 }}><i style={{ width: progress + '%' }} /></div>
@@ -123,6 +125,11 @@ export default function Reader({ chapter, store, update, onBack, onQuiz, onNext,
         <button type="button" className="btn" onClick={toggleDone}>{done ? '✓ Completed' : 'Mark complete & continue'}</button>
         {onNext && <button type="button" className="btn ghost" onClick={onNext}>Next chapter →</button>}
       </div>
+      {(printingPacket || module) && (
+        <div className="print-packet-root" aria-hidden={!printingPacket}>
+          <ChapterPrintPacket chapter={chapter} module={module} />
+        </div>
+      )}
     </div>
   )
 }

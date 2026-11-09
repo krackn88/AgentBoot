@@ -13,7 +13,8 @@
     "extract:questions": "python3 scripts/extract_manual_questions.py",
     "suggest:manual-answers": "python3 scripts/suggest_manual_overrides.py",
     "sync:manual-answers": "python3 scripts/sync_manual_guide_answers.py",
-    "content:build": "npm run enrich && npm run extract:questions && npm run sync:manual-answers && npm run extract:questions"
+    "bulk:manual-answers": "python3 scripts/bulk_manual_overrides.py",
+    "content:build": "npm run enrich && npm run extract:questions && npm run sync:manual-answers && npm run bulk:manual-answers && npm run extract:questions"
   },
   "dependencies": {
     "lucide-react": "^1.70.0",
