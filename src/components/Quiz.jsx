@@ -1,8 +1,11 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import { shuffle, todayKey, bumpDaily } from '../lib/store'
 
-export default function Quiz({ guide, store, update, preset, onDone }) {
-  const allQ = useMemo(() => guide.chapters.flatMap(c => c.questions.map(q => ({ ...q, chapterTitle: c.shortTitle }))), [guide])
+export default function Quiz({ guide, store, update, preset, onDone, questionPool }) {
+  const allQ = useMemo(
+    () => questionPool || guide.chapters.flatMap(c => c.questions.map(q => ({ ...q, chapterTitle: c.shortTitle }))),
+    [guide, questionPool]
+  )
   const [setup, setSetup] = useState(!preset)
   const [mode, setMode] = useState(preset?.mode || 'practice')
   const [chapterId, setChapterId] = useState(preset?.chapterId || 'all')
@@ -67,7 +70,7 @@ export default function Quiz({ guide, store, update, preset, onDone }) {
   if (setup) return (
     <div style={{ maxWidth: 720, margin: '0 auto' }}>
       <h1>Practice & Exam Simulator</h1>
-      <p className="muted">Keyboard: <strong>1–4</strong> answer · <strong>Enter</strong> check · <strong>←/→</strong> navigate · <strong>F</strong> flag. All {allQ.length} questions come straight from your APEA manual chapters, graded against the Answer Key with rationales. Exam mode mirrors AANP pacing (150 questions / 3 hours ≈ 72 seconds per question).</p>
+      <p className="muted">Keyboard: <strong>1–4</strong> answer · <strong>Enter</strong> check · <strong>←/→</strong> navigate · <strong>F</strong> flag. Pool includes the study guide Answer Key items plus slide questions mined from the course manuals. Exam mode mirrors AANP pacing (150 questions / 3 hours ≈ 72 seconds per question).</p>
       <div className="card">
         <p className="label">Mode</p>
         {[['practice', 'Practice — instant rationale after each question'], ['mixed', 'Mixed quiz — answers at the end'], ['exam', 'Timed exam simulator — 50 questions, 60 minutes, flag & review'], ['missed', 'Missed questions — only questions you have gotten wrong']].map(([v, l]) => (

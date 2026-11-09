@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import { shuffle, bumpDaily } from '../lib/store'
 
-export function buildDecks(guide, store, pearlCards = []) {
+export function buildDecks(guide, store, pearlCards = [], questionPool = null) {
   const high = []
   const walk = (node) => (node?.sections || []).forEach(s => s.blocks.forEach(b => {
     if (b.type === 'table') b.rows.forEach(r => { if (r[0] && r[1]) high.push({ id: 'hy-' + high.length, front: r[0], back: r.slice(1).join(' — '), tag: s.title }) })
@@ -12,16 +12,17 @@ export function buildDecks(guide, store, pearlCards = []) {
   ch1?.sections.filter(s => /labs/i.test(s.title)).forEach(s => s.blocks.forEach(b => {
     if (b.type === 'table') b.rows.forEach(r => { if (r[0] && r[1]) labs.push({ id: 'lab-' + labs.length, front: r[0], back: r.slice(1).join(' — '), tag: 'Labs to memorize' }) })
   }))
-  const qs = guide.chapters.flatMap(c => c.questions.filter(q => q.correctIndex != null && q.options[q.correctIndex])
-    .map(q => ({ id: 'q-' + q.id, front: q.stem, back: `${q.options[q.correctIndex]} — ${q.explanation}`, tag: c.shortTitle })))
+  const pool = questionPool || guide.chapters.flatMap(c => c.questions.map(q => ({ ...q, chapterTitle: c.shortTitle })))
+  const qs = pool.filter(q => q.correctIndex != null && q.options?.[q.correctIndex])
+    .map(q => ({ id: 'q-' + q.id, front: q.stem, back: `${q.options[q.correctIndex]} — ${q.explanation || ''}`, tag: q.chapterTitle || q.chapterId }))
   const missed = qs.filter(c => store.answers[c.id.slice(2)] && !store.answers[c.id.slice(2)].correct)
   const pearls = pearlCards.map(c => ({ id: c.id, front: c.front, back: c.back, tag: c.tag }))
   return { highyield: { label: `High-Yield Quick Reference (${high.length})`, cards: high }, labs: { label: `Labs to Commit to Memory (${labs.length})`, cards: labs }, questions: { label: `Question Cards (${qs.length})`, cards: qs }, pearls: { label: `Clinical pearls (${pearls.length})`, cards: pearls },
     missed: { label: `My Missed Questions (${missed.length})`, cards: missed } }
 }
 
-export default function Flashcards({ guide, store, update, pearlCards = [] }) {
-  const decks = useMemo(() => buildDecks(guide, store, pearlCards), [guide, store, pearlCards])
+export default function Flashcards({ guide, store, update, pearlCards = [], questionPool }) {
+  const decks = useMemo(() => buildDecks(guide, store, pearlCards, questionPool), [guide, store, pearlCards, questionPool])
   const [deckId, setDeckId] = useState('highyield')
   const [order, setOrder] = useState(null); const [i, setI] = useState(0); const [flip, setFlip] = useState(false)
   const deck = decks[deckId]

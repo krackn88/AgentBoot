@@ -4,8 +4,11 @@ import { shuffle } from '../lib/store'
 
 const PASS_TARGET = 75
 
-function gradable(guide) {
-  return guide.chapters.flatMap(c => c.questions.filter(q => q.correctIndex != null && q.options.length >= 2).map(q => ({ ...q, chapter: c })))
+function gradableFromPool(pool) {
+  return pool.filter(q => q.correctIndex != null && q.options.length >= 2).map(q => ({
+    ...q,
+    chapter: { id: q.chapterId, shortTitle: q.chapterTitle || q.chapterId },
+  }))
 }
 
 // Round-robin across chapters so every mock covers the whole blueprint, not just the biggest chapter.
@@ -18,20 +21,44 @@ function balancedForms(qs, forms, seed) {
   return out
 }
 
-export function buildTests(guide) {
-  const qs = gradable(guide)
+export function buildTests(guide, questionPool) {
+  const pool = questionPool || guide.chapters.flatMap(c => c.questions.map(q => ({ ...q, chapterTitle: c.shortTitle, chapterId: c.id })))
+  const qs = gradableFromPool(pool)
+  const guideQs = gradableFromPool(pool.filter(q => q.source !== 'manual'))
+  const manualQs = gradableFromPool(pool.filter(q => q.source === 'manual'))
   const ids = qs.map(q => q.id)
-  const forms = balancedForms(qs, 3, 2026)
+  const guideIds = guideQs.map(q => q.id)
+  const manualIds = manualQs.map(q => q.id)
+  const forms = balancedForms(guideQs, 3, 2026)
+  const manualForms = balancedForms(manualQs, 3, 9026)
   const tests = [
-    { testId: 'aanp-full', kind: 'full', title: 'Full-Length AANP Simulation', blurb: 'Mirrors the real AANP FNP exam pacing: 150 questions in 3 hours (72 seconds each), drawn across every chapter.', count: Math.min(150, ids.length), minutes: 180, ids: shuffle(ids, 150).slice(0, 150) },
-    { testId: 'ancc-full', kind: 'full', title: 'Full-Length ANCC Simulation', blurb: 'ANCC-length endurance run: up to 175 questions in 3.5 hours. Builds the stamina the real exam demands.', count: Math.min(175, ids.length), minutes: 210, ids: shuffle(ids, 175).slice(0, 175) },
-    ...forms.map((f, i) => ({ testId: `mock-${i + 1}`, kind: 'mock', title: `Mock Board ${String.fromCharCode(65 + i)}`, blurb: `${f.length} questions, no overlap with the other mock boards, balanced across all chapters.`, count: f.length, minutes: Math.round(f.length * 1.2), ids: f })),
+    { testId: 'aanp-full', kind: 'full', title: 'Full-Length AANP Simulation', blurb: 'Mirrors the real AANP FNP exam pacing: 150 questions in 3 hours (72 seconds each), drawn across every chapter.', count: Math.min(150, guideIds.length), minutes: 180, ids: shuffle(guideIds, 150).slice(0, 150) },
+    { testId: 'ancc-full', kind: 'full', title: 'Full-Length ANCC Simulation', blurb: 'ANCC-length endurance run: up to 175 questions in 3.5 hours. Builds the stamina the real exam demands.', count: Math.min(175, guideIds.length), minutes: 210, ids: shuffle(guideIds, 175).slice(0, 175) },
+    ...forms.map((f, i) => ({ testId: `mock-${i + 1}`, kind: 'mock', title: `Mock Board ${String.fromCharCode(65 + i)}`, blurb: `${f.length} study-guide questions, balanced across all chapters (Answer Key).`, count: f.length, minutes: Math.round(f.length * 1.2), ids: f })),
+    ...manualForms.map((f, i) => ({
+      testId: `manual-mock-${i + 1}`,
+      kind: 'mock',
+      title: `Course Manual Mock ${String.fromCharCode(65 + i)}`,
+      blurb: `${f.length} unique slide MCQs from the original APEA manuals — separate from the study-guide bank.`,
+      count: f.length,
+      minutes: Math.round(f.length * 1.2),
+      ids: f,
+    })),
+    {
+      testId: 'combo-mega',
+      kind: 'full',
+      title: 'Combo Board (Guide + Manual)',
+      blurb: `Blended ${Math.min(120, ids.length)}-question mix from both banks when you need fresh stems.`,
+      count: Math.min(120, ids.length),
+      minutes: 150,
+      ids: shuffle(ids, 120).slice(0, 120),
+    },
   ]
   const chapterTests = guide.chapters.map(c => {
     const cq = qs.filter(q => q.chapterId === c.id)
     return cq.length ? { testId: `ch-${c.id}`, kind: 'chapter', title: `${c.number}. ${c.shortTitle}`, count: cq.length, minutes: Math.max(5, Math.round(cq.length * 1.2)), ids: cq.map(q => q.id) } : null
   }).filter(Boolean)
-  return { tests, chapterTests, total: ids.length }
+  return { tests, chapterTests, total: ids.length, guideTotal: guideIds.length, manualTotal: manualIds.length }
 }
 
 function attemptsFor(store, testId) {
@@ -39,8 +66,8 @@ function attemptsFor(store, testId) {
 }
 const pct = h => (h.graded ? Math.round(h.correct / h.graded * 100) : 0)
 
-export default function Tests({ guide, store, onStart }) {
-  const { tests, chapterTests, total } = useMemo(() => buildTests(guide), [guide])
+export default function Tests({ guide, store, onStart, questionPool }) {
+  const { tests, chapterTests, total, guideTotal, manualTotal } = useMemo(() => buildTests(guide, questionPool), [guide, questionPool])
   const history = store.quizHistory.filter(h => h.testId).slice(-8).reverse()
   const fullScores = store.quizHistory.filter(h => h.testId && !h.testId.startsWith('ch-')).map(pct)
   const best = fullScores.length ? Math.max(...fullScores) : null
@@ -58,7 +85,7 @@ export default function Tests({ guide, store, onStart }) {
           <p>Every test is timed and graded against the APEA Answer Key, with a full rationale review afterward. Aim for a consistent {PASS_TARGET}%+ before exam day.</p>
         </div>
         <div className="source-proof">
-          <span><strong>{total}</strong> graded questions</span>
+          <span><strong>{total}</strong> graded ({guideTotal} guide + {manualTotal} manual)</span>
           <span><strong>{best ?? '—'}{best != null ? '%' : ''}</strong> best mock score</span>
           <span><strong>{trend ?? '—'}{trend != null ? '%' : ''}</strong> recent average</span>
         </div>

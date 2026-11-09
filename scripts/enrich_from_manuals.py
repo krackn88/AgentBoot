@@ -7,6 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 GUIDE = ROOT / "public/data/guide.json"
+QUESTION_SUPP = ROOT / "public/data/question-supplements.json"
 MANIFEST = ROOT / "public/data/manuals.json"
 MANUALS = ROOT / "public/data/manuals"
 OUT_DIR = ROOT / "public/data/modules"
@@ -223,32 +224,101 @@ def title_similarity(a: str, b: str) -> float:
     return SequenceMatcher(None, a, b).ratio()
 
 
-def pick_manual_excerpt(manual_sections: list[dict], section_title: str, max_words=200) -> str | None:
-    best = None
-    best_score = 0.45
+def pick_manual_excerpt(
+    manual_sections: list[dict],
+    section_title: str,
+    max_words=220,
+    exclude_titles: set[str] | None = None,
+) -> tuple[str, str] | None:
+    exclude_titles = exclude_titles or set()
+    ranked = []
     for sec in manual_sections:
+        if sec["title"].lower() in exclude_titles:
+            continue
         score = title_similarity(section_title, sec["title"])
-        if score > best_score:
-            best_score = score
-            parts = []
-            for b in sec["blocks"]:
-                if b["type"] == "p":
-                    parts.append(b["text"])
-                elif b["type"] == "list":
-                    parts.extend(b["items"][:6])
-            text = " ".join(parts)
-            if len(text.split()) >= 40:
-                best = text
-    if not best:
+        parts = []
+        for b in sec["blocks"]:
+            if b["type"] == "p":
+                parts.append(b["text"])
+            elif b["type"] == "list":
+                parts.extend(b["items"][:8])
+        text = " ".join(parts)
+        if len(text.split()) >= 35:
+            ranked.append((score, text, sec["title"]))
+    ranked.sort(key=lambda x: x[0], reverse=True)
+    if not ranked or ranked[0][0] < 0.42:
         return None
+    best = ranked[0][1]
     words = best.split()
     if len(words) > max_words:
         best = " ".join(words[:max_words]) + "…"
-    return best
+    return best, ranked[0][2]
+
+
+def pick_manual_list_block(manual_sections: list[dict], section_title: str):
+    for sec in manual_sections:
+        if title_similarity(section_title, sec["title"]) < 0.38:
+            continue
+        for b in sec["blocks"]:
+            if b["type"] != "list" or len(b["items"]) < 5:
+                continue
+            items = [re.sub(r"\s+", " ", x).strip() for x in b["items"] if len(x.strip()) > 3][:18]
+            rows = []
+            for it in items:
+                if ":" in it:
+                    left, right = it.split(":", 1)
+                    rows.append([left.strip(), right.strip()])
+            if len(rows) >= 3:
+                return {"type": "table", "headers": ["Topic", "Detail"], "rows": rows[:14]}
+            return {"type": "manual-list", "items": items}
+    return None
+
+
+def apply_question_supplements(guide: dict) -> int:
+    if not QUESTION_SUPP.exists():
+        return 0
+    data = json.loads(QUESTION_SUPP.read_text())
+    patches = {p["id"]: p for p in data.get("patches", [])}
+    n = 0
+    for ch in guide["chapters"]:
+        for q in ch.get("questions", []):
+            p = patches.get(q["id"])
+            if not p:
+                continue
+            if p.get("stem"):
+                q["stem"] = p["stem"]
+            if p.get("options"):
+                q["options"] = p["options"]
+            if p.get("correctIndex") is not None:
+                q["correctIndex"] = p["correctIndex"]
+            if p.get("explanation"):
+                q["explanation"] = p["explanation"]
+            n += 1
+        for extra in data.get("extra", []):
+            if extra.get("chapterId") == ch["id"]:
+                ch["questions"].append(extra)
+                n += 1
+    guide["meta"]["questions"] = sum(len(c.get("questions", [])) for c in guide["chapters"])
+    return n
+
+
+def guide_section_words(sec: dict) -> int:
+    w = 0
+    for b in sec.get("blocks", []):
+        if b["type"] in ("p", "manual-note"):
+            w += len(b.get("text", "").split())
+        elif b["type"] == "list":
+            w += sum(len(x.split()) for x in b.get("items", []))
+        elif b["type"] == "manual-list":
+            w += sum(len(x.split()) for x in b.get("items", []))
+        elif b["type"] == "table":
+            for r in b.get("rows", []):
+                w += sum(len(str(c).split()) for c in r)
+    return w
 
 
 def augment_guide(guide: dict, chapter_payloads: dict[str, dict]) -> int:
-    """Append manual-derived notes to thin study-guide sections."""
+    """Append manual notes/tables to thin study-guide sections."""
     added = 0
     for ch in guide["chapters"]:
         payload = chapter_payloads.get(ch["id"])
@@ -256,21 +326,16 @@ def augment_guide(guide: dict, chapter_payloads: dict[str, dict]) -> int:
             continue
         manual_secs = payload["sections"]
         for sec in ch.get("sections", []):
-            w = 0
-            for b in sec.get("blocks", []):
-                if b["type"] == "p":
-                    w += len(b["text"].split())
-                elif b["type"] == "list":
-                    w += sum(len(x.split()) for x in b["items"])
-                elif b["type"] == "table":
-                    for r in b.get("rows", []):
-                        w += sum(len(str(c).split()) for c in r)
-            if w >= 80:
+            w = guide_section_words(sec)
+            if w >= 130:
                 continue
-            if any(b.get("type") == "manual-note" for b in sec.get("blocks", [])):
-                continue
-            excerpt = pick_manual_excerpt(manual_secs, sec["title"])
-            if excerpt:
+            used_titles: set[str] = set()
+            note_count = sum(1 for b in sec["blocks"] if b.get("type") == "manual-note")
+            while w < 130 and note_count < 2:
+                hit = pick_manual_excerpt(manual_secs, sec["title"], exclude_titles=used_titles)
+                if not hit:
+                    break
+                excerpt, manual_title = hit
                 sec.setdefault("blocks", []).append(
                     {
                         "type": "manual-note",
@@ -278,7 +343,16 @@ def augment_guide(guide: dict, chapter_payloads: dict[str, dict]) -> int:
                         "source": payload["manualTitle"],
                     }
                 )
+                used_titles.add(manual_title.lower())
+                note_count += 1
                 added += 1
+                w = guide_section_words(sec)
+            if w < 90 and not any(b.get("type") in ("table", "manual-list") for b in sec["blocks"]):
+                block = pick_manual_list_block(manual_secs, sec["title"])
+                if block:
+                    block["source"] = payload["manualTitle"]
+                    sec.setdefault("blocks", []).append(block)
+                    added += 1
     return added
 
 
@@ -343,7 +417,9 @@ def main():
         )
 
     supp = augment_guide(guide, chapter_payloads)
+    q_patched = apply_question_supplements(guide)
     index["supplements_added"] = supp
+    index["questions_patched"] = q_patched
     # Recompute chapter word counts for the app
     for c in guide["chapters"]:
         c["wordCount"] = sum(

@@ -11,6 +11,7 @@ import Tests from './components/Tests.jsx'
 import Workbook from './components/Workbook.jsx'
 import { Sidebar, PageHeader, MobileNav } from './components/AppShell.jsx'
 import { BETA_OPEN } from './lib/config'
+import { flattenQuestions, gradable } from './lib/questions'
 
 export default function App() {
   const [guide, setGuide] = useState(null)
@@ -34,6 +35,7 @@ function StudyApp({ guide }) {
   const [searchCorpus, setSearchCorpus] = useState([])
   const [contentMeta, setContentMeta] = useState(null)
   const [pearlCards, setPearlCards] = useState([])
+  const [manualBank, setManualBank] = useState(null)
   useEffect(() => {
     function sync() {
       const h = location.hash || '#/dashboard'
@@ -50,15 +52,18 @@ function StudyApp({ guide }) {
     fetch(`${import.meta.env.BASE_URL}data/search-corpus.json`).then(r => r.ok ? r.json() : []).then(setSearchCorpus).catch(() => {})
     fetch(`${import.meta.env.BASE_URL}data/pearls.json`).then(r => r.ok ? r.json() : []).then(setPearlCards).catch(() => {})
     fetch(`${import.meta.env.BASE_URL}data/content-index.json`).then(r => r.ok ? r.json() : null).then(setContentMeta).catch(() => {})
+    fetch(`${import.meta.env.BASE_URL}data/manual-questions.json`).then(r => r.ok ? r.json() : null).then(setManualBank).catch(() => {})
   }, [])
   const chapters = guide.chapters
+  const questionPool = useMemo(() => flattenQuestions(guide, manualBank), [guide, manualBank])
+  const gradedQ = useMemo(() => gradable(questionPool).length, [questionPool])
   const chapter = chapters.find(c => c.id === chapterId)
-  const totalQ = guide.meta.questions
+  const totalQ = gradedQ || guide.meta.questions
   const answered = Object.keys(store.answers).length
   const correctCount = Object.values(store.answers).filter(a => a.correct).length
   const accuracy = answered ? Math.round(correctCount / answered * 100) : 0
   const doneCh = chapters.filter(c => store.completed[c.id]).length
-  const decks = useMemo(() => buildDecks(guide, store), [store])
+  const decks = useMemo(() => buildDecks(guide, store, pearlCards, questionPool), [guide, store, pearlCards, questionPool])
   const mastered = Object.values(decks).reduce((a, d) => a + d.cards.filter(c => (store.cardBox[c.id] || 0) >= 3).length, 0)
   const totalCards = decks.highyield.cards.length + decks.labs.cards.length
   const readiness = Math.round((doneCh / chapters.length) * 40 + (answered ? Math.min(answered / totalQ, 1) * 30 * (accuracy / 100 + 0.3) / 1.3 : 0) + Math.min(mastered / Math.max(1, totalCards), 1) * 30)
@@ -69,7 +74,7 @@ function StudyApp({ guide }) {
     if (query.trim().length < 3) return []
     const q = query.toLowerCase(); const out = []
     chapters.forEach(c => c.sections.forEach(s => s.blocks.forEach(b => {
-      const texts = b.type === 'table' ? [b.headers.join(' '), ...b.rows.map(r => r.join(' '))] : b.type === 'list' ? b.items : [b.text]
+      const texts = b.type === 'table' ? [b.headers.join(' '), ...b.rows.map(r => r.join(' '))] : (b.type === 'list' || b.type === 'manual-list') ? b.items : [b.text]
       texts.forEach(t => { if (t && t.toLowerCase().includes(q) && out.length < 50) out.push({ chapter: c, section: s.title, text: t, source: 'guide' }) })
     })))
     for (const hit of searchCorpus) {
@@ -93,7 +98,7 @@ function StudyApp({ guide }) {
 
   return (
     <div className="layout">
-      <Sidebar view={view} go={go} readiness={readiness} doneCh={doneCh} totalCh={chapters.length} answered={answered} totalQ={totalQ} streak={streak} />
+      <Sidebar view={view} go={go} readiness={readiness} doneCh={doneCh} totalCh={chapters.length} answered={answered} totalQ={totalQ} streak={streak} manualQ={manualBank?.meta?.graded} />
 
       <main className="main-shell">
         {BETA_OPEN && view === 'dashboard' && (
@@ -154,6 +159,7 @@ function StudyApp({ guide }) {
                     <li><strong>{totalQ} questions</strong> — graded with Answer Key rationales</li>
                     <li><strong>Mock exams</strong> — AANP, ANCC, and chapter tests</li>
                     {contentMeta && <li><strong>{contentMeta.pearls_total} clinical pearls</strong> + manual depth on every chapter</li>}
+                    {manualBank?.meta?.graded > 0 && <li><strong>{manualBank.meta.graded}</strong> extra MCQs from course-manual slides (separate mock banks)</li>}
                   </ul>
                 </div>
               </div>
@@ -179,9 +185,9 @@ function StudyApp({ guide }) {
 
           {view === 'manuals' && <Manuals initialId={manualId} />}
 
-          {view === 'quiz' && <Quiz key={quizPreset ? (quizPreset.testId || quizPreset.chapterId + quizPreset.mode) : 'setup'} guide={guide} store={store} update={update} preset={quizPreset} />}
-          {view === 'flashcards' && <Flashcards guide={guide} store={store} update={update} pearlCards={pearlCards} />}
-          {view === 'tests' && <Tests guide={guide} store={store} onStart={(p) => { setQuizPreset(p); setView('quiz'); location.hash = '#/quiz'; window.scrollTo(0, 0) }} />}
+          {view === 'quiz' && <Quiz key={quizPreset ? (quizPreset.testId || quizPreset.chapterId + quizPreset.mode) : 'setup'} guide={guide} store={store} update={update} preset={quizPreset} questionPool={questionPool} />}
+          {view === 'flashcards' && <Flashcards guide={guide} store={store} update={update} pearlCards={pearlCards} questionPool={questionPool} />}
+          {view === 'tests' && <Tests guide={guide} store={store} questionPool={questionPool} onStart={(p) => { setQuizPreset(p); setView('quiz'); location.hash = '#/quiz'; window.scrollTo(0, 0) }} />}
           {view === 'workbooks' && <Workbook guide={guide} store={store} update={update} pearlCards={pearlCards} />}
 
           {view === 'quickref' && (

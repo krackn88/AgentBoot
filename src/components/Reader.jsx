@@ -10,7 +10,9 @@ export function Blocks({ blocks }) {
       </aside>
     )
     if (b.type === 'p') return <p key={i}>{b.text}</p>
-    if (b.type === 'list') return <ul key={i}>{b.items.map((it, j) => <li key={j}>{it}</li>)}</ul>
+    if (b.type === 'list' || b.type === 'manual-list') return (
+      <ul key={i} className={b.type === 'manual-list' ? 'manual-list' : undefined}>{b.items.map((it, j) => <li key={j}>{it}</li>)}</ul>
+    )
     if (b.type === 'table') return (
       <div className="tablewrap" key={i}><table><thead><tr>{b.headers.map((h, j) => <th key={j}>{h}</th>)}</tr></thead>
       <tbody>{b.rows.map((r, j) => <tr key={j}>{r.map((c, k) => <td key={k}>{c}</td>)}</tr>)}</tbody></table></div>)

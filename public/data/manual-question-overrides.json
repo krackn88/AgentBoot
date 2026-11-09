@@ -1,0 +1,9 @@
+{
+  "set": [
+    { "id": "manual-03-q3", "correctIndex": 0, "explanation": "Clindamycin has high C. difficile risk." },
+    { "id": "manual-03-q4", "correctIndex": 2, "explanation": "Doxycycline causes photosensitivity — use sunscreen." },
+    { "id": "manual-03-q5", "correctIndex": 1, "explanation": "Azithromycin can prolong QT → torsades de pointes." },
+    { "id": "manual-05-q1", "correctIndex": 3, "explanation": "Anemia = low Hgb, Hct, or RBC (any one measure)." },
+    { "id": "manual-03-q2", "correctIndex": 3, "explanation": "Recent amoxicillin raises beta-lactamase–producing organism risk in sinusitis." }
+  ]
+}
