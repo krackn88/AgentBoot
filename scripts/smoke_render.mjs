@@ -140,6 +140,30 @@ check('completed-week counter reads the same keys the UI writes', () => {
   if (n !== 1) throw new Error(`expected 1 completed week, got ${n}`)
 })
 
+console.log('\nspaced repetition')
+const srsMod = await import('../src/lib/srs.js')
+check('a brand-new account is offered a small first session, not a 200-card wall', () => {
+  const cards = Array.from({ length: 200 }, (_, i) => ({ id: `c${i}` }))
+  const queue = srsMod.dueCards(cards, {}, 60)
+  if (queue.length > 10) throw new Error(`first session offered ${queue.length} new cards`)
+  if (!queue.length) throw new Error('first session offered nothing')
+})
+check('overdue reviews are never throttled', () => {
+  const today = srsMod.dateKey()
+  const srs = {}
+  const cards = Array.from({ length: 50 }, (_, i) => {
+    srs[`r${i}`] = { reps: 2, interval: 3, ease: 2.5, due: today, last: today }
+    return { id: `r${i}` }
+  })
+  const queue = srsMod.dueCards(cards, srs, 60)
+  if (queue.length !== 50) throw new Error(`only ${queue.length}/50 reviews surfaced`)
+})
+check('after grading, a card is scheduled into the future', () => {
+  const next = srsMod.schedule(undefined, 'good')
+  if (!next.due || next.due <= srsMod.dateKey()) throw new Error(`due ${next.due} not in the future`)
+  if (!next.interval) throw new Error('no interval assigned')
+})
+
 console.log('\nrender smoke test')
 // App loads data in effects; a server render only produces the loading screen
 // unless we wait for those promises first.

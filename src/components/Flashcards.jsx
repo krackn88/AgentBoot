@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { shuffle, bumpDaily } from '../lib/store'
 import { PageHeader } from './AppShell.jsx'
-import { GRADES, deckStats, dueCards, forecast, isDue, isNew, schedule } from '../lib/srs'
+import { GRADES, deckStats, dueCards, splitDue, forecast, isDue, isNew, schedule } from '../lib/srs'
 import { isUniqueGraded } from '../lib/quality'
 
 const MASTERED_INTERVAL = 21
@@ -77,6 +77,7 @@ export default function Flashcards({ guide, store, update, pearlCards = [], ques
   const [lastGrade, setLastGrade] = useState(null)
 
   const pool = useMemo(() => allCards(decks), [decks])
+  const { reviews, fresh } = useMemo(() => splitDue(pool, srs), [pool, srs])
   const dueAll = useMemo(() => dueCards(pool, srs, 60), [pool, srs])
   const stats = useMemo(() => deckStats(pool, srs), [pool, srs])
   const days = useMemo(() => forecast(pool, srs, 14), [pool, srs])
@@ -126,8 +127,9 @@ export default function Flashcards({ guide, store, update, pearlCards = [], ques
 
       <div className="fc-topbar">
         <div className="fc-topbar-stat">
-          <p className="label">Due now</p>
-          <p className="fc-big">{stats.dueNow}</p>
+          <p className="label">Reviews due</p>
+          <p className="fc-big">{reviews.length || '—'}</p>
+          <p className="small muted">{reviews.length ? 'overdue' : 'all clear'}</p>
         </div>
         <div className="fc-topbar-stat">
           <p className="label">Learning</p>
@@ -146,7 +148,7 @@ export default function Flashcards({ guide, store, update, pearlCards = [], ques
 
       <div className="fc-deck-row">
         <button className={deckId === 'due' ? 'btn' : 'btn ghost'} onClick={() => { setDeckId('due'); setQueue(null); setI(0) }}>
-          Due today ({dueAll.length})
+          Study now ({dueAll.length})
         </button>
         {Object.entries(decks).filter(([k]) => k !== 'due').map(([k, d]) => (
           <button key={k} className={k === deckId ? 'btn' : 'btn ghost'} onClick={() => { setDeckId(k); setQueue(null); setI(0) }}>
