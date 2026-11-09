@@ -12,6 +12,7 @@ import SourceTrust from './components/SourceTrust.jsx'
 import ReadinessPanel from './components/ReadinessPanel.jsx'
 import TodayPlan from './components/TodayPlan.jsx'
 import InstallPrompt from './components/InstallPrompt.jsx'
+import SearchPanel from './components/SearchPanel.jsx'
 import StudyPath from './components/StudyPath.jsx'
 import OnboardingCard from './components/OnboardingCard.jsx'
 import Milestones from './components/Milestones.jsx'
@@ -49,8 +50,6 @@ function StudyApp({ guide }) {
   const [chapterId, setChapterId] = useState(() => location.hash.match(/^#\/reader\/([^/]+)/)?.[1] || null)
   const [manualId, setManualId] = useState(() => location.hash.match(/^#\/manuals\/(\d+)/)?.[1] || null)
   const [quizPreset, setQuizPreset] = useState(null)
-  const [query, setQuery] = useState('')
-  const [searchCorpus, setSearchCorpus] = useState([])
   const [contentMeta, setContentMeta] = useState(null)
   const [pearlCards, setPearlCards] = useState([])
   const [manualBank, setManualBank] = useState(null)
@@ -67,8 +66,7 @@ function StudyApp({ guide }) {
     window.addEventListener('hashchange', sync); return () => window.removeEventListener('hashchange', sync)
   }, [])
   useEffect(() => {
-    loadPlatformBundle().then(({ searchCorpus, pearlCards, contentMeta, manualBank }) => {
-      setSearchCorpus(searchCorpus)
+    loadPlatformBundle().then(({ pearlCards, contentMeta, manualBank }) => {
       setPearlCards(pearlCards)
       setContentMeta(contentMeta)
       setManualBank(manualBank)
@@ -115,23 +113,6 @@ function StudyApp({ guide }) {
   }, [chapters, store.answers])
   const milestoneStats = { doneCh, totalCh: chapters.length, answered, accuracy, mastered, streak, readiness }
 
-  const searchResults = useMemo(() => {
-    if (query.trim().length < 3) return []
-    const q = query.toLowerCase(); const out = []
-    chapters.forEach(c => c.sections.forEach(s => s.blocks.forEach(b => {
-      const texts = b.type === 'table' ? [b.headers.join(' '), ...b.rows.map(r => r.join(' '))] : (b.type === 'list' || b.type === 'manual-list') ? b.items : [b.text]
-      texts.forEach(t => { if (t && t.toLowerCase().includes(q) && out.length < 50) out.push({ chapter: c, section: s.title, text: t, source: 'guide' }) })
-    })))
-    for (const hit of searchCorpus) {
-      if (out.length >= 50) break
-      if (hit.text?.toLowerCase().includes(q)) {
-        const c = chapters.find(x => x.id === hit.chapterId)
-        if (c) out.push({ chapter: c, section: hit.section, text: hit.text, source: hit.section === 'Clinical pearl' ? 'pearl' : 'manual' })
-      }
-    }
-    return out
-  }, [query, searchCorpus, chapters])
-
   function openQuiz(chId) { setQuizPreset(chId ? { mode: 'practice', chapterId: chId } : null); go('quiz') }
   function openChapter(id) { setChapterId(id); setView('reader'); location.hash = `#/reader/${id}`; window.scrollTo(0, 0) }
   function openManual(id) { setManualId(id); go('manuals'); location.hash = id ? `#/manuals/${id}` : '#/manuals' }
@@ -160,19 +141,12 @@ function StudyApp({ guide }) {
             <strong>Full access.</strong> No account, no paywall — study guide, manuals, mocks, and workbooks. Progress is saved in this browser only (export JSON on the dashboard if you switch devices).
           </div>
         )}
-        {['dashboard', 'library', 'quickref'].includes(view) && (
-          <div className="top-search">
-            <input id="guide-search" name="guide-search" type="text" aria-label="Search the complete study guide" placeholder="Search the study guide — torsades, CURB-65, metformin…" value={query} onChange={e => setQuery(e.target.value)} />
-            {query && <button className="btn ghost" onClick={() => setQuery('')}>Clear</button>}
-          </div>
-        )}
-        {query.trim().length >= 3 ? (
-          <div><h2>Search results ({searchResults.length})</h2>
-            {searchResults.map((r, i) => <div className="card search-hit" key={i} style={{ margin: '10px 0', cursor: 'pointer' }} onClick={() => { openChapter(r.chapter.id); setQuery('') }}>
-              <p className="label">{r.chapter.number}. {r.chapter.shortTitle} · {r.section} {r.source !== 'guide' && <span className="pill">{r.source === 'pearl' ? 'Pearl' : 'Manual'}</span>}</p><p className="small">{r.text.slice(0, 320)}…</p></div>)}
-            {!searchResults.length && <div className="card">No matches. Try a shorter term.</div>}
-          </div>
-        ) : (<>
+        <SearchPanel
+          autoFocus={false}
+          onOpenChapter={(id) => openChapter(id)}
+          onOpenManual={(chapterId) => { const c = chapters.find(x => x.id === chapterId); openManual(c ? manualIdForChapter(c) : null) }}
+        />
+        <>
           {view === 'dashboard' && (
             <div>
               <div className="hero">
@@ -286,7 +260,7 @@ function StudyApp({ guide }) {
           {view === 'planner' && <Planner guide={guide} store={store} update={update} />}
 
           {view === 'about' && <AboutAccess totalQ={totalQ} totalCards={totalCards} chapters={chapters.length} store={store} update={update} guide={guide} contentMeta={contentMeta} manualBank={manualBank} readiness={readiness} />}
-        </>)}
+        </>
       </main>
 
 <MobileNav view={view} go={go} />

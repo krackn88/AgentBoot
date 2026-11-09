@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react'
-import ReactMarkdown from 'react-markdown'
+import ManualContent from './ManualContent.jsx'
+import { loadSearchIndex, searchDocs } from '../lib/search'
 import { BookOpen, FileText, Search, ExternalLink, Download, ArrowLeft, AlertTriangle } from 'lucide-react'
 
 const BASE = import.meta.env.BASE_URL
@@ -18,13 +19,11 @@ export default function Manuals({ initialId }) {
   const [query, setQuery] = useState('')
   const [searching, setSearching] = useState(false)
   const [results, setResults] = useState([])
-  const [corpus, setCorpus] = useState(null)
   const [chapterIndex, setChapterIndex] = useState(null)
   const [error, setError] = useState('')
   const [embedTried, setEmbedTried] = useState(false)
 
   useEffect(() => {
-    fetch(`${BASE}data/search-corpus.json`).then(r => r.ok ? r.json() : []).then(setCorpus).catch(() => setCorpus([]))
     fetch(`${BASE}data/content-index.json`).then(r => r.ok ? r.json() : null).then(setChapterIndex).catch(() => {})
   }, [])
 
@@ -84,24 +83,17 @@ export default function Manuals({ initialId }) {
     const term = query.trim().toLowerCase()
     if (term.length < 3 || !manifest) return
     setSearching(true); setResults([]); setError('')
-    window.setTimeout(() => {
-      const seen = new Set()
-      const found = []
-      for (const h of corpus || []) {
-        if (!h.text?.toLowerCase().includes(term)) continue
-        const mod = moduleForChapterId[h.chapterId] || manifest.modules.find(m => m.title === h.chapter)
-        if (!mod) continue
-        const excerpt = `${h.section}: ${h.text}`.replace(/\s+/g, ' ').trim().slice(0, 300)
-        const key = `${mod.id}-${excerpt.slice(0, 48)}`
-        if (seen.has(key)) continue
-        seen.add(key)
-        found.push({ module: mod, excerpt })
-        if (found.length >= 60) break
-      }
-      setResults(found)
-      if (!found.length) setError('No matches in the search index — try another term or browse manuals below.')
-      setSearching(false)
-    }, 0)
+    loadSearchIndex()
+      .then(docs => {
+        const found = searchDocs(docs, term, 60)
+          .filter(d => d.k === 'manual')
+          .map(d => ({ module: moduleForChapterId[d.c] || manifest.modules.find(m => m.title === d.t), excerpt: `${d.s}: ${d.x}`.slice(0, 300), chapterId: d.c }))
+          .filter(r => r.module)
+        setResults(found)
+        if (!found.length) setError('No matches in the manual text — try another term or browse manuals below.')
+      })
+      .catch(e => setError(`Search unavailable (${e.message}).`))
+      .finally(() => setSearching(false))
   }
 
   const cleanText = useMemo(() => text.replace(/^---[\s\S]*?---\s*/, ''), [text])
@@ -135,7 +127,7 @@ export default function Manuals({ initialId }) {
         </div>
         {error && <div className="card warn"><AlertTriangle size={16} /> {error}</div>}
         {tab === 'text' ? (
-          text ? <article className="manual-markdown"><ReactMarkdown>{cleanText}</ReactMarkdown></article>
+          text ? <ManualContent text={cleanText} />
             : <div className="skeleton-card">Loading the complete manual…</div>
         ) : (
           <div className="pdf-panel">

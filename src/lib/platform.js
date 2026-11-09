@@ -30,13 +30,11 @@ export function loadGuide() {
 
 export function loadPlatformBundle() {
   return Promise.all([
-    fetchJson('data/search-corpus.json', []),
     fetchJson('data/pearls.json', []),
     fetchJson('data/content-index.json', null),
     fetchJson('data/manual-questions.json', null),
     fetchJson('data/question-quality.json', null),
-  ]).then(([searchCorpus, pearlCards, contentMeta, manualBank, quality]) => ({
-    searchCorpus,
+  ]).then(([pearlCards, contentMeta, manualBank, quality]) => ({
     pearlCards,
     contentMeta,
     manualBank: applyManualQuality(manualBank, quality),

@@ -467,7 +467,8 @@ def main():
                 }
             )
 
-    (ROOT / "public/data/search-corpus.json").write_text(json.dumps(snippets, ensure_ascii=False))
+    # search-corpus.json is superseded by build_search_index.py (full index).
+    # Keep the variable for the modules build below; do not emit the old sample file.
     pearls_flat = []
     for ch in guide["chapters"]:
         path = OUT_DIR / f"{ch['id']}.json"
