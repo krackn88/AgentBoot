@@ -1,23 +1,43 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState, useEffect } from 'react'
 import { buildTwelveWeekPath } from '../lib/studyPath'
 import { ChevronRight } from 'lucide-react'
 
-export default function StudyPath({ guide, store, update, onOpenChapter, onGo }) {
+export default function StudyPath({ guide, store, update, onOpenChapter, onGo, onWeekComplete }) {
   const weeks = useMemo(() => buildTwelveWeekPath(guide), [guide])
   const done = store.studyPathDone || {}
   const activeWeek = weeks.find(w => !w.tasks.every(t => done[`${w.week}-${t.key}`]))?.week ?? 12
+  const [weekToast, setWeekToast] = useState(null)
 
-  function toggle(week, key) {
-    const id = `${week}-${key}`
+  useEffect(() => {
+    if (!weekToast) return
+    const t = setTimeout(() => setWeekToast(null), 4500)
+    return () => clearTimeout(t)
+  }, [weekToast])
+
+  function toggle(weekNum, key) {
+    const id = `${weekNum}-${key}`
+    const weekRow = weeks.find(w => w.week === weekNum)
+    const wasComplete = weekRow?.tasks.every(t => done[`${weekNum}-${t.key}`])
+    const next = { ...done, [id]: !done[id] }
+    const nowComplete = weekRow?.tasks.every(t => next[`${weekNum}-${t.key}`])
     update(s => ({
       ...s,
       studyPathDone: { ...(s.studyPathDone || {}), [id]: !done[id] },
       studyDates: [...new Set([...s.studyDates, new Date().toISOString().slice(0, 10)])],
     }))
+    if (nowComplete && !wasComplete) {
+      setWeekToast(weekNum)
+      onWeekComplete?.(weekNum)
+    }
   }
 
   return (
     <div className="study-path card no-print">
+      {weekToast != null && (
+        <div className="path-week-toast" role="status">
+          <strong>Week {weekToast} complete</strong> — nice work. Schedule your next mock or open the next chapter block.
+        </div>
+      )}
       <div className="study-path-head">
         <div>
           <p className="label">Guided path</p>
@@ -31,7 +51,7 @@ export default function StudyPath({ guide, store, update, onOpenChapter, onGo })
           const complete = w.tasks.every(t => done[`${w.week}-${t.key}`])
           const isActive = w.week === activeWeek
           return (
-            <details key={w.week} className={`study-week ${isActive ? 'active' : ''} ${complete ? 'done' : ''}`} open={isActive}>
+            <details key={w.week} className={`study-week ${isActive ? 'active' : ''} ${complete ? 'done week-complete' : ''}`} open={isActive}>
               <summary>
                 <span className="week-num">Week {w.week}</span>
                 <span className="week-meta">Ch. {w.chapterIds.length ? guide.chapters.find(c => c.id === w.chapterIds[0])?.number : ''}–{w.chapterIds.length ? guide.chapters.find(c => c.id === w.chapterIds[w.chapterIds.length - 1])?.number : ''}</span>

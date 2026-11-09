@@ -197,6 +197,44 @@ input[type=text],input[type=email],input[type=date],select{padding:11px 13px;bor
 
 .print-packet-root{display:none}
 .reader.is-print-packet .reader-sticky,.reader.is-print-packet .reader-tabs,.reader.is-print-packet .reader-actions,.reader.is-print-packet .reader-toc,.reader.is-print-packet .reader-section,.reader.is-print-packet .depth-panel,.reader.is-print-packet .pearls-panel,.reader.is-print-packet .reader-foot{display:none!important}
+.onboarding-card{position:relative;margin-bottom:16px;border-color:#bfe3db;background:linear-gradient(180deg,#fff,#f4fbf9)}
+.onboarding-close{position:absolute;top:12px;right:12px;border:0;background:#fff;border-radius:8px;padding:6px;color:var(--muted)}
+.onboarding-steps{margin:0;padding:0;list-style:none;display:grid;gap:14px}
+.onboarding-steps li{display:grid;grid-template-columns:36px 1fr;gap:12px;align-items:start}
+.onboarding-num{width:32px;height:32px;border-radius:10px;background:var(--brand);color:#fff;display:grid;place-items:center;font-weight:800;font-size:14px}
+.readiness-tools{margin:16px 0}
+.readiness-tools-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}
+.readiness-tools-pct{font-family:'Fraunces',serif;font-size:42px;font-weight:900;color:var(--brand);margin:0;line-height:1}
+.readiness-cert{margin:16px 0;border:2px solid #c5e5de;background:linear-gradient(145deg,#fff 40%,#eef9f5)}
+.cert-inner{text-align:center;padding:8px 12px 4px}
+.cert-eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);font-weight:800;margin:0}
+.cert-title{font-family:'Fraunces',serif;font-size:26px;margin:8px 0 4px}
+.cert-name{font-size:14px;color:var(--brand2);font-weight:700;margin:0 0 8px}
+.cert-pct{font-family:'Fraunces',serif;font-size:56px;font-weight:900;color:var(--brand);margin:0;line-height:1}
+.cert-sub{font-size:13px;color:var(--muted);margin:4px 0 16px}
+.cert-stats{list-style:none;margin:0 0 12px;padding:0;display:flex;flex-wrap:wrap;justify-content:center;gap:12px 20px;font-size:14px;color:var(--ink2)}
+.cert-stats strong{color:var(--ink)}
+.cert-print{margin-top:8px}
+.milestone-panel{margin:16px 0}
+.milestone-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:10px;margin-top:8px}
+.milestone-badge{border:1px dashed var(--line);border-radius:12px;padding:12px 10px;text-align:center;opacity:.55;filter:grayscale(.4)}
+.milestone-badge.earned{opacity:1;filter:none;border-style:solid;border-color:#a8dcbd;background:#f4fbf7}
+.milestone-emoji{font-size:22px;display:block;margin-bottom:4px}
+.milestone-label{font-size:12px;font-weight:800;color:var(--ink2);line-height:1.3;display:block}
+.milestone-toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%);z-index:60;display:flex;gap:12px;align-items:flex-start;max-width:min(420px,calc(100% - 32px));background:#0b2340;color:#fff;padding:14px 16px;border-radius:14px;box-shadow:0 16px 40px rgba(7,29,54,.35)}
+.milestone-toast-emoji{font-size:24px;line-height:1}
+.milestone-toast-close{margin-left:auto;background:none;border:0;color:#fff;font-size:22px;line-height:1;padding:0;opacity:.8}
+.path-week-toast{background:#e8f7f3;border:1px solid #9fd4ca;border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:14px;line-height:1.45;color:#0a4a40}
+.study-week.week-complete summary .week-num{color:var(--green)}
+.pro-hero{border-color:#d4e4f4;background:linear-gradient(180deg,#fff,#f6f9fc)}
+.compare-table{font-size:14px;margin-top:12px}
+.compare-table th:first-child,.compare-table td:first-child{min-width:180px}
+.waitlist-card{border-color:#f0d9ad}
+@media(max-width:980px){.milestone-toast{bottom:100px}.readiness-tools-pct{font-size:34px}}
+@media print{
+  .readiness-cert,.cert-inner{break-inside:avoid;border:2px solid #333}
+  .milestone-panel,.readiness-tools,.onboarding-card{display:none!important}
+}
 .study-path{margin:18px 0}
 .study-path-head{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start;margin-bottom:14px}
 .study-path-weeks{display:grid;gap:8px}

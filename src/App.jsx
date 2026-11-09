@@ -12,9 +12,15 @@ import Workbook from './components/Workbook.jsx'
 import { Sidebar, PageHeader, MobileNav } from './components/AppShell.jsx'
 import PlatformStats from './components/PlatformStats.jsx'
 import StudyPath from './components/StudyPath.jsx'
+import OnboardingCard from './components/OnboardingCard.jsx'
+import Milestones from './components/Milestones.jsx'
+import { ReadinessReportCard, ReadinessCertificate } from './components/ReadinessTools.jsx'
 import { usePageTitle } from './lib/usePageTitle'
 import { BETA_OPEN } from './lib/config'
 import { flattenQuestions, gradable } from './lib/questions'
+import { buildTwelveWeekPath } from './lib/studyPath'
+import { countCompletedPathWeeks } from './lib/milestones'
+import { PLANS, COMPARE_ROWS } from './lib/plans'
 
 export default function App() {
   const [guide, setGuide] = useState(null)
@@ -74,6 +80,9 @@ function StudyApp({ guide }) {
   const readiness = Math.round((doneCh / chapters.length) * 40 + (answered ? Math.min(answered / totalQ, 1) * 30 * (accuracy / 100 + 0.3) / 1.3 : 0) + Math.min(mastered / Math.max(1, totalCards), 1) * 30)
   const streak = streakOf(store.studyDates)
   const lastChapter = chapters.find(c => c.id === store.lastChapter) || chapters.find(c => !store.completed[c.id])
+  const pathWeeks = useMemo(() => buildTwelveWeekPath(guide), [guide])
+  const weeksComplete = countCompletedPathWeeks(pathWeeks, store.studyPathDone)
+  const milestoneStats = { doneCh, totalCh: chapters.length, answered, accuracy, mastered, streak, readiness }
 
   const searchResults = useMemo(() => {
     if (query.trim().length < 3) return []
@@ -133,17 +142,21 @@ function StudyApp({ guide }) {
         ) : (<>
           {view === 'dashboard' && (
             <div>
+              <OnboardingCard onGo={go} />
               <div className="hero">
-                <p className="pill gold">Board certification prep</p>
-                <h1>Your complete FNP study platform.</h1>
-                <p>All 21 study-guide chapters plus every page of the 22 original APEA 2026 manuals — searchable and turned into {totalQ} practice questions, flashcards, a timed exam simulator and a day-by-day study plan. No more juggling 1.2 GB of PDFs.</p>
+                <p className="pill gold">Outcomes-first board prep</p>
+                <h1>Know you're ready — not just that you read.</h1>
+                <p>Turn the full APEA 2026 curriculum into a readiness score, weak-area radar, timed mocks, and a printable progress report. Replace 1.2 GB of PDF chaos with one searchable path to exam day.</p>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 16 }}>
                   <button className="btn gold" onClick={() => { if (lastChapter) openChapter(lastChapter.id) }}>{store.lastChapter ? 'Continue studying →' : 'Start Chapter 1 →'}</button>
                   <button className="btn" onClick={() => openQuiz()}>Take a practice quiz</button>
                   <button className="btn ghost" onClick={() => go('manuals')}>Browse all 22 full manuals</button>
                 </div>
               </div>
+              <ReadinessCertificate readiness={readiness} doneCh={doneCh} totalCh={chapters.length} accuracy={accuracy} streak={streak} examDate={store.examDate} />
               <PlatformStats guide={guide} contentMeta={contentMeta} manualBank={manualBank} questionTotal={totalQ} />
+              <ReadinessReportCard guide={guide} store={store} readiness={readiness} doneCh={doneCh} totalCh={chapters.length} answered={answered} totalQ={totalQ} accuracy={accuracy} mastered={mastered} streak={streak} />
+              <Milestones store={store} stats={milestoneStats} weeksComplete={weeksComplete} />
               <div className="grid cols4" style={{ marginTop: 16 }}>
                 <div className="card"><p className="label">Board readiness</p><p className="stat">{readiness}%</p><div className="bar"><i style={{ width: `${readiness}%` }} /></div><p className="small muted">Chapters 40% · questions 30% · flashcards 30%</p></div>
                 <div className="card"><p className="label">Chapters complete</p><p className="stat">{doneCh}/{chapters.length}</p><div className="bar"><i style={{ width: `${doneCh / chapters.length * 100}%` }} /></div><p className="small muted">{chapters.reduce((a, c) => a + c.wordCount, 0).toLocaleString()} words of guide</p></div>
@@ -225,7 +238,7 @@ function StudyApp({ guide }) {
 
           {view === 'planner' && <Planner guide={guide} store={store} update={update} />}
 
-          {view === 'about' && <AboutAccess totalQ={totalQ} totalCards={totalCards} chapters={chapters.length} store={store} update={update} guide={guide} contentMeta={contentMeta} manualBank={manualBank} />}
+          {view === 'about' && <AboutAccess totalQ={totalQ} totalCards={totalCards} chapters={chapters.length} store={store} update={update} guide={guide} contentMeta={contentMeta} manualBank={manualBank} readiness={readiness} />}
         </>)}
       </main>
 
@@ -330,45 +343,117 @@ function ChapterRow({ c, store, onOpen, contentMeta }) {
   )
 }
 
-function AboutAccess({ totalQ, totalCards, chapters, store, update, guide, contentMeta, manualBank }) {
-  const [email, setEmail] = useState(''); const [joined, setJoined] = useState(false)
-  const unlocked = [
-    'All study-guide chapters and section search',
-    'All 22 original course manuals (text + PDF)',
-    'Workbooks, mock exams, question bank, and flashcards',
-    'Study planner, readiness score, and progress export',
-  ]
+function AboutAccess({ totalQ, totalCards, chapters, store, update, guide, contentMeta, manualBank, readiness }) {
+  const [email, setEmail] = useState('')
+  const [note, setNote] = useState('')
+  const [joined, setJoined] = useState(false)
+  const pearls = contentMeta?.pearls_total ?? 0
+  const pro = PLANS.pro
+  const free = PLANS.free
+
+  function joinWaitlist(e) {
+    e.preventDefault()
+    if (!email.includes('@')) return
+    const entry = { email, note: note.slice(0, 200), at: todayKey(), interest: 'pro-launch' }
+    update(s => ({ ...s, waitlist: [...(s.waitlist || []), entry] }))
+    try {
+      const local = JSON.parse(localStorage.getItem('apea-waitlist-log') || '[]')
+      local.push({ ...entry, savedAt: new Date().toISOString() })
+      localStorage.setItem('apea-waitlist-log', JSON.stringify(local))
+    } catch { /* ignore */ }
+    setJoined(true)
+  }
+
   return (
     <div className="about-page">
-      <PageHeader eyebrow="Access" title="About this platform" subtitle="Built from the APEA 2026 FNP review content on your server — structured for reading, recall, and testing." />
+      <PageHeader
+        eyebrow="Pro value"
+        title="Why this platform vs. PDFs alone"
+        subtitle="Built from official APEA 2026 course manuals hosted for this cohort — structured for outcomes: readiness score, mocks, tracking, and recall."
+      />
+
+      <div className="card pro-hero">
+        <p className="label">The problem</p>
+        <h2 style={{ marginTop: 4 }}>Free materials are complete — but not organized for exam day</h2>
+        <p className="muted" style={{ lineHeight: 1.65, maxWidth: 680 }}>
+          You can download every manual. What you cannot get from a folder of PDFs is a <strong>readiness score</strong>, timed mocks at board pace,
+          weak-area tracking across {totalQ} questions, or a single searchable path from Chapter 1 to the mock block. This hub wraps the same official content around those outcomes.
+        </p>
+        <p className="small muted" style={{ marginTop: 12, lineHeight: 1.5 }}>
+          Social proof we can stand behind: content is sourced from the APEA 2026 FNP review manuals on this server — not third-party summaries. No fabricated testimonials during beta.
+        </p>
+      </div>
+
       <PlatformStats guide={guide} contentMeta={contentMeta} manualBank={manualBank} questionTotal={totalQ} />
-      {BETA_OPEN && (
-        <div className="card access-open">
-          <p className="label">Testing phase</p>
-          <h2 style={{ marginTop: 4 }}>Full access — nothing locked</h2>
-          <p className="muted" style={{ lineHeight: 1.65, marginBottom: 12 }}>During open beta you can use every feature with no chapter limits, no paywalls, and no “preview only” sections. We are still improving layout and question coverage; your feedback shapes what ships for paid launch.</p>
-          <ul className="feature-list">{unlocked.map(f => <li key={f}>{f}</li>)}</ul>
-        </div>
-      )}
+
       <div className="grid cols2" style={{ marginTop: 16 }}>
         <div className="card">
-          <p className="label">Content</p>
-          <ul className="feature-list">
-            <li>{chapters} searchable guide chapters</li>
-            <li>{totalQ} practice items with Answer Key rationales</li>
-            <li>{totalCards}+ high-yield & lab flashcards</li>
-            <li>1,720+ workbook recall drills</li>
-          </ul>
+          <p className="label">{free.name}</p>
+          <p className="price" style={{ fontSize: 28 }}>{free.priceLabel}</p>
+          <p className="muted" style={{ lineHeight: 1.55 }}>{free.tagline}</p>
+          <ul className="feature-list">{free.includes.map(f => <li key={f}>{f}</li>)}</ul>
         </div>
-        <div className="card">
-          <p className="label">After launch (planned)</p>
-          <p className="muted" style={{ lineHeight: 1.6 }}>Paid access may bundle hosting, updates, and support. <strong>Today, everything stays open</strong> while you test. Optional: leave an email if you want notice before pricing goes live.</p>
-          {joined ? <p className="small" style={{ background: '#e6f5ec', padding: 12, borderRadius: 10, marginTop: 12 }}><strong>Thanks.</strong> We will only email about launch — not marketing spam.</p>
-            : <form onSubmit={e => { e.preventDefault(); if (!email.includes('@')) return; update(s => ({ ...s, waitlist: [...(s.waitlist || []), { email, at: todayKey() }] })); setJoined(true) }}>
-              <input type="email" required placeholder="Email (optional)" value={email} onChange={e => setEmail(e.target.value)} />
-              <button className="btn ghost" type="submit" style={{ width: '100%', marginTop: 10 }}>Notify me at launch</button>
-            </form>}
+        <div className="card platform-card">
+          <p className="label">{pro.name}</p>
+          <p className="price" style={{ fontSize: 28 }}>{pro.priceLabel}</p>
+          <p className="muted" style={{ lineHeight: 1.55 }}>{pro.tagline}</p>
+          <ul className="feature-list">{pro.includes.map(f => <li key={f}>{f}</li>)}</ul>
+          {BETA_OPEN && <p className="pill gold" style={{ marginTop: 12 }}>Beta: Pro features unlocked — {readiness}% readiness on your device</p>}
         </div>
+      </div>
+
+      <div className="card compare-table-wrap" style={{ marginTop: 16, overflowX: 'auto' }}>
+        <p className="label">Compare</p>
+        <h3 style={{ marginTop: 4 }}>Study guide PDFs vs. this platform</h3>
+        <table className="compare-table">
+          <thead>
+            <tr><th>Capability</th><th>PDFs / self-study</th><th>This platform</th></tr>
+          </thead>
+          <tbody>
+            {COMPARE_ROWS.map(row => (
+              <tr key={row.feature}>
+                <td>{row.feature}</td>
+                <td className="muted">{row.pdf === true ? '✓' : row.pdf === false ? '—' : row.pdf}</td>
+                <td><strong>{row.platform === true ? '✓' : row.platform}</strong></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="card access-open" style={{ marginTop: 16 }}>
+        <p className="label">What's included today</p>
+        <ul className="feature-list">
+          <li>{chapters} searchable guide chapters + {pearls ? `${pearls} clinical pearls` : 'clinical pearls'}</li>
+          <li>22 course manuals (full text + PDF links)</li>
+          <li>{totalQ} graded questions · {totalCards}+ flashcards · 1,720+ workbook drills</li>
+          <li>Mock exams, 12-week path, planner, readiness report export</li>
+        </ul>
+        {BETA_OPEN && (
+          <p className="muted" style={{ lineHeight: 1.6, marginBottom: 0 }}>
+            <strong>Open beta:</strong> nothing is paywalled while we polish. Paid launch will bundle hosting, updates, and support — your progress export JSON still works if you switch devices.
+          </p>
+        )}
+      </div>
+
+      <div className="card waitlist-card" style={{ marginTop: 16 }}>
+        <p className="label">Launch list</p>
+        <h3 style={{ marginTop: 4 }}>Get one email when Pro pricing goes live</h3>
+        <p className="muted" style={{ lineHeight: 1.6 }}>
+          Optional. We store interest on <strong>this device</strong> (and in your progress backup) until we wire a real mailing list.
+          Tell us what you want most: mocks, manuals search, or readiness tracking.
+        </p>
+        {joined ? (
+          <p className="small" style={{ background: '#e6f5ec', padding: 12, borderRadius: 10, marginTop: 12 }}>
+            <strong>You're on the list.</strong> We will only email about launch pricing — not daily marketing.
+          </p>
+        ) : (
+          <form onSubmit={joinWaitlist}>
+            <input type="email" required placeholder="you@school.edu" value={email} onChange={e => setEmail(e.target.value)} />
+            <input type="text" placeholder="What matters most? (optional)" value={note} onChange={e => setNote(e.target.value)} style={{ marginTop: 10 }} />
+            <button className="btn gold" type="submit" style={{ width: '100%', marginTop: 10 }}>Save my launch interest</button>
+          </form>
+        )}
       </div>
     </div>
   )
