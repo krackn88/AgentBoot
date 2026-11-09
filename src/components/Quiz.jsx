@@ -2,8 +2,10 @@ import React, { useMemo, useState, useEffect } from 'react'
 import { shuffle, todayKey, bumpDaily } from '../lib/store'
 import { PageHeader } from './AppShell.jsx'
 import { gradable } from '../lib/questions'
+import { pdfUrlForChapter } from '../lib/pdfs'
+import VerifySource from './VerifySource.jsx'
 
-export default function Quiz({ guide, store, update, preset, onDone, questionPool }) {
+export default function Quiz({ guide, store, update, preset, onDone, questionPool, onSearch }) {
   const allQ = useMemo(
     () => questionPool || guide.chapters.flatMap(c => c.questions.map(q => ({ ...q, chapterTitle: c.shortTitle }))),
     [guide, questionPool]
@@ -146,6 +148,12 @@ export default function Quiz({ guide, store, update, preset, onDone, questionPoo
                 ? 'Answer Key + supporting text from the course manual'
                 : 'Study guide Answer Key'}
           </p>
+          <VerifySource
+            question={q}
+            chapter={guide.chapters.find(c => c.id === q.chapterId)}
+            pdfUrl={pdfUrlForChapter(guide.chapters.find(c => c.id === q.chapterId) || { number: 0 })}
+            onSearch={onSearch}
+          />
         </div>}
       </div>
       <div style={{ display: 'flex', gap: 8, marginTop: 14, flexWrap: 'wrap' }}>
