@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { pdfUrlForChapter } from '../lib/pdfs'
+import { loadChapterModule } from '../lib/platform'
 import ChapterPrintPacket from './ChapterPrintPacket.jsx'
 
 export function Blocks({ blocks }) {
@@ -34,8 +35,7 @@ export default function Reader({ chapter, store, update, onBack, onQuiz, onNext,
   useEffect(() => {
     let cancel = false
     setModule(null); setModErr('')
-    fetch(`${import.meta.env.BASE_URL}data/modules/${chapter.id}.json`)
-      .then(r => { if (!r.ok) throw new Error(r.status); return r.json() })
+    loadChapterModule(chapter.id)
       .then(d => { if (!cancel) setModule(d) })
       .catch(e => { if (!cancel) setModErr(`Expanded manual notes unavailable (${e.message}).`) })
     return () => { cancel = true }

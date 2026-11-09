@@ -258,6 +258,27 @@ input[type=text],input[type=email],input[type=date],select{padding:11px 13px;bor
 .page-break-before{break-before:page;padding-top:12px}
 .packet-answers{background:#f4f6f9;padding:12px;border-radius:8px}
 
+.contextual-help{position:relative;margin:0 0 12px;display:flex;justify-content:flex-end}
+.help-trigger{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border:1px solid var(--line);border-radius:99px;background:#fff;font-size:13px;font-weight:700;color:var(--brand);cursor:pointer}
+.help-panel{position:absolute;top:100%;right:0;margin-top:6px;width:min(360px,calc(100vw - 32px));background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);z-index:20;line-height:1.55;font-size:14px}
+.help-panel ul{margin:10px 0 12px;padding-left:18px;color:var(--ink2)}
+.help-close{width:100%;margin-top:4px}
+
+.view-skeleton{padding:8px 0 24px}
+.skeleton-bar{height:14px;border-radius:8px;background:linear-gradient(90deg,#eef2f7,#fafbfc,#eef2f7);background-size:200% 100%;animation:shimmer 1.5s infinite;margin:10px 0;max-width:520px}
+.skeleton-bar.wide{height:28px;max-width:420px}
+.skeleton-bar.short{max-width:280px}
+.skeleton-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
+.view-skeleton .skeleton-card{min-height:140px}
+
+.mobile-more-sheet{position:fixed;left:12px;right:12px;bottom:72px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px 12px;box-shadow:0 -4px 24px rgba(15,23,42,.12);z-index:55}
+.mobile-more-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mobile-more-grid .btn{justify-content:flex-start;gap:8px;font-size:13px}
+.mobile-more-close{width:100%;margin-top:8px}
+
+.empty-cta{border-style:dashed;border-color:var(--brand);background:#f6fbfa;margin-bottom:16px}
+.source-proof-inline{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--ink2)}
+
 @media print{
   .sidebar,.bottomnav,.top-search,.no-print,.study-path,.platform-stats,.beta-banner{display:none!important}
   .worksheet{border:0;padding:0}

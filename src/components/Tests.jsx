@@ -79,21 +79,34 @@ export default function Tests({ guide, store, onStart, questionPool }) {
   const boardTests = tests.filter(t => !t.testId.startsWith('manual-'))
   const manualTests = tests.filter(t => t.testId.startsWith('manual-'))
 
+  const noMocksYet = fullScores.length === 0
+
   return (
     <div>
-      <PageHeader eyebrow="Testing center" title="Mock boards under exam conditions" subtitle="Timed, graded, and rationales after every run. Aim for 75%+ on full-length simulations before exam day." />
-      <div className="manual-hero compact">
-        <div>
-          <p className="eyebrow">Testing center</p>
-          <h1>Mock boards, under real exam conditions</h1>
-          <p>Every test is timed and graded against the APEA Answer Key, with a full rationale review afterward. Aim for a consistent {PASS_TARGET}%+ before exam day.</p>
+      <PageHeader
+        eyebrow="Mock exams"
+        title="Timed boards with rationales after every run"
+        subtitle={`Aim for ${PASS_TARGET}%+ on full-length simulations before exam day.`}
+        actions={(
+          <div className="source-proof source-proof-inline">
+            <span><strong>{total}</strong> graded Q</span>
+            <span><strong>{best ?? '—'}{best != null ? '%' : ''}</strong> best</span>
+            <span><strong>{trend ?? '—'}{trend != null ? '%' : ''}</strong> recent avg</span>
+          </div>
+        )}
+      />
+
+      {noMocksYet && (
+        <div className="card empty-cta">
+          <h3 style={{ marginTop: 0 }}>No mock exams yet</h3>
+          <p className="muted" style={{ lineHeight: 1.6, marginBottom: 14 }}>
+            Pick a full-length AANP or ANCC simulation below — timer on, rationales after. One mock per week beats re-reading PDFs.
+          </p>
+          <button type="button" className="btn gold" onClick={() => start(boardTests.find(t => t.testId === 'aanp-full') || tests[0])}>
+            Start AANP full-length mock →
+          </button>
         </div>
-        <div className="source-proof">
-          <span><strong>{total}</strong> graded ({guideTotal} guide + {manualTotal} manual)</span>
-          <span><strong>{best ?? '—'}{best != null ? '%' : ''}</strong> best mock score</span>
-          <span><strong>{trend ?? '—'}{trend != null ? '%' : ''}</strong> recent average</span>
-        </div>
-      </div>
+      )}
 
       {trend != null && (
         <div className={`card readiness-banner ${trend >= PASS_TARGET ? 'good' : trend >= 65 ? 'close' : 'low'}`}>

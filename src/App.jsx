@@ -1,13 +1,10 @@
-import React, { useMemo, useState } from 'react'
+import React, { lazy, Suspense, useMemo, useState, useEffect } from 'react'
 import { useStore, streakOf, todayKey } from './lib/store'
-import { useEffect } from 'react'
 import { pdfUrlForChapter, manualIdForChapter } from './lib/pdfs'
 import Reader, { Blocks } from './components/Reader.jsx'
 import Quiz from './components/Quiz.jsx'
 import Flashcards, { buildDecks } from './components/Flashcards.jsx'
 import Planner from './components/Planner.jsx'
-import Manuals from './components/Manuals.jsx'
-import Tests from './components/Tests.jsx'
 import Workbook from './components/Workbook.jsx'
 import { Sidebar, PageHeader, MobileNav } from './components/AppShell.jsx'
 import PlatformStats from './components/PlatformStats.jsx'
@@ -15,19 +12,26 @@ import StudyPath from './components/StudyPath.jsx'
 import OnboardingCard from './components/OnboardingCard.jsx'
 import Milestones from './components/Milestones.jsx'
 import { ReadinessReportCard, ReadinessCertificate } from './components/ReadinessTools.jsx'
+import ContextualHelp from './components/ContextualHelp.jsx'
+import ViewSkeleton from './components/ViewSkeleton.jsx'
 import { usePageTitle } from './lib/usePageTitle'
 import { BETA_OPEN } from './lib/config'
 import { flattenQuestions, gradable } from './lib/questions'
 import { buildTwelveWeekPath } from './lib/studyPath'
 import { countCompletedPathWeeks } from './lib/milestones'
 import { PLANS, COMPARE_ROWS } from './lib/plans'
+import { loadGuide, loadPlatformBundle, prefetchChapterModule } from './lib/platform'
+
+const Manuals = lazy(() => import('./components/Manuals.jsx'))
+const Tests = lazy(() => import('./components/Tests.jsx'))
 
 export default function App() {
   const [guide, setGuide] = useState(null)
   const [loadErr, setLoadErr] = useState('')
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/guide.json`).then(r => { if (!r.ok) throw new Error(r.status); return r.json() })
-      .then(setGuide).catch(e => setLoadErr('Could not load study data (' + e.message + '). Check your connection and refresh.'))
+    loadGuide()
+      .then(setGuide)
+      .catch(e => setLoadErr('Could not load study data (' + e.message + '). Check your connection and refresh.'))
   }, [])
   if (loadErr) return <div className="boot-screen"><div className="card boot-card"><p className="eyebrow">APEA 2026 FNP Study Hub</p><h2>Couldn't load study data</h2><p>{loadErr}</p><button className="btn" onClick={() => location.reload()}>Retry</button></div></div>
   if (!guide) return <div className="boot-screen"><div className="boot-card"><p className="eyebrow">APEA 2026</p><h1 className="serif">FNP Board Prep</h1><div className="boot-bar"><i/></div><p className="muted">Loading study guide, manuals, workbooks, and question banks…</p></div></div>
@@ -58,10 +62,12 @@ function StudyApp({ guide }) {
     window.addEventListener('hashchange', sync); return () => window.removeEventListener('hashchange', sync)
   }, [])
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}data/search-corpus.json`).then(r => r.ok ? r.json() : []).then(setSearchCorpus).catch(() => {})
-    fetch(`${import.meta.env.BASE_URL}data/pearls.json`).then(r => r.ok ? r.json() : []).then(setPearlCards).catch(() => {})
-    fetch(`${import.meta.env.BASE_URL}data/content-index.json`).then(r => r.ok ? r.json() : null).then(setContentMeta).catch(() => {})
-    fetch(`${import.meta.env.BASE_URL}data/manual-questions.json`).then(r => r.ok ? r.json() : null).then(setManualBank).catch(() => {})
+    loadPlatformBundle().then(({ searchCorpus, pearlCards, contentMeta, manualBank }) => {
+      setSearchCorpus(searchCorpus)
+      setPearlCards(pearlCards)
+      setContentMeta(contentMeta)
+      setManualBank(manualBank)
+    }).catch(() => {})
   }, [])
   const chapters = guide.chapters
   const questionPool = useMemo(() => flattenQuestions(guide, manualBank), [guide, manualBank])
@@ -122,6 +128,7 @@ function StudyApp({ guide }) {
       <Sidebar view={view} go={go} readiness={readiness} doneCh={doneCh} totalCh={chapters.length} answered={answered} totalQ={totalQ} guideQ={guideQCount} manualQ={manualQCount} streak={streak} />
 
       <main className="main-shell">
+        {['dashboard', 'tests', 'reader'].includes(view) && <ContextualHelp view={view === 'reader' ? 'reader' : view} />}
         {BETA_OPEN && view === 'dashboard' && (
           <div className="beta-banner no-print">
             <strong>Open beta.</strong> Every chapter, workbook, mock exam, flashcard deck, and manual is unlocked while we finish polishing the platform. Your progress still saves on this device.
@@ -144,9 +151,9 @@ function StudyApp({ guide }) {
             <div>
               <OnboardingCard onGo={go} />
               <div className="hero">
-                <p className="pill gold">Outcomes-first board prep</p>
-                <h1>Know you're ready — not just that you read.</h1>
-                <p>Turn the full APEA 2026 curriculum into a readiness score, weak-area radar, timed mocks, and a printable progress report. Replace 1.2 GB of PDF chaos with one searchable path to exam day.</p>
+                <p className="pill gold">One path to exam day</p>
+                <h1>See how ready you are — not just how much you read.</h1>
+                <p>Searchable chapters, timed mocks, weak-area tracking, and a printable readiness report — built from the official APEA 2026 manuals on this server.</p>
                 <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 16 }}>
                   <button className="btn gold" onClick={() => { if (lastChapter) openChapter(lastChapter.id) }}>{store.lastChapter ? 'Continue studying →' : 'Start Chapter 1 →'}</button>
                   <button className="btn" onClick={() => openQuiz()}>Take a practice quiz</button>
@@ -210,11 +217,19 @@ function StudyApp({ guide }) {
               onNext={() => { const n = chapters[chapters.indexOf(chapter) + 1]; if (n) openChapter(n.id) }} />
           )}
 
-          {view === 'manuals' && <Manuals initialId={manualId} />}
+          {view === 'manuals' && (
+            <Suspense fallback={<ViewSkeleton label="Loading manuals" />}>
+              <Manuals initialId={manualId} />
+            </Suspense>
+          )}
 
           {view === 'quiz' && <Quiz key={quizPreset ? (quizPreset.testId || quizPreset.chapterId + quizPreset.mode) : 'setup'} guide={guide} store={store} update={update} preset={quizPreset} questionPool={questionPool} />}
           {view === 'flashcards' && <Flashcards guide={guide} store={store} update={update} pearlCards={pearlCards} questionPool={questionPool} />}
-          {view === 'tests' && <Tests guide={guide} store={store} questionPool={questionPool} onStart={(p) => { setQuizPreset(p); setView('quiz'); location.hash = '#/quiz'; window.scrollTo(0, 0) }} />}
+          {view === 'tests' && (
+            <Suspense fallback={<ViewSkeleton label="Loading mock exams" />}>
+              <Tests guide={guide} store={store} questionPool={questionPool} onStart={(p) => { setQuizPreset(p); setView('quiz'); location.hash = '#/quiz'; window.scrollTo(0, 0) }} />
+            </Suspense>
+          )}
           {view === 'workbooks' && <Workbook guide={guide} store={store} update={update} pearlCards={pearlCards} />}
 
           {view === 'quickref' && (
@@ -331,7 +346,7 @@ function ChapterRow({ c, store, onOpen, contentMeta }) {
   const depth = contentMeta?.chapters?.find(x => x.id === c.id)
   const graded = c.questions.filter(q => q.correctIndex != null && q.options?.length >= 2).length
   return (
-    <div className="chapter chapter-row-pro">
+    <div className="chapter chapter-row-pro" onMouseEnter={() => prefetchChapterModule(c.id)}>
       <div className={`num ${done ? 'done' : ''}`}>{done ? '✓' : c.number}</div>
       <div style={{ flex: 1, cursor: 'pointer' }} onClick={onOpen}>
         <strong>{c.shortTitle}</strong>

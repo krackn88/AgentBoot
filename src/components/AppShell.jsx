@@ -1,5 +1,5 @@
-import React from 'react'
-import { House, Library, BookOpen, NotebookPen, Trophy, ClipboardCheck, Layers3, Zap, CalendarDays, Info } from 'lucide-react'
+import React, { useEffect, useState } from 'react'
+import { House, Library, BookOpen, NotebookPen, Trophy, ClipboardCheck, Layers3, Zap, CalendarDays, Info, MoreHorizontal } from 'lucide-react'
 import { BETA_OPEN, PLATFORM } from '../lib/config'
 
 const GROUPS = [
@@ -21,7 +21,7 @@ export function Sidebar({ view, go, readiness, doneCh, totalCh, answered, totalQ
       <div className="brand-block">
         <p className="brand-kicker">APEA 2026 · FNP / AGPCNP</p>
         <div className="logo">FNP Board Prep</div>
-        <p className="tagline">Structured study, clinical workbooks, and board-style testing — built from the full APEA 2026 course.</p>
+        <p className="tagline">Chapters, mocks, and tracking — from official APEA 2026 course manuals.</p>
       </div>
       <nav className="side-nav" aria-label="Main">
         {GROUPS.map(g => (
@@ -61,23 +61,64 @@ export function PageHeader({ eyebrow, title, subtitle, actions }) {
   )
 }
 
+const MORE_LINKS = [
+  ['workbooks', NotebookPen, 'Workbooks'],
+  ['manuals', BookOpen, 'Manuals'],
+  ['flashcards', Layers3, 'Cards'],
+  ['planner', CalendarDays, 'Planner'],
+  ['quickref', Zap, 'High-yield'],
+  ['about', Info, 'About'],
+]
+
 export function MobileNav({ view, go }) {
+  const [moreOpen, setMoreOpen] = useState(false)
   const tabs = [
     ['dashboard', House, 'Home'],
     ['library', Library, 'Guide'],
-    ['workbooks', NotebookPen, 'Books'],
-    ['tests', Trophy, 'Exams'],
+    ['tests', Trophy, 'Mocks'],
     ['quiz', ClipboardCheck, 'Quiz'],
+    ['more', MoreHorizontal, 'More'],
   ]
-  const active = (k) => view === k || (view === 'reader' && k === 'library')
+  const active = (k) => {
+    if (k === 'more') return moreOpen || MORE_LINKS.some(([id]) => view === id)
+    return view === k || (view === 'reader' && k === 'library')
+  }
+  useEffect(() => {
+    if (!moreOpen) return
+    const close = () => setMoreOpen(false)
+    window.addEventListener('hashchange', close)
+    return () => window.removeEventListener('hashchange', close)
+  }, [moreOpen])
+
   return (
-    <nav className="bottomnav" aria-label="Primary">
-      {tabs.map(([k, Icon, label]) => (
-        <button key={k} type="button" className={active(k) ? 'active' : ''} onClick={() => go(k)}>
-          <Icon size={20} strokeWidth={2} />
-          <span>{label}</span>
-        </button>
-      ))}
-    </nav>
+    <>
+      {moreOpen && (
+        <div className="mobile-more-sheet no-print" role="dialog" aria-label="More study tools">
+          <p className="label" style={{ margin: '0 0 8px' }}>More — one tap</p>
+          <div className="mobile-more-grid">
+            {MORE_LINKS.map(([k, Icon, label]) => (
+              <button key={k} type="button" className="btn ghost" onClick={() => { go(k); setMoreOpen(false) }}>
+                <Icon size={18} /> {label}
+              </button>
+            ))}
+          </div>
+          <button type="button" className="btn ghost mobile-more-close" onClick={() => setMoreOpen(false)}>Close</button>
+        </div>
+      )}
+      <nav className="bottomnav" aria-label="Primary">
+        {tabs.map(([k, Icon, label]) => (
+          <button
+            key={k}
+            type="button"
+            className={active(k) ? 'active' : ''}
+            aria-expanded={k === 'more' ? moreOpen : undefined}
+            onClick={() => (k === 'more' ? setMoreOpen(o => !o) : (go(k), setMoreOpen(false)))}
+          >
+            <Icon size={20} strokeWidth={2} />
+            <span>{label}</span>
+          </button>
+        ))}
+      </nav>
+    </>
   )
 }
