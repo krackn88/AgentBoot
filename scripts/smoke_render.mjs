@@ -47,7 +47,7 @@ global.fetch = async (url, opts) => {
 const { createRequire } = await import('node:module')
 const require_ = createRequire(import.meta.url)
 const bundle = require_('./.smoke-bundle.cjs').default
-const { renderApp, buildPlan, HighYield, Planner, Tests, Flashcards, SearchPanel, Workbook, ChapterWorkbook, renderNode, h } = bundle
+const { renderApp, buildPlan, HighYield, Planner, Tests, Flashcards, SearchPanel, Workbook, ChapterWorkbook, buildDecks, renderNode, h } = bundle
 
 const errors = []
 dom.window.addEventListener('error', e => errors.push(String(e.message)))
@@ -259,6 +259,46 @@ check('every drill shape has what the drill card needs', () => {
   // relied on by the other's render path
   const bad = workbookLists.filter(l => !Array.isArray(l.items) || !l.items.length)
   if (bad.length) throw new Error(`${bad.length} list drills without items`)
+})
+
+console.log('\ncard readability')
+// Every card the site can show must read as a question with a usable answer.
+// This is the gate for the "bare table cell as a question" defect class.
+const { readabilityReport, auditCards } = await import('../src/lib/readability.js')
+const decks = buildDecks(guide, { answers: {}, srs: {} }, pearls)
+const strictDecks = ['highyield', 'labs', 'pearls']
+strictDecks.forEach(id => {
+  const cards = decks[id].cards
+  check(`${id} deck: every card front is a readable question (${cards.length} cards)`, () => {
+    const r = readabilityReport(cards, id)
+    if (r.percent < 100) throw new Error(`${r.percent}% clean; e.g. ${JSON.stringify(r.examples.slice(0, 3))}`)
+  })
+  check(`${id} deck: no two cards ask the same question`, () => {
+    const seen = new Map()
+    const dups = []
+    cards.forEach(c => {
+      const k = c.front.toLowerCase()
+      if (seen.has(k) && seen.get(k) !== c.back) dups.push(c.front)
+      seen.set(k, c.back)
+    })
+    if (dups.length) throw new Error(`${dups.length} duplicate prompts, e.g. "${dups[0]}"`)
+  })
+})
+check('no card repeats its own answer in the back text', () => {
+  const bad = decks.questions.cards.filter(c => {
+    const parts = c.back.split(/\.\s/)
+    return parts.length > 1 && parts[0].split(' ').length >= 2 && parts[0].length > 12 && c.back.indexOf(parts[0], parts[0].length) !== -1
+  })
+  if (bad.length) throw new Error(`${bad.length} cards repeat the answer, e.g. "${bad[0].back.slice(0, 80)}"`)
+})
+check('no card says "must-know number or rule" (header leakage)', () => {
+  const all = Object.values(decks).flatMap(d => d.cards)
+  const bad = all.filter(c => /must-know number or rule/i.test(c.front))
+  if (bad.length) throw new Error(`${bad.length} cards, e.g. "${bad[0].front}"`)
+})
+check('PDF list drills are at least 95% readable', () => {
+  const r = readabilityReport(workbookLists.map(l => ({ prompt: l.prompt, answer: 'x' })), 'lists')
+  if (r.percent < 95) throw new Error(`${r.percent}% clean; e.g. ${JSON.stringify(r.examples.slice(0, 3))}`)
 })
 
 console.log('\nrender smoke test')

@@ -6,7 +6,7 @@ import App, { StudyApp } from '../src/App.jsx'
 import HighYield from '../src/components/HighYield.jsx'
 import Planner, { buildPlan } from '../src/components/Planner.jsx'
 import Tests from '../src/components/Tests.jsx'
-import Flashcards from '../src/components/Flashcards.jsx'
+import Flashcards, { buildDecks } from '../src/components/Flashcards.jsx'
 import SearchPanel from '../src/components/SearchPanel.jsx'
 import Workbook, { ChapterWorkbook } from '../src/components/Workbook.jsx'
 
@@ -31,6 +31,7 @@ export default {
   buildPlan,
   Tests,
   Flashcards,
+  buildDecks,
   SearchPanel,
   Workbook,
   ChapterWorkbook,
