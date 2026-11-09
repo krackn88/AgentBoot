@@ -47,7 +47,7 @@ global.fetch = async (url, opts) => {
 const { createRequire } = await import('node:module')
 const require_ = createRequire(import.meta.url)
 const bundle = require_('./.smoke-bundle.cjs').default
-const { renderApp, buildPlan, HighYield, Planner, Tests, Flashcards, SearchPanel, renderNode, h } = bundle
+const { renderApp, buildPlan, HighYield, Planner, Tests, Flashcards, SearchPanel, Workbook, ChapterWorkbook, renderNode, h } = bundle
 
 const errors = []
 dom.window.addEventListener('error', e => errors.push(String(e.message)))
@@ -233,6 +233,32 @@ check('after grading, a card is scheduled into the future', () => {
   const next = srsMod.schedule(undefined, 'good')
   if (!next.due || next.due <= srsMod.dateKey()) throw new Error(`due ${next.due} not in the future`)
   if (!next.interval) throw new Error('no interval assigned')
+})
+
+console.log('\nworkbook chapter view')
+// The route-level render only reaches the chapter list. The drill screen is where
+// a missing property (a list drill has no `table`) crashed in production, so open
+// a chapter explicitly and exercise every drill kind.
+const workbookLists = read('pdf-lists.json').lists
+const kinds = new Set(workbookLists.map(l => l.kind || 'list'))
+check('chapter workbook renders with list drills', () => {
+  const chapter = guide.chapters.find(c => workbookLists.some(l => l.chapterId === c.id))
+  if (!chapter) throw new Error('no chapter has drills')
+  const store = { workbook: {}, cardBox: {}, answers: {}, daily: {}, studyDates: [] }
+  const html = renderNode(
+    h(ChapterWorkbook, {
+      chapter, store, update: () => {}, pearlCards: pearls, pdfLists: workbookLists, onBack: () => {},
+    }),
+  )
+  if (!html || html.length < 500) throw new Error('chapter workbook rendered almost nothing')
+  if (/undefined|NaN/.test(html)) throw new Error('rendered undefined/NaN')
+})
+
+check('every drill shape has what the drill card needs', () => {
+  // list drills must carry items; table drills must carry a table; neither may be
+  // relied on by the other's render path
+  const bad = workbookLists.filter(l => !Array.isArray(l.items) || !l.items.length)
+  if (bad.length) throw new Error(`${bad.length} list drills without items`)
 })
 
 console.log('\nrender smoke test')

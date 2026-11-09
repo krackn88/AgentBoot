@@ -481,3 +481,9 @@ input[type=text],input[type=email],input[type=date],select{padding:11px 13px;bor
 /* PDF list recall drills */
 .drill-list{margin:10px 0 4px;padding-left:22px;line-height:1.6}
 .drill-list li{margin:5px 0;font-size:15px}
+
+/* Drill source panel (always rendered: <details> hides content from SSR, which
+   meant a crash inside it was invisible to the render smoke test) */
+.drill-context{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+.drill-context-title{font-size:11px;text-transform:uppercase;letter-spacing:.05em;font-weight:800;color:var(--muted);margin:0 0 8px}
+.drill-context .drill-list{max-height:260px;overflow-y:auto;margin:0}

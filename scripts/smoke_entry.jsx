@@ -8,6 +8,7 @@ import Planner, { buildPlan } from '../src/components/Planner.jsx'
 import Tests from '../src/components/Tests.jsx'
 import Flashcards from '../src/components/Flashcards.jsx'
 import SearchPanel from '../src/components/SearchPanel.jsx'
+import Workbook, { ChapterWorkbook } from '../src/components/Workbook.jsx'
 
 const h = (type, props) => ({ $$typeof: Symbol.for('react.transitional.element'), type, key: null, props: props || {} })
 
@@ -31,4 +32,6 @@ export default {
   Tests,
   Flashcards,
   SearchPanel,
+  Workbook,
+  ChapterWorkbook,
 }

@@ -113,7 +113,7 @@ export default function Workbook({ guide, store, update, pearlCards = [], pdfLis
   return <ChapterWorkbook chapter={chapter} store={store} update={update} pearlCards={pearlCards} pdfLists={pdfLists} onBack={() => setChapterId(null)} />
 }
 
-function ChapterWorkbook({ chapter, store, update, pearlCards, pdfLists = [], onBack }) {
+export function ChapterWorkbook({ chapter, store, update, pearlCards, pdfLists = [], onBack }) {
   const drills = useMemo(
     () => [...listDrills(chapter, pdfLists), ...tableDrills(chapter), ...pearlDrillsForChapter(chapter, pearlCards)],
     [chapter, pearlCards, pdfLists],
@@ -128,14 +128,18 @@ function ChapterWorkbook({ chapter, store, update, pearlCards, pdfLists = [], on
   const [pos, setPos] = useState(0)
   const [typed, setTyped] = useState('')
   const [shown, setShown] = useState(false)
-  const remaining = order.filter(i => !(drills[i].id in results))
+  const remaining = order.filter(i => drills[i] && !(drills[i].id in results))
   const current = drills[order[pos % Math.max(1, order.length)]]
+
+  // Guard against a stale order array (e.g. after the chapter's drills change):
+  // indexing past the end used to throw while rendering.
+  const active = current && current.id ? current : drills[0]
 
   function save(patch) {
     update(s => ({ ...s, workbook: { ...(s.workbook || {}), [chapter.id]: { ...((s.workbook || {})[chapter.id] || {}), ...patch(((s.workbook || {})[chapter.id] || {})) } } }))
   }
   function rate(ok) {
-    save(st => ({ drills: { ...(st.drills || {}), [current.id]: ok } }))
+    save(st => ({ drills: { ...(st.drills || {}), [active.id]: ok } }))
     update(s => bumpDaily(s, 'cards', 1))
     setTyped(''); setShown(false); setPos(p => p + 1)
   }
@@ -162,18 +166,18 @@ function ChapterWorkbook({ chapter, store, update, pearlCards, pdfLists = [], on
 
       {tab === 'drills' && current && (
         <div className="drill-card card">
-          <p className="label">{current.section} · drill {(pos % order.length) + 1} of {order.length} · {remaining.length} not yet attempted</p>
-          <p className="drill-row">{current.row}</p>
-          <p className="drill-col">{current.column}?</p>
+          <p className="label">{active.section} · drill {(pos % order.length) + 1} of {order.length} · {remaining.length} not yet attempted</p>
+          <p className="drill-row">{active.row}</p>
+          <p className="drill-col">{active.column}?</p>
           {!shown ? <>
             <textarea className="drill-input" value={typed} onChange={e => setTyped(e.target.value)} placeholder="Type your answer from memory, then reveal…" rows={2}
               onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); setShown(true) } }} />
             <button className="btn" onClick={() => setShown(true)}><Eye size={16} /> Reveal answer</button>
           </> : <>
             {typed && <p className="small muted">Your answer: <em>{typed}</em></p>}
-            {current.kind === 'list'
-              ? <ol className="drill-list">{current.items.map((it, k) => <li key={k}>{it}</li>)}</ol>
-              : <div className="drill-answer">{current.answer}</div>}
+            {active.kind === 'list'
+              ? <ol className="drill-list">{active.items.map((it, k) => <li key={k}>{it}</li>)}</ol>
+              : <div className="drill-answer">{active.answer}</div>}
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
               <button className="btn ghost" onClick={() => rate(false)}><X size={16} /> Missed it</button>
               <button className="btn" onClick={() => rate(true)}><Check size={16} /> Got it</button>
@@ -184,10 +188,22 @@ function ChapterWorkbook({ chapter, store, update, pearlCards, pdfLists = [], on
             <button className="linkbtn" onClick={() => { const missed = drills.map((d, i) => results[d.id] === false ? i : -1).filter(i => i >= 0); if (missed.length) { setOrder(missed); setPos(0); setShown(false) } }}>Drill only missed ({Object.values(results).filter(v => v === false).length})</button>
             <button className="linkbtn" onClick={() => { if (confirm('Reset drill progress for this chapter?')) save(() => ({ drills: {} })) }}>Reset</button>
           </div>
-          <details className="drill-context"><summary>Show the full source table</summary>
-            <div className="tablewrap"><table><thead><tr>{current.table.headers.map((h, j) => <th key={j}>{h}</th>)}</tr></thead>
-              <tbody>{current.table.rows.map((r, j) => <tr key={j}>{r.map((c, k) => <td key={k}>{c}</td>)}</tr>)}</tbody></table></div>
-          </details>
+          {active.kind === 'list' ? (
+            <div className="drill-context">
+              <p className="drill-context-title">Full list{active.page != null ? ` · source page ${active.page + 1}` : ''}</p>
+              <ol className="drill-list">{active.items.map((it, k) => <li key={k}>{it}</li>)}</ol>
+            </div>
+          ) : active.table?.headers?.length ? (
+            <div className="drill-context">
+              <p className="drill-context-title">Full source table</p>
+              <div className="tablewrap">
+                <table>
+                  <thead><tr>{active.table.headers.map((h, j) => <th key={j}>{h}</th>)}</tr></thead>
+                  <tbody>{active.table.rows.map((r, j) => <tr key={j}>{r.map((c, k) => <td key={k}>{c}</td>)}</tr>)}</tbody>
+                </table>
+              </div>
+            </div>
+          ) : null}
         </div>
       )}
 
