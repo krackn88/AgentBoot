@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { House, Library, BookOpen, NotebookPen, Trophy, ClipboardCheck, Layers3, Zap, CalendarDays, Info, MoreHorizontal } from 'lucide-react'
+import { House, Library, BookOpen, NotebookPen, BookMarked, Trophy, ClipboardCheck, Layers3, Zap, CalendarDays, Info, MoreHorizontal } from 'lucide-react'
 import { BETA_OPEN, PLATFORM } from '../lib/config'
 
 const GROUPS = [
   { label: 'Overview', items: [['dashboard', House, 'Dashboard']] },
   { label: 'Learn', items: [['library', Library, 'Study guide'], ['manuals', BookOpen, 'Full manuals'], ['quickref', Zap, 'High-yield']] },
-  { label: 'Practice', items: [['workbooks', NotebookPen, 'Workbooks'], ['tests', Trophy, 'Mock exams'], ['quiz', ClipboardCheck, 'Question bank'], ['flashcards', Layers3, 'Flashcards']] },
+  { label: 'Practice', items: [['workbooks', NotebookPen, 'Workbooks'], ['fnp-workbook', BookMarked, 'FNP Workbook'], ['tests', Trophy, 'Mock exams'], ['quiz', ClipboardCheck, 'Question bank'], ['flashcards', Layers3, 'Flashcards']] },
   { label: 'Plan', items: [['planner', CalendarDays, 'Study planner']] },
 ]
 
@@ -62,7 +62,7 @@ export function PageHeader({ eyebrow, title, subtitle, actions }) {
 }
 
 const MORE_LINKS = [
-  ['workbooks', NotebookPen, 'Workbooks'],
+  ['workbooks', NotebookPen, 'Workbooks'], ['fnp-workbook', BookMarked, 'FNP Workbook'],
   ['manuals', BookOpen, 'Manuals'],
   ['flashcards', Layers3, 'Cards'],
   ['planner', CalendarDays, 'Planner'],

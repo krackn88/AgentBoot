@@ -47,7 +47,7 @@ global.fetch = async (url, opts) => {
 const { createRequire } = await import('node:module')
 const require_ = createRequire(import.meta.url)
 const bundle = require_('./.smoke-bundle.cjs').default
-const { renderApp, buildPlan, HighYield, Planner, Tests, Flashcards, SearchPanel, Workbook, ChapterWorkbook, buildDecks, renderNode, h } = bundle
+const { renderApp, buildPlan, HighYield, Planner, Tests, Flashcards, SearchPanel, Workbook, ChapterWorkbook, buildDecks, FnpWorkbook, renderNode, h } = bundle
 
 const errors = []
 dom.window.addEventListener('error', e => errors.push(String(e.message)))
@@ -266,6 +266,15 @@ check('guided hematology workbook teaches concepts and renders real board questi
   const required = ['Build the concept', 'Classify &amp; compare', 'Which three CBC measures', 'Required to diagnose anemia']
   const missing = required.filter(text => !html.includes(text))
   if (missing.length) throw new Error(`guided workbook missing: ${missing.join(', ')}`)
+})
+
+check('FNP Workbook page renders cover, lesson, and answer key', () => {
+  const store = { workbook: {}, fnpWorkbook: {}, cardBox: {}, answers: {}, daily: {}, studyDates: [] }
+  const html = renderNode(h(FnpWorkbook, { guide, store, update: () => {} }))
+  const required = ['The FNP', 'Build the concept', 'Classify it', 'Answer Key', 'Progress tracker', 'RBC indices']
+  const missing = required.filter(text => !html.includes(text))
+  if (missing.length) throw new Error(`FNP workbook missing: ${missing.join(', ')}`)
+  if (/undefined|NaN/.test(html)) throw new Error('FNP workbook rendered undefined/NaN')
 })
 
 check('every drill shape has what the drill card needs', () => {

@@ -6,6 +6,7 @@ import Quiz from './components/Quiz.jsx'
 import Flashcards, { buildDecks, allCards } from './components/Flashcards.jsx'
 import Planner from './components/Planner.jsx'
 import Workbook from './components/Workbook.jsx'
+import FnpWorkbook from './components/FnpWorkbook.jsx'
 import { Sidebar, PageHeader, MobileNav } from './components/AppShell.jsx'
 import PlatformStats from './components/PlatformStats.jsx'
 import SourceTrust from './components/SourceTrust.jsx'
@@ -144,7 +145,7 @@ export function StudyApp({ guide }) {
 
   const titles = {
     dashboard: 'Dashboard', library: 'Study guide', manuals: 'Full manuals', reader: chapter?.shortTitle,
-    quiz: 'Question bank', tests: 'Mock exams', workbooks: 'Workbooks', flashcards: 'Flashcards',
+    quiz: 'Question bank', tests: 'Mock exams', workbooks: 'Workbooks', 'fnp-workbook': 'The FNP Workbook', flashcards: 'Flashcards',
     quickref: 'High-yield', planner: 'Study planner', about: 'Sources & scope',
   }
   usePageTitle(titles[view] || null)
@@ -258,6 +259,7 @@ export function StudyApp({ guide }) {
             </Suspense>
           )}
           {view === 'workbooks' && <Workbook guide={guide} store={store} update={update} pearlCards={pearlCards} pdfLists={pdfLists} />}
+          {view === 'fnp-workbook' && <FnpWorkbook guide={guide} store={store} update={update} />}
 
           {view === 'quickref' && <HighYield guide={guide} pearls={pearlCards} onGo={go} />}
 
