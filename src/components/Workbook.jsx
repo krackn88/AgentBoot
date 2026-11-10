@@ -1,7 +1,8 @@
 import React, { useMemo, useState } from 'react'
-import { ArrowLeft, Printer, PencilLine, Grid3x3, Stethoscope, NotebookPen, Eye, Check, X } from 'lucide-react'
+import { ArrowLeft, Printer, PencilLine, Grid3x3, Stethoscope, NotebookPen, Eye, Check, X, BookOpen, Brain, Lightbulb, Target } from 'lucide-react'
 import { bumpDaily, shuffle } from '../lib/store'
-import { drillsFromTable, tableIsDrillable, topicPhrase, splitTopic, clozeFrom, pearlPrompt } from '../lib/drills'
+import { drillsFromTable, tableIsDrillable, topicPhrase, splitTopic, clozeFrom, pearlPrompt, answerWithWhy } from '../lib/drills'
+import { guidedWorkbookFor } from '../lib/guidedWorkbook'
 
 /**
  * Every drill exposes the same shape the card renders:
@@ -28,7 +29,14 @@ function tableDrills(chapter) {
 }
 
 function caseStudies(chapter) {
-  return chapter.questions.filter(q => (q.correctIndex == null || q.options.length < 2) && q.explanation)
+  return (chapter.questions || []).filter(q =>
+    q.stem &&
+    Array.isArray(q.options) &&
+    q.options.length >= 2 &&
+    Number.isInteger(q.correctIndex) &&
+    q.correctIndex >= 0 &&
+    q.correctIndex < q.options.length,
+  )
 }
 
 function chapterTables(chapter) {
@@ -95,11 +103,11 @@ export default function Workbook({ guide, store, update, pearlCards = [], pdfLis
         <div>
           <p className="eyebrow">Active-recall workbooks</p>
           <h1>A workbook for every chapter</h1>
-          <p>Reading is not studying. Each workbook turns the manual's tables, clinical pearls, and criteria into fill-in drills, adds case studies with model answers, and keeps your notes in one place. Print any chapter as a worksheet with an answer key.</p>
+          <p>Learn the concept, classify the pattern, then make the clinical call. Each chapter pairs guided writing prompts with source tables and real board-style questions. Print any chapter as a worksheet with its answer key.</p>
         </div>
         <div className="source-proof">
           <span><strong>{guide.chapters.reduce((a, c) => a + listDrills(c, pdfLists).length + tableDrills(c).length + pearlDrillsForChapter(c, pearlCards).length, 0).toLocaleString()}</strong> recall drills</span>
-          <span><strong>{guide.chapters.reduce((a, c) => a + caseStudies(c).length, 0)}</strong> case studies</span>
+          <span><strong>{guide.chapters.reduce((a, c) => a + caseStudies(c).length, 0)}</strong> board questions</span>
           <span><strong>{guide.chapters.reduce((a, c) => a + chapterTables(c).length, 0)}</strong> clinical tables</span>
         </div>
       </div>
@@ -112,7 +120,7 @@ export default function Workbook({ guide, store, update, pearlCards = [], pdfLis
           return (
             <article key={c.id} className="manual-card workbook-card" onClick={() => setChapterId(c.id)}>
               <div className="manual-number">{c.number}</div>
-              <div><h3>{c.shortTitle}</h3><p>{listDrills(c, pdfLists).length + tableDrills(c).length + pearlDrillsForChapter(c, pearlCards).length} drills · {caseStudies(c).length} cases · {chapterTables(c).length} tables</p></div>
+              <div><h3>{c.shortTitle}</h3><p>guided lesson · {caseStudies(c).length} board questions · {listDrills(c, pdfLists).length + tableDrills(c).length} recall drills</p></div>
               <div className="wb-progress">
                 <div className="bar"><i style={{ width: `${drills ? doneN / drills * 100 : 0}%` }} /></div>
                 <span className="small muted">{drills ? `${doneN}/${drills} done${doneN ? ` · ${Math.round(right / doneN * 100)}% recalled` : ''}` : 'Notes and print worksheet'}</span>
@@ -134,7 +142,8 @@ export function ChapterWorkbook({ chapter, store, update, pearlCards, pdfLists =
   )
   const cases = useMemo(() => caseStudies(chapter), [chapter])
   const tables = useMemo(() => chapterTables(chapter), [chapter])
-  const [tab, setTab] = useState(drills.length ? 'drills' : cases.length ? 'cases' : 'notes')
+  const guided = useMemo(() => guidedWorkbookFor(chapter), [chapter])
+  const [tab, setTab] = useState('guided')
   const state = (store.workbook || {})[chapter.id] || {}
   const results = state.drills || {}
 
@@ -169,14 +178,24 @@ export function ChapterWorkbook({ chapter, store, update, pearlCards, pdfLists =
       </div>
       <div className="manual-head no-print">
         <div><p className="label">Chapter {chapter.number} workbook</p><h1>{chapter.shortTitle}</h1>
-          <p className="muted">{doneN}/{drills.length} drills done{doneN ? ` · ${Math.round(right / doneN * 100)}% recalled correctly` : ''} · {cases.length} case studies</p></div>
+          <p className="muted">{doneN}/{drills.length} drills done{doneN ? ` · ${Math.round(right / doneN * 100)}% recalled correctly` : ''} · {cases.length} board questions</p></div>
       </div>
       <div className="segmented no-print" role="tablist">
+        <button type="button" className={tab === 'guided' ? 'active' : ''} onClick={() => setTab('guided')}><BookOpen size={16} /> Guided workbook</button>
         {drills.length > 0 && <button type="button" className={tab === 'drills' ? 'active' : ''} onClick={() => setTab('drills')}><Grid3x3 size={16} /> Recall drills</button>}
-        {cases.length > 0 && <button type="button" className={tab === 'cases' ? 'active' : ''} onClick={() => setTab('cases')}><Stethoscope size={16} /> Case studies</button>}
+        {cases.length > 0 && <button type="button" className={tab === 'cases' ? 'active' : ''} onClick={() => setTab('cases')}><Stethoscope size={16} /> Board questions</button>}
         <button type="button" className={tab === 'notes' ? 'active' : ''} onClick={() => setTab('notes')}><NotebookPen size={16} /> My notes</button>
         <button type="button" className={tab === 'print' ? 'active' : ''} onClick={() => setTab('print')}><PencilLine size={16} /> Worksheet</button>
       </div>
+
+      {tab === 'guided' && (
+        <GuidedWorkbook
+          guide={guided}
+          cases={cases}
+          saved={state.guided || {}}
+          onSave={(id, value) => save(st => ({ guided: { ...(st.guided || {}), [id]: value } }))}
+        />
+      )}
 
       {tab === 'drills' && active && (
         <div className="drill-card card">
@@ -244,7 +263,10 @@ export function ChapterWorkbook({ chapter, store, update, pearlCards, pdfLists =
 
       {tab === 'cases' && (
         <div>
-          <p className="muted">Work each case like the exam: commit to a diagnosis and next step in writing, then compare with the model answer.</p>
+          <div className="workbook-instruction">
+            <Target size={20} />
+            <p><strong>Commit before you reveal.</strong> Identify the diagnosis, next best step, or treatment in your own words. Then choose an option and compare your reasoning with the answer.</p>
+          </div>
           {cases.map((q, i) => <CaseStudy key={q.id} q={q} i={i} saved={(state.cases || {})[q.id] || ''} onSave={v => save(st => ({ cases: { ...(st.cases || {}), [q.id]: v } }))} />)}
         </div>
       )}
@@ -268,31 +290,163 @@ export function ChapterWorkbook({ chapter, store, update, pearlCards, pdfLists =
               <table><thead><tr>{t.headers.map((h, j) => <th key={j}>{h}</th>)}</tr></thead>
                 <tbody>{t.rows.map((r, j) => <tr key={j}>{r.map((c, k) => <td key={k}>{k === 0 ? c : <span className="blank">&nbsp;</span>}</td>)}</tr>)}</tbody></table></div>
           ))}
-          {cases.length > 0 && <><h2>Part B: Case studies</h2>
+          {guided.concepts?.length > 0 && <><h2>Part A: Build the concept</h2>
+            {guided.concepts.map((item, i) => <div key={i} className="ws-case"><p><strong>{i + 1}.</strong> {item.prompt}</p><div className="ws-lines" /></div>)}
+          </>}
+          {cases.length > 0 && <><h2>Part B: Board-style clinical reasoning</h2>
             {cases.map((q, i) => <div key={q.id} className="ws-case"><p><strong>{i + 1}.</strong> {q.stem}</p><div className="ws-lines" /></div>)}</>}
           <div className="page-break" />
           <h2>Answer key</h2>
+          {guided.concepts?.map((item, i) => <p key={`concept-${i}`} className="small"><strong>Concept {i + 1}:</strong> {item.answer}</p>)}
           {tables.map((t, i) => (
             <div key={i} className="ws-table"><p className="label">{t.section}</p>
               <table><thead><tr>{t.headers.map((h, j) => <th key={j}>{h}</th>)}</tr></thead>
                 <tbody>{t.rows.map((r, j) => <tr key={j}>{r.map((c, k) => <td key={k}>{c}</td>)}</tr>)}</tbody></table></div>
           ))}
-          {cases.map((q, i) => <p key={q.id} className="small"><strong>Case {i + 1}:</strong> {q.explanation}</p>)}
+          {cases.map((q, i) => <p key={q.id} className="small"><strong>Case {i + 1}:</strong> {answerWithWhy(q.options[q.correctIndex], q.explanation)}</p>)}
         </div>
       )}
     </div>
   )
 }
 
-function CaseStudy({ q, i, saved, onSave }) {
+function GuidedWorkbook({ guide, cases, saved, onSave }) {
+  const featuredCases = cases.slice(0, 4)
+  return (
+    <div className="guided-workbook">
+      <section className="workbook-cover">
+        <div>
+          <p className="eyebrow">Clinical learning sequence</p>
+          <h2>{guide.title}</h2>
+          <p>{guide.subtitle}</p>
+        </div>
+        <div className="workbook-cover-mark"><Brain size={28} /><span>Learn it.<br />Use it.</span></div>
+      </section>
+
+      <section className="workbook-section">
+        <StepHeading number="1" kicker="Build the concept" title="Know what each finding means" />
+        <div className="objective-strip">
+          {guide.objectives.map((objective, i) => <div key={i}><Check size={15} /><span>{objective}</span></div>)}
+        </div>
+        <div className="guided-prompt-grid">
+          {guide.concepts.map((item, i) => (
+            <WorkbookPrompt
+              key={i}
+              number={i + 1}
+              item={item}
+              saved={saved[`concept-${i}`] || ''}
+              onSave={value => onSave(`concept-${i}`, value)}
+            />
+          ))}
+        </div>
+      </section>
+
+      {guide.matrix && (
+        <section className="workbook-section">
+          <StepHeading number="2" kicker="Classify & compare" title={guide.matrix.title || 'Build the pattern'} />
+          <p className="workbook-directions">Cover the right-hand columns. For each condition or finding, predict the pattern and the FNP action before checking the row.</p>
+          <div className="pattern-table-wrap">
+            <table className="pattern-table">
+              <thead><tr>{guide.matrix.headers.map((header, i) => <th key={i}>{header}</th>)}</tr></thead>
+              <tbody>{guide.matrix.rows.map((row, i) => <tr key={i}>{row.map((cell, j) => <td key={j} className={j === 0 ? 'pattern-name' : ''}>{cell}</td>)}</tr>)}</tbody>
+            </table>
+          </div>
+        </section>
+      )}
+
+      {guide.patternChecks?.length > 0 && (
+        <section className="workbook-section">
+          <StepHeading number="3" kicker="Pattern recognition" title="Read the data, then make the call" />
+          <div className="pattern-check-grid">
+            {guide.patternChecks.map((item, i) => (
+              <WorkbookPrompt
+                key={i}
+                number={i + 1}
+                item={{ ...item, prompt: `${item.data}\n${item.prompt}` }}
+                label={item.label}
+                saved={saved[`pattern-${i}`] || ''}
+                onSave={value => onSave(`pattern-${i}`, value)}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {featuredCases.length > 0 && (
+        <section className="workbook-section">
+          <StepHeading number={guide.patternChecks?.length ? '4' : '3'} kicker="Clinical application" title="Work real board-style questions" />
+          <p className="workbook-directions">These are chapter questions—not generated trivia. State the diagnosis or next step before opening the answer.</p>
+          {featuredCases.map((q, i) => <CaseStudy key={q.id} q={q} i={i} compact />)}
+        </section>
+      )}
+
+      {guide.pearls?.length > 0 && (
+        <section className="workbook-section board-pearl-panel">
+          <StepHeading number="★" kicker="Board pearls" title="Do not leave the chapter without these" />
+          <div className="board-pearl-grid">
+            {guide.pearls.map((pearl, i) => <div key={i}><Lightbulb size={18} /><p>{pearl}</p></div>)}
+          </div>
+        </section>
+      )}
+    </div>
+  )
+}
+
+function StepHeading({ number, kicker, title }) {
+  return (
+    <div className="step-heading">
+      <span>{number}</span>
+      <div><p>{kicker}</p><h3>{title}</h3></div>
+    </div>
+  )
+}
+
+function WorkbookPrompt({ item, number, label, saved = '', onSave }) {
   const [open, setOpen] = useState(false)
   return (
+    <article className="guided-prompt">
+      <p className="guided-prompt-label">{label || `Question ${number}`}</p>
+      <p className="guided-prompt-question">{item.prompt}</p>
+      <textarea
+        className="workbook-line-input"
+        defaultValue={saved}
+        aria-label={`Your answer to ${item.prompt}`}
+        placeholder="Write your answer…"
+        rows={3}
+        onBlur={e => onSave?.(e.target.value)}
+      />
+      <button type="button" className="answer-toggle" onClick={() => setOpen(value => !value)}>
+        <Eye size={15} /> {open ? 'Hide answer' : 'Check answer'}
+      </button>
+      {open && <div className="guided-answer"><strong>Expected answer</strong><p>{item.answer}</p></div>}
+    </article>
+  )
+}
+
+function CaseStudy({ q, i, saved, onSave }) {
+  const [open, setOpen] = useState(false)
+  const [selected, setSelected] = useState(null)
+  const answer = q.options?.[q.correctIndex]
+  return (
     <div className="card case-card">
-      <p className="label">Case {i + 1}</p>
+      <p className="label">Board question {i + 1}</p>
       <p className="case-stem">{q.stem}</p>
-      <textarea className="drill-input" defaultValue={saved} rows={3} placeholder="Your assessment and plan…" onBlur={e => onSave(e.target.value)} />
-      {!open ? <button className="btn ghost" onClick={() => setOpen(true)}><Eye size={16} /> Show model answer</button>
-        : <div className="drill-answer"><strong>Model answer:</strong> {q.explanation}</div>}
+      {!open && !saved && <textarea className="drill-input" rows={2} placeholder="Your diagnosis, reasoning, or next step…" onBlur={e => onSave?.(e.target.value)} />}
+      {saved && <p className="case-written"><strong>Your written answer:</strong> {saved}</p>}
+      <div className="case-options">
+        {q.options?.map((option, index) => (
+          <button
+            type="button"
+            key={index}
+            className={`case-option ${selected === index ? 'selected' : ''} ${open && index === q.correctIndex ? 'correct' : ''} ${open && selected === index && index !== q.correctIndex ? 'incorrect' : ''}`}
+            onClick={() => !open && setSelected(index)}
+          >
+            <span>{String.fromCharCode(65 + index)}</span>{option}
+          </button>
+        ))}
+      </div>
+      {!open ? <button className="btn ghost" onClick={() => setOpen(true)}><Eye size={16} /> Reveal answer & rationale</button>
+        : <div className="drill-answer"><strong>{answer}</strong><p>{q.explanation || 'Use the chapter source to review this answer.'}</p></div>}
     </div>
   )
 }

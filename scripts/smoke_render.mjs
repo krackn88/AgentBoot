@@ -254,6 +254,20 @@ check('chapter workbook renders with list drills', () => {
   if (/undefined|NaN/.test(html)) throw new Error('rendered undefined/NaN')
 })
 
+check('guided hematology workbook teaches concepts and renders real board questions', () => {
+  const chapter = guide.chapters.find(c => c.id === 'hematology')
+  if (!chapter) throw new Error('hematology chapter missing')
+  const store = { workbook: {}, cardBox: {}, answers: {}, daily: {}, studyDates: [] }
+  const html = renderNode(
+    h(ChapterWorkbook, {
+      chapter, store, update: () => {}, pearlCards: pearls, pdfLists: workbookLists, onBack: () => {},
+    }),
+  )
+  const required = ['Build the concept', 'Classify &amp; compare', 'Which three CBC measures', 'Required to diagnose anemia']
+  const missing = required.filter(text => !html.includes(text))
+  if (missing.length) throw new Error(`guided workbook missing: ${missing.join(', ')}`)
+})
+
 check('every drill shape has what the drill card needs', () => {
   // list drills must carry items; table drills must carry a table; neither may be
   // relied on by the other's render path
