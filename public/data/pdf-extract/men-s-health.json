@@ -1,0 +1,1038 @@
+{
+ "chapterId": "men-s-health",
+ "title": "Men's Health",
+ "pdf": "13-mens-health-course-manual.pdf",
+ "pages": [
+  {
+   "n": 0,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 1,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 2,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 3,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 4,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 5,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 6,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 7,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 8,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 9,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 10,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 11,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 12,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 13,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 14,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 15,
+   "width": 639.0,
+   "height": 810.0
+  }
+ ],
+ "blocks": [
+  {
+   "type": "para",
+   "text": "CHAPTER 12",
+   "page": 0
+  },
+  {
+   "type": "para",
+   "text": "Men’s Health",
+   "page": 0
+  },
+  {
+   "type": "list",
+   "items": [
+    "Prostate issues",
+    "$ Benign prostatic hyperplasia (BPH)",
+    "$ Prostate cancer",
+    "$ Acute and chronic prostatitis",
+    "Male sexual health",
+    "Common concerns",
+    "$ Epididymitis",
+    "$ Testicular torsion",
+    "$ Hernias",
+    "$ Gynecomastia"
+   ],
+   "page": 0
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 12  Men’s Health | Male Anatomy",
+    "NOTES MALE ANATOMY",
+    "Joshua Lanclos/APEA",
+    "BENIGN PROSTATIC HYPERPLASIA",
+    "Joshua Lanclos/APEA",
+    "Benign Prostatic Hyperplasia",
+    "Noncancerous enlargement of the prostate",
+    "gland",
+    "80% of men have BPH by the age of 80.",
+    "196 FNP/AGPCNP Review"
+   ],
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "Chapter 12  Men’s Health | Benign Prostatic Hyperplasia",
+   "page": 2
+  },
+  {
+   "type": "question",
+   "text": "A 65-year-old male patient presents with lower urinary tract symptoms (LUTS). Which of the following is not a common finding in a patient diagnosed with BPH?",
+   "items": [
+    "Nocturia",
+    "Postvoid dribbling",
+    "Hematuria",
+    "Weak urinary stream BPH: Assessment Findings Enlarged Prostate LOWER URINARY TRACT SYMPTOMS (LUTS) • Change in urine stream: force, caliber, splitting"
+   ],
+   "page": 2
+  },
+  {
+   "type": "list",
+   "items": [
+    "Hesitancy, postvoid dribbling",
+    "Incontinence",
+    "Frequency, urgency, nocturia",
+    "Incomplete bladder emptying, retention",
+    "OBJECTIVE FINDINGS",
+    "Firm, smooth, symmetrically enlarged prostate",
+    "Elevated PSA",
+    "QUESTION #2",
+    "Which of the following is a potential complication of untreated BPH?",
+    "1. Prostate cancer",
+    "2. Rhabdomyolysis",
+    "3. Varicocele",
+    "4. Recurrent urinary tract infections",
+    "QUESTION #3"
+   ],
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "A patient has a new diagnosis of BPH. Which of the following statements",
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "is true?",
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "1. BPH medications work by blocking alpha receptors in the prostate.",
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "2. Alpha-adrenergic antagonists (e.g., doxazosin) are rarely used to treat",
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "BPH.",
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "3. A baseline PSA level is not necessary prior to the initiation of a 5-alpha",
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "reductase inhibitors (5ARIs).",
+   "page": 2
+  },
+  {
+   "type": "list",
+   "items": [
+    "4. Using alpha blockers and 5-ARIs concurrently to treat BPH is",
+    "contraindicated.",
+    "© 2026 Advanced Practice Education Associates 197"
+   ],
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "Chapter 12  Men’s Health | Prostate Cancer",
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "NOTES BPH: Management",
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "Alpha receptors are abundant in prostate, base of bladder, prostate capsule, and prostatic urethra.",
+   "page": 3
+  },
+  {
+   "type": "list",
+   "items": [
+    "Alpha-adrenergic antagonists: decrease bladder outlet obstruction",
+    "Terazosin, tamsulosin, doxazosin",
+    "5-alpha reductase inhibitors: reduce the size of the prostate",
+    "6–12 months of treatment necessary to see full benefit",
+    "Dutasteride, finasteride",
+    "PDE-5 inhibitor: relax bladder outlet and prostate smooth muscle",
+    "Tadalafil",
+    "Combo (Jalyn) = dutasteride + tamsulosin",
+    "Alpha Blockers Education and Precautions",
+    "Caution with orthostatic hypotension"
+   ],
+   "page": 3
+  },
+  {
+   "type": "table",
+   "headers": [
+    "Selective alpha blockers were",
+    "originally used for blood pressure management."
+   ],
+   "rows": [
+    [
+     "Uroselective",
+     "Comments"
+    ],
+    [
+     "Alfuzosin/Uroxatral",
+     "Alfuzosin (needs renal and hepatic dose adjustments)"
+    ],
+    [
+     "Tamsulosin/Flomax (generic)",
+     "Tamsulosin (no renal or hepatic precautions); sulfa allergy precaution"
+    ],
+    [
+     "Silodosin/Rapaflo",
+     "Silodosin (needs renal and hepatic dose adjustments)"
+    ]
+   ],
+   "columns": [
+    128.0,
+    275.0
+   ],
+   "page": 3
+  },
+  {
+   "type": "question",
+   "text": "A differential diagnosis is created for a 70-year-old male patient who has lower urinary tract symptoms (LUTS). Which of the following disorders is least likely to cause these symptoms?",
+   "items": [
+    "Prostate cancer",
+    "Prostatitis",
+    "Urinary tract infection",
+    "Benign prostatic hypertrophy PROSTATE CANCER • Malignancy of the prostate gland • Most common cancer in men • Lifetime risk is 16%"
+   ],
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "• Risk of dying from prostate cancer is 2.9%.",
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "198 FNP/AGPCNP Review",
+   "page": 3
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 12  Men’s Health | Prostate Cancer",
+    "Prostate Cancer Risk Factors Prostate Cancer NOTES",
+    "Older age Screening Principles",
+    "Black men • Risk-based assessment: age 40",
+    "Family history of prostate cancer • Screen with PSA: age 50–55, every 1–2 years",
+    "$ First-degree relative • Shared decision-making (risk vs. benefits)",
+    "$ <65 years $ Screen if at least 10 years of longevity",
+    "Known or likely BRCA1 or BRCA2 gene $ Usually stop screening at age 70–75 years",
+    "mutations • Digital rectal examination (DRE) no longer",
+    "Men who have risk factors profit most from recommended for screening",
+    "screening! Remember: Screening is for asymptomatic",
+    "patients!​",
+    "Factors Affecting PSA"
+   ],
+   "page": 4
+  },
+  {
+   "type": "para",
+   "text": "Prostate-specific antigen (PSA) is a protein produced by the prostate gland when it is active.",
+   "page": 4
+  },
+  {
+   "type": "para",
+   "text": "Activities and their impact on PSA levels",
+   "page": 4
+  },
+  {
+   "type": "para",
+   "text": "No Change",
+   "page": 4
+  },
+  {
+   "type": "para",
+   "text": "Bed rest Ejaculation (within 24 hours) 5-ARIs (order PSA prior to initiation)",
+   "page": 4
+  },
+  {
+   "type": "list",
+   "items": [
+    "Exercise DRE (clinically insignificant)",
+    "Cycling",
+    "Prostate infection",
+    "Prostate massage",
+    "Prostate Cancer Assessment",
+    "History",
+    "$ Most patients are asymptomatic at diagnosis.",
+    "$ May have new-onset ED and/or obstructive symptoms.",
+    "Prostate-specific antigen (PSA)",
+    "$ Sensitivity 21%; specificity 91%",
+    "$ PSA >4 is suspicious.",
+    "$ PSA value does not rule out/rule in prostate cancer.",
+    "Digital rectal exam (DRE)"
+   ],
+   "page": 4
+  },
+  {
+   "type": "para",
+   "text": "$ Asymmetry, induration, nodularity are suspicious of prostate cancer even if normal PSA.",
+   "page": 4
+  },
+  {
+   "type": "question",
+   "text": "Which of the following patients does NOT warrant a referral to Urology?",
+   "items": [
+    "A 48-year-old who has nodules and induration on DRE, PSA of 3.5 ng/mL",
+    "A 55-year-old taking finasteride for BPH, PSA 2.8 ng/mL and now 3.3 ng/mL",
+    "A 45-year-old who reports ED and has a PSA of 4.4 ng/mL",
+    "A 60-year-old who has acute prostatitis and a PSA of 6.0 ng/mL © 2026 Advanced Practice Education Associates 199"
+   ],
+   "page": 4
+  },
+  {
+   "type": "para",
+   "text": "Chapter 12  Men’s Health | Acute Bacterial Prostatitis",
+   "page": 5
+  },
+  {
+   "type": "question",
+   "text": "A 45-year-old male patient reports fever, dysuria, bilateral pelvic pain, and pain with morning bowel movement. Which of the following is the most likely differential diagnosis?",
+   "items": [
+    "Uncomplicated urinary tract infection",
+    "Nephrolithiasis",
+    "Pyelonephritis",
+    "Acute bacterial prostatitis ACUTE BACTERIAL PROSTATITIS Acute Bacterial Prostatitis (ABP) • Infection/inflammation of prostate"
+   ],
+   "page": 5
+  },
+  {
+   "type": "list",
+   "items": [
+    "$ Usually caused by ascending infection",
+    "from urethritis, cystitis, and epididymitis",
+    "Etiology",
+    "$ Gram-negative organisms: E. coli,",
+    "Proteus sp.",
+    "$ STIs: C. trachomatis, Ureaplasma,",
+    "T. vaginalis",
+    "Acute Bacterial Prostatitis: History",
+    "Acute pain: perineum, lower abdomen,",
+    "testicles, or tip of the penis",
+    "Pain with ejaculation and/or defecation",
+    "Voiding difficulty: frequency, urgency, dysuria,",
+    "nocturia",
+    "Acutely ill: fever, chills, malaise, myalgias",
+    "Acute Bacterial Prostatitis:",
+    "Assessment",
+    "Digital rectal exam",
+    "$ Enlarged, firm or boggy, EXQUISITELY",
+    "tender prostate",
+    "$ Avoid vigorous massage."
+   ],
+   "page": 5
+  },
+  {
+   "type": "para",
+   "text": "$ Assess for CVA tenderness.",
+   "page": 5
+  },
+  {
+   "type": "list",
+   "items": [
+    "Urinalysis/urine culture:",
+    "$ Hematuria",
+    "$ Cloudy",
+    "Pyuria/bacteriuria © leonello calvetti/Shutterstock, Inc",
+    "$",
+    "$ Leukocytosis",
+    "STI testing if at risk",
+    "PSA will be elevated",
+    "200 FNP/AGPCNP Review"
+   ],
+   "page": 5
+  },
+  {
+   "type": "para",
+   "text": "Chapter 12  Men’s Health | Acute Bacterial Prostatitis",
+   "page": 6
+  },
+  {
+   "type": "list",
+   "items": [
+    "Management: Acute Bacterial Prostatitis",
+    "Antibiotics for 2–6 weeks (empiric pending C&S)",
+    "$ No STI risk:",
+    "Ciprofloxacin, levofloxacin, or TMP-SMX",
+    "$ STI risk: (gonorrhea/chlamydia)",
+    "1g ceftriaxone (Rocephin) PLUS 2 weeks of doxycycline",
+    "Expected course",
+    "$ Symptoms improve in 2–6 days."
+   ],
+   "page": 6
+  },
+  {
+   "type": "para",
+   "text": "$ Negative urinalysis at 7 days predicts cure IF patient completes full course of antibiotics.",
+   "page": 6
+  },
+  {
+   "type": "list",
+   "items": [
+    "Defer PSA screening for 1 month after treatment.",
+    "Chronic Bacterial Prostatitis",
+    "Cause: often untreated or undertreated",
+    "acute prostatitis",
+    "Symptoms: usually subtle, variable",
+    "urologic pain, frequency, urgency",
+    "Prostate exam is usually normal.",
+    "Empiric antibiotics: 4–6 weeks",
+    "Obtain urine culture.",
+    "Possible NSAIDs, alpha blocker",
+    "Maintain a LOW threshold for UROLOGY",
+    "referral!!!​",
+    "© 2026 Advanced Practice Education Associates 201"
+   ],
+   "page": 6
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 12  Men’s Health | Male Sexual Wellness Concerns",
+    "NOTES MALE SEXUAL WELLNESS CONCERNS",
+    "Diminished libido",
+    "$ Comorbid sexual and voiding disorders",
+    "Ejaculatory disorders",
+    "$ Premature",
+    "$ Delayed",
+    "$ Retrograde",
+    "$ Anorgasmia",
+    "Erectile dysfunction",
+    "$ Acquire or sustain an erection",
+    "$ Lack of sufficient rigidity",
+    "$ Duration for sexual intercourse",
+    "Obtain a good sexual history!",
+    "QUESTION #7",
+    "Which of the following is NOT a risk factor for erectile dysfunction?",
+    "1. Cardiovascular disease",
+    "2. Neurologic issues",
+    "3. History of gonorrhea",
+    "4. Use of antidepressants"
+   ],
+   "page": 7
+  },
+  {
+   "type": "list",
+   "items": [
+    "Erectile Dysfunction (ED)",
+    "Physiologic causes Psychogenic causes",
+    "Medications • Depression",
+    "Microvascular conditions • Stress",
+    "Neurologic disorders • Relationship issues",
+    "Obstructive sleep apnea",
+    "Chronic kidney disease",
+    "If nocturnal erection is present, consider a psychogenic cause of ED.",
+    "Drug use disorder",
+    "Smoking",
+    "Hypo/hyperthyroidism",
+    "Prostate cancer",
+    "Medical Evaluation of ED",
+    "History and physical exam",
+    "$ 95% sensitive",
+    "$ 50% specific",
+    "Referral for nocturnal penile tumescence testing",
+    "Duplex Doppler imaging",
+    "CBC, TSH",
+    "PSA"
+   ],
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "• Hormone levels",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "202 FNP/AGPCNP Review",
+   "page": 7
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 12  Men’s Health | Male Sexual Wellness Concerns",
+    "Low Testosterone NOTES",
+    "Suspect low testosterone (T) based on these signs and symptoms.",
+    "Sexual Physical Cognitive",
+    "Reduced sexual drive Fatigue Depression",
+    "Reduced erectile function Hair loss Cognitive dysfunction",
+    "Reduced lean muscle mass Irritability",
+    "Obesity",
+    "Gynecomastia",
+    "Testosterone therapy improves:",
+    "Sexual function and libido",
+    "Muscle mass",
+    "Mood",
+    "Anemia",
+    "Insulin sensitivity",
+    "Bone density",
+    "Low T: Less Than 300 ng/dL",
+    "Clinical suspicion of testosterone deficiency",
+    "Total T",
+    "8 to 10 a.m."
+   ],
+   "page": 8
+  },
+  {
+   "type": "list",
+   "items": [
+    "Low T:",
+    "Repeat Total T, LH, FSH",
+    "Normal T ×1 Low T: LH/FSH",
+    "Low T: LH/FSH normal",
+    "Eugonadal elevated",
+    "Secondary Primary",
+    "hypogonadism hypogonadism",
+    "Refer to",
+    "Consider testosterone",
+    "Endocrinology",
+    "© 2026 Advanced Practice Education Associates 203"
+   ],
+   "page": 8
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 12  Men’s Health | Common Concerns",
+    "NOTES PDE5 Inhibitors",
+    "Primarily used to treat ED & LUTS",
+    "Viagra (sildenafil)",
+    "Stendra (avanafil)",
+    "$ Fastest acting",
+    "Cialis (tadalafil)",
+    "$ Also useful in BPH, longest-acting",
+    "Levitra, Staxyn (vardenafil)",
+    "Cautious use: CVD",
+    "Contraindicated: nitrates",
+    "QUESTION #8"
+   ],
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "A patient presents with ED and desires to start a PDE5 Inhibitor. Which of the",
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "following is an absolute contraindication?",
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "1. Losartan",
+    "2. Isosorbide",
+    "3. Tamsulosin",
+    "4. Dapagliflozin",
+    "COMMON CONCERNS",
+    "QUESTION #9",
+    "A 36-year-old male bus driver who reports testicular pain and swelling",
+    "is examined. Symptoms began yesterday after a 12-hour shift and have",
+    "gradually increased. What diagnosis is suspected?",
+    "1. Acute bacterial prostatitis",
+    "2. Prostate cancer",
+    "3. Chronic prostatitis",
+    "4. Epididymitis",
+    "Acute Scrotal Pain",
+    "Disorder Symptom Onset Cremasteric Reflex Prehn Sign Comments"
+   ],
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "Epididymitis Acute or chronic Positive Positive • Tenderness of epididymis",
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "(orchitis) (testicle will (pain resolves • If STI, positive culture or",
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "rise-normal) with elevation) urethritis",
+    "Testicular torsion Acute Negative Negative • Urologic emergency",
+    "(testicle WON’T (pain remains • Testicular swelling,",
+    "rise-abnormal) with elevation) high-riding testicle",
+    "204 FNP/AGPCNP Review"
+   ],
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 12  Men’s Health | Epididymitis",
+    "EPIDIDYMITIS NOTES",
+    "Epididymitis: Etiology",
+    "Noninfectious causes: most common",
+    "$ Reflux of urine through the",
+    "ejaculatory ducts and vas deferens",
+    "into epididymis",
+    "$ Prolonged sitting",
+    "$ Underlying congenital defect",
+    "Infectious: rare unless STI",
+    "$ 75% of time: C. trachomatis or",
+    "N. gonorrhoeae",
+    "$ C. trachomatis most common",
+    "Epididymitis: Clinical",
+    "Presentation",
+    "Gradual development of scrotal pain",
+    "Dysuria",
+    "Physical exam",
+    "Epididymis very tender, enlarged, Joshua Lanclos/APEA",
+    "$"
+   ],
+   "page": 10
+  },
+  {
+   "type": "list",
+   "items": [
+    "and indurated",
+    "$ May have urethral discharge if gonorrhea",
+    "$ Positive Prehn sign: relief of pain with scrotal elevation",
+    "Epididymitis: Diagnostic Studies",
+    "Urinalysis + culture",
+    "$ Normal in noninfectious epididymitis",
+    "$ Pyuria: think infectious!",
+    "NAAT for C. trachomatis or N. gonorrhoeae",
+    "Ultrasound if no improvement or an uncertain",
+    "diagnosis",
+    "Epididymitis: Management",
+    "Noninfectious, no severe pain",
+    "$ Treatment is conservative: rest, oral fluids,",
+    "scrotal support, ice.",
+    "$ NSAIDs/analgesics",
+    "Infectious (based on culture)",
+    "$ Gonorrhea: ceftriaxone 500 mg IM",
+    "$ Chlamydia: doxycycline 100 mg BID ×10 days",
+    "Expect improvement within 3 days.",
+    "Full resolution within 2–4 weeks of treatment"
+   ],
+   "page": 10
+  },
+  {
+   "type": "para",
+   "text": "© 2026 Advanced Practice Education Associates 205",
+   "page": 10
+  },
+  {
+   "type": "para",
+   "text": "Chapter 12  Men’s Health | Epididymitis",
+   "page": 11
+  },
+  {
+   "type": "question",
+   "text": "A 19-year-old male has severe groin pain, nausea, and vomiting. He was kneed in the groin during football 3 hours ago. On examination, the right testicle is very tender, hard, and swollen with a negative cremasteric reflex. Which action should be taken?",
+   "items": [
+    "Assess for inguinal hernia.",
+    "Calculate TWIST score and refer the patient to the ED.",
+    "Order a urinalysis and urine culture.",
+    "Order a KUB radiograph to assess for kidney stones."
+   ],
+   "page": 11
+  },
+  {
+   "type": "list",
+   "items": [
+    "TWIST Score",
+    "Testicular Workup for Ischemia and Suspected Torsion",
+    "Helps establish or exclude testicular torsion",
+    "TWIST score is higher in patients with torsion.",
+    "$ Sensitivity 71%; Specificity 97%",
+    "Test Score",
+    "Testicular swelling 2 points",
+    "Hard testis 2 points",
+    "High-riding testis 1 point",
+    "Absent cremasteric reflex 1 point",
+    "Nausea/vomiting 1 point",
+    "TOTAL ≥5 concerns for torsion",
+    "Testicular Torsion",
+    "Twisting of testis and",
+    "spermatic cord results in",
+    "testicular ischemia if not",
+    "corrected!",
+    "Joshua Lanclos/APEA",
+    "206 FNP/AGPCNP Review"
+   ],
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "Chapter 12  Men’s Health | Epididymitis",
+   "page": 12
+  },
+  {
+   "type": "question",
+   "text": "An 18-year-old patient has suspected testicular cancer. Which of the following characteristics is NOT associated with testicular cancer?",
+   "items": [
+    "Unilateral swelling of one testis",
+    "Painless, firm nodule in the testis",
+    "History of cryptorchidism",
+    "History of hernia repair surgery Testicular Cancer Testicular Cancer Males 15–35 years old Hx of cryptorchidism (even with orchiopexy)"
+   ],
+   "page": 12
+  },
+  {
+   "type": "list",
+   "items": [
+    "$ Either testis affected",
+    "$ Risk is greater in undescended one.",
+    "Encourage testicular self-examination.",
+    "Diagnostics",
+    "$ Scrotal ultrasound",
+    "Refer to Urology.",
+    "$ Cryopreservation of sperm",
+    "Other Scrotal Concerns © blueringmedia/iStock",
+    "VARICOCELE",
+    "Swelling of VEINS",
+    "“Bag of worms”",
+    "May be painful or asymptomatic",
+    "Can lead to low sperm count/quality or BPH",
+    "HYDROCELE",
+    "Fluid around testicle",
+    "Common in infants—will resolve spontaneously",
+    "If present in adults, may be benign or pathologic",
+    "Transillumination",
+    "© 2026 Advanced Practice Education Associates 207"
+   ],
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "Chapter 12  Men’s Health | Epididymitis",
+   "page": 13
+  },
+  {
+   "type": "question",
+   "text": "A 44-year-old male has noticed mild discomfort in his left groin while exercising. There is a small “lump” in his groin that disappears when he lies supine. What is the diagnosis?",
+   "items": [
+    "Ventral hernia",
+    "Umbilical hernia",
+    "Inguinal hernia",
+    "Incarcerated hernia Inguinal Hernias • Two-thirds of inguinal hernias are on the right side."
+   ],
+   "page": 13
+  },
+  {
+   "type": "list",
+   "items": [
+    "Inguinal hernias are the most common",
+    "hernia type.",
+    "Inguinal hernias are more common in males.",
+    "Joshua Lanclos/APEA",
+    "QUESTION #13"
+   ],
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "A 20-year-old athlete has been diagnosed with an inguinal hernia. Which of",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "the following should be recommended?",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "1. The athlete should be restricted from all athletic activity.",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "2. The patient should be referred to general surgeon.",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "3. The patient should be prescribed a truss.",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "4. Surgical repair should be deferred unless the hernia entrapped.",
+   "page": 13
+  },
+  {
+   "type": "list",
+   "items": [
+    "Hernia Diagnosis",
+    "Clinical diagnosis",
+    "Ultrasound, if diagnosis is unclear",
+    "Gynecomastia",
+    "Benign proliferation of glandular tissue of",
+    "male breast",
+    "Symptoms: asymptomatic or painful",
+    "tender breast",
+    "Differential diagnosis:",
+    "$ Pseudogynecomastia",
+    "Associated with obesity",
+    "No well-defined rubbery mass",
+    "$ Breast cancer",
+    "Unilateral, nontender, hard,",
+    "immobile mass, off-center from",
+    "nipple",
+    "208 FNP/AGPCNP Review"
+   ],
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "Chapter 12  Men’s Health | Epididymitis",
+   "page": 14
+  },
+  {
+   "type": "question",
+   "text": "A late adolescent patient reports itching in the groin area. During the physical exam, the penis is notably <4.0 cm, and the testicles are smaller than expected. Scant pubic hair is present. Which action is most appropriate?",
+   "items": [
+    "Advise the patient to follow up in 1 year.",
+    "Discuss measures for improving hygiene.",
+    "Refer the patient for evaluation of delayed puberty.",
+    "Ask the patient about previous sexual activity."
+   ],
+   "page": 14
+  },
+  {
+   "type": "list",
+   "items": [
+    "Tanner Stages",
+    "Joshua Lanclos/APEA",
+    "© 2026 Advanced Practice Education Associates 209"
+   ],
+   "page": 14
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 12  Men’s Health | Exam Checklist",
+    "NOTES EXAM CHECKLIST",
+    "Prostate pathology: benign prostatic hyperplasia, infection, cancer",
+    "Male sexual wellness concerns",
+    "Epididymitis",
+    "Testicular torsion",
+    "Testicular cancer",
+    "Hydrocele",
+    "Varicocele",
+    "Hernias",
+    "Gynecomastia",
+    "Tanner stages",
+    "Clinical presentation (subjective, objective findings)",
+    "How to diagnose?",
+    "What’s in differential diagnosis?",
+    "Pharmacologic, nonpharmacologic management",
+    "Follow-up care",
+    "Recognize normal course",
+    "When to refer?",
+    "210 FNP/AGPCNP Review"
+   ],
+   "page": 15
+  }
+ ],
+ "tables": [
+  {
+   "headers": [
+    "Selective alpha blockers were",
+    "originally used for blood pressure management."
+   ],
+   "rows": [
+    [
+     "Uroselective",
+     "Comments"
+    ],
+    [
+     "Alfuzosin/Uroxatral",
+     "Alfuzosin (needs renal and hepatic dose adjustments)"
+    ],
+    [
+     "Tamsulosin/Flomax (generic)",
+     "Tamsulosin (no renal or hepatic precautions); sulfa allergy precaution"
+    ],
+    [
+     "Silodosin/Rapaflo",
+     "Silodosin (needs renal and hepatic dose adjustments)"
+    ]
+   ],
+   "columns": [
+    128.0,
+    275.0
+   ],
+   "page": 3
+  }
+ ],
+ "tips": [],
+ "questions": [
+  {
+   "stem": "A 65-year-old male patient presents with lower urinary tract symptoms (LUTS). Which of the following is not a common finding in a patient diagnosed with BPH?",
+   "options": [
+    "Nocturia",
+    "Postvoid dribbling",
+    "Hematuria",
+    "Weak urinary stream BPH: Assessment Findings Enlarged Prostate LOWER URINARY TRACT SYMPTOMS (LUTS) • Change in urine stream: force, caliber, splitting"
+   ],
+   "page": 2
+  },
+  {
+   "stem": "A differential diagnosis is created for a 70-year-old male patient who has lower urinary tract symptoms (LUTS). Which of the following disorders is least likely to cause these symptoms?",
+   "options": [
+    "Prostate cancer",
+    "Prostatitis",
+    "Urinary tract infection",
+    "Benign prostatic hypertrophy PROSTATE CANCER • Malignancy of the prostate gland • Most common cancer in men • Lifetime risk is 16%"
+   ],
+   "page": 3
+  },
+  {
+   "stem": "Which of the following patients does NOT warrant a referral to Urology?",
+   "options": [
+    "A 48-year-old who has nodules and induration on DRE, PSA of 3.5 ng/mL",
+    "A 55-year-old taking finasteride for BPH, PSA 2.8 ng/mL and now 3.3 ng/mL",
+    "A 45-year-old who reports ED and has a PSA of 4.4 ng/mL",
+    "A 60-year-old who has acute prostatitis and a PSA of 6.0 ng/mL © 2026 Advanced Practice Education Associates 199"
+   ],
+   "page": 4
+  },
+  {
+   "stem": "A 45-year-old male patient reports fever, dysuria, bilateral pelvic pain, and pain with morning bowel movement. Which of the following is the most likely differential diagnosis?",
+   "options": [
+    "Uncomplicated urinary tract infection",
+    "Nephrolithiasis",
+    "Pyelonephritis",
+    "Acute bacterial prostatitis ACUTE BACTERIAL PROSTATITIS Acute Bacterial Prostatitis (ABP) • Infection/inflammation of prostate"
+   ],
+   "page": 5
+  },
+  {
+   "stem": "A 19-year-old male has severe groin pain, nausea, and vomiting. He was kneed in the groin during football 3 hours ago. On examination, the right testicle is very tender, hard, and swollen with a negative cremasteric reflex. Which action should be taken?",
+   "options": [
+    "Assess for inguinal hernia.",
+    "Calculate TWIST score and refer the patient to the ED.",
+    "Order a urinalysis and urine culture.",
+    "Order a KUB radiograph to assess for kidney stones."
+   ],
+   "page": 11
+  },
+  {
+   "stem": "An 18-year-old patient has suspected testicular cancer. Which of the following characteristics is NOT associated with testicular cancer?",
+   "options": [
+    "Unilateral swelling of one testis",
+    "Painless, firm nodule in the testis",
+    "History of cryptorchidism",
+    "History of hernia repair surgery Testicular Cancer Testicular Cancer Males 15–35 years old Hx of cryptorchidism (even with orchiopexy)"
+   ],
+   "page": 12
+  },
+  {
+   "stem": "A 44-year-old male has noticed mild discomfort in his left groin while exercising. There is a small “lump” in his groin that disappears when he lies supine. What is the diagnosis?",
+   "options": [
+    "Ventral hernia",
+    "Umbilical hernia",
+    "Inguinal hernia",
+    "Incarcerated hernia Inguinal Hernias • Two-thirds of inguinal hernias are on the right side."
+   ],
+   "page": 13
+  },
+  {
+   "stem": "A late adolescent patient reports itching in the groin area. During the physical exam, the penis is notably <4.0 cm, and the testicles are smaller than expected. Scant pubic hair is present. Which action is most appropriate?",
+   "options": [
+    "Advise the patient to follow up in 1 year.",
+    "Discuss measures for improving hygiene.",
+    "Refer the patient for evaluation of delayed puberty.",
+    "Ask the patient about previous sexual activity."
+   ],
+   "page": 14
+  }
+ ],
+ "quality": {
+  "pages": 16,
+  "tables": 1,
+  "tips": 0,
+  "questions": 8,
+  "chars": 3400
+ }
+}

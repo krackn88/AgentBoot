@@ -1,0 +1,1237 @@
+{
+ "chapterId": "eye-ear-nose-and-throat-eent",
+ "title": "Eye, Ear, Nose and Throat (EENT)",
+ "pdf": "16-eye-ear-nose-throat-course-manual.pdf",
+ "pages": [
+  {
+   "n": 0,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 1,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 2,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 3,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 4,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 5,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 6,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 7,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 8,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 9,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 10,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 11,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 12,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 13,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 14,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 15,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 16,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 17,
+   "width": 639.0,
+   "height": 810.0
+  }
+ ],
+ "blocks": [
+  {
+   "type": "list",
+   "items": [
+    "CHAPTER 15",
+    "Eye, Ear, Nose,",
+    "and Throat",
+    "(EENT) Disorders"
+   ],
+   "page": 0
+  },
+  {
+   "type": "list",
+   "items": [
+    "Acute rhinosinusitis",
+    "Allergic rhinitis",
+    "Epistaxis",
+    "Pharyngitis",
+    "Epiglottis",
+    "Infectious mononucleosis",
+    "Eustachian tube disorder",
+    "Tympanic membrane disorders",
+    "Hearing loss",
+    "Red eye evaluation",
+    "Glaucoma",
+    "Retinopathy",
+    "Eye pain"
+   ],
+   "page": 0
+  },
+  {
+   "type": "para",
+   "text": "Chapter 15  Eye, Ear, Nose, and Throat (EENT) Disorders | Sinus, Nose, and Oropharynx Complaints",
+   "page": 1
+  },
+  {
+   "type": "list",
+   "items": [
+    "NOTES SINUS, NOSE, AND OROPHARYNX COMPLAINTS",
+    "Acute Rhinosinusitis Overview",
+    "Symptomatic inflammation of the paranasal",
+    "sinuses",
+    "Etiology",
+    "$ Viruses (most common​)",
+    "$ Bacteria (less than 2% of cases)​",
+    "$ Fungal (rare)",
+    "$ Allergies",
+    "$ Irritants",
+    "$ Dry air",
+    "$ GERD",
+    "© Kateryna Kon/Shutterstock",
+    "Paranasal Sinuses",
+    "Joshua Lanclos/APEA",
+    "Acute Rhinosinusitis (ARS)",
+    "Symptoms Physical exam",
+    "Nasal congestion • Sinus tenderness",
+    "Purulent nasal discharge • Mucosal erythema",
+    "Facial pain/pressure (worse with bending • Purulent posterior pharyngeal/nasal"
+   ],
+   "page": 1
+  },
+  {
+   "type": "list",
+   "items": [
+    "down) secretions",
+    "Maxillary dental pain • Air-fluid levels on transillumination",
+    "Fatigue, fever, cough, etc.",
+    "258 FNP/AGPCNP Review"
+   ],
+   "page": 1
+  },
+  {
+   "type": "para",
+   "text": "Chapter 15  Eye, Ear, Nose, and Throat (EENT) Disorders | Sinus, Nose, and Oropharynx Complaints",
+   "page": 2
+  },
+  {
+   "type": "list",
+   "items": [
+    "ACUTE VIRAL RHINOSINUSITIS NOTES",
+    "Medication Symptom Relief",
+    "Viral etiology: rhinovirus, parainfluenza,",
+    "Saline irrigation Recommend for symptomatic relief",
+    "RSV, etc.",
+    "Expected course Intranasal Recommend for symptomatic relief",
+    "glucocorticoids",
+    "$ Symptoms peak days 3–6 days",
+    "Resolves in 10–14 days Mucolytics Guaifenesin thins secretions to",
+    "$",
+    "promote mucous drainage.",
+    "$ ARS: <4 weeks"
+   ],
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "Chronic rhinosinusitis: >12 weeks Topical & oral May help nasal congestion",
+   "page": 2
+  },
+  {
+   "type": "list",
+   "items": [
+    "$",
+    "decongestants",
+    "Antihistamines Not recommended; may cause",
+    "over drying of mucosa. Consider if",
+    "allergic rhinitis",
+    "QUESTION #1"
+   ],
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "Which of the following presentations are most consistent with acute bacterial",
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "rhinosinusitis?",
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "1. Symptoms are most severe on days 3–6.",
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "2. OTC medications do not provide complete relief.",
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "3. Symptoms are improving, then suddenly become severe again.",
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "4. Nasal discharge is green and blood tinged.",
+   "page": 2
+  },
+  {
+   "type": "list",
+   "items": [
+    "Acute Bacterial Rhinosinusitis (ABRS)",
+    "Secondary bacterial infection of the sinuses",
+    "$ Persistent symptoms: ≥10 days without improvement",
+    "$ Severe symptoms: at onset and lasting at least 3 days",
+    "Fever, purulent nasal discharge, ill-appearance"
+   ],
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "$ Worsening symptoms: symptoms improve, then worsen again (“double-sickening”)",
+   "page": 2
+  },
+  {
+   "type": "list",
+   "items": [
+    "Bacterial Sinusitis",
+    "Pathogens",
+    "Streptococcus pneumoniae",
+    "Risk for complications: orbital cellulitis, meningitis",
+    "Haemophilus influenzae",
+    "Moraxella catarrhalis",
+    "Management",
+    "Amoxicillin/amoxicillin/clavulanate × 5–7 days",
+    "Recent antibiotic exposure:",
+    "High-dose amoxicillin/clavulanate ER (2000/125 mg",
+    "BID)",
+    "Penicillin allergy:",
+    "Doxycycline",
+    "Third-generation cephalosporin",
+    "© 2026 Advanced Practice Education Associates 259"
+   ],
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "Chapter 15  Eye, Ear, Nose, and Throat (EENT) Disorders | Sinus, Nose, and Oropharynx Complaints",
+   "page": 3
+  },
+  {
+   "type": "question",
+   "text": "A patient reports sneezing, postnasal drip, and nasal congestion. Considering the most likely diagnosis, what other findings are expected?",
+   "items": [
+    "Purulent nasal discharge",
+    "Boggy, gray nasal turbinates",
+    "Petechiae of the posterior pharynx",
+    "Tenderness to the sinuses on palpation Allergic Rhinitis Inflammation of the mucous membranes of the nasal tract • Symptoms $ Sneezing $ Rhinorrhea"
+   ],
+   "page": 3
+  },
+  {
+   "type": "list",
+   "items": [
+    "$ Postnasal drip",
+    "$ Nasal congestion",
+    "$ Nasal/mucosal itching",
+    "$ Infraorbital edema",
+    "(allergic shiners)",
+    "$ Allergic conjunctivitis",
+    "© Refluo/Shutterstock",
+    "Allergic Rhinitis Management",
+    "Intranasal glucocorticoids (fluticasone, mometasone, beclomethasone)",
+    "Preferred monotherapy for persistent symptoms (nasal & conjunctival)",
+    "Intranasal antihistamines (azelastine, olopatadine)",
+    "Intranasal administration is superior to oral antihistamines."
+   ],
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "Second-generation oral antihistamines (fexofenadine, loratadine, cetirizine)",
+   "page": 3
+  },
+  {
+   "type": "list",
+   "items": [
+    "Less sedating than first generation",
+    "Intranasal decongestants (oxymetazoline)",
+    "Beneficial with severe congestion administered prior to INCS or INAH",
+    "Systemic corticosteroids: very severe or intractable symptoms",
+    "Oral decongestants and leukotriene receptor antagonists:",
+    "Risks may outweigh benefits",
+    "260 FNP/AGPCNP Review"
+   ],
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "Chapter 15  Eye, Ear, Nose, and Throat (EENT) Disorders | Sinus, Nose, and Oropharynx Complaints",
+   "page": 4
+  },
+  {
+   "type": "question",
+   "text": "A 14-year-old with a history of allergic rhinitis and asthma is started on montelukast. The NP should advise the caregiver to monitor for serious side effects including:",
+   "items": [
+    "suicidal thoughts.",
+    "somnolence.",
+    "headache.",
+    "anuria."
+   ],
+   "page": 4
+  },
+  {
+   "type": "list",
+   "items": [
+    "Decongestant Adverse Effects",
+    "Pseudoephedrine/Phenylephrine (systemic)",
+    "Contraindications",
+    "Uncontrolled hypertension",
+    "MAOI therapy (last 14 days)",
+    "Caution:",
+    "Closed-angle glaucoma",
+    "CAD",
+    "Hyperthyroidism",
+    "Urinary retention",
+    "Potential for pseudoephedrine misuse",
+    "$ Athletes use as a stimulant",
+    "$ Illegal production of methamphetamines",
+    "Oxymetazoline (local)",
+    "Overuse ➔ Rhinitis medicamentosa",
+    "Epistaxis",
+    "Anterior (90%)",
+    "$ Kiesselbach plexus: anastomosis of five",
+    "major arteries, very vascular",
+    "Posterior bleeds (5–10%)"
+   ],
+   "page": 4
+  },
+  {
+   "type": "list",
+   "items": [
+    "$ Older patients",
+    "$ Difficult to control",
+    "ER referral",
+    "© 2026 Advanced Practice Education Associates 261"
+   ],
+   "page": 4
+  },
+  {
+   "type": "para",
+   "text": "Chapter 15  Eye, Ear, Nose, and Throat (EENT) Disorders | Sinus, Nose, and Oropharynx Complaints",
+   "page": 5
+  },
+  {
+   "type": "list",
+   "items": [
+    "NOTES Epistaxis Characteristics",
+    "Bimodal: children and older adults",
+    "Etiology",
+    "$ Idiopathic (most common)",
+    "$ Epistaxis digitorum (nose picking) / trauma",
+    "$ Foreign body (children, dementia)",
+    "$ Alcohol, cocaine use",
+    "$ Infection/allergies",
+    "$ Bleeding disorder*",
+    "$ Anticoagulation*",
+    "$ High blood pressure*",
+    "* Higher risk for posterior/severe nosebleed",
+    "Epistaxis Management",
+    "Refer if hemodynamic stability, severe",
+    "(duration >30 min or over a 24-hour period)",
+    "Nasal compression:",
+    "Pinch nose tightly for ≥5 minutes.",
+    "Nasal packing",
+    "Topical decongestant",
+    "Oxymetazoline"
+   ],
+   "page": 5
+  },
+  {
+   "type": "list",
+   "items": [
+    "Cautery",
+    "Visualization of bleeding",
+    "Silver nitrate stick",
+    "Pharyngitis/Tonsillitis © ollo/iStock/Getty Images Plus/Getty Images",
+    "Viral: 50–80% of cases",
+    "Usually: “common cold” viruses",
+    "Less common: HIV, cytomegalovirus (CMV),",
+    "Epstein–Barr virus",
+    "Bacterial: less common",
+    "Group A Streptococcus (GAS)",
+    "Other respiratory bacteria",
+    "Noninfectious",
+    "GERD",
+    "Dry air",
+    "Smoke",
+    "© rob9000/Shutterstock",
+    "262 FNP/AGPCNP Review"
+   ],
+   "page": 5
+  },
+  {
+   "type": "para",
+   "text": "Chapter 15  Eye, Ear, Nose, and Throat (EENT) Disorders | Sinus, Nose, and Oropharynx Complaints",
+   "page": 6
+  },
+  {
+   "type": "list",
+   "items": [
+    "Streptococcal Pharyngitis NOTES",
+    "5–15% adults Group A Streptococcus",
+    "Symptoms: FLEA:",
+    "$ Fever",
+    "$ Lack of cough",
+    "$ Exudate",
+    "$ Anterior cervical adenopathy",
+    "Potential for serious complications",
+    "Centor Criteria (Modified): Streptococcal",
+    "Pharyngitis",
+    "Four-point scoring system that guides testing and Criteria Points",
+    "empiric treatment of streptococcal infections",
+    "Absence of cough​ 1​",
+    "SCORE 0, 1, 2 Enlarged anterior cervical nodes​ 1​",
+    "Low risk Temperature over 38°C​ (100.4°F) 1​",
+    "Testing not recommended",
+    "Tonsillar exudates or swelling​ 1​",
+    "SCORE 3 Age 3–14​ 1​",
+    "Moderate risk Age 15–44​ 0​",
+    "Consider testing"
+   ],
+   "page": 6
+  },
+  {
+   "type": "list",
+   "items": [
+    "Age 45 years or older​ −1​",
+    "SCORE 4–5 Cumulative score",
+    "High risk",
+    "Recommend empiric antibiotics, consider RADT or culture",
+    "QUESTION #4",
+    "Which patients with pharyngitis should receive a rapid strep test?",
+    "Patient Centor Score Swab?",
+    "A 13-year-old with fever, enlarged posterior 3",
+    "cervical lymph nodes, and tonsillar exudate",
+    "A 60-year-old daycare worker with tonsillar 2",
+    "exudate, temp 101.2°F, and swollen anterior",
+    "cervical lymph nodes",
+    "A 25-year-old with cough and temperature 0",
+    "of 99.4°F​",
+    "© 2026 Advanced Practice Education Associates 263"
+   ],
+   "page": 6
+  },
+  {
+   "type": "para",
+   "text": "Chapter 15  Eye, Ear, Nose, and Throat (EENT) Disorders | Sinus, Nose, and Oropharynx Complaints",
+   "page": 7
+  },
+  {
+   "type": "list",
+   "items": [
+    "NOTES GAS Pharyngitis Testing",
+    "Rapid antigen detection test (RADT) kits",
+    "70–90% sensitivity",
+    "90–100% specificity",
+    "THROAT CULTURE",
+    "90–95% sensitivity",
+    "95–99% specificity",
+    "Tests are only as good as your sample!",
+    "Strep Pharyngitis Treatment",
+    "First line: penicillin",
+    "Pen G, Pen V, or amoxicillin ​",
+    "Alternatives (if PCN allergic)",
+    "Type IV hypersensitivity: 1st gen cephalosporins",
+    "Type I hypersensitivity: 2nd or 3rd gen cephalosporins (cautious use)",
+    "Clindamycin",
+    "Check GAS community",
+    "Clarithromycin ➔",
+    "resistance rates",
+    "Azithromycin",
+    "Duration: 10 days except azithromycin (5 days)"
+   ],
+   "page": 7
+  },
+  {
+   "type": "question",
+   "text": "A patient has been diagnosed with pharyngitis and the NP suspects infection with Group A Streptococcus. What complications are not associated with Group A streptococcal oropharyngeal infections?",
+   "items": [
+    "Periorbital cellulitis",
+    "Rheumatic fever",
+    "Acute glomerulonephritis",
+    "Peritonsillar abscess"
+   ],
+   "page": 7
+  },
+  {
+   "type": "question",
+   "text": "A patient arrives to the clinic reporting a severe sore throat. The patient is observed sitting in a tripod position, mouth breathing, and has a muffled voice. Because on these findings, the NP suspects:",
+   "items": [
+    "viral pharyngitis.",
+    "bacterial tonsillitis.",
+    "epiglottitis.",
+    "peritonsillar abscess."
+   ],
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "264 FNP/AGPCNP Review",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "Chapter 15  Eye, Ear, Nose, and Throat (EENT) Disorders | Sinus, Nose, and Oropharynx Complaints",
+   "page": 8
+  },
+  {
+   "type": "list",
+   "items": [
+    "Epiglottitis NOTES",
+    "Inflammation and edema of the epiglottis",
+    "Caused by Haemophilus influenzae type B",
+    "(HiB)",
+    "$ Other: S. pneumoniae, S. aureus, others",
+    "ER Referral! Rapidly progressive airway",
+    "obstruction",
+    "Warning signs:",
+    "$ Tripod position",
+    "$ Mouth breathing",
+    "$ Drooling",
+    "$ Dysphagia",
+    "$ Muffled voice (“hot potato”)",
+    "$ Neck radiograph—“thumb sign”",
+    "© medicalstocks/Shutterstock",
+    "QUESTION #7"
+   ],
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "A college student who has been feeling ill for 3 days tests positive for",
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "infectious mononucleosis. What symptoms is this patient likely to report?",
+   "page": 8
+  },
+  {
+   "type": "list",
+   "items": [
+    "1. Anorexia",
+    "2. Sore throat",
+    "3. Vomiting",
+    "4. Enlarged anterior cervical lymph nodes",
+    "Infectious Mononucleosis",
+    "Classic symptom tetrad",
+    "$ Fever",
+    "$ Pharyngitis",
+    "$ Fatigue",
+    "$ Lymphadenopathy (posterior)",
+    "Splenomegaly (50%)",
+    "© Designua/Shutterstock",
+    "© 2026 Advanced Practice Education Associates 265"
+   ],
+   "page": 8
+  },
+  {
+   "type": "para",
+   "text": "Chapter 15  Eye, Ear, Nose, and Throat (EENT) Disorders | Ear Complaints & Hearing Loss",
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "NOTES Mononucleosis Diagnosis",
+    "DIAGNOSIS CAN BE MADE ON CLINICAL PRESENTATION.",
+    "Viral capsid antigen (VCA): EBV specific antibodies",
+    "Anti-VCA IgM Anti-VCA IgG EBV Nuclear Antigen"
+   ],
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "Present in serum Onset—6 wk Acute phase, positive for life 2–4 mo after onset; positive for life",
+   "page": 9
+  },
+  {
+   "type": "table",
+   "headers": [
+    "Acute",
+    "Pos",
+    "Pos Neg"
+   ],
+   "rows": [
+    [
+     "Acute or past",
+     "Neg",
+     "Pos Pos"
+    ],
+    [
+     "Past",
+     "Neg",
+     "Pos Pos"
+    ],
+    [
+     "Late primary or",
+     "Pos",
+     "Pos Pos"
+    ]
+   ],
+   "columns": [
+    128.0,
+    211.0,
+    287.0
+   ],
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "reactivation",
+    "Monospot: possibility of false-negatives",
+    "QUESTION #8"
+   ],
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "A patient presents with intermittent pain in the left jaw and cheek for the past",
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "week. What diagnoses should be included in the differential? (Select all that",
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "apply.)",
+    "1. Trigeminal neuralgia",
+    "2. Temporomandibular joint (TMJ) dysfunction",
+    "3. Acute rhinosinusitis",
+    "4. Dental infection"
+   ],
+   "page": 9
+  },
+  {
+   "type": "tip",
+   "text": "Consider dental etiology when patient is present with facial/jaw pain.",
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "EAR COMPLAINTS & HEARING LOSS",
+    "QUESTION #9",
+    "What is the primary function of the eustachian tube in the middle ear?",
+    "1. Transmitting vibrations to the inner ear",
+    "2. Equalizing air pressure",
+    "3. Protecting the inner ear from loud noises",
+    "4. Producing earwax to trap dust and debris",
+    "266 FNP/AGPCNP Review"
+   ],
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "Chapter 15  Eye, Ear, Nose, and Throat (EENT) Disorders | Ear Complaints & Hearing Loss",
+   "page": 10
+  },
+  {
+   "type": "list",
+   "items": [
+    "Eustachian Tube Dysfunction NOTES",
+    "Equalizes air pressure between atmosphere",
+    "and middle ear",
+    "Obstructive symptoms",
+    "Ear pain",
+    "Muffled hearing",
+    "Tinnitus; ear popping",
+    "Imbalance",
+    "Complications",
+    "OM with effusion",
+    "Retracted ear drum",
+    "Chronic otitis media",
+    "Treatment",
+    "Treat the underlying cause.",
+    "Allergic rhinitis, rhinosinusitis, reflux, etc. © float/iStock/Getty Images Plus/Getty Images",
+    "Tympanic Membrane Conditions",
+    "Otitis media with effusion",
+    "Noninfected fluid accumulation",
+    "Caused by eustachian tube dysfunction",
+    "Muffled hearing, feeling of fullness, ear pain"
+   ],
+   "page": 10
+  },
+  {
+   "type": "list",
+   "items": [
+    "Usually self-limited",
+    "© Sakurra/Shutterstock",
+    "Otitis media",
+    "May result from OME",
+    "Ear pain, hearing loss, pressure, dizziness",
+    "S. pneumoniae, H. influenzae, M. catarrhalis",
+    "Amoxicillin first-line",
+    "© float/Shutterstock",
+    "Tympanic membrane rupture",
+    "Barotrauma, foreign body, blunt/noise trauma",
+    "Sudden onset ear pain, hearing loss, blood",
+    "otorrhea, vertigo, tinnitus",
+    "Usually heal spontaneously",
+    "© Sakurra/Shutterstock",
+    "© 2026 Advanced Practice Education Associates 267"
+   ],
+   "page": 10
+  },
+  {
+   "type": "para",
+   "text": "Chapter 15  Eye, Ear, Nose, and Throat (EENT) Disorders | Ear Complaints & Hearing Loss",
+   "page": 11
+  },
+  {
+   "type": "list",
+   "items": [
+    "NOTES Hearing Screening",
+    "United States Preventive Services Task Force",
+    "(USPSTF) does not recommend universal screening",
+    "in adults.",
+    "Whisper test is useful for screening if the patient is",
+    "not aware of hearing loss.",
+    "Audiometry referral for any complaint of hearing loss",
+    "$ Determines",
+    "Type:",
+    "$ Conductive",
+    "$ Sensorineural",
+    "$ Mixed",
+    "Severity",
+    "QUESTION #10"
+   ],
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "What is the most important reason to optimize hearing in an older adult?",
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "1. Hearing loss will impact employment opportunities if not corrected.",
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "2. Hearing loss reduces ability to perform daily tasks independently.",
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "3. Older adults who cannot hear are not legally able to drive.",
+   "page": 11
+  },
+  {
+   "type": "list",
+   "items": [
+    "4. Hearing loss can lead to understimulation, isolation, and",
+    "potential cognitive decline.",
+    "Conductive Hearing Loss",
+    "Problem with outer/middle ear (i.e.,",
+    "cerumen buildup, FB, etc.)",
+    "Sound cannot transmit through canal/TM.",
+    "Often caused by obstruction",
+    "$ Cerumen impaction",
+    "$ Foreign body (including",
+    "headphones)",
+    "$ Otitis externa",
+    "$ Otitis media with effusion",
+    "$ Eustachian tube dysfunction",
+    "Chronic causes are less common.",
+    "Joshua Lanclos/APEA",
+    "Sensorineural Hearing Loss",
+    "Due to pathology of cochlea, CNVIII, or CNS",
+    "Presbycusis is the most common cause.",
+    "$ Age-related hearing loss due to genetic factors and noise exposure"
+   ],
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "$ Difficulty hearing mid-high frequency sounds, speech distortion, tinnitus (crickets, ringing, bells)",
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "• Other causes",
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "$ Acoustic lesions, trauma, ototoxic medications, acute/chronic noise exposure, hereditary",
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "disorders, Ménière’s disease",
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "268 FNP/AGPCNP Review",
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "Chapter 15  Eye, Ear, Nose, and Throat (EENT) Disorders | Ear Complaints & Hearing Loss",
+   "page": 12
+  },
+  {
+   "type": "question",
+   "text": "Which of the following is true of Ménière’s disease?",
+   "items": [
+    "Dizziness is worse with head movement.",
+    "Disease course is persistent and predictable.",
+    "Dix–Hallpike confirms the diagnosis.",
+    "Hearing loss may become permanent."
+   ],
+   "page": 12
+  },
+  {
+   "type": "list",
+   "items": [
+    "Auditory Emergency",
+    "Refer to ENT or ER for:",
+    "Hearing loss that is:",
+    "Abrupt onset",
+    "Unexplained",
+    "Unilateral",
+    "Sensorineural hearing loss",
+    "Hearing Loss: In Office Testing",
+    "Weber Test",
+    "Conductive loss: louder in affected ear",
+    "Sensorineural loss: louder in unaffected ear",
+    "Rinne Test",
+    "Normal: air louder than bone conduction",
+    "Abnormal: bone louder than air conduction",
+    "Unilateral Hearing Loss Algorithm",
+    "© 2026 Advanced Practice Education Associates 269"
+   ],
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "Chapter 15  Eye, Ear, Nose, and Throat (EENT) Disorders | Eye Complaints",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "NOTES Name the Diagnosis",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "Presents with tragal tenderness and a narrow, inflamed ear canal",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "Presents with severe ear pain, otorrhea, hearing loss, and tenderness of",
+   "page": 13
+  },
+  {
+   "type": "list",
+   "items": [
+    "the mastoid process",
+    "Presents with ear pain, mild hearing loss, and bulging of the tympanic",
+    "membrane; may report a recent upper respiratory infection (URI)",
+    "EYE COMPLAINTS",
+    "QUESTION #12"
+   ],
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "An adult patient presents with painless swelling of the upper eye lid for the",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "past 4 weeks. There is no conjunctival drainage or injection. Which of the",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "following diagnoses is most consistent with this presentation?",
+   "page": 13
+  },
+  {
+   "type": "list",
+   "items": [
+    "1. Chalazion",
+    "2. Hordeolum",
+    "3. Pterygium",
+    "4. Pinguecula",
+    "© Andrei310/iStock /Getty Images Plus/Getty Images",
+    "Red Eye Evaluation",
+    "Major causes",
+    "Uveitis, iritis: inflammation",
+    "$ Infections, autoimmune, trauma",
+    "Acute angle-closure glaucoma",
+    "$ Rapid increase in intraocular pressure",
+    "Keratitis: corneal inflammation",
+    "$ Infections, injuries, contact lens",
+    "Trauma",
+    "Minor causes",
+    "Conjunctivitis",
+    "Blepharitis",
+    "Minor foreign body",
+    "270 FNP/AGPCNP Review"
+   ],
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "Chapter 15  Eye, Ear, Nose, and Throat (EENT) Disorders | Eye Complaints",
+   "page": 14
+  },
+  {
+   "type": "list",
+   "items": [
+    "Red Eye Evaluation",
+    "History To Ophthalmology",
+    "Change in vision",
+    "Foreign body sensation with inability to keep",
+    "eye open",
+    "Photophobia",
+    "Foreign body sensation, scratchy, gritty",
+    "Which Presentation Needs Referral to Ophthalmology?",
+    "Patient Presentation Referral? Diagnosis?",
+    "Bilateral mucoid discharge, nasal congestion, No",
+    "sneezing",
+    "Sudden severe pain, redness, and blurred Yes",
+    "vision of right eye",
+    "Presence of flashers, floaters, then a Yes",
+    "“curtain” of vision loss on the periphery",
+    "Painless, bright red pool of blood on the No",
+    "surface of the eye that appeared after",
+    "coughing",
+    "Angle-Closure Glaucoma"
+   ],
+   "page": 14
+  },
+  {
+   "type": "para",
+   "text": "Closure of anterior chamber angle leads to increased IOP and optic neuropathy",
+   "page": 14
+  },
+  {
+   "type": "list",
+   "items": [
+    "TYPES OF GLAUCOMA",
+    "© Timonina/Shutterstock",
+    "Most common • MEDICAL EMERGENCY",
+    "Gradual development • Sudden severe eye pain",
+    "Asymptomatic early stages • Headache",
+    "Vision loss due to optic nerve damage • Nausea, vomiting",
+    "Blindness, if not treated early • Blurred vision",
+    "Halos around lights",
+    "© 2026 Advanced Practice Education Associates 271"
+   ],
+   "page": 14
+  },
+  {
+   "type": "para",
+   "text": "Chapter 15  Eye, Ear, Nose, and Throat (EENT) Disorders | Eye Complaints",
+   "page": 15
+  },
+  {
+   "type": "list",
+   "items": [
+    "NOTES Age-Related Macular Degeneration",
+    "Dry: gradual vision loss",
+    "Wet: rapid and severe vision loss",
+    "Symptoms",
+    "$ Central blind spot (scotoma)",
+    "$ Curving of straight lines",
+    "$ Normal peripheral and color vision",
+    "Leading cause of permanent vision loss in older adults",
+    "© ttsz/iStock /Getty Images Plus//Getty",
+    "Retinopathy Images",
+    "Retinal damage caused by:",
+    "$ HTN",
+    "$ DM",
+    "$ Macular degeneration",
+    "$ Genetic factors",
+    "Signs",
+    "$ Cotton wool spots",
+    "$ Flame hemorrhages",
+    "$ Hard exudates",
+    "$ Arteriovenous nicking"
+   ],
+   "page": 15
+  },
+  {
+   "type": "list",
+   "items": [
+    "Eye Pain",
+    "Refer emergently to the ER or Ophthalmology unless noted",
+    "Condition Etiology Symptoms"
+   ],
+   "page": 15
+  },
+  {
+   "type": "para",
+   "text": "Hyphema Typically posttraumatic, blood in • Grossly apparent blood at base of iris",
+   "page": 15
+  },
+  {
+   "type": "list",
+   "items": [
+    "anterior chamber (possible)",
+    "Decreased visual acuity",
+    "Corneal abrasion Posttraumatic, contact lens wear • Fb sensation",
+    "Unable to keep eye open",
+    "Defect visible with fluorescein staining",
+    "Specialty referral if indicated",
+    "272 FNP/AGPCNP Review"
+   ],
+   "page": 15
+  },
+  {
+   "type": "para",
+   "text": "Chapter 15  Eye, Ear, Nose, and Throat (EENT) Disorders | Exam Checklist",
+   "page": 16
+  },
+  {
+   "type": "list",
+   "items": [
+    "Eye Pain NOTES",
+    "Refer emergently to the ER or Ophthalmology unless noted",
+    "Condition Etiology Symptoms"
+   ],
+   "page": 16
+  },
+  {
+   "type": "para",
+   "text": "Iritis Posttraumatic; autoimmune conditions like Hallmark symptom: pain in affected eye when",
+   "page": 16
+  },
+  {
+   "type": "para",
+   "text": "Crohn disease; infectious causes light stimulus shined in unaffected eye; blurred",
+   "page": 16
+  },
+  {
+   "type": "para",
+   "text": "vision, may include redness",
+   "page": 16
+  },
+  {
+   "type": "para",
+   "text": "Scleritis Underlying rheumatologic or autoimmune Diffusely injected, redder than that of",
+   "page": 16
+  },
+  {
+   "type": "para",
+   "text": "disorders conjunctivitis, headache, severe pain",
+   "page": 16
+  },
+  {
+   "type": "para",
+   "text": "Keratitis Herpes virus, bacterial (Staphylococcus, Watery discharge, blurred vision ciliary flush;",
+   "page": 16
+  },
+  {
+   "type": "para",
+   "text": "Pseudomonas) overnight contact lens wear dendritic lesions (herpes) on slit lamp exam/",
+   "page": 16
+  },
+  {
+   "type": "para",
+   "text": "fluorescein staining",
+   "page": 16
+  },
+  {
+   "type": "list",
+   "items": [
+    "Acute sinusitis",
+    "Epistaxis",
+    "Hearing assessment",
+    "Pharyngitis/epiglottitis",
+    "Mononucleosis",
+    "Otitis media/externa",
+    "Periorbital cellulitis",
+    "Conjunctivitis, blepharitis",
+    "Retinopathy",
+    "Macular degeneration",
+    "Eye pain emergencies",
+    "Know clinical presentation (subjective, objective findings)",
+    "Know how to diagnose",
+    "What is in differential diagnoses?",
+    "Pharmacologic, nonpharmacologic management",
+    "Follow-up care",
+    "Recognize normal course",
+    "When to refer",
+    "© 2026 Advanced Practice Education Associates 273"
+   ],
+   "page": 16
+  }
+ ],
+ "tables": [
+  {
+   "headers": [
+    "Acute",
+    "Pos",
+    "Pos Neg"
+   ],
+   "rows": [
+    [
+     "Acute or past",
+     "Neg",
+     "Pos Pos"
+    ],
+    [
+     "Past",
+     "Neg",
+     "Pos Pos"
+    ],
+    [
+     "Late primary or",
+     "Pos",
+     "Pos Pos"
+    ]
+   ],
+   "columns": [
+    128.0,
+    211.0,
+    287.0
+   ],
+   "page": 9
+  }
+ ],
+ "tips": [
+  "Consider dental etiology when patient is present with facial/jaw pain."
+ ],
+ "questions": [
+  {
+   "stem": "A patient reports sneezing, postnasal drip, and nasal congestion. Considering the most likely diagnosis, what other findings are expected?",
+   "options": [
+    "Purulent nasal discharge",
+    "Boggy, gray nasal turbinates",
+    "Petechiae of the posterior pharynx",
+    "Tenderness to the sinuses on palpation Allergic Rhinitis Inflammation of the mucous membranes of the nasal tract • Symptoms $ Sneezing $ Rhinorrhea"
+   ],
+   "page": 3
+  },
+  {
+   "stem": "A 14-year-old with a history of allergic rhinitis and asthma is started on montelukast. The NP should advise the caregiver to monitor for serious side effects including:",
+   "options": [
+    "suicidal thoughts.",
+    "somnolence.",
+    "headache.",
+    "anuria."
+   ],
+   "page": 4
+  },
+  {
+   "stem": "A patient has been diagnosed with pharyngitis and the NP suspects infection with Group A Streptococcus. What complications are not associated with Group A streptococcal oropharyngeal infections?",
+   "options": [
+    "Periorbital cellulitis",
+    "Rheumatic fever",
+    "Acute glomerulonephritis",
+    "Peritonsillar abscess"
+   ],
+   "page": 7
+  },
+  {
+   "stem": "A patient arrives to the clinic reporting a severe sore throat. The patient is observed sitting in a tripod position, mouth breathing, and has a muffled voice. Because on these findings, the NP suspects:",
+   "options": [
+    "viral pharyngitis.",
+    "bacterial tonsillitis.",
+    "epiglottitis.",
+    "peritonsillar abscess."
+   ],
+   "page": 7
+  },
+  {
+   "stem": "Which of the following is true of Ménière’s disease?",
+   "options": [
+    "Dizziness is worse with head movement.",
+    "Disease course is persistent and predictable.",
+    "Dix–Hallpike confirms the diagnosis.",
+    "Hearing loss may become permanent."
+   ],
+   "page": 12
+  }
+ ],
+ "quality": {
+  "pages": 18,
+  "tables": 1,
+  "tips": 1,
+  "questions": 5,
+  "chars": 4764
+ }
+}

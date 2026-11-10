@@ -1,0 +1,1266 @@
+{
+ "chapterId": "orthopedic-disorders",
+ "title": "Orthopedic Disorders",
+ "pdf": "14-orthopedic-disorders-course-manual.pdf",
+ "pages": [
+  {
+   "n": 0,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 1,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 2,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 3,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 4,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 5,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 6,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 7,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 8,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 9,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 10,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 11,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 12,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 13,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 14,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 15,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 16,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 17,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 18,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 19,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 20,
+   "width": 639.0,
+   "height": 810.0
+  },
+  {
+   "n": 21,
+   "width": 639.0,
+   "height": 810.0
+  }
+ ],
+ "blocks": [
+  {
+   "type": "list",
+   "items": [
+    "CHAPTER 13",
+    "Orthopedic",
+    "Disorders"
+   ],
+   "page": 0
+  },
+  {
+   "type": "list",
+   "items": [
+    "Orthopedic conditions",
+    "$ Arthritis",
+    "Osteoarthritis",
+    "Rheumatoid arthritis",
+    "$ Fibromyalgia",
+    "Orthopedic injuries",
+    "$ Shoulder: rotator cuff, impingement syndrome",
+    "$ Elbow: tennis elbow",
+    "$ Wrist: scaphoid fracture",
+    "$ Low back pain",
+    "$ Hip pain",
+    "$ Knee: ACL, meniscal injuries",
+    "$ Ankle/foot: ankle sprain, plantar fasciitis, Morton neuroma"
+   ],
+   "page": 0
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 13  Orthopedic Disorders | Content Overview",
+    "NOTES Arthritic Joints",
+    "Joshua Lanclos/APEA",
+    "Osteoarthritis",
+    "Joint pain: exacerbated by use",
+    "Stiffness: morning, ≤60 min",
+    "$ Can affect any joint",
+    "May be unilateral or bilateral",
+    "Knees, hips, spine and hands",
+    "$ Limited range of motion",
+    "$ Joint tenderness",
+    "$ Crepitus",
+    "$ Joint effusion possible",
+    "$ Bony remodeling",
+    "Diagnosis of Osteoarthritis",
+    "Clinical diagnosis",
+    "Joint pain (single/few)",
+    "Age ≥45 years",
+    "Morning stiffness (≤60 min)",
+    "Radiograph supportive if:"
+   ],
+   "page": 1
+  },
+  {
+   "type": "list",
+   "items": [
+    "Presence of joint space narrowing and/or",
+    "osteophyte radiograph",
+    "212 FNP/AGPCNP Review"
+   ],
+   "page": 1
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 13  Orthopedic Disorders | Content Overview",
+    "Osteoarthritis of Hands NOTES",
+    "TIP: Bouchard are BELOW Heberden Heberden are HIGHER than Bouchard",
+    "Treatment of Osteoarthritis",
+    "Nonpharmacologic measures first!",
+    "Patient education",
+    "Exercise: aerobic and strengthening",
+    "Weight loss if appropriate",
+    "Heat, cold, ultrasound, acupuncture: may be effective in some cases",
+    "QUESTION #1",
+    "What is the first-line pharmacologic management of osteoarthritis?",
+    "1. Acetaminophen",
+    "2. NSAIDs",
+    "3. Opioids",
+    "4. Duloxetine",
+    "QUESTION #2"
+   ],
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "A patient who has osteoarthritis asks if it is safe to take meloxicam daily for",
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "their pain. This medication may be unsafe if the patient has which of the",
+   "page": 2
+  },
+  {
+   "type": "para",
+   "text": "following conditions?",
+   "page": 2
+  },
+  {
+   "type": "list",
+   "items": [
+    "1. Heart failure",
+    "2. Depression",
+    "3. Hypothyroidism",
+    "4. Chronic obstructive pulmonary disease",
+    "© 2026 Advanced Practice Education Associates 213"
+   ],
+   "page": 2
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 13  Orthopedic Disorders | Content Overview",
+    "NOTES Pharmacologic Management",
+    "ONLY as needed!",
+    "Medication Characteristics",
+    "NSAIDs First-line: topical then oral",
+    "Acetaminophen No benefit/safety concerns",
+    "Topical capsaicin May be helpful",
+    "Duloxetine Alternative: if NSAIDs contraindicated",
+    "Injectable steroids Very short duration",
+    "Glucosamine, chondroitin, fish oil Lack of evidence",
+    "Opioids Avoid! Risks outweigh benefits",
+    "Rheumatoid Arthritis",
+    "Autoimmune disease",
+    "Symmetrical, peripheral polyarthritis",
+    "Leads to joint deformity and destruction",
+    "Morning stiffness lasts >60 min",
+    "TIP: RA and OA both affect the hands.",
+    "Understand the differences!",
+    "Rheumatoid Workup",
+    "Rheumatoid factor (RF)"
+   ],
+   "page": 3
+  },
+  {
+   "type": "list",
+   "items": [
+    "Anti-CCP antibodies: citrullinated peptides/proteins",
+    "Higher specificity than RF, similar sensitivity to RF",
+    "Acute phase reactants: ESR, CRP",
+    "ANA: negative may exclude SLE",
+    "CBC, LFTs, BUN, Cr, uric acid level, UA",
+    "RA: 2010 ACR/EULAR Criteria for Diagnosis",
+    "1.Number and site of involved joints",
+    "2–10 large joints 1–3 small joints (2 4–10 small joints >10 joints (5",
+    "(1 point) points) (3 points) points)",
+    "Serologic abnormality (RF or anti-CCP)",
+    "Low positive 2 points High positive 3 points",
+    "Elevated ESR or CRP (1 point)",
+    "Symptoms present at least 6 weeks (1 point)",
+    "Diagnosis: ≥6/10 points",
+    "214 FNP/AGPCNP Review"
+   ],
+   "page": 3
+  },
+  {
+   "type": "para",
+   "text": "Chapter 13  Orthopedic Disorders | Content Overview",
+   "page": 4
+  },
+  {
+   "type": "question",
+   "text": "Which of the following is a false statement about fibromyalgia?",
+   "items": [
+    "It is an inflammatory condition.",
+    "It causes tenderness to soft tissues.",
+    "It typically occurs between the ages of 20 and 55 years.",
+    "It is a diagnosis of exclusion."
+   ],
+   "page": 4
+  },
+  {
+   "type": "list",
+   "items": [
+    "Fibromyalgia Assessment",
+    "Widespread pain index",
+    "19 painful body regions",
+    "1 pt/region, max score 19",
+    "Symptom severity score (Scale 0–3, max score 12)",
+    "1. Degree of fatigue",
+    "2. Waking unrefreshed",
+    "3. # of cognitive symptoms (“fibro fog”)",
+    "4. # of somatic symptoms (abd cramping, IBS symptoms,",
+    "headache, depression, etc.)",
+    "0 = no",
+    "1 = mild 2 = moderate 3 = severe",
+    "problem",
+    "Fibromyalgia: Diagnosis",
+    "ACR preliminary diagnostic criteria (2016)",
+    "WPI ≥7",
+    "Symptoms present",
+    "&",
+    ">3 months",
+    "SS ≥5"
+   ],
+   "page": 4
+  },
+  {
+   "type": "list",
+   "items": [
+    "or Fibromyalgia and",
+    "WPI 4–6",
+    "Differentials",
+    "&",
+    "excluded",
+    "SS ≥9",
+    "WPI = Widespread Pain Index",
+    "SS = Symptom Severity (SS) Scale",
+    "© 2026 Advanced Practice Education Associates 215"
+   ],
+   "page": 4
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 13  Orthopedic Disorders | Common Orthopedic Injuries",
+    "NOTES Fibromyalgia: Initial Management",
+    "Patient education",
+    "Sleep hygiene",
+    "Treat comorbidities: mood, sleep disorders",
+    "Exercise: aerobic conditioning, stretching, strengthening",
+    "Medication for pain: amitriptyline, duloxetine, pregabalin, others",
+    "COMMON ORTHOPEDIC INJURIES",
+    "Orthopedic Principle #1",
+    "If pain is orthopedic in etiology, it should be reproducible!",
+    "Shoulder Anatomy",
+    "Joshua Lanclos/APEA",
+    "Joshua Lanclos/APEA",
+    "216 FNP/AGPCNP Review"
+   ],
+   "page": 5
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 13  Orthopedic Disorders | Common Orthopedic Injuries",
+    "Glenohumeral Joint NOTES",
+    "Assessment of Shoulder Pain",
+    "Is pain",
+    "reproducible?",
+    "Yes No",
+    "Consider",
+    "Acute trauma extrinsic cause",
+    "of shoulder pain",
+    "Yes No",
+    "Weakness or Differentials:",
+    "Imaging +/−",
+    "range of motion cholecystitis, MI,",
+    "referral",
+    "impaired? radiculopathy,",
+    "zoster?",
+    "Glenohumeral etiology",
+    "Differentials: AC Yes (rotator cuff tendinopathy,",
+    "joint separation, adhesive capsulitis )",
+    "Tip: Obtain a"
+   ],
+   "page": 6
+  },
+  {
+   "type": "list",
+   "items": [
+    "Fx clavicle",
+    "thorough history,",
+    "Extra glenohumeral etiology develop",
+    "No (bicep tendinopathy, OA of AC differentials, and",
+    "joint) make your",
+    "diagnosis!"
+   ],
+   "page": 6
+  },
+  {
+   "type": "tip",
+   "text": "Obtain a thorough history, develop differentials, and make your diagnosis!",
+   "page": 6
+  },
+  {
+   "type": "para",
+   "text": "© 2026 Advanced Practice Education Associates 217",
+   "page": 6
+  },
+  {
+   "type": "para",
+   "text": "Chapter 13  Orthopedic Disorders | Common Orthopedic Injuries",
+   "page": 7
+  },
+  {
+   "type": "question",
+   "text": "A patient has started a new job as a painter and after 6 weeks of work, they report pain in the lateral deltoid when raising their arm overhead. A positive empty can test is elicited by the NP. Which of the following is suspected?",
+   "items": [
+    "Clavicular fracture",
+    "Supraspinatus tendonitis",
+    "Acromioclavicular dislocation",
+    "Impingement syndrome Shoulder Specific Tests ROTATOR CUFF TENDINOPATHY SHOULDER IMPINGEMENT • Drop arm test • Neer test"
+   ],
+   "page": 7
+  },
+  {
+   "type": "list",
+   "items": [
+    "Jobe (empty can) test (pictured) • Hawkins–Kennedy test (pictured)",
+    "Specific Tests for Rotator Cuff",
+    "Test Movement Positive Finding"
+   ],
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "Neer test [passive painful Abduction to 180° (raising arm Pain with impingement:",
+   "page": 7
+  },
+  {
+   "type": "list",
+   "items": [
+    "arc maneuver] overhead) • 90°: Mild",
+    "(supraspinatus) • 60°–70°: Moderate",
+    "45°: Severe",
+    "Active painful arc Examiner raises patient arm Pain beyond 90°",
+    "(supraspinatus) overhead, while exerting",
+    "pressure to prevent shrug"
+   ],
+   "page": 7
+  },
+  {
+   "type": "table",
+   "headers": [
+    "Hawkins–Kennedy test",
+    "Flexion with internal rotation",
+    "Pain elicited by internal rotation"
+   ],
+   "rows": [
+    [
+     "Jobe’s (empty can) test",
+     "Straight arm, 90° abduction,",
+     "Weakness with or without pain"
+    ],
+    [
+     "(supraspinatus)",
+     "30° of forward flexion, internal",
+     ""
+    ]
+   ],
+   "columns": [
+    128.0,
+    248.0,
+    387.0
+   ],
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "rotation; adduction against",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "resistance",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "Drop arm test Patient passively lowers arm Positive if unable to lower the affected",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "(supraspinatus) from a fully abducted position arm with smooth, coordinated movement",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "compared to unaffected arm. A sudden drop",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "with pain = full thickness tear",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "External rotation test Hold shoulder in adduction, Weakness with external rotation against",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "(infraspinatus) elbow bent 90° resistance",
+   "page": 7
+  },
+  {
+   "type": "para",
+   "text": "218 FNP/AGPCNP Review",
+   "page": 7
+  },
+  {
+   "type": "table",
+   "headers": [
+    "Col 1",
+    "Chapter",
+    "13 Orthopedic",
+    "Disorders | Common Orthopedic Injuries"
+   ],
+   "rows": [
+    [
+     "Orthopedic",
+     "Principle #2",
+     "",
+     "NOTES"
+    ],
+    [
+     "Joints are made",
+     "to move!",
+     "",
+     ""
+    ]
+   ],
+   "columns": [
+    64.0,
+    140.0,
+    255.0,
+    348.0
+   ],
+   "page": 8
+  },
+  {
+   "type": "question",
+   "text": "A carpenter reports pain at the elbow and proximal forearm. The pain is worse with movement. There is no reported trauma. What is the preliminary diagnosis? Lateral Epicondylitis Tennis elbow Inflammation of the extensor",
+   "items": [],
+   "page": 8
+  },
+  {
+   "type": "list",
+   "items": [
+    "tendons (posterior forearm)",
+    "where they attach to lateral",
+    "epicondyle",
+    "Occurs from repetitive motion",
+    "of the extensor muscles of the",
+    "forearm",
+    "© 2026 Advanced Practice Education Associates 219"
+   ],
+   "page": 8
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 13  Orthopedic Disorders | Common Orthopedic Injuries",
+    "NOTES Epicondylitis Management",
+    "Rest but KEEP JOINTS MOVING!",
+    "Rest but KEEP JOINTS MOVING!",
+    "Ice",
+    "NSAIDs",
+    "Counterforce bracing?",
+    "Steroid injections",
+    "Physical therapy",
+    "Scaphoid Bone",
+    "Stabilizes midcarpal joint",
+    "Radial artery blood supply",
+    "Most commonly injured wrist bone",
+    "Fall onto outstretched hand (FOOSH) injury",
+    "Snuffbox Tenderness",
+    "If a fracture is present:",
+    "$ Deep, dull pain in wrist, worse with",
+    "gripping or squeezing",
+    "$ Snuffbox tenderness on physical examination",
+    "Scaphoid fractures are HIGH RISK for avascular necrosis"
+   ],
+   "page": 9
+  },
+  {
+   "type": "tip",
+   "text": "A missed scaphoid fracture can lead to avascular necrosis",
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "causing chronic pain, deformity, and disability.",
+   "page": 9
+  },
+  {
+   "type": "para",
+   "text": "220 FNP/AGPCNP Review",
+   "page": 9
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 13  Orthopedic Disorders | Common Orthopedic Injuries",
+    "Scaphoid Fracture NOTES",
+    "Imaging • Radiograph/PA/Lat/Oblique/Scaphoid Wrist",
+    "If negative, get MRI or CT",
+    "If MRI unavailable, repeat radiography in",
+    "7–14 days",
+    "Immobilize • Suspected Fx, not confirmed by radiography",
+    "Confirmed Fx, via radiography or MRI",
+    "$ Immobilization up to 5 months!",
+    "Ortho Referral • Confirmed fracture (displaced or not)",
+    "Delayed presentation (>3 weeks)",
+    "Carpal instability",
+    "TIP: Initial imaging can be falsely negative. When suspicious:",
+    "immobilize, repeat the imaging, & refer",
+    "Low Back Pain: Differential Diagnosis",
+    "Nonmechanical",
+    "Spinal Extraspinal (Visceral) Spinal Disease",
+    "Lumbar strain/ • Prostatitis • Neoplasia (metastasis)",
+    "musculoskeletal (85%) • Infection (osteomyelitis,",
+    "epidural abscess)"
+   ],
+   "page": 10
+  },
+  {
+   "type": "list",
+   "items": [
+    "Degenerative disk (10%) • Endometriosis",
+    "Inflammatory arthritis",
+    "Spondylosis (ankylosing spondylitis,",
+    "psoriatic spondylitis)",
+    "Herniated disk (4%) • Nephrolithiasis",
+    "Osteoporotic fracture (4%) • Aortic aneurysm",
+    "Spinal stenosis • Pancreatitis",
+    "Kyphosis/scoliosis • Penetrating ulcer",
+    "Low Back Pain: Physical Examination",
+    "Inspection/palpation/percussion of spine",
+    "Gait—heal-to-toe walk",
+    "Neurologic examination: motor, sensory,",
+    "reflexes",
+    "Assess for radiculopathy",
+    "$ Straight leg raise (SLR):",
+    "Examiner raises patient’s extended leg",
+    "with the ankle dorsiflexed.",
+    "Positive if sciatica is reproduced between",
+    "10° and 60° in the affected leg",
+    "© 2026 Advanced Practice Education Associates 221"
+   ],
+   "page": 10
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 13  Orthopedic Disorders | Common Orthopedic Injuries",
+    "NOTES Low Back Pain: Imaging",
+    "Indications • Pain lasting >4 weeks",
+    "Unresponsive to conservative treatment",
+    "MRI is preferred • For most conditions",
+    "May have to get radiography first"
+   ],
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "Emergent imaging • Neurologic deficits (e.g., extremity weakness loss of DTR, sensory deficit,",
+   "page": 11
+  },
+  {
+   "type": "list",
+   "items": [
+    "bowel/bladder incontinence",
+    "Suspicion of neoplasm (e.g., metastasis)",
+    "Infection: fever, IV drug use, immunocompromised",
+    "Low Back Pain: Management",
+    "Nonpharmacologic management • Not indicated:",
+    "$ Heat $ Opioids",
+    "$ Physical therapy $ Antidepressants",
+    "$ Massage $ Steroids",
+    "Pharm management $ Antiepileptics",
+    "$ NSAID (systemic)",
+    "$ +/− Muscle relaxants",
+    "Posterior Muscle Groups",
+    "QUESTION #6"
+   ],
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "A 65-year-old male presents with new low back pain. Which of the following",
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "symptoms suggest a musculoskeletal emergency?",
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "1. Numbness radiates down his posterior leg.",
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "2. The pain is worse with movement.",
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "3. Numbness of buttocks and perineum.",
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "4. The pain is colicky and radiates to the flank.",
+   "page": 11
+  },
+  {
+   "type": "para",
+   "text": "222 FNP/AGPCNP Review",
+   "page": 11
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 13  Orthopedic Disorders | Common Orthopedic Injuries",
+    "Cauda Equina Syndrome NOTES",
+    "Marked neurologic disability",
+    "Saddle anesthesia",
+    "Etiology",
+    "$ Neural tube defects",
+    "$ Infection",
+    "$ Inflammation",
+    "$ Mass",
+    "$ Lumbar spinal stenosis",
+    "$ Injury",
+    "$ Herniated disc",
+    "Joshua Lanclos/APEA",
+    "Expected Course"
+   ],
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "90% of cases of low back pain have resolution of symptoms within 4–6 weeks.",
+   "page": 12
+  },
+  {
+   "type": "para",
+   "text": "© 2026 Advanced Practice Education Associates 223",
+   "page": 12
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 13  Orthopedic Disorders | Common Orthopedic Injuries",
+    "NOTES Hip Pain",
+    "Character, location, and pattern of pain give clues to diagnosis",
+    "Hip Pain Characteristics",
+    "Pain Characteristics Differential Diagnosis",
+    "Lateral, aggravated by direct pressure Trochanteric bursitis",
+    "Worse with use, better with rest Structural joint problem, OA"
+   ],
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "Constant pain, especially at night time Infectious, inflammatory, neoplastic",
+   "page": 13
+  },
+  {
+   "type": "list",
+   "items": [
+    "Anterior hip/groin pain Hip joint: OA",
+    "Posterior hip pain SI joint, LBP",
+    "QUESTION #7"
+   ],
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "A 30-year-old patient presents with knee pain after a fall 24 hours ago. There",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "is diffuse tenderness and mild swelling of the knee. The patient is able to",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "ambulate in the office with minimal difficulty. How should this patient be",
+   "page": 13
+  },
+  {
+   "type": "para",
+   "text": "managed?",
+   "page": 13
+  },
+  {
+   "type": "list",
+   "items": [
+    "1. Orthopedic referral",
+    "2. Radiograph of the knee",
+    "3. Supportive treatment",
+    "4. MRI of the knee",
+    "TIP: Not every patient needs imaging! Follow the rules.",
+    "Ottawa Knee Rules",
+    "224 FNP/AGPCNP Review"
+   ],
+   "page": 13
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 13  Orthopedic Disorders | Common Orthopedic Injuries",
+    "Ligaments of the Knee NOTES",
+    "Anatomy of the Knee",
+    "Anterior View",
+    "Which Injury Is This Test Assessing?",
+    "Lachman Test Posterior Drawer Test",
+    "© 2026 Advanced Practice Education Associates 225"
+   ],
+   "page": 14
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 13  Orthopedic Disorders | Common Orthopedic Injuries",
+    "NOTES Which Injury Is This Test Assessing?",
+    "Apley Test",
+    "McMurray Test",
+    "226 FNP/AGPCNP Review"
+   ],
+   "page": 15
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 13  Orthopedic Disorders | Common Orthopedic Injuries",
+    "Varus and Valgus Stress Test NOTES",
+    "Valgus = inward MCL",
+    "Knees “grow” together",
+    "“Knock-kneed”",
+    "Varus = outward LCL",
+    "Knees “round” outward",
+    "“Bow-legged”",
+    "© 2026 Advanced Practice Education Associates 227"
+   ],
+   "page": 16
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 13  Orthopedic Disorders | Common Orthopedic Injuries",
+    "NOTES Assessment of Knee Pain: Tests",
+    "Test Method Identifies"
+   ],
+   "page": 17
+  },
+  {
+   "type": "para",
+   "text": "Meniscal McMurray test Passive flexion and extension of the knee, Popping, pain at joint line, or",
+   "page": 17
+  },
+  {
+   "type": "para",
+   "text": "tear then repeat with the tibia internally and limited range of motion",
+   "page": 17
+  },
+  {
+   "type": "list",
+   "items": [
+    "externally rotated",
+    "Apley test Knee flexed to 90°, stabilize thigh, press Pain or pop",
+    "heel directly downward while internally and",
+    "externally rotating foot"
+   ],
+   "page": 17
+  },
+  {
+   "type": "para",
+   "text": "MCL Valgus stress Slight hip flexion and abduction, knee flexed, Laxity of 30° flexion suggestive",
+   "page": 17
+  },
+  {
+   "type": "para",
+   "text": "injury test exert gentle valgus (inward) stress with hands of MCL injury",
+   "page": 17
+  },
+  {
+   "type": "para",
+   "text": "over lateral knee and proximal tibia",
+   "page": 17
+  },
+  {
+   "type": "para",
+   "text": "LCL Varus stress Slight hip flexion and abduction, knee flexed, Laxity of 30° flexion suggestive",
+   "page": 17
+  },
+  {
+   "type": "list",
+   "items": [
+    "test exert gentle varus (outward) stress with hands of LCL injury",
+    "over lateral knee and proximal tibia",
+    "Assessment of Knee Pain: Tests",
+    "Test Method Identifies"
+   ],
+   "page": 17
+  },
+  {
+   "type": "para",
+   "text": "ACL Lachman test Most sensitive; flex knee to 20°–30°, Soft or mushy end feel",
+   "page": 17
+  },
+  {
+   "type": "para",
+   "text": "translate tibia with anteriorly directed",
+   "page": 17
+  },
+  {
+   "type": "para",
+   "text": "force",
+   "page": 17
+  },
+  {
+   "type": "para",
+   "text": "ACL Anterior drawer Flex knee to 90°, translate tibia with Lack of end feel or excessive anterior",
+   "page": 17
+  },
+  {
+   "type": "para",
+   "text": "anteriorly directed force translation relative to the contralateral",
+   "page": 17
+  },
+  {
+   "type": "para",
+   "text": "side",
+   "page": 17
+  },
+  {
+   "type": "para",
+   "text": "PCL Posterior drawer Flex knee to 90°, posteriorly directed Lack of end feel or excessive posterior",
+   "page": 17
+  },
+  {
+   "type": "para",
+   "text": "force to the tibia translation",
+   "page": 17
+  },
+  {
+   "type": "question",
+   "text": "An adult patient presents with right ankle pain following an injury that occurred earlier this morning. According to the Ottawa Ankle Rules, a radiograph is indicated if the patient:",
+   "items": [
+    "is unable to bear weight for 10 steps.",
+    "has tenderness only in the malleolar zone.",
+    "has generalized ankle tenderness.",
+    "was able to bear weight immediately after the injury."
+   ],
+   "page": 17
+  },
+  {
+   "type": "para",
+   "text": "228 FNP/AGPCNP Review",
+   "page": 17
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 13  Orthopedic Disorders | Common Orthopedic Injuries",
+    "Ottawa Ankle Rules NOTES",
+    "6 cm posterior 6 cm posterior",
+    "edge or tip of edge or tip of",
+    "lateral malleolus medial malleolus",
+    "Base of Navicular bone",
+    "the 5th metatarsal",
+    "X-ray if: X-ray of ankle X-ray of foot",
+    "Unable to bear weight • Bony tenderness in the • Bony tenderness in the midfoot"
+   ],
+   "page": 18
+  },
+  {
+   "type": "para",
+   "text": "immediately following injury or malleolar zone (navicular or base of 5th MTP)",
+   "page": 18
+  },
+  {
+   "type": "list",
+   "items": [
+    "four steps in office",
+    "Ankle Sprain",
+    "Stretching or partial",
+    "tearing of the lateral or",
+    "deltoid ligaments of the",
+    "ankle",
+    "Lateral: most common;",
+    "inversion of plantarflexed",
+    "foot",
+    "Medial: rare eversion",
+    "injury, strongest of ankle",
+    "ligaments",
+    "Grade 2 sprain",
+    "Most common sprain",
+    "seen in primary care",
+    "office",
+    "Presents with some joint",
+    "instability, restricted",
+    "range of motion,",
+    "ambulation painful"
+   ],
+   "page": 18
+  },
+  {
+   "type": "list",
+   "items": [
+    "Ankle Sprain Management",
+    "PRICE",
+    "Protection: elastic bandage, splint, walking boot, air cast",
+    "Rest: limit weight bearing until gait normal",
+    "Ice: ice/cold water 15–20 min every 2–3 h ×48 h",
+    "Compression: elastic bandage for support, to minimize swelling. Apply early.",
+    "Elevate: alleviate swelling",
+    "EARLY MOBILITY",
+    "Analgesics: acetaminophen and NSAIDs",
+    "© 2026 Advanced Practice Education Associates 229"
+   ],
+   "page": 18
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 13  Orthopedic Disorders | Ortho Lightning Round",
+    "NOTES Gout",
+    "Symptoms: severe pain, redness, warmth, swelling",
+    "$ Onset more often at night",
+    "Presentation and risk factors: Ma’am",
+    "$ Monoarticular: first MTP, knee most common",
+    "$ Atraumatic",
+    "$ Alcohol",
+    "$ Meats and meds (thiazide and loop diuretics, recent use of",
+    "urate-lowering medications, seafood, liver, red meat)",
+    "Confirmatory diagnostic test:",
+    "$ Synovial fluid analysis",
+    "Joshua Lanclos/APEA",
+    "QUESTION #9"
+   ],
+   "page": 19
+  },
+  {
+   "type": "para",
+   "text": "A patient presents with their third acute gout flare within 12 months. In",
+   "page": 19
+  },
+  {
+   "type": "para",
+   "text": "addition to lifestyle modifications, the best management plan is to prescribe:",
+   "page": 19
+  },
+  {
+   "type": "para",
+   "text": "1. an anti-inflammatory agent only.",
+   "page": 19
+  },
+  {
+   "type": "para",
+   "text": "2. allopurinol only.",
+   "page": 19
+  },
+  {
+   "type": "para",
+   "text": "3. colchicine prophylactically.",
+   "page": 19
+  },
+  {
+   "type": "para",
+   "text": "4. allopurinol and an anti-inflammatory.",
+   "page": 19
+  },
+  {
+   "type": "list",
+   "items": [
+    "Gout Treatment",
+    "Acute flare: (based on patient characteristics)",
+    "Colchicine (avoid with renal/hepatic impairment)",
+    "NSAIDs (avoid with CVD, GI bleed, renal impairment)",
+    "Glucocorticoids (intra-articular, intramuscular, or oral)",
+    "Prophylaxis: urate-lowering therapy",
+    "≥2 flares annually",
+    "Intolerance to acute medications",
+    "Evidence of tophi or radiographic damage",
+    "Anti-inflammatory prophylaxis: 3–6 months after initiation of urate-lowering therapy",
+    "First-line: allopurinol",
+    "ORTHO LIGHTNING ROUND",
+    "What Condition?",
+    "Pain at the base of thumb with ulnar deviation of the wrist",
+    "What test?",
+    "230 FNP/AGPCNP Review"
+   ],
+   "page": 19
+  },
+  {
+   "type": "para",
+   "text": "Chapter 13  Orthopedic Disorders | Ortho Lightning Round",
+   "page": 20
+  },
+  {
+   "type": "list",
+   "items": [
+    "Joshua Lanclos/APEA",
+    "What Test?",
+    "Hold both wrists in forced flexion for 30–60 s:",
+    "Tapping the median nerve:",
+    "Assesses for:",
+    "What Condition?",
+    "Fluid-filled sac that causes swelling of the popliteal fossa",
+    "© 2026 Advanced Practice Education Associates 231"
+   ],
+   "page": 20
+  },
+  {
+   "type": "list",
+   "items": [
+    "Chapter 13  Orthopedic Disorders | Exam Checklist",
+    "NOTES Popliteal (Baker) Cyst",
+    "Most are asymptomatic",
+    "Identified with US or MRI",
+    "$ Usually incidental finding",
+    "Associated with OA, inflammatory joint disease, and injury",
+    "Healthy Knee Baker’s Cyst",
+    "The synovial cavity is filled The flow of synovial fluid from a",
+    "with synovial fluid knee joint to the gastrocnemio-",
+    "semimembranosus bursa",
+    "Orthopedic Principle #3",
+    "When in doubt, send it out!",
+    "(Refer to specialty or order further imaging)."
+   ],
+   "page": 21
+  },
+  {
+   "type": "list",
+   "items": [
+    "Arthritis: osteoarthritis, rheumatoid arthritis, gout",
+    "Lower extremity ailments (foot, ankle, knee, hip)",
+    "Upper extremity ailments (shoulder, elbow, wrist, hand)",
+    "Sprain, strain, tendinitis, bursitis",
+    "Low back pain etiologies",
+    "Predisposing factors",
+    "Presenting signs and symptoms",
+    "Red flags",
+    "How to diagnose?",
+    "$ Radiograph, clinical exam, etc.",
+    "How to treat?",
+    "232 FNP/AGPCNP Review"
+   ],
+   "page": 21
+  }
+ ],
+ "tables": [
+  {
+   "headers": [
+    "Hawkins–Kennedy test",
+    "Flexion with internal rotation",
+    "Pain elicited by internal rotation"
+   ],
+   "rows": [
+    [
+     "Jobe’s (empty can) test",
+     "Straight arm, 90° abduction,",
+     "Weakness with or without pain"
+    ],
+    [
+     "(supraspinatus)",
+     "30° of forward flexion, internal",
+     ""
+    ]
+   ],
+   "columns": [
+    128.0,
+    248.0,
+    387.0
+   ],
+   "page": 7
+  },
+  {
+   "headers": [
+    "Col 1",
+    "Chapter",
+    "13 Orthopedic",
+    "Disorders | Common Orthopedic Injuries"
+   ],
+   "rows": [
+    [
+     "Orthopedic",
+     "Principle #2",
+     "",
+     "NOTES"
+    ],
+    [
+     "Joints are made",
+     "to move!",
+     "",
+     ""
+    ]
+   ],
+   "columns": [
+    64.0,
+    140.0,
+    255.0,
+    348.0
+   ],
+   "page": 8
+  }
+ ],
+ "tips": [
+  "Obtain a thorough history, develop differentials, and make your diagnosis!",
+  "A missed scaphoid fracture can lead to avascular necrosis"
+ ],
+ "questions": [
+  {
+   "stem": "Which of the following is a false statement about fibromyalgia?",
+   "options": [
+    "It is an inflammatory condition.",
+    "It causes tenderness to soft tissues.",
+    "It typically occurs between the ages of 20 and 55 years.",
+    "It is a diagnosis of exclusion."
+   ],
+   "page": 4
+  },
+  {
+   "stem": "A patient has started a new job as a painter and after 6 weeks of work, they report pain in the lateral deltoid when raising their arm overhead. A positive empty can test is elicited by the NP. Which of the following is suspected?",
+   "options": [
+    "Clavicular fracture",
+    "Supraspinatus tendonitis",
+    "Acromioclavicular dislocation",
+    "Impingement syndrome Shoulder Specific Tests ROTATOR CUFF TENDINOPATHY SHOULDER IMPINGEMENT • Drop arm test • Neer test"
+   ],
+   "page": 7
+  },
+  {
+   "stem": "A carpenter reports pain at the elbow and proximal forearm. The pain is worse with movement. There is no reported trauma. What is the preliminary diagnosis? Lateral Epicondylitis Tennis elbow Inflammation of the extensor",
+   "options": [],
+   "page": 8
+  },
+  {
+   "stem": "An adult patient presents with right ankle pain following an injury that occurred earlier this morning. According to the Ottawa Ankle Rules, a radiograph is indicated if the patient:",
+   "options": [
+    "is unable to bear weight for 10 steps.",
+    "has tenderness only in the malleolar zone.",
+    "has generalized ankle tenderness.",
+    "was able to bear weight immediately after the injury."
+   ],
+   "page": 17
+  }
+ ],
+ "quality": {
+  "pages": 22,
+  "tables": 2,
+  "tips": 2,
+  "questions": 4,
+  "chars": 3889
+ }
+}

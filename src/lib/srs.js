@@ -77,16 +77,29 @@ export function schedule(prev, grade) {
 }
 
 /** Cards to study now: everything due (or new), capped. */
-export function dueCards(cards, srs, limit = 40, today = dateKey()) {
-  const due = []
+/** Split a pool into genuinely-due reviews and never-seen cards. */
+export function splitDue(cards, srs, today = dateKey()) {
+  const reviews = []
   const fresh = []
   cards.forEach(c => {
     const st = srs[c.id]
     if (!st || !st.reps) fresh.push(c)
-    else if ((st.due || today) <= today) due.push(c)
+    else if ((st.due || today) <= today) reviews.push(c)
   })
-  due.sort((a, b) => String(srs[a.id].due).localeCompare(String(srs[b.id].due)))
-  return [...due, ...fresh].slice(0, limit)
+  reviews.sort((a, b) => String(srs[a.id].due).localeCompare(String(srs[b.id].due)))
+  return { reviews, fresh }
+}
+
+/**
+ * The queue to study now: overdue reviews first, then new cards up to a daily cap.
+ *
+ * Unseen cards used to be merged into "due", so a brand-new account was told to
+ * "clear 200 due cards" — a wall nobody starts against. Reviews are always
+ * included (they decay); new material is throttled.
+ */
+export function dueCards(cards, srs, limit = 40, today = dateKey(), newLimit = 10) {
+  const { reviews, fresh } = splitDue(cards, srs, today)
+  return [...reviews, ...fresh.slice(0, newLimit)].slice(0, limit)
 }
 
 export function deckStats(cards, srs, today = dateKey()) {

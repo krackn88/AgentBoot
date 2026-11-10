@@ -80,12 +80,25 @@ def main() -> int:
     docs = []
 
     guide = json.loads((DATA / "guide.json").read_text())
+    extra_bank = {}
+    pq = DATA / "professional-questions.json"
+    if pq.exists():
+        extra_bank = json.loads(pq.read_text())
+    extras = {}
+    for q in extra_bank.get("extra", []):
+        extras.setdefault(q.get("chapterId"), []).append(q)
     for ch in guide["chapters"]:
         title = ch.get("shortTitle") or ch.get("title")
         for sec in ch.get("sections", []):
             for text in block_texts(sec.get("blocks", [])):
                 add(docs, ch["id"], title, sec.get("title", ""), text, "guide")
         for q in ch.get("questions", []):
+            add(docs, ch["id"], title, "Practice question", q.get("stem", ""), "question")
+            for opt in q.get("options", []):
+                add(docs, ch["id"], title, "Answer choice", opt, "question")
+            if q.get("explanation"):
+                add(docs, ch["id"], title, "Answer rationale", q["explanation"], "rationale")
+        for q in extras.get(ch["id"], []):
             add(docs, ch["id"], title, "Practice question", q.get("stem", ""), "question")
             for opt in q.get("options", []):
                 add(docs, ch["id"], title, "Answer choice", opt, "question")
@@ -118,7 +131,11 @@ def main() -> int:
                     section = line
             add(docs, ch["id"], title, section or title, line, "manual")
 
-    pearls = json.loads((DATA / "pearls.json").read_text())
+    # use the reviewed deck; pearls.json is the old keyword extraction full of
+    # slide artefacts and must not be indexed as content
+    clean_path = DATA / "pearls-clean.json"
+    pearl_bank = json.loads(clean_path.read_text()) if clean_path.exists() else {"pearls": []}
+    pearls = pearl_bank.get("pearls", [])
     chapter_titles = {c["id"]: (c.get("shortTitle") or c.get("title")) for c in guide["chapters"]}
     for p in pearls:
         cid = p.get("chapterId", "")

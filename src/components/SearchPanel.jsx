@@ -21,8 +21,8 @@ function Highlighted({ text, query }) {
  * Full-content search. Loads the 13k-document index on first focus (not on page
  * load), so it stays instant to open and covers every manual line, not a sample.
  */
-export default function SearchPanel({ onOpenChapter, onOpenManual, autoFocus = false }) {
-  const [query, setQuery] = useState('')
+export default function SearchPanel({ onOpenChapter, onOpenManual, autoFocus = false, seedQuery = '' }) {
+  const [query, setQuery] = useState(seedQuery)
   const [kind, setKind] = useState('all')
   const [docs, setDocs] = useState(null)
   const [error, setError] = useState('')

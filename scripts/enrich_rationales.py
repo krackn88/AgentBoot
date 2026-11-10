@@ -26,6 +26,22 @@ DATA = ROOT / "public/data"
 MANUALS = DATA / "manuals"
 OUT = DATA / "rationale-upgrades.json"
 
+# Hand-written corrections where the source PDF's own wording conflicts with its
+# rationale. These must survive a rebuild.
+_OTTAWA = (
+    "Ottawa Ankle Rules: order a radiograph when the patient cannot bear weight "
+    "immediately after the injury and in the exam room (4 steps), or has bone tenderness "
+    "at the posterior edge/tip of either malleolus. The source prints the first option "
+    "with '10 steps'; the rule is 4 steps, but it is still the only option describing "
+    "inability to bear weight, so it is the intended answer. Generalized tenderness or "
+    "tenderness only over soft tissue does not by itself trigger imaging."
+)
+HAND_RATIONALES = {
+    "orthopedic-disorders-q8": _OTTAWA,
+    "manual-14-q8": _OTTAWA,
+}
+HAND_CHAPTERS = {k: "orthopedic-disorders" for k in HAND_RATIONALES}
+
 GUIDE = json.loads((DATA / "guide.json").read_text())
 STOP = set(
     """a an the of and or to in on for with is are was were be been being which what who whom
@@ -160,6 +176,10 @@ def main() -> int:
                 "chapterId": ch["id"],
             }
             enriched += 1
+
+    for qid, text in HAND_RATIONALES.items():
+        upgrades[qid] = {"explanation": text, "support": [], "chapterId": HAND_CHAPTERS[qid]}
+        enriched += 1
 
     payload = {
         "meta": {

@@ -1,13 +1,13 @@
 import React, { useMemo } from 'react'
-import { ArrowRight, Clock, Flame, Target } from 'lucide-react'
-import { dueCards, deckStats, dateKey } from '../lib/srs'
+import { ArrowRight, Clock, Flame, Target, Sparkles } from 'lucide-react'
+import { splitDue, deckStats, dateKey } from '../lib/srs'
 
 /**
  * One screen, one decision: what should I do in the next 30 minutes?
  * Prioritises overdue reviews → weakest chapter → next unread chapter.
  */
 export default function TodayPlan({ cards, srs, weakestChapter, nextChapter, streak, examDate, onGo, onOpenChapter, onQuiz }) {
-  const due = useMemo(() => dueCards(cards || [], srs || {}, 200), [cards, srs])
+  const { reviews, fresh } = useMemo(() => splitDue(cards || [], srs || {}), [cards, srs])
   const stats = useMemo(() => deckStats(cards || [], srs || {}), [cards, srs])
 
   const daysToExam = examDate
@@ -16,12 +16,12 @@ export default function TodayPlan({ cards, srs, weakestChapter, nextChapter, str
 
   const blocks = []
 
-  if (due.length) {
+  if (reviews.length) {
     blocks.push({
       key: 'review',
       icon: Clock,
-      title: `Clear ${due.length} due card${due.length === 1 ? '' : 's'}`,
-      detail: 'Overdue reviews are the cheapest points you can earn today — they decay if skipped.',
+      title: `Clear ${reviews.length} overdue card${reviews.length === 1 ? '' : 's'}`,
+      detail: 'Reviews decay if skipped — this is the cheapest ground you can hold today.',
       cta: 'Start review',
       go: () => onGo('flashcards'),
       tone: 'hot',
@@ -42,7 +42,7 @@ export default function TodayPlan({ cards, srs, weakestChapter, nextChapter, str
   if (nextChapter) {
     blocks.push({
       key: 'next',
-      icon: ArrowRight,
+      icon: nextChapter ? ArrowRight : Sparkles,
       title: `Read ${nextChapter.number}. ${nextChapter.shortTitle}`,
       detail: 'Next unopened chapter — the fastest way to move coverage.',
       cta: 'Open chapter',
@@ -50,15 +50,22 @@ export default function TodayPlan({ cards, srs, weakestChapter, nextChapter, str
     })
   }
 
+  // A brand-new account has no reviews and no history: offer a first session,
+  // not an empty checklist.
   if (!blocks.length) {
     return (
       <div className="card today-plan">
-        <p className="label" style={{ margin: 0 }}>Today</p>
-        <h3 style={{ margin: '6px 0 8px' }}>You're caught up.</h3>
-        <p className="muted" style={{ marginBottom: 0 }}>
-          Nothing overdue and every chapter opened. Run a full-length mock to stress-test what you've kept.
+        <p className="label" style={{ margin: 0 }}>Start here</p>
+        <h3 style={{ margin: '6px 0 8px' }}>Nothing scheduled yet — here is the first move.</h3>
+        <p className="muted" style={{ marginBottom: 12, lineHeight: 1.6 }}>
+          {stats.fresh > 0
+            ? `${stats.fresh} cards are waiting. New cards are introduced a handful at a time so the deck stays manageable.`
+            : 'Open a chapter to begin, then answer its questions — that is what feeds your readiness score.'}
         </p>
-        <button type="button" className="btn" style={{ marginTop: 12 }} onClick={() => onGo('tests')}>Run a mock exam →</button>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <button type="button" className="btn gold" onClick={() => onGo('flashcards')}>Start 10 cards →</button>
+          <button type="button" className="btn" onClick={() => onGo('library')}>Open the study guide</button>
+        </div>
       </div>
     )
   }

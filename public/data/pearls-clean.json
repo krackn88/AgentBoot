@@ -1,0 +1,724 @@
+{
+ "meta": {
+  "count": 89,
+  "source": "the hand-curated must-know rule set - every entry is a whole, verifiable statement",
+  "replaced": "keyword sentence-mining of column-interleaved slide text, 141 of 231 items of which were artefacts",
+  "note": "Reconstructed reference tables stay tables. Flattening a sliced row into a sentence produced cells cut mid-word, which is worse than showing the grid.",
+  "assigned": 24,
+  "general": 0
+ },
+ "pearls": [
+  {
+   "id": "pearl-0",
+   "chapterId": "exam-prep-and-how-to-use-this-guide",
+   "tag": "Must-know rule",
+   "front": "Live vaccines: Same day or ≥4 weeks apart; never in pregnancy or immunocompromise.",
+   "back": "Must-know rule — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-1",
+   "chapterId": "exam-prep-and-how-to-use-this-guide",
+   "tag": "Must-know rule",
+   "front": "Vaccine timing: ≤4 days early is valid; monitor 15 min.",
+   "back": "Must-know rule — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-2",
+   "chapterId": "antibiotics",
+   "tag": "Antibiotics",
+   "front": "AOM: Amoxicillin 80–90 mg/kg/day; observe if ≥2 years, unilateral, no otorrhea.",
+   "back": "Antibiotics — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-3",
+   "chapterId": "antibiotics",
+   "tag": "Antibiotics",
+   "front": "Peds pneumonia: Amoxicillin 90 mg/kg/day; no doxycycline <8, no FQ <18.",
+   "back": "Antibiotics — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-4",
+   "chapterId": "antibiotics",
+   "tag": "Antibiotics",
+   "front": "Strep throat: Centor ≥3: test; penicillin/amoxicillin × 10 days.",
+   "back": "Antibiotics — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-5",
+   "chapterId": "antibiotics",
+   "tag": "Antibiotics",
+   "front": "ABRS: ≥10 days, severe ≥3 days, or double-sickening; amoxicillin/clavulanate 5–7 days.",
+   "back": "Antibiotics — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-6",
+   "chapterId": "antibiotics",
+   "tag": "Antibiotics",
+   "front": "Bites: Amoxicillin/clavulanate × 3–5 days if hand, face, puncture, human bite; tetanus if >5 years.",
+   "back": "Antibiotics — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-7",
+   "chapterId": "exam-prep-and-how-to-use-this-guide",
+   "tag": "Must-know rule",
+   "front": "Zoster: Antivirals within 72 h; Shingrix 2 doses at ≥50 (≥19 if immunocompromised).",
+   "back": "Must-know rule — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-8",
+   "chapterId": "orthopedic-disorders",
+   "tag": "Orthopedic Disorders",
+   "front": "Ottawa knee: Age >55, can't bear weight for 4 steps, patella or fibular head tenderness, can't flex to 90°.",
+   "back": "Orthopedic Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-9",
+   "chapterId": "orthopedic-disorders",
+   "tag": "Orthopedic Disorders",
+   "front": "Gout ULT: ≥2 flares/year, tophi or joint damage; allopurinol + 3–6 months prophylaxis.",
+   "back": "Orthopedic Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-10",
+   "chapterId": "orthopedic-disorders",
+   "tag": "Orthopedic Disorders",
+   "front": "RA: ACR/EULAR ≥6/10; anti-CCP more specific than RF.",
+   "back": "Orthopedic Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-11",
+   "chapterId": "orthopedic-disorders",
+   "tag": "Orthopedic Disorders",
+   "front": "Fibromyalgia: WPI ≥7 & SS ≥5, or WPI 4–6 & SS ≥9; >3 months.",
+   "back": "Orthopedic Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-12",
+   "chapterId": "orthopedic-disorders",
+   "tag": "Orthopedic Disorders",
+   "front": "LBP: Imaging if >4 weeks or red flags; 90% resolve in 4–6 weeks.",
+   "back": "Orthopedic Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-13",
+   "chapterId": "cardiovascular-and-peripheral-vascular-disorders",
+   "tag": "Cardiovascular and Peripheral Vascular Disorders",
+   "front": "Orthostatic hypotension: Drop of SBP ≥20 or DBP ≥10.",
+   "back": "Cardiovascular and Peripheral Vascular Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-14",
+   "chapterId": "care-of-the-aging-adult",
+   "tag": "Care of the Aging Adult",
+   "front": "Frailty (Fried): ≥3 of 5 criteria.",
+   "back": "Care of the Aging Adult — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-15",
+   "chapterId": "urology-and-sexually-transmitted-infections",
+   "tag": "Urology and Sexually Transmitted Infections",
+   "front": "CKD: eGFR <60 or UACR >30 for >3 months.",
+   "back": "Urology and Sexually Transmitted Infections — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-16",
+   "chapterId": "pregnancy-in-primary-care",
+   "tag": "Pregnancy in Primary Care",
+   "front": "Folic acid: 400 mcg (average risk); 1–4 mg (high risk).",
+   "back": "Pregnancy in Primary Care — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-17",
+   "chapterId": "exam-prep-and-how-to-use-this-guide",
+   "tag": "Must-know rule",
+   "front": "Pregnancy vaccines: Tdap 27–36 weeks; RSV 32–36 weeks; flu any time.",
+   "back": "Must-know rule — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-18",
+   "chapterId": "pregnancy-in-primary-care",
+   "tag": "Pregnancy in Primary Care",
+   "front": "GDM (3-h OGTT): ≥2 values: fasting >95, 1 h >180, 2 h >155, 3 h >140.",
+   "back": "Pregnancy in Primary Care — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-19",
+   "chapterId": "pregnancy-in-primary-care",
+   "tag": "Pregnancy in Primary Care",
+   "front": "RhoGAM: 28 weeks, postpartum, after bleeding events (if antibody-negative).",
+   "back": "Pregnancy in Primary Care — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-20",
+   "chapterId": "antibiotics",
+   "tag": "Antibiotics",
+   "front": "GBS: Screen at 35–37 weeks; penicillin G intrapartum.",
+   "back": "Antibiotics — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-21",
+   "chapterId": "pregnancy-in-primary-care",
+   "tag": "Pregnancy in Primary Care",
+   "front": "Preeclampsia: ≥140/90 + proteinuria or end-organ signs; platelets <100K, Cr >1.1.",
+   "back": "Pregnancy in Primary Care — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-22",
+   "chapterId": "pediatrics",
+   "tag": "Pediatrics",
+   "front": "Infant growth: Regains birth weight by 2 weeks; doubles by 4–6 months; triples by 12 months.",
+   "back": "Pediatrics — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-23",
+   "chapterId": "exam-prep-and-how-to-use-this-guide",
+   "tag": "Must-know rule",
+   "front": "Fontanels: Posterior closes by about 8 weeks; anterior by 9–18 months.",
+   "back": "Must-know rule — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-24",
+   "chapterId": "pediatrics",
+   "tag": "Pediatrics",
+   "front": "Peds BP and lipids: BP from age 3; lipids at 9–11 and 17–21.",
+   "back": "Pediatrics — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-25",
+   "chapterId": "pediatrics",
+   "tag": "Pediatrics",
+   "front": "Peds obesity: ≥95th percentile; severe ≥120% of the 95th.",
+   "back": "Pediatrics — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-26",
+   "chapterId": "exam-prep-and-how-to-use-this-guide",
+   "tag": "Must-know rule",
+   "front": "Dehydration: Mild 3–5%, moderate 6–9%, severe ≥10%; ORS 50–100 mL/kg over 4 h.",
+   "back": "Must-know rule — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-27",
+   "chapterId": "entry-into-practice",
+   "tag": "Entry Into Practice",
+   "front": "Certification: ANCC 175 questions / 3.5 h; AANP 150 / 3 h; renew every 5 years.",
+   "back": "Entry Into Practice — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-28",
+   "chapterId": "entry-into-practice",
+   "tag": "Entry Into Practice",
+   "front": "Malpractice: $1M per claim / $3M aggregate; claims-made needs tail coverage.",
+   "back": "Entry Into Practice — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-29",
+   "chapterId": "entry-into-practice",
+   "tag": "Entry Into Practice",
+   "front": "Negligence: Duty, breach, harm, causation.",
+   "back": "Entry Into Practice — board pearl. Say it out loud once, then flip.",
+   "kind": "rule"
+  },
+  {
+   "id": "pearl-30",
+   "chapterId": "antibiotics",
+   "tag": "Antibiotics",
+   "front": "Amoxicillin in the past month raises the odds of a beta-lactamase producer.",
+   "back": "Antibiotics — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-31",
+   "chapterId": "pulmonary-disorders",
+   "tag": "Pulmonary Disorders",
+   "front": "PCV (20/21) is now recommended for all adults ≥50.",
+   "back": "Pulmonary Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-32",
+   "chapterId": "pulmonary-disorders",
+   "tag": "Pulmonary Disorders",
+   "front": "MART: budesonide/formoterol as maintenance and reliever.",
+   "back": "Pulmonary Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-33",
+   "chapterId": "hematology",
+   "tag": "Hematology",
+   "front": "IV iron may be needed after bariatric surgery (malabsorption).",
+   "back": "Hematology — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-34",
+   "chapterId": "hematology",
+   "tag": "Hematology",
+   "front": "Iron deficiency persists unless the bleeding is addressed.",
+   "back": "Hematology — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-35",
+   "chapterId": "neurologic-disorders",
+   "tag": "Neurologic Disorders",
+   "front": "Inability to walk or keep balance means central vertigo.",
+   "back": "Neurologic Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-36",
+   "chapterId": "neurologic-disorders",
+   "tag": "Neurologic Disorders",
+   "front": "Complete a stepwise return-to-play without recurrent symptoms.",
+   "back": "Neurologic Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-37",
+   "chapterId": "mental-health-in-primary-care",
+   "tag": "Mental Health in Primary Care",
+   "front": "Screen with the PHQ-9 (labs follow as indicated).",
+   "back": "Mental Health in Primary Care — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-38",
+   "chapterId": "mental-health-in-primary-care",
+   "tag": "Mental Health in Primary Care",
+   "front": "Continue at least 6 months after remission (first episode).",
+   "back": "Mental Health in Primary Care — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-39",
+   "chapterId": "urology-and-sexually-transmitted-infections",
+   "tag": "Urology and Sexually Transmitted Infections",
+   "front": "RBC casts mean glomerulonephritis: urgent nephrology.",
+   "back": "Urology and Sexually Transmitted Infections — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-40",
+   "chapterId": "cardiovascular-and-peripheral-vascular-disorders",
+   "tag": "Cardiovascular and Peripheral Vascular Disorders",
+   "front": "Diastolic murmur at the 2nd right ICS / left sternal border.",
+   "back": "Cardiovascular and Peripheral Vascular Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-41",
+   "chapterId": "endocrine-disorders",
+   "tag": "Endocrine Disorders",
+   "front": "Advanced CVD with frequent hypoglycemia: relax the goal.",
+   "back": "Endocrine Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-42",
+   "chapterId": "endocrine-disorders",
+   "tag": "Endocrine Disorders",
+   "front": "4 units of rapid-acting insulin with the largest meal.",
+   "back": "Endocrine Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-43",
+   "chapterId": "endocrine-disorders",
+   "tag": "Endocrine Disorders",
+   "front": "Subclinical hypothyroidism: repeat TSH in 6–12 months.",
+   "back": "Endocrine Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-44",
+   "chapterId": "endocrine-disorders",
+   "tag": "Endocrine Disorders",
+   "front": "TSH is still high: increase the dose and recheck in 4–6 weeks.",
+   "back": "Endocrine Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-45",
+   "chapterId": "women-s-health",
+   "tag": "Women's Health",
+   "front": "Secondary dysmenorrhea suggests a structural cause.",
+   "back": "Women's Health — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-46",
+   "chapterId": "women-s-health",
+   "tag": "Women's Health",
+   "front": "Recurrent candidiasis: screen for diabetes and immunocompromise.",
+   "back": "Women's Health — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-47",
+   "chapterId": "men-s-health",
+   "tag": "Men's Health",
+   "front": "Epididymitis: gradual onset, prolonged sitting.",
+   "back": "Men's Health — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-48",
+   "chapterId": "dermatology",
+   "tag": "Dermatology",
+   "front": "Beta-hemolytic strep (cellulitis) The margins are poorly circumscribed and the area is warm and tender to palpation.",
+   "back": "Dermatology — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-49",
+   "chapterId": "dermatology",
+   "tag": "Dermatology",
+   "front": "The lesion is located on the trunk and has an area of central clearing.",
+   "back": "Dermatology — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-50",
+   "chapterId": "eye-ear-nose-and-throat-eent",
+   "tag": "Eye, Ear, Nose and Throat (EENT)",
+   "front": "\"Double-sickening\" Symptoms are improving, then suddenly become severe again.",
+   "back": "Eye, Ear, Nose and Throat (EENT) — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-51",
+   "chapterId": "eye-ear-nose-and-throat-eent",
+   "tag": "Eye, Ear, Nose and Throat (EENT)",
+   "front": "Intermittent jaw/cheek pain differential includes all four listed diagnoses.",
+   "back": "Eye, Ear, Nose and Throat (EENT) — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-52",
+   "chapterId": "eye-ear-nose-and-throat-eent",
+   "tag": "Eye, Ear, Nose and Throat (EENT)",
+   "front": "There is no conjunctival drainage or injection.",
+   "back": "Eye, Ear, Nose and Throat (EENT) — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-53",
+   "chapterId": "pregnancy-in-primary-care",
+   "tag": "Pregnancy in Primary Care",
+   "front": "One unequivocal abnormal reading on the 3-hour OGTT indicates gestational diabetes.",
+   "back": "Pregnancy in Primary Care — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-54",
+   "chapterId": "pregnancy-in-primary-care",
+   "tag": "Pregnancy in Primary Care",
+   "front": "Onset at 5 weeks, resolving by 12 New-onset diabetes diagnosed in the first trimester of pregnancy is considered gestational diabetes.",
+   "back": "Pregnancy in Primary Care — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-55",
+   "chapterId": "pregnancy-in-primary-care",
+   "tag": "Pregnancy in Primary Care",
+   "front": "Screening in the 2nd trimester (24–28 weeks) Screening should be conducted in the second trimester.",
+   "back": "Pregnancy in Primary Care — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-56",
+   "chapterId": "pediatrics",
+   "tag": "Pediatrics",
+   "front": "Live vaccines are not contraindicated in SCD Up to three live vaccines can be administered simultaneously.",
+   "back": "Pediatrics — board pearl. Say it out loud once, then flip.",
+   "kind": "rationale"
+  },
+  {
+   "id": "pearl-57",
+   "chapterId": "antibiotics",
+   "tag": "Antibiotics",
+   "front": "<1% of the population has a true PCN allergy.",
+   "back": "Antibiotics — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-58",
+   "chapterId": "cardiovascular-and-peripheral-vascular-disorders",
+   "tag": "Cardiovascular and Peripheral Vascular Disorders",
+   "front": "Beta-blockers are not first-line therapy!",
+   "back": "Cardiovascular and Peripheral Vascular Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-59",
+   "chapterId": "cardiovascular-and-peripheral-vascular-disorders",
+   "tag": "Cardiovascular and Peripheral Vascular Disorders",
+   "front": "Avoid/caution prescribing ARBs in combination with ACEs and other potassium-sparing medications.",
+   "back": "Cardiovascular and Peripheral Vascular Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-60",
+   "chapterId": "cardiovascular-and-peripheral-vascular-disorders",
+   "tag": "Cardiovascular and Peripheral Vascular Disorders",
+   "front": "Consider OSA, renovascular, and endocrine disorders as causes for secondary hypertension.",
+   "back": "Cardiovascular and Peripheral Vascular Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-61",
+   "chapterId": "cardiovascular-and-peripheral-vascular-disorders",
+   "tag": "Cardiovascular and Peripheral Vascular Disorders",
+   "front": "CCBs are used cautiously in heart failure because they decrease cardiac contractility.",
+   "back": "Cardiovascular and Peripheral Vascular Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-62",
+   "chapterId": "cardiovascular-and-peripheral-vascular-disorders",
+   "tag": "Cardiovascular and Peripheral Vascular Disorders",
+   "front": "Primary care ➔ Recognize, Work up, Anticoagulate, and Refer!",
+   "back": "Cardiovascular and Peripheral Vascular Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-63",
+   "chapterId": "care-of-the-aging-adult",
+   "tag": "Care of the Aging Adult",
+   "front": "Your documentation must support these services in order to bill.",
+   "back": "Care of the Aging Adult — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-64",
+   "chapterId": "care-of-the-aging-adult",
+   "tag": "Care of the Aging Adult",
+   "front": "The level of prevention is guided by the goal of care/treatment.",
+   "back": "Care of the Aging Adult — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-65",
+   "chapterId": "dermatology",
+   "tag": "Dermatology",
+   "front": "Deep, nonpurulent infection + systemic symptoms = systemic antibiotics!",
+   "back": "Dermatology — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-66",
+   "chapterId": "endocrine-disorders",
+   "tag": "Endocrine Disorders",
+   "front": "If BMI changes, screen sooner.",
+   "back": "Endocrine Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-67",
+   "chapterId": "endocrine-disorders",
+   "tag": "Endocrine Disorders",
+   "front": "Memorize the characteristics and suffixes of each drug class.",
+   "back": "Endocrine Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-68",
+   "chapterId": "endocrine-disorders",
+   "tag": "Endocrine Disorders",
+   "front": "In DM2, the ADA recommends trying a GLP-1 or GLP-1/GIP before insulin whenever possible!",
+   "back": "Endocrine Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-69",
+   "chapterId": "endocrine-disorders",
+   "tag": "Endocrine Disorders",
+   "front": "Structural thyroid problems can cause functional problems!",
+   "back": "Endocrine Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-70",
+   "chapterId": "endocrine-disorders",
+   "tag": "Endocrine Disorders",
+   "front": "Nonspecific beta-blockers (e.g., propranolol) may be prescribed for symptom management while awaiting endocrinology referral.",
+   "back": "Endocrine Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-71",
+   "chapterId": "endocrine-disorders",
+   "tag": "Endocrine Disorders",
+   "front": "Lifestyle interventions continue during medical or surgical therapy.",
+   "back": "Endocrine Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-72",
+   "chapterId": "gastrointestinal-disorders",
+   "tag": "Gastrointestinal Disorders",
+   "front": "If there is no symptom relief of GERD after 8 weeks on a PPI-REFER!",
+   "back": "Gastrointestinal Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-73",
+   "chapterId": "gastrointestinal-disorders",
+   "tag": "Gastrointestinal Disorders",
+   "front": "Recognize and refer to gastroenterology.",
+   "back": "Gastrointestinal Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-74",
+   "chapterId": "hematology",
+   "tag": "Hematology",
+   "front": "Therapy duration and route depend on the cause.",
+   "back": "Hematology — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-75",
+   "chapterId": "neurologic-disorders",
+   "tag": "Neurologic Disorders",
+   "front": "Refer for everything except BPPV!",
+   "back": "Neurologic Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-76",
+   "chapterId": "orthopedic-disorders",
+   "tag": "Orthopedic Disorders",
+   "front": "RA and OA both affect the hands. Understand the differences!",
+   "back": "Orthopedic Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-77",
+   "chapterId": "orthopedic-disorders",
+   "tag": "Orthopedic Disorders",
+   "front": "Obtain a thorough history, develop differentials, and make your diagnosis!",
+   "back": "Orthopedic Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-78",
+   "chapterId": "pediatrics",
+   "tag": "Pediatrics",
+   "front": "Do not memorize the vaccination schedule. For the certification exam, make safe clinical decisions!",
+   "back": "Pediatrics — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-79",
+   "chapterId": "pulmonary-disorders",
+   "tag": "Pulmonary Disorders",
+   "front": "Clinical guidelines published more than 12 months ago are fair game for the exam.",
+   "back": "Pulmonary Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-80",
+   "chapterId": "pulmonary-disorders",
+   "tag": "Pulmonary Disorders",
+   "front": "Never combine two anticholinergics due to severe anticholinergic side effects.",
+   "back": "Pulmonary Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-81",
+   "chapterId": "pulmonary-disorders",
+   "tag": "Pulmonary Disorders",
+   "front": "Inhaled corticosteroids are reserved for advanced COPD and exacerbations (GOLD E). Used first-line in asthma.",
+   "back": "Pulmonary Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-82",
+   "chapterId": "women-s-health",
+   "tag": "Women's Health",
+   "front": "These are the INITIAL best tests to order based on age; other diagnostics may be ordered based on initial results.",
+   "back": "Women's Health — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-83",
+   "chapterId": "women-s-health",
+   "tag": "Women's Health",
+   "front": "Postmenopausal and intermenstrual bleeding is always concerning for endometrial cancer!",
+   "back": "Women's Health — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-84",
+   "chapterId": "women-s-health",
+   "tag": "Women's Health",
+   "front": "Use the lowest effective dose for the shortest amount of time for symptoms.",
+   "back": "Women's Health — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-85",
+   "chapterId": "cardiovascular-and-peripheral-vascular-disorders",
+   "tag": "Cardiovascular and Peripheral Vascular Disorders",
+   "front": "ABI <0.9 or >1.4 is highly suggestive of PAD.",
+   "back": "Cardiovascular and Peripheral Vascular Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-86",
+   "chapterId": "eye-ear-nose-and-throat-eent",
+   "tag": "Eye, Ear, Nose and Throat (EENT)",
+   "front": "Consider dental etiology when patient is present with facial/jaw pain.",
+   "back": "Eye, Ear, Nose and Throat (EENT) — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-87",
+   "chapterId": "mental-health-in-primary-care",
+   "tag": "Mental Health in Primary Care",
+   "front": "Do NOT stop abruptly! Taper over 2–4 weeks for most SSRIs if taking SSRI for ≥6 weeks.",
+   "back": "Mental Health in Primary Care — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  },
+  {
+   "id": "pearl-88",
+   "chapterId": "pulmonary-disorders",
+   "tag": "Pulmonary Disorders",
+   "front": "Exam questions that contain images will include additional information.",
+   "back": "Pulmonary Disorders — board pearl. Say it out loud once, then flip.",
+   "kind": "tip"
+  }
+ ]
+}

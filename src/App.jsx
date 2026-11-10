@@ -1,11 +1,12 @@
 import React, { lazy, Suspense, useMemo, useState, useEffect } from 'react'
 import { useStore, streakOf, todayKey } from './lib/store'
 import { pdfUrlForChapter, manualIdForChapter } from './lib/pdfs'
-import Reader, { Blocks } from './components/Reader.jsx'
+import Reader from './components/Reader.jsx'
 import Quiz from './components/Quiz.jsx'
 import Flashcards, { buildDecks, allCards } from './components/Flashcards.jsx'
 import Planner from './components/Planner.jsx'
 import Workbook from './components/Workbook.jsx'
+import FnpWorkbook from './components/FnpWorkbook.jsx'
 import { Sidebar, PageHeader, MobileNav } from './components/AppShell.jsx'
 import PlatformStats from './components/PlatformStats.jsx'
 import SourceTrust from './components/SourceTrust.jsx'
@@ -13,6 +14,7 @@ import ReadinessPanel from './components/ReadinessPanel.jsx'
 import TodayPlan from './components/TodayPlan.jsx'
 import InstallPrompt from './components/InstallPrompt.jsx'
 import SearchPanel from './components/SearchPanel.jsx'
+import HighYield from './components/HighYield.jsx'
 import StudyPath from './components/StudyPath.jsx'
 import OnboardingCard from './components/OnboardingCard.jsx'
 import Milestones from './components/Milestones.jsx'
@@ -24,6 +26,7 @@ import { BETA_OPEN } from './lib/config'
 import { flattenQuestions, gradable } from './lib/questions'
 import { buildTwelveWeekPath } from './lib/studyPath'
 import { computeReadiness } from './lib/readiness'
+import { contentStats } from './lib/contentStats'
 import { countCompletedPathWeeks } from './lib/milestones'
 import { PLANS, COMPARE_ROWS } from './lib/plans'
 import { loadGuide, loadPlatformBundle, prefetchChapterModule } from './lib/platform'
@@ -44,14 +47,16 @@ export default function App() {
   return <StudyApp guide={guide} />
 }
 
-function StudyApp({ guide }) {
+export function StudyApp({ guide }) {
   const [store, update] = useStore()
   const [view, setView] = useState(() => (location.hash.match(/^#\/([\w-]+)/)?.[1] || 'dashboard'))
   const [chapterId, setChapterId] = useState(() => location.hash.match(/^#\/reader\/([^/]+)/)?.[1] || null)
   const [manualId, setManualId] = useState(() => location.hash.match(/^#\/manuals\/(\d+)/)?.[1] || null)
   const [quizPreset, setQuizPreset] = useState(null)
+  const [searchSeed, setSearchSeed] = useState('')
   const [contentMeta, setContentMeta] = useState(null)
   const [pearlCards, setPearlCards] = useState([])
+  const [pdfLists, setPdfLists] = useState([])
   const [manualBank, setManualBank] = useState(null)
   useEffect(() => {
     function sync() {
@@ -66,7 +71,8 @@ function StudyApp({ guide }) {
     window.addEventListener('hashchange', sync); return () => window.removeEventListener('hashchange', sync)
   }, [])
   useEffect(() => {
-    loadPlatformBundle().then(({ pearlCards, contentMeta, manualBank }) => {
+    loadPlatformBundle().then(({ pearlCards, pdfLists, contentMeta, manualBank }) => {
+      setPdfLists(pdfLists || [])
       setPearlCards(pearlCards)
       setContentMeta(contentMeta)
       setManualBank(manualBank)
@@ -74,10 +80,16 @@ function StudyApp({ guide }) {
   }, [])
   const chapters = guide.chapters
   const questionPool = useMemo(() => flattenQuestions(guide, manualBank), [guide, manualBank])
+  // unique graded items only — duplicates across the two banks must not inflate the count
   const gradedQ = useMemo(() => gradable(questionPool).length, [questionPool])
   const chapter = chapters.find(c => c.id === chapterId)
-  const guideQCount = guide.meta.questions
-  const manualQCount = manualBank?.meta?.graded ?? 0
+  const guideQCount = useMemo(() => guide.chapters.reduce((a, c) => a + c.questions.length, 0), [guide])
+  // count unique manual items: the meta.graded figure includes items that
+  // duplicate a study-guide stem, which would overstate the real pool
+  const manualQCount = useMemo(
+    () => (manualBank?.questions || []).filter(q => !q.duplicateOf && q.correctIndex != null).length,
+    [manualBank],
+  )
   const totalQ = gradedQ || guideQCount + manualQCount
   const answered = Object.keys(store.answers).length
   const correctCount = Object.values(store.answers).filter(a => a.correct).length
@@ -112,6 +124,15 @@ function StudyApp({ guide }) {
       .sort((a, b) => a.pct - b.pct)
   }, [chapters, store.answers])
   const milestoneStats = { doneCh, totalCh: chapters.length, answered, accuracy, mastered, streak, readiness }
+  const pearlsByChapter = useMemo(() => {
+    const m = {}
+    pearlCards.forEach(p => { if (p.chapterId) m[p.chapterId] = (m[p.chapterId] || 0) + 1 })
+    return m
+  }, [pearlCards])
+  const stats = useMemo(
+    () => contentStats({ guide, manualBank, pearls: pearlCards, questionPool }),
+    [guide, manualBank, pearlCards, questionPool],
+  )
 
   function openQuiz(chId) { setQuizPreset(chId ? { mode: 'practice', chapterId: chId } : null); go('quiz') }
   function openChapter(id) { setChapterId(id); setView('reader'); location.hash = `#/reader/${id}`; window.scrollTo(0, 0) }
@@ -124,7 +145,7 @@ function StudyApp({ guide }) {
 
   const titles = {
     dashboard: 'Dashboard', library: 'Study guide', manuals: 'Full manuals', reader: chapter?.shortTitle,
-    quiz: 'Question bank', tests: 'Mock exams', workbooks: 'Workbooks', flashcards: 'Flashcards',
+    quiz: 'Question bank', tests: 'Mock exams', workbooks: 'Workbooks', 'fnp-workbook': 'The FNP Workbook', flashcards: 'Flashcards',
     quickref: 'High-yield', planner: 'Study planner', about: 'Sources & scope',
   }
   usePageTitle(titles[view] || null)
@@ -142,6 +163,8 @@ function StudyApp({ guide }) {
           </div>
         )}
         <SearchPanel
+          key={searchSeed}
+          seedQuery={searchSeed}
           autoFocus={false}
           onOpenChapter={(id) => openChapter(id)}
           onOpenManual={(chapterId) => { const c = chapters.find(x => x.id === chapterId); openManual(c ? manualIdForChapter(c) : null) }}
@@ -173,7 +196,7 @@ function StudyApp({ guide }) {
               <ReadinessPanel model={readinessModel} onGo={go} />
               <ReadinessCertificate readiness={readiness} doneCh={doneCh} totalCh={chapters.length} accuracy={accuracy} streak={streak} examDate={store.examDate} />
               <SourceTrust guide={guide} manualBank={manualBank} totalQ={totalQ} guideQ={guideQCount} manualQ={manualQCount} />
-              <PlatformStats guide={guide} contentMeta={contentMeta} manualBank={manualBank} questionTotal={totalQ} />
+              <PlatformStats guide={guide} contentMeta={contentMeta} manualBank={manualBank} questionTotal={totalQ} pearlTotal={stats.pearlsTotal} />
               <OnboardingCard onGo={go} />
               <ReadinessReportCard guide={guide} store={store} readiness={readiness} doneCh={doneCh} totalCh={chapters.length} answered={answered} totalQ={totalQ} accuracy={accuracy} mastered={mastered} streak={streak} />
               <Milestones store={store} stats={milestoneStats} weeksComplete={weeksComplete} />
@@ -195,16 +218,15 @@ function StudyApp({ guide }) {
                   <ul className="feature-list">
                     <li><strong>{chapters.length} chapters</strong> — searchable study guide with original PDFs</li>
                     <li><strong>22 manuals</strong> — full text + source PDFs from the APEA course</li>
-                    <li><strong>1,720+ workbook drills</strong> — active recall from clinical tables</li>
-                    <li><strong>{totalQ} questions</strong> — graded with Answer Key rationales</li>
-                    <li><strong>Mock exams</strong> — AANP, ANCC, and chapter tests</li>
-                    {contentMeta && <li><strong>{contentMeta.pearls_total} clinical pearls</strong> + manual depth on every chapter</li>}
-                    {manualBank?.meta?.graded > 0 && <li><strong>{manualBank.meta.graded}</strong> extra MCQs from course-manual slides (separate mock banks)</li>}
+                    <li><strong>{stats.claims.drills} workbook drills</strong> — active recall from clinical tables</li>
+                    <li><strong>{stats.gradedTotal} graded questions</strong> — {stats.examSafe} exam-verified with rationales</li>
+                    <li><strong>Mock exams</strong> — 150-item AANP and 175-item ANCC forms, plus chapter tests</li>
+                    <li><strong>{stats.pearlsTotal} clinical pearls</strong> + rebuilt reference tables on every chapter</li>
                   </ul>
                 </div>
               </div>
               <h2 style={{ marginTop: 28 }}>Chapters</h2>
-              <div className="card">{chapters.slice(0, 6).map(c => <ChapterRow key={c.id} c={c} store={store} contentMeta={contentMeta} onOpen={() => openChapter(c.id)} />)}
+              <div className="card">{chapters.slice(0, 6).map(c => <ChapterRow key={c.id} c={c} store={store} contentMeta={contentMeta} pearlCount={pearlsByChapter[c.id] || 0} onOpen={() => openChapter(c.id)} />)}
                 <button className="btn ghost" style={{ marginTop: 12 }} onClick={() => go('library')}>View all {chapters.length} chapters →</button></div>
             </div>
           )}
@@ -212,13 +234,13 @@ function StudyApp({ guide }) {
           {view === 'library' && (
             <div>
               <PageHeader eyebrow="Study guide" title={`All ${chapters.length} chapters`} subtitle="Condensed guide plus Course manual depth and Clinical pearls tabs in each chapter — sourced from the full APEA manuals on your server." />
-              <div className="card">{chapters.map(c => <ChapterRow key={c.id} c={c} store={store} contentMeta={contentMeta} onOpen={() => openChapter(c.id)} />)}</div>
+              <div className="card">{chapters.map(c => <ChapterRow key={c.id} c={c} store={store} contentMeta={contentMeta} pearlCount={pearlsByChapter[c.id] || 0} onOpen={() => openChapter(c.id)} />)}</div>
             </div>
           )}
 
 
           {view === 'reader' && chapter && (
-            <Reader chapter={chapter} store={store} update={update} onBack={() => go('library')} onQuiz={openQuiz}
+            <Reader chapter={chapter} store={store} update={update} onBack={() => go('library')} onQuiz={openQuiz} pearlCards={pearlCards}
               onOpenManual={() => openManual(manualIdForChapter(chapter))}
               onNext={() => { const n = chapters[chapters.indexOf(chapter) + 1]; if (n) openChapter(n.id) }} />
           )}
@@ -229,37 +251,21 @@ function StudyApp({ guide }) {
             </Suspense>
           )}
 
-          {view === 'quiz' && <Quiz key={quizPreset ? (quizPreset.testId || quizPreset.chapterId + quizPreset.mode) : 'setup'} guide={guide} store={store} update={update} preset={quizPreset} questionPool={questionPool} />}
+          {view === 'quiz' && <Quiz key={quizPreset ? (quizPreset.testId || quizPreset.chapterId + quizPreset.mode) : 'setup'} guide={guide} store={store} update={update} preset={quizPreset} questionPool={questionPool} onSearch={(term) => { setSearchSeed(term); go('dashboard') }} />}
           {view === 'flashcards' && <Flashcards guide={guide} store={store} update={update} pearlCards={pearlCards} questionPool={questionPool} />}
           {view === 'tests' && (
             <Suspense fallback={<ViewSkeleton label="Loading mock exams" />}>
               <Tests guide={guide} store={store} questionPool={questionPool} onStart={(p) => { setQuizPreset(p); setView('quiz'); location.hash = '#/quiz'; window.scrollTo(0, 0) }} />
             </Suspense>
           )}
-          {view === 'workbooks' && <Workbook guide={guide} store={store} update={update} pearlCards={pearlCards} />}
+          {view === 'workbooks' && <Workbook guide={guide} store={store} update={update} pearlCards={pearlCards} pdfLists={pdfLists} />}
+          {view === 'fnp-workbook' && <FnpWorkbook guide={guide} store={store} update={update} />}
 
-          {view === 'quickref' && (
-            <div style={{ maxWidth: 860, margin: '0 auto' }}>
-              <PageHeader eyebrow="High yield" title="Quick reference + clinical pearls" subtitle="Condensed rules from the study guide, labs to memorize, and the highest-signal lines pulled from all 22 course manuals." />
-              {(guide.quickRef?.sections || []).map(s => <div key={s.id} className="card" style={{ marginBottom: 16 }}><h3>{s.title}</h3><Blocks blocks={s.blocks} /></div>)}
-              {chapters[0].sections.filter(s => /labs/i.test(s.title)).map(s => <div key={s.id} className="card" style={{ marginBottom: 16 }}><h3>{s.title}</h3><Blocks blocks={s.blocks} /></div>)}
-              {pearlCards.length > 0 && (
-                <div className="card">
-                  <h3>Clinical pearls sampler</h3>
-                  <p className="muted small">A taste of the {pearlCards.length} pearl cards — open any chapter's Clinical pearls tab or drill the full deck in Flashcards.</p>
-                  <div className="pearl-grid">{pearlCards.slice(0, 12).map((p, i) => (
-                    <div key={p.id} className="pearl-card"><span className="pearl-num">{i + 1}</span><p>{p.front}</p></div>
-                  ))}</div>
-                  <button className="btn" style={{ marginTop: 14 }} onClick={() => go('flashcards')}>Drill all pearls in flashcards →</button>
-                </div>
-              )}
-              <button className="btn ghost" onClick={() => go('flashcards')}>High-yield & lab flashcard decks →</button>
-            </div>
-          )}
+          {view === 'quickref' && <HighYield guide={guide} pearls={pearlCards} onGo={go} />}
 
           {view === 'planner' && <Planner guide={guide} store={store} update={update} />}
 
-          {view === 'about' && <AboutAccess totalQ={totalQ} totalCards={totalCards} chapters={chapters.length} store={store} update={update} guide={guide} contentMeta={contentMeta} manualBank={manualBank} readiness={readiness} />}
+          {view === 'about' && <AboutAccess totalQ={totalQ} totalCards={totalCards} chapters={chapters.length} store={store} update={update} guide={guide} contentMeta={contentMeta} manualBank={manualBank} readiness={readiness} stats={stats} />}
         </>
       </main>
 
@@ -328,7 +334,7 @@ function Blueprint({ guide }) {
   )
 }
 
-function ChapterRow({ c, store, onOpen, contentMeta }) {
+function ChapterRow({ c, store, onOpen, contentMeta, pearlCount }) {
   const done = !!store.completed[c.id]
   const depth = contentMeta?.chapters?.find(x => x.id === c.id)
   const graded = c.questions.filter(q => q.correctIndex != null && q.options?.length >= 2).length
@@ -337,7 +343,7 @@ function ChapterRow({ c, store, onOpen, contentMeta }) {
       <div className={`num ${done ? 'done' : ''}`}>{done ? '✓' : c.number}</div>
       <div style={{ flex: 1, cursor: 'pointer' }} onClick={onOpen}>
         <strong>{c.shortTitle}</strong>
-        <p className="small muted" style={{ margin: 2 }}>{c.sections.length} sections · ~{Math.max(1, Math.round(c.wordCount / 200))} min · {graded} Q{depth ? ` · ${depth.pearls} pearls · ${(depth.words / 1000).toFixed(1)}k manual depth` : ''} {store.bookmarks.includes(c.id) ? '· ★ saved' : ''}</p>
+        <p className="small muted" style={{ margin: 2 }}>{c.sections.length} sections · ~{Math.max(1, Math.round(c.wordCount / 200))} min · {graded} Q{pearlCount ? ` · ${pearlCount} pearls` : ''}{depth ? ` · ${depth.tables ?? 0} manual tables` : ''} {store.bookmarks.includes(c.id) ? '· ★ saved' : ''}</p>
       </div>
       <a className="pill" href={pdfUrlForChapter(c)} target="_blank" rel="noreferrer" onClick={e => e.stopPropagation()}>PDF</a>
       <button className="btn ghost" onClick={onOpen}>Study →</button>
@@ -345,11 +351,11 @@ function ChapterRow({ c, store, onOpen, contentMeta }) {
   )
 }
 
-function AboutAccess({ totalQ, totalCards, chapters, store, update, guide, contentMeta, manualBank, readiness }) {
+function AboutAccess({ totalQ, totalCards, chapters, store, update, guide, contentMeta, manualBank, readiness, stats }) {
   const [email, setEmail] = useState('')
   const [note, setNote] = useState('')
   const [joined, setJoined] = useState(false)
-  const pearls = contentMeta?.pearls_total ?? 0
+  const pearls = stats.pearlsTotal
   const pro = PLANS.pro
   const free = PLANS.free
 
@@ -385,7 +391,7 @@ function AboutAccess({ totalQ, totalCards, chapters, store, update, guide, conte
         </p>
       </div>
 
-      <PlatformStats guide={guide} contentMeta={contentMeta} manualBank={manualBank} questionTotal={totalQ} />
+      <PlatformStats guide={guide} contentMeta={contentMeta} manualBank={manualBank} questionTotal={totalQ} pearlTotal={stats.pearlsTotal} />
 
       <div className="grid cols2" style={{ marginTop: 16 }}>
         <div className="card">
@@ -427,7 +433,7 @@ function AboutAccess({ totalQ, totalCards, chapters, store, update, guide, conte
         <ul className="feature-list">
           <li>{chapters} searchable guide chapters + {pearls ? `${pearls} clinical pearls` : 'clinical pearls'}</li>
           <li>22 course manuals (full text + PDF links)</li>
-          <li>{totalQ} graded questions · {totalCards}+ flashcards · 1,720+ workbook drills</li>
+          <li>{stats.gradedTotal} graded questions ({stats.examSafe} exam-verified) · {totalCards}+ flashcards · {stats.claims.drills} workbook drills</li>
           <li>Mock exams, 12-week path, planner, readiness report export</li>
         </ul>
         {BETA_OPEN && (

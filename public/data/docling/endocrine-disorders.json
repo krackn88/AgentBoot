@@ -1,0 +1,762 @@
+{
+ "chapterId": "endocrine-disorders",
+ "title": "Endocrine Disorders",
+ "pdf": "11-endocrine-disorders-course-manual.pdf",
+ "markdown": "## CHAPTER 10\n\n## Endocrine Disorders\n\n## CONTENT OVERVIEW\n\n- Diabetes\n- Thyroid disorders\n- Obesity\n- Uncommon endocrine disorders\n\n## NOTES\n\n<!-- image -->\n\n## Classification of Diabetes Mellitus (DM)\n\n- Type 1 DM: caused by autoimmune destruction of beta cells; absolute insulin deficiency\n- Type 2 DM: caused by the progressive loss of insulin secretion by beta cells, often with associated insulin resistance\n- Gestational DM: diabetes that develops during pregnancy that was not present prior to gestation, diagnosed in the 2nd or 3rd trimester\n- Others: latent autoimmune diabetes in adults (LADA), mild obesity-related diabetes (MOD), mild age-related diabetes (MARD)\n\n## Risk Factors for Type 2 DM\n\n| Risk Factors       | Risk Factors                                                                                     |\n|--------------------|--------------------------------------------------------------------------------------------------|\n| Age                | 45 years or older                                                                                |\n| BMI                | 25 kg/m 2 or higher ( or ≥23 if Asian American)                                                  |\n| Family history     | DM in first-degree relative                                                                      |\n| Inactivity         | Sedentary lifestyle                                                                              |\n| Medical history    | Dyslipidemia, gestational DM, hyperuricemia, metabolic syndrome, or cardiovascular disease (CVD) |\n| Insulin resistance | Polycystic ovary syndrome (PCOS), acanthosis nigricans, severe obesity                           |\n| Race               | Black, Latino American, Native American, Asian American, Pacific Islander                        |\n| Glucose            | Prior A1c greater than 5.7% (pre-DM), impaired glucose tolerance                                 |\n\n## Screening\n\n## USPSTF Recommendations: Diabetes and Prediabetes Screening USPSTF Recommendations: Diabetes and Prediabetes Screening\n\n<!-- image -->\n\nTIP: If BMI changes, screen sooner.\n\n## ADA Diagnostic Criteria\n\n| Type of Test                                        | Pre-DM         | Type 2 DM            |\n|-----------------------------------------------------|----------------|----------------------|\n| A1c                                                 | 5.7-6.4%       | 6.5% or greater      |\n| FPG                                                 | 100-125 mg/dL  | 126 mg/dL or greater |\n| Oral glucose tolerance test (OGTT)                  | 140-199 mg/dL  | over 200 mg/dL       |\n| Random plasma glucose (RPG) with signs and symptoms | Not applicable | over 200 mg/dL       |\n\nDiagnosis should be confirmed with repeat testing unless unequivocal hyperglycemia.\n\n## QUESTION #1\n\nWhich statement about the diagnosis of diabetes is true?\n\n1. An A1c of 6.1% is diagnostic of DM.\n2. Fasting plasma glucose (FPG) means nothing to eat or drink in the last 4 hours.\n3. A FPG of 160 mg/dL and an A1c of 6.6% is diagnostic.\n4. A postprandial plasma glucose (PPG) of more than 200 mg/dL is diagnostic.\n\n## Prediabetes Management\n\nLifestyle Modifications\n\n- All patients\n- $ Weight loss ≥7% can prevent diabetes.\n- $ Reduced calorie diet\n- $ 150 minutes per week of moderate activity\n\n## Consider Metformin\n\n- Select patients\n- $ A1c 6-6.4%\n- $ ≤60 and BMI ≥35\n- $ Personal history of gestational diabetes\n- $ FPG ≥110 mg/dL\n\n<!-- image -->\n\nNOTES\n\n## NOTES A1c Goal Recommendations\n\n- Tolerates low A1c\n- Drug tolerability\n- Newer DM diagnosis\n\n· Tolerates low A1c\n\n· Drug tolerability\n\n- Long life-expectancy\n- No comorbidities\n\n· Newer DM diagnosis\n\n· Long life-expectancy\n\n· No comorbidities\n\n- Able to handle regimen\n\n· Able to handle regimen\n\n- More resources/support\n- Hypoglycemia\n\n· More resources/support\n\n- Drug adverse events\n- Long-standing DM\n- Short life-expectancy · Hypoglycemia\n- Major comorbidities · Drug adverse events\n- Significant CVD · Long-standing DM · Short life-expectancy\n- Desires simpler regimen · Major comorbidities\n- Less resources/support · Significant CVD\n\n· Desires simpler regimen\n\n· Less resources/support\n\nMore stringent A1c goal Less than 7%\n\nA1c goal Usually 7%\n\nLess stringent A1c goal 8% or higher\n\n## QUESTION #2\n\nEach of these patients has an A1c goal of 7% or less. Which patient would benefit most from an A1c adjustment?\n\n1. An older patient who has been controlled on their oral medications for 5 years\n2. A patient with advanced CVD who has frequent episodes of hypoglycemia\n3. A medically complex patient whose HbA1c is stable at 6.9% on the current regimen\n4. An adult who is well controlled on oral meds but has been diagnosed with early Alzheimer's disease\n\n## Blood Glucose Goals ADA Recommendations\n\n- Fasting blood glucose\n- $ Healthy patients:\n- 80-130 mg/dL\n- $ Frail patients:\n- Less stringent\n- Postprandial glucose\n- $ 2 hours after a meal\n- $ &lt;180 mg/dL\n- Continuous glucose monitoring\n\n<!-- image -->\n\n<!-- image -->\n\n## Estimated Average Glucose\n\n| A1c   |   Estimated Average Blood Glucose (mg/dL) | Blood Glucose Range (mg/dL)   |\n|-------|-------------------------------------------|-------------------------------|\n| 5%    |                                        97 | (76-120)                      |\n| 6%    |                                       126 | (100-152)                     |\n| 7%    |                                       154 | (123-185)                     |\n| 8%    |                                       183 | (147-217)                     |\n| 9%    |                                       212 | (170-249)                     |\n| 10%   |                                       240 | (193-282)                     |\n| 11%   |                                       269 | (217-314)                     |\n| 12%   |                                       298 | (240-317)                     |\n\n## Diabetes Monitoring\n\n| Measure             | Frequency                                      | Comments                                                                                    |\n|---------------------|------------------------------------------------|---------------------------------------------------------------------------------------------|\n| A1c                 | Every 3 months until goal; then every 6 months | · The better the control, the better the reduction in micro and macrovascular complications |\n| Lipids              | At diagnosis and annually                      | · Establish cardiovascular risk (ASCVD). · Initiate statin based on risk. · See next slide. |\n| Height, weight, BMI | Every visit                                    | · Lifestyle modifications to reduce weight                                                  |\n| Blood pressure      | Every visit                                    | · Target BP ≤130/80 mm Hg · Consider ACE/ARB in patients with proteinuria or CAD.           |\n\n## ASCVD Prevention With Diabetes\n\n## In addition to lifestyle modification\n\n<!-- image -->\n\n## NOTES\n\n## NOTES Type 2 DM Monitoring: Complications/Comorbidities\n\n| Monitor                                                  | Frequency                                                                                      | Comments                                                                                                                          |\n|----------------------------------------------------------|------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|\n| Dilated eye exam                                         | Annually at onset                                                                              | Encourage patient to bring copy of report to PCP appointment.                                                                     |\n| Creatinine, eGFR, spot urine albumin-to-creatinine ratio | At diagnosis, annually                                                                         | If established CKD: may check more frequently                                                                                     |\n| LFTs, CBC                                                | At diagnosis, annually                                                                         | More often for specific drugs                                                                                                     |\n| Foot exam                                                | Initial visit, annually; more often if peripheral vascular disease (PVD) or neuropathy present | Visual inspection; palpation of pedal pulses; assessment of sensation (vibration, temperature, or pinprick) and monofilament exam |\n\n## TYPE 2 DIABETES\n\nLet's take care of some patients!\n\n## QUESTION #3\n\nMs. Q is a 44-year-old Hispanic American female with a BMI of 31. A velvety discoloration is noted around the patient's neck.\n\nWhat is this called?\n\n<!-- image -->\n\nWhat labs should be ordered?\n\n<!-- image -->\n\n## QUESTION #4\n\nBased on the patient's lab results, what is the next best step?\n\n| Lab     | Result    | Normal Range   |\n|---------|-----------|----------------|\n| Glucose | 155 mg/dL | 70-99 mg/dL    |\n| A1c     | 7.5%      | 4.0-5.6%       |\n\n1. Order another round of fasting labs to confirm the diagnosis.\n2. Diagnose with prediabetes and recommend lifestyle modification.\n3. Diagnose with type 2 diabetes and recommend lifestyle modification.\n4. Diagnose with type 2 diabetes and initiate medication.\n\n<!-- image -->\n\n## Diabetes Drug Classes\n\n| Drug Class                    | Suffix         | Examples                                                      |\n|-------------------------------|----------------|---------------------------------------------------------------|\n| Biguanide                     | Not Applicable | Metformin                                                     |\n| Sulfonylurea (2nd generation) | -ride/-zide    | Glimepiride, glipizide, glyburide                             |\n| Meglitinides                  | -glinide       | Repaglinide, nateglinide                                      |\n| DPP-4 inhibitor               | -gliptin       | Alogliptin, linagliptin, saxagliptin, sitagliptin             |\n| GLP-1                         | -atide/-utide  | Exenatide, liraglutide, dulaglutide, albiglutide, semaglutide |\n| Thiazolidinedione (TZD)       | -azone         | Pioglitazone, rosiglitazone                                   |\n| SGLT-2                        | -gliflozin     | Canagliflozin, dapagliflozin, empagliflozin                   |\n| GIP/GLP-1                     | -tide          | Tirzepatide                                                   |\n\nTIP: Memorize the characteristics and suffixes of each drug class.\n\n## Medication Summary\n\n| Class                       | Mechanism of Action                                                   | A1c Decrease   | Comment                                             | Cost/Month   |\n|-----------------------------|-----------------------------------------------------------------------|----------------|-----------------------------------------------------|--------------|\n| GLP-1/GIP receptor agonist  | Increases insulin synthesis in response to hyperglycemia              | 1.7-2.4%       | Weight loss, CV benefit, possible renal benefit     | $1200        |\n| GLP-1 receptor agonist      | Increases insulin synthesis in response to blood glucose rise         | 0.5-1.5%       | Weight loss, CV benefit, possible renal benefit     | $800-$1200   |\n| Insulin (human and analogs) | Replaces insulin deficits                                             | 1.5-3.5%       | Weight gain, decrease in eGFR requires lower dosing | $24-$1200    |\n| Biguanide                   | Decreases glucose production/absorption; improves insulin sensitivity | 1-2%           | No hypoglycemia, weight neutral, caution with CKD   | CHEAP!       |\n| Sulfonylureas               | Increases insulin secretion                                           | 1-2%           | Hypoglycemia, weight gain                           | CHEAP!       |\n\n## NOTES\n\n## NOTES Medication Summary (cont.)\n\n| Name              | Mechanism of Action                                      | A1c Decrease   | Comment                                                      | Cost/Month   |\n|-------------------|----------------------------------------------------------|----------------|--------------------------------------------------------------|--------------|\n| SGLT-2 inhibitors | Prevents renal glucose reabsorption                      | 0.5-0.8%       | Weight loss, reduces BP; can cause UTI, yeast infections     | $400-$700    |\n| TZDs              | Improves insulin sensitivity                             | 0.5-1.4%       | Contraindicated in heart failure; increased risk of fracture | $300-$400    |\n| DPP-4             | Slows inactivation of incretin (decreases blood glucose) | 0.5-0.8%       | Not first-line; GI effects, pancreatitis                     | $200-$600    |\n\n## Type 2 DM: First Medication\n\n- Metformin is often the first medication choice.\n- $ Effective (lowers A1c 1-2%)\n- $ Inexpensive/widely available\n- $ Reduces cardiovascular risk\n- $ Well tolerated\n- $ Weight neutral\n- GLP-1 or GLP-1/GIP, SGLT-2 can be started first-line if:\n- $ The patient meets certain characteristics (obesity, high ASCVD risk, CKD).\n\n<!-- image -->\n\n## QUESTION #5\n\nA patient with newly diagnosed diabetes has a BMI of 38 but no other comorbidities. Which option would be least appropriate as initial therapy for this patient?\n\n1. Metformin\n2. Tirzepatide\n3. Semaglutide\n4. Glipizide\n\n<!-- image -->\n\n## QUESTION #6\n\nThe NP considers prescribing metformin for a patient with newly diagnosed type 2 DM. A different medication should be selected if the patient has which lab result?\n\n1. Decreased eGFR of 42 mL/min\n2. Elevated alkaline phosphatase level or 152 IU/L\n3. Elevated blood glucose of 155 mg/dL\n4. Decreased vitamin B 12 level of 30 pg/mL\n\n<!-- image -->\n\n## Metformin Prescribing Pearls\n\n- Titration to full dose\n\n· Titration to full dose\n\n<!-- image -->\n\n- Can cause significant diarrhea · Can cause significant diarrhea\n- Most common reason that patients stop $ Most common reason that patients stop metformin\n- metformin $ Using extended-release (ER) formulation helps\n- Using extended-release (ER) formulation helps $ If diarrhea develops, hold until diarrhea stops, then restart at 500 mg and titrate slowly.\n- Caution in liver, renal disease\n\n· If diarrhea develops, hold until diarrhea stops,\n\nthen restart at 500 mg and titrate slowly.\n\n## QUESTION #7\n\n· Caution in liver, renal disease\n\nWhich statement about GLP-1 receptor agonists is true?\n\n1. GLP-1 agonists are only available as subcutaneous injections.\n2. Dizziness and hypoglycemia are the most common side effects.\n3. Patients who lose weight on GLP-1 agonists may regain weight if they stop the medication.\n4. These medications are not recommended in patients with an increased ASCVD risk.\n\n## DM Drugs and Patient Characteristics\n\n| Patient Characteristics                 | Beneficial Drugs          |\n|-----------------------------------------|---------------------------|\n| ASCVD                                   | GLP-1, SGLT2, TZD         |\n| HF                                      | SGLT2                     |\n| CKD                                     | SGLT2 or GLP-1            |\n| Risk for hypoglycemia                   | DPP-4, SGLT2, GLP-1, TZD  |\n| Obesity                                 | SGLT2, GLP-1              |\n| A1c ≥10%, BG ≥300 mg/dL, or symptomatic | GLP-1, GLP-1/GIP, insulin |\n| PCOS                                    | Metformin, TZD            |\n| Pregnancy (or planned)                  | Insulin, metformin        |\n| Limited financial resources             | SU, TZD, metformin        |\n\n## QUESTION #8\n\nA 78-year-old patient has diabetes, obesity, and heart failure. The patient takes metformin and metoprolol daily but A1c remains above goal at 8.3%. Which medication would be appropriate to add in this patient?\n\n1. Rosiglitazone (Avandia)\n2. Glipizide (Glucotrol)\n3. Dapagliflozin (Farxiga)\n4. Regular insulin at meals\n\n<!-- image -->\n\n<!-- image -->\n\nNOTES\n\n## NOTES\n\n## QUESTION #9\n\nA patient takes an SGLT-2, a GLP-1, and metformin but is still not to their A1c goal. Which of the options is a reasonable next step?\n\n1. Add meal-time insulin to the current regimen.\n2. Add basal insulin and discontinue metformin.\n3. Add basal insulin and discontinue the GLP-1.\n4. Add basal insulin to the current regimen.\n\n## When to Consider Basal Insulin\n\n- Early use can preserve pancreatic function.\n- Consider in patients with:\n- $ A1c ≥ 10% or FPG ≥ 300 mg/dL\n- $ Symptoms of hyperglycemia\n- $ Severe hyperglycemia with ketonuria\n- $ After maxing out orals/injectables\n- $ Pregnant patients\n- $ Ongoing catabolism (unexpected weight loss)\n\n<!-- image -->\n\nTIP: In DM2, the ADA recommends trying a GLP-1 or GLP-1/GIP before insulin whenever possible!\n\n## ADA Recommendations for Managing Insulin, 2025\n\n<!-- image -->\n\n*Basal coverage may be inadequate if the patient requires more than 0.5 u/kg/day, if there is a wide difference between bedtime/morning, or elevated FPG/postprandial glucose levels, or if hypoglycemia.\n\n<!-- image -->\n\n## QUESTION #10\n\nA 45-year-old patient is taking Levemir 10 units at night and recorded the following FBG readings. How should the patient adjust their basal insulin?\n\n|   Day | FBG       |\n|-------|-----------|\n|     1 | 150 mg/dL |\n|     2 | 144 mg/dL |\n|     3 | 156 mg/dL |\n\n1. Decrease the dose by 2 units.\n2. Continue the same dose.\n3. Increase the dose by 3 units.\n4. Add 3 units of am insulin to current regimen.\n\n<!-- image -->\n\n## QUESTION #11\n\nA patient takes 40 units of basal insulin and has an average FBG of 110 mg/dL. The patient's postprandial glucose is over 200 mg/dL. Mealtime insulin will be prescribed. Which choice is most appropriate?\n\n1. Add 2 units of basal insulin with the largest meal of the day.\n2. Add 2 units rapid-acting insulin with the largest meal of the day.\n3. Add 4 units basal insulin with every meal.\n4. Add 4 units rapid-acting insulin with the largest meal of the day.\n\n## THYROID DISORDERS\n\n## Thyroid Pathophysiology\n\nFunctional problems\n\n- Hypothyroidism\n- $ Primary\n- $ Subclinical\n- $ Secondary\n- Hyperthyroidism\n- $ Primary\n- $ Subclinical\n- $ Secondary\n\nStructural problems\n\n- Goiter-enlargement\n- Thyroiditis-inflammation\n- Nodules\n- $ Benign\n- $ Toxic nodules\n- $ Thyroid cancer\n\n<!-- image -->\n\nJoshua Lanclos/APEA\n\nTIP: Structural thyroid problems can cause functional problems!\n\n<!-- image -->\n\n## NOTES\n\n## NOTES Thyroid Hormones\n\n<!-- image -->\n\n## Thyroid Stimulating Hormone (TSH)\n\n- TSH is the most sensitive measure of thyroid function.\n- $ TSH is the \"early warning system\".\n- $ Changes in TSH levels occur before changes in T3/T4.\n- $ More reliable than T3 and T4 levels\n- $ A small change in circulating T3/T4 results in a very large change in TSH.\n- TSH measurement is clinically useful.\n- $ To screen for thyroid disorders\n- $ To monitor thyroid hormone supplementation\n\n## Thyroid Hormones-T3 and T4\n\n| T4-Thyroxine (Tetraiodothyronine) 4 Iodine Atoms   | T3-Triiodothyronine 3 iodine Atoms                                        |\n|----------------------------------------------------|---------------------------------------------------------------------------|\n| 80% released by thyroid                            | 20% produced by thyroid; majority converted from T4 in peripheral tissues |\n| Free T4-Active                                     | 99.5% is bound and inactive                                               |\n| More specific to hypothyroidism                    | More specific to hyperthyroidism                                          |\n\n<!-- image -->\n\n## Hypothyroidism\n\n| Thyroid State              | TSH               | Free T4               | T3                         |\n|----------------------------|-------------------|-----------------------|----------------------------|\n| Euthyroid                  | Normal            | Normal                | Normal                     |\n| Primary hypothyroidism     | Increased         | Decreased             | Normal (Usually) Manage in |\n| Subclinical hypothyroidism | Increased         | Normal                | Normal Primary Care        |\n| Secondary hypothyroidism   | Normal/ Decreased | Decreased/ Low-Normal | Normal/Decreased Refer     |\n\n- Primary: problem with thyroid (e.g., autoimmune disorder)\n- Secondary: problem originates outside the thyroid; may have other hormonal abnormalities; feedback loop failure\n\n## Subclinical Hypothyroidism\n\n- Labs: increased TSH, normal free T4\n- $ TSH greater than 10 mU/L\n- Treat to prevent progression to primary hypothyroidism.\n- Prescribe 25 to 50 mcg or 1.6 mcg/kg/day IBW.\n- $ TSH less than 10 mU/L\n- Treatment usually not beneficial\n- Recheck TSH in 6 to 12 months or if symptoms increase.\n\n## QUESTION #12\n\nMrs. B, age 42, reports fatigue and weight gain. Her TSH level is elevated to 7 mIU/L (normal: 0.5-4.0 mIU/L). T4 level is normal. Based on these results, what is the diagnosis and best action by the NP?\n\n1. Hypothyroidism; initiate levothyroxine\n2. Subclinical hypothyroidism; repeat the TSH in 6-12 months.\n3. Subclinical hypothyroidism; initiate levothyroxine\n4. Subclinical hypothyroidism; initiate Armour Thyroid\n\n<!-- image -->\n\n## QUESTION #13\n\nMrs. B, age 42, returns for follow-up in a year with these lab values. What should be done next?\n\n|                  | TSH           | Free T4        |\n|------------------|---------------|----------------|\n| Reported value   | 15 mIU/L      | 0.3 mIU/L      |\n| Reference ranges | 0.5-4.0 mIU/L | 0.7-1.53 mIU/L |\n\n1. Continue monitoring the TSH in 6-12 months.\n2. Calculate ideal body weight (IBW) and prescribe levothyroxine.\n3. Evaluate for secondary causes of hypothyroidism.\n4. Order thyroid antibody studies.\n\n<!-- image -->\n\n## NOTES\n\n## NOTES Primary Hypothyroidism\n\n- Primary-problem with the thyroid (over 95%)\n- Usually caused by an autoimmune conditionHashimoto thyroiditis\n- $ Antibody studies not high-yielding\n- Risk factors: family hx, increasing age, female sex\n\nConfirmatory diagnostics: increased TSH, decreased free T4\n\n## Initial Levothyroxine Dosing\n\nWho is your patient?\n\n| Age/Health Status                                    | Initial Dose                              |\n|------------------------------------------------------|-------------------------------------------|\n| Under age 50, healthy                                | 1.6 mcg/kg of ideal body weight (IBW)/day |\n| Age 50-60, mild to moderate health issues            | 50 mcg/day                                |\n| Over age 60, cardiac issues or serious comorbidities | 25 mcg/day                                |\n\n<!-- image -->\n\nTIP: start low, go slow!\n\n## QUESTION #14\n\nThe following patients have primary hypothyroidism. What initial levothyroxine dose should be prescribed in each patient?\n\n| Patient                    | Calculated Dose   | Starting Dose   |\n|----------------------------|-------------------|-----------------|\n| 55-year-old with OA        | 87 mcg            |                 |\n| 72-year-old with HTN       | 112 mcg           |                 |\n| 28-year-old with asthma    | 116 mcg           |                 |\n| 46-year-old healthy female | 96 mcg            |                 |\n\nAvailable Tablet Doses (mcg):\n\n25, 50, 75, 88, 100, 112, 125, 137, 150, 175, 200, 300\n\n## Levothyroxine Dose Titration\n\n## To achieve euthyroid\n\n- Check TSH every 4 to 8 weeks until euthyroid.\n- TSH ≥4.0 mIU/L\n- Increase levothyroxine to next available dosage.\n\n## Once stable\n\n- Monitor TSH only.\n- Annually\n- Major changes in health status\n\n<!-- image -->\n\n## QUESTION #15\n\nA patient has taken 88 mcg of levothyroxine daily for the past 6 weeks. The patient's TSH has decreased from 28 mIU/L to 8 mIU/L and the patient feels much better. What should be done next?\n\n1. Continue current levothyroxine dose and recheck TSH in 6 months.\n2. Order a free T4 level to inform decision-making.\n3. Increase levothyroxine dose and recheck TSH in 4-6 weeks.\n4. Prescribe combination T3/T4 therapy.\n\n## Patient Education About Levothyroxine\n\n- Levothyroxine is a picky drug!\n- $ Must take with water on an empty stomach\n- $ Interacts with other medications\n- Hypothyroidism control affected by\n- $ Weight change of 10% or more\n- $ Taking levothyroxine with food or other meds\n- $ Missed or extra medication doses\n- $ Use of antiepileptic drugs, steroids\n- $ Pregnancy (increases needs 30%)\n- $ Biotin interferes with measurement of TSH\n\n## Hyperthyroidism\n\n- Presentation\n- $ Heat intolerance, warm and moist skin\n- $ Fine tremor in hands\n- $ Tachycardia or tachyarrhythmias\n- $ Anxiety, irritability\n- $ Ophthalmopathy-early or late finding in Graves disease\n\n## Hyperthyroidism\n\n<!-- image -->\n\nRefer all patients with hyperthyroidism!\n\n| Thyroid State               | TSH              | Free T4          | T3        |\n|-----------------------------|------------------|------------------|-----------|\n| Euthyroid                   | Normal           | Normal           | Normal    |\n| Primary hyperthyroidism     | Decreased        | Increased/Normal | Increased |\n| Subclinical hyperthyroidism | Decreased        | Normal           | Normal    |\n| Secondary hyperthyroidism   | Normal/Increased | Increased        | Increased |\n\nTIP: Nonspecific beta-blockers (e.g., propranolol) may be prescribed for symptom management while awaiting endocrinology referral.\n\n## Graves Ophthalmopathy\n\n<!-- image -->\n\n<!-- image -->\n\n## NOTES\n\n## NOTES\n\n## Obesity Screening\n\nUnited States Preventive Services Task Force (USPSTF) recommends identifying adults with a BMI over 30\n\n## Screening Measures\n\n- Body mass index (BMI)\n- Waist circumference Over 40 inches for males Over 35 inches for females\n\n| BMI          | Classification    |\n|--------------|-------------------|\n| 25-29.9      | Overweight        |\n| 30-34.9      | Class I obesity   |\n| 35-39.9      | Class II obesity  |\n| 40 or higher | Class III obesity |\n\n## Approach to Overweight and Obesity Management\n\n| Patient Category                | Initial Labs                                               | Goal/Strategies                                                                                               |\n|---------------------------------|------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|\n| BMI 25-29.9, no comorbidities   | · A1c · Thyroid-stimulating hormone (TSH)                  | · Prevent further weight gain and comorbidities. · Lifestyle modifications-healthy diet and physical activity |\n| BMI 27-29.9, with comorbidities | · Liver enzymes · Fasting lipids · Others based on history | · Weight loss · Structured behavioral modification · Pharmacotherapy for some patients                        |\n| BMI 30-34.4                     |                                                            | · As above, plus · Pharmacotherapy for most patients                                                          |\n| BMI 35 or higher                |                                                            | · As above, plus · Bariatric surgery may be considered                                                        |\n\n## Indications for Obesity Medications\n\nIndications for pharmacologic therapy\n\n| BMI 27-29.9                    | BMI over 30                                      |\n|--------------------------------|--------------------------------------------------|\n| · With comorbidities (DM, HTN) | · BMI alone often warrants pharmacologic therapy |\n\n⎫⎪⎪⎪⎬⎪⎪⎪⎭\n\nNot successful with lifestyle alone Success = ≥5% of TBW loss Sustained by 3 to 6 months\n\nTIP: Lifestyle interventions continue during medical or surgical therapy.\n\n## OVERWEIGHT AND OBESITY\n\n## FDA-Approved Medications for Weight Loss\n\n| Medications                                                                         | Average Weight Loss   | Comments                                                                                                                                                                                                                                 |\n|-------------------------------------------------------------------------------------|-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| Tirzepatide (Zepbound) · GLP-1/GIP dual receptor agonist · Weekly SQ injection      | 15-20%                | · Probable ASCVD protection; lowers glucose · Avoid if history of pancreatitis, endocrine tumors. · GI side effects limit tolerance; titrate to max dose. · Very expensive, insurance may not cover · Weight regain upon discontinuation |\n| Semaglutide (Wegovy) Liraglutide (Saxenda) · GLP-1 receptor agonists · SQ injection | 8-14%                 | · ASCVD protection, lowers glucose · Avoid if history of pancreatitis, endocrine tumors. · GI side effects limit tolerance; titrate to max dose. · Very expensive, insurance may not cover · Weight regain upon discontinuation          |\n| Phentermine-Topiramate · Stimulant/anticonvulsant                                   | 9%                    | · Topiramate increases risk of birth. · Increases HR, risk of neuropsychiatric disturbances · DEA category C-IV                                                                                                                          |\n| Orlistat · Lipase inhibitor                                                         | 6%                    | · Improve lipids, BP, glucose control · GI side effects significantly limit use (steatorrhea).                                                                                                                                           |\n| Bupropion-naltrexone · NDRI/opiate antagonist                                       | 5 to 6%               | · May increase BP and heart rate · Avoid in seizure disorder, severe HTN.                                                                                                                                                                |\n\n## OTHER ENDOCRINE DISORDERS\n\n## Name That Condition\n\nName That Endocrine Condition\n\n## QUESTION #16\n\nRare condition presenting with fatigue, weight loss, hyperpigmentation, postural hypotension\n\n<!-- image -->\n\n## QUESTION #17\n\nCondition caused by excess cortisol production by the adrenal gland tumor\n\n<!-- image -->\n\n## NOTES\n\n## NOTES Which Endocrine Condition?\n\n## QUESTION #18\n\nAsymptomatic with elevated serum Ca 2+ levels or nephrolithiasis\n\n<!-- image -->\n\n## QUESTION #19\n\nPresents with round (\"moon\") face, wide purple striae, easy bruising, history of long-term prednisone use\n\n## Uncommon Endocrine Conditions\n\n| Disorder                                  | Typical Presentation                                                      | Pathophysiology                                                                              | Management                                       |\n|-------------------------------------------|---------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|--------------------------------------------------|\n| Addison's disease (Adrenal Insufficiency) | Fatigue, vomiting, weight loss, skin, postural hypotension                | Inadequate cortisol, aldosterone, androgens production                                       | Corticosteroid, fludrocortisone supplements      |\n| Cushing disease                           | Moon face, buffalo hump, central adiposity, striae                        | Excess cortisol production by adrenal tumor                                                  | Surgery to remove adrenal tumor, radiation, meds |\n| Cushing syndrome                          | Moon face, buffalo hump, central adiposity, striae                        | Elevated cortisol levels due to corticosteroid use                                           | Wean corticosteroid drugs if possible            |\n| Primary hyper- parathyroidism             | Asymptomatic, elevated serum calcium and parathyroid hormone (PTH) levels | Overactive parathyroid gland produces excess PTH, pulling calcium from bones into the serum. | Surgical removal of overactive parathyroid gland |\n\n## EXAM CHECKLIST\n\n- Diabetes: know metformin, SU, insulin\n- Prescribe/manage medications and insulin\n- Hypothyroidism\n- Hyperthyroidism\n- Obesity\n- Recognize other endocrine conditions\n- Addison's disease\n- Cushing syndrome/disease\n- Hyperparathyroidism\n- Know clinical presentation (subjective, objective findings)\n- Know how to diagnose\n- What's in differential diagnoses?\n- Pharmacologic, nonpharmacologic management\n- Follow-up care\n- Recognize normal course\n- When to refer\n\n<!-- image -->\n\n<!-- image -->",
+ "tables": [
+  {
+   "headers": [
+    "Age",
+    "45 years or older"
+   ],
+   "rows": [
+    [
+     "BMI",
+     "25 kg/m 2 or higher ( or ≥23 if Asian American)"
+    ],
+    [
+     "Family history",
+     "DM in first-degree relative"
+    ],
+    [
+     "Inactivity",
+     "Sedentary lifestyle"
+    ],
+    [
+     "Medical history",
+     "Dyslipidemia, gestational DM, hyperuricemia, metabolic syndrome, or cardiovascular disease (CVD)"
+    ],
+    [
+     "Insulin resistance",
+     "Polycystic ovary syndrome (PCOS), acanthosis nigricans, severe obesity"
+    ],
+    [
+     "Race",
+     "Black, Latino American, Native American, Asian American, Pacific Islander"
+    ],
+    [
+     "Glucose",
+     "Prior A1c greater than 5.7% (pre-DM), impaired glucose tolerance"
+    ]
+   ],
+   "caption": "",
+   "page": 1
+  },
+  {
+   "headers": [
+    "A1c",
+    "5.7-6.4%",
+    "6.5% or greater"
+   ],
+   "rows": [
+    [
+     "FPG",
+     "100-125 mg/dL",
+     "126 mg/dL or greater"
+    ],
+    [
+     "Oral glucose tolerance test (OGTT)",
+     "140-199 mg/dL",
+     "over 200 mg/dL"
+    ],
+    [
+     "Random plasma glucose (RPG) with signs and symptoms",
+     "Not applicable",
+     "over 200 mg/dL"
+    ]
+   ],
+   "caption": "",
+   "page": 2
+  },
+  {
+   "headers": [
+    "5%",
+    "97",
+    "(76-120)"
+   ],
+   "rows": [
+    [
+     "6%",
+     "126",
+     "(100-152)"
+    ],
+    [
+     "7%",
+     "154",
+     "(123-185)"
+    ],
+    [
+     "8%",
+     "183",
+     "(147-217)"
+    ],
+    [
+     "9%",
+     "212",
+     "(170-249)"
+    ],
+    [
+     "10%",
+     "240",
+     "(193-282)"
+    ],
+    [
+     "11%",
+     "269",
+     "(217-314)"
+    ],
+    [
+     "12%",
+     "298",
+     "(240-317)"
+    ]
+   ],
+   "caption": "",
+   "page": 4
+  },
+  {
+   "headers": [
+    "A1c",
+    "Every 3 months until goal; then every 6 months",
+    "· The better the control, the better the reduction in micro and macrovascular complications"
+   ],
+   "rows": [
+    [
+     "Lipids",
+     "At diagnosis and annually",
+     "· Establish cardiovascular risk (ASCVD). · Initiate statin based on risk. · See next slide."
+    ],
+    [
+     "Height, weight, BMI",
+     "Every visit",
+     "· Lifestyle modifications to reduce weight"
+    ],
+    [
+     "Blood pressure",
+     "Every visit",
+     "· Target BP ≤130/80 mm Hg · Consider ACE/ARB in patients with proteinuria or CAD."
+    ]
+   ],
+   "caption": "",
+   "page": 4
+  },
+  {
+   "headers": [
+    "Dilated eye exam",
+    "Annually at onset",
+    "Encourage patient to bring copy of report to PCP appointment."
+   ],
+   "rows": [
+    [
+     "Creatinine, eGFR, spot urine albumin-to-creatinine ratio",
+     "At diagnosis, annually",
+     "If established CKD: may check more frequently"
+    ],
+    [
+     "LFTs, CBC",
+     "At diagnosis, annually",
+     "More often for specific drugs"
+    ],
+    [
+     "Foot exam",
+     "Initial visit, annually; more often if peripheral vascular disease (PVD) or neuropathy present",
+     "Visual inspection; palpation of pedal pulses; assessment of sensation (vibration, temperature, or pinprick) and monofilament exam"
+    ]
+   ],
+   "caption": "",
+   "page": 5
+  },
+  {
+   "headers": [
+    "Lab",
+    "Result",
+    "Normal Range"
+   ],
+   "rows": [
+    [
+     "Glucose",
+     "155 mg/dL",
+     "70-99 mg/dL"
+    ],
+    [
+     "A1c",
+     "7.5%",
+     "4.0-5.6%"
+    ]
+   ],
+   "caption": "",
+   "page": 5
+  },
+  {
+   "headers": [
+    "Biguanide",
+    "Not Applicable",
+    "Metformin"
+   ],
+   "rows": [
+    [
+     "Sulfonylurea (2nd generation)",
+     "-ride/-zide",
+     "Glimepiride, glipizide, glyburide"
+    ],
+    [
+     "Meglitinides",
+     "-glinide",
+     "Repaglinide, nateglinide"
+    ],
+    [
+     "DPP-4 inhibitor",
+     "-gliptin",
+     "Alogliptin, linagliptin, saxagliptin, sitagliptin"
+    ],
+    [
+     "GLP-1",
+     "-atide/-utide",
+     "Exenatide, liraglutide, dulaglutide, albiglutide, semaglutide"
+    ],
+    [
+     "Thiazolidinedione (TZD)",
+     "-azone",
+     "Pioglitazone, rosiglitazone"
+    ],
+    [
+     "SGLT-2",
+     "-gliflozin",
+     "Canagliflozin, dapagliflozin, empagliflozin"
+    ],
+    [
+     "GIP/GLP-1",
+     "-tide",
+     "Tirzepatide"
+    ]
+   ],
+   "caption": "",
+   "page": 6
+  },
+  {
+   "headers": [
+    "GLP-1/GIP receptor agonist",
+    "Increases insulin synthesis in response to hyperglycemia",
+    "1.7-2.4%",
+    "Weight loss, CV benefit, possible renal benefit",
+    "1200"
+   ],
+   "rows": [
+    [
+     "GLP-1 receptor agonist",
+     "Increases insulin synthesis in response to blood glucose rise",
+     "0.5-1.5%",
+     "Weight loss, CV benefit, possible renal benefit",
+     "800- 1200"
+    ],
+    [
+     "Insulin (human and analogs)",
+     "Replaces insulin deficits",
+     "1.5-3.5%",
+     "Weight gain, decrease in eGFR requires lower dosing",
+     "24- 1200"
+    ],
+    [
+     "Biguanide",
+     "Decreases glucose production/absorption; improves insulin sensitivity",
+     "1-2%",
+     "No hypoglycemia, weight neutral, caution with CKD",
+     "CHEAP!"
+    ],
+    [
+     "Sulfonylureas",
+     "Increases insulin secretion",
+     "1-2%",
+     "Hypoglycemia, weight gain",
+     "CHEAP!"
+    ]
+   ],
+   "caption": "",
+   "page": 6
+  },
+  {
+   "headers": [
+    "SGLT-2 inhibitors",
+    "Prevents renal glucose reabsorption",
+    "0.5-0.8%",
+    "Weight loss, reduces BP; can cause UTI, yeast infections",
+    "400- 700"
+   ],
+   "rows": [
+    [
+     "TZDs",
+     "Improves insulin sensitivity",
+     "0.5-1.4%",
+     "Contraindicated in heart failure; increased risk of fracture",
+     "300- 400"
+    ],
+    [
+     "DPP-4",
+     "Slows inactivation of incretin (decreases blood glucose)",
+     "0.5-0.8%",
+     "Not first-line; GI effects, pancreatitis",
+     "200- 600"
+    ]
+   ],
+   "caption": "",
+   "page": 7
+  },
+  {
+   "headers": [
+    "ASCVD",
+    "GLP-1, SGLT2, TZD"
+   ],
+   "rows": [
+    [
+     "HF",
+     "SGLT2"
+    ],
+    [
+     "CKD",
+     "SGLT2 or GLP-1"
+    ],
+    [
+     "Risk for hypoglycemia",
+     "DPP-4, SGLT2, GLP-1, TZD"
+    ],
+    [
+     "Obesity",
+     "SGLT2, GLP-1"
+    ],
+    [
+     "A1c ≥10%, BG ≥300 mg/dL, or symptomatic",
+     "GLP-1, GLP-1/GIP, insulin"
+    ],
+    [
+     "PCOS",
+     "Metformin, TZD"
+    ],
+    [
+     "Pregnancy (or planned)",
+     "Insulin, metformin"
+    ],
+    [
+     "Limited financial resources",
+     "SU, TZD, metformin"
+    ]
+   ],
+   "caption": "",
+   "page": 8
+  },
+  {
+   "headers": [
+    "Day",
+    "FBG"
+   ],
+   "rows": [
+    [
+     "1",
+     "150 mg/dL"
+    ],
+    [
+     "2",
+     "144 mg/dL"
+    ],
+    [
+     "3",
+     "156 mg/dL"
+    ]
+   ],
+   "caption": "",
+   "page": 10
+  },
+  {
+   "headers": [
+    "T4-Thyroxine (Tetraiodothyronine) 4 Iodine Atoms",
+    "T3-Triiodothyronine 3 iodine Atoms"
+   ],
+   "rows": [
+    [
+     "80% released by thyroid",
+     "20% produced by thyroid; majority converted from T4 in peripheral tissues"
+    ],
+    [
+     "Free T4-Active",
+     "99.5% is bound and inactive"
+    ],
+    [
+     "More specific to hypothyroidism",
+     "More specific to hyperthyroidism"
+    ]
+   ],
+   "caption": "",
+   "page": 11
+  },
+  {
+   "headers": [
+    "Thyroid State",
+    "TSH",
+    "Free T4",
+    "T3"
+   ],
+   "rows": [
+    [
+     "Euthyroid",
+     "Normal",
+     "Normal",
+     "Normal"
+    ],
+    [
+     "Primary hypothyroidism",
+     "Increased",
+     "Decreased",
+     "Normal (Usually) Manage in"
+    ],
+    [
+     "Subclinical hypothyroidism",
+     "Increased",
+     "Normal",
+     "Normal Primary Care"
+    ],
+    [
+     "Secondary hypothyroidism",
+     "Normal/ Decreased",
+     "Decreased/ Low-Normal",
+     "Normal/Decreased Refer"
+    ]
+   ],
+   "caption": "",
+   "page": 12
+  },
+  {
+   "headers": [
+    "Reported value",
+    "15 mIU/L",
+    "0.3 mIU/L"
+   ],
+   "rows": [
+    [
+     "Reference ranges",
+     "0.5-4.0 mIU/L",
+     "0.7-1.53 mIU/L"
+    ]
+   ],
+   "caption": "",
+   "page": 12
+  },
+  {
+   "headers": [
+    "Age/Health Status",
+    "Initial Dose"
+   ],
+   "rows": [
+    [
+     "Under age 50, healthy",
+     "1.6 mcg/kg of ideal body weight (IBW)/day"
+    ],
+    [
+     "Age 50-60, mild to moderate health issues",
+     "50 mcg/day"
+    ],
+    [
+     "Over age 60, cardiac issues or serious comorbidities",
+     "25 mcg/day"
+    ]
+   ],
+   "caption": "",
+   "page": 13
+  },
+  {
+   "headers": [
+    "55-year-old with OA",
+    "87 mcg"
+   ],
+   "rows": [
+    [
+     "72-year-old with HTN",
+     "112 mcg"
+    ],
+    [
+     "28-year-old with asthma",
+     "116 mcg"
+    ],
+    [
+     "46-year-old healthy female",
+     "96 mcg"
+    ]
+   ],
+   "caption": "",
+   "page": 13
+  },
+  {
+   "headers": [
+    "Euthyroid",
+    "Normal",
+    "Normal",
+    "Normal"
+   ],
+   "rows": [
+    [
+     "Primary hyperthyroidism",
+     "Decreased",
+     "Increased/Normal",
+     "Increased"
+    ],
+    [
+     "Subclinical hyperthyroidism",
+     "Decreased",
+     "Normal",
+     "Normal"
+    ],
+    [
+     "Secondary hyperthyroidism",
+     "Normal/Increased",
+     "Increased",
+     "Increased"
+    ]
+   ],
+   "caption": "",
+   "page": 14
+  },
+  {
+   "headers": [
+    "BMI",
+    "Classification"
+   ],
+   "rows": [
+    [
+     "25-29.9",
+     "Overweight"
+    ],
+    [
+     "30-34.9",
+     "Class I obesity"
+    ],
+    [
+     "35-39.9",
+     "Class II obesity"
+    ],
+    [
+     "40 or higher",
+     "Class III obesity"
+    ]
+   ],
+   "caption": "",
+   "page": 15
+  },
+  {
+   "headers": [
+    "BMI 25-29.9, no comorbidities",
+    "· A1c · Thyroid-stimulating hormone (TSH)",
+    "· Prevent further weight gain and comorbidities. · Lifestyle modifications-healthy diet and physical activity"
+   ],
+   "rows": [
+    [
+     "BMI 27-29.9, with comorbidities",
+     "· Liver enzymes · Fasting lipids · Others based on history",
+     "· Weight loss · Structured behavioral modification · Pharmacotherapy for some patients"
+    ],
+    [
+     "BMI 30-34.4",
+     "",
+     "· As above, plus · Pharmacotherapy for most patients"
+    ],
+    [
+     "BMI 35 or higher",
+     "",
+     "· As above, plus · Bariatric surgery may be considered"
+    ]
+   ],
+   "caption": "",
+   "page": 15
+  },
+  {
+   "headers": [
+    "BMI 27-29.9",
+    "BMI over 30"
+   ],
+   "rows": [
+    [
+     "· With comorbidities (DM, HTN)",
+     "· BMI alone often warrants pharmacologic therapy"
+    ]
+   ],
+   "caption": "",
+   "page": 15
+  },
+  {
+   "headers": [
+    "Tirzepatide (Zepbound) · GLP-1/GIP dual receptor agonist · Weekly SQ injection",
+    "15-20%",
+    "· Probable ASCVD protection; lowers glucose · Avoid if history of pancreatitis, endocrine tumors. · GI side effects limit tolerance; titrate to max dose. · Very expensive, insurance may not cover · Weight regain upon discontinuation"
+   ],
+   "rows": [
+    [
+     "Semaglutide (Wegovy) Liraglutide (Saxenda) · GLP-1 receptor agonists · SQ injection",
+     "8-14%",
+     "· ASCVD protection, lowers glucose · Avoid if history of pancreatitis, endocrine tumors. · GI side effects limit tolerance; titrate to max dose. · Very expensive, insurance may not cover · Weight regain upon discontinuation"
+    ],
+    [
+     "Phentermine-Topiramate · Stimulant/anticonvulsant",
+     "9%",
+     "· Topiramate increases risk of birth. · Increases HR, risk of neuropsychiatric disturbances · DEA category C-IV"
+    ],
+    [
+     "Orlistat · Lipase inhibitor",
+     "6%",
+     "· Improve lipids, BP, glucose control · GI side effects significantly limit use (steatorrhea)."
+    ],
+    [
+     "Bupropion-naltrexone · NDRI/opiate antagonist",
+     "5 to 6%",
+     "· May increase BP and heart rate · Avoid in seizure disorder, severe HTN."
+    ]
+   ],
+   "caption": "",
+   "page": 16
+  },
+  {
+   "headers": [
+    "Addison's disease (Adrenal Insufficiency)",
+    "Fatigue, vomiting, weight loss, skin, postural hypotension",
+    "Inadequate cortisol, aldosterone, androgens production",
+    "Corticosteroid, fludrocortisone supplements"
+   ],
+   "rows": [
+    [
+     "Cushing disease",
+     "Moon face, buffalo hump, central adiposity, striae",
+     "Excess cortisol production by adrenal tumor",
+     "Surgery to remove adrenal tumor, radiation, meds"
+    ],
+    [
+     "Cushing syndrome",
+     "Moon face, buffalo hump, central adiposity, striae",
+     "Elevated cortisol levels due to corticosteroid use",
+     "Wean corticosteroid drugs if possible"
+    ],
+    [
+     "Primary hyper- parathyroidism",
+     "Asymptomatic, elevated serum calcium and parathyroid hormone (PTH) levels",
+     "Overactive parathyroid gland produces excess PTH, pulling calcium from bones into the serum.",
+     "Surgical removal of overactive parathyroid gland"
+    ]
+   ],
+   "caption": "",
+   "page": 17
+  }
+ ],
+ "tips": [
+  "If BMI changes, screen sooner.",
+  "Memorize the characteristics and suffixes of each drug class.",
+  "In DM2, the ADA recommends trying a GLP-1 or GLP-1/GIP before insulin whenever possible!",
+  "Structural thyroid problems can cause functional problems!",
+  "start low, go slow!",
+  "Nonspecific beta-blockers (e.g., propranolol) may be prescribed for symptom management while awaiting endocrinology referral.",
+  "Lifestyle interventions continue during medical or surgical therapy."
+ ],
+ "questions": [
+  {
+   "stem": "Which statement about the diagnosis of diabetes is true?",
+   "options": [
+    "An A1c of 6.1% is diagnostic of DM.",
+    "Fasting plasma glucose (FPG) means nothing to eat or drink in the last 4 hours.",
+    "A FPG of 160 mg/dL and an A1c of 6.6% is diagnostic.",
+    "A postprandial plasma glucose (PPG) of more than 200 mg/dL is diagnostic."
+   ]
+  },
+  {
+   "stem": "Each of these patients has an A1c goal of 7% or less. Which patient would benefit most from an A1c adjustment?",
+   "options": [
+    "An older patient who has been controlled on their oral medications for 5 years",
+    "A patient with advanced CVD who has frequent episodes of hypoglycemia",
+    "A medically complex patient whose HbA1c is stable at 6.9% on the current regimen",
+    "An adult who is well controlled on oral meds but has been diagnosed with early Alzheimer's disease Blood Glucose Goals ADA Recommendations - Fasting blood glucose - Healthy patients: - 80-130 mg/dL - Frail patients: - Less stringent - Postprandial glucose - 2 hours after a meal - <180 mg/dL - Continuous glucose monitoring Estimated Average Glucose | A1c | Estimated Average Blood Glucose (mg/dL) | Blood Glucose Range (mg/dL) | |-------|-------------------------------------------|-------------------------------| | 5% | 97 | (76-120) | | 6% | 126 | (100-152) | | 7% | 154 | (123-185) | | 8% | 183 | (147-217) | | 9% | 212 | (170-249) | | 10% | 240 | (193-282) | | 11% | 269 | (217-314) | | 12% | 298 | (240-317) | Diabetes Monitoring | Measure | Frequency | Comments | |---------------------|------------------------------------------------|---------------------------------------------------------------------------------------------| | A1c | Every 3 months until goal; then every 6 months | · The better the control, the better the reduction in micro and macrovascular complications | | Lipids | At diagnosis and annually | · Establish cardiovascular risk (ASCVD). · Initiate statin based on risk. · See next slide. | | Height, weight, BMI | Every visit | · Lifestyle modifications to reduce weight | | Blood pressure | Every visit | · Target BP ≤130/80 mm Hg · Consider ACE/ARB in patients with proteinuria or CAD. | ASCVD Prevention With Diabetes In addition to lifestyle modification NOTES NOTES Type 2 DM Monitoring: Complications/Comorbidities | Monitor | Frequency | Comments | |----------------------------------------------------------|------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------| | Dilated eye exam | Annually at onset | Encourage patient to bring copy of report to PCP appointment. | | Creatinine, eGFR, spot urine albumin-to-creatinine ratio | At diagnosis, annually | If established CKD: may check more frequently | | LFTs, CBC | At diagnosis, annually | More often for specific drugs | | Foot exam | Initial visit, annually; more often if peripheral vascular disease (PVD) or neuropathy present | Visual inspection; palpation of pedal pulses; assessment of sensation (vibration, temperature, or pinprick) and monofilament exam | TYPE 2 DIABETES Let's take care of some patients!"
+   ]
+  },
+  {
+   "stem": "Ms. Q is a 44-year-old Hispanic American female with a BMI of 31. A velvety discoloration is noted around the patient's neck. What is this called? What labs should be ordered? QUESTION #4 Based on the patient's lab results, what is the next best step? | Lab | Result | Normal Range |",
+   "options": []
+  },
+  {
+   "stem": "A patient with newly diagnosed diabetes has a BMI of 38 but no other comorbidities. Which option would be least appropriate as initial therapy for this patient?",
+   "options": [
+    "Metformin",
+    "Tirzepatide",
+    "Semaglutide",
+    "Glipizide QUESTION #6 The NP considers prescribing metformin for a patient with newly diagnosed type 2 DM. A different medication should be selected if the patient has which lab result?",
+    "Decreased eGFR of 42 mL/min",
+    "Elevated alkaline phosphatase level or 152 IU/L"
+   ]
+  },
+  {
+   "stem": "· Caution in liver, renal disease Which statement about GLP-1 receptor agonists is true?",
+   "options": [
+    "GLP-1 agonists are only available as subcutaneous injections.",
+    "Dizziness and hypoglycemia are the most common side effects.",
+    "Patients who lose weight on GLP-1 agonists may regain weight if they stop the medication.",
+    "These medications are not recommended in patients with an increased ASCVD risk."
+   ]
+  },
+  {
+   "stem": "A 78-year-old patient has diabetes, obesity, and heart failure. The patient takes metformin and metoprolol daily but A1c remains above goal at 8.3%. Which medication would be appropriate to add in this patient?",
+   "options": [
+    "Rosiglitazone (Avandia)",
+    "Glipizide (Glucotrol)",
+    "Dapagliflozin (Farxiga)",
+    "Regular insulin at meals NOTES NOTES QUESTION #9 A patient takes an SGLT-2, a GLP-1, and metformin but is still not to their A1c goal. Which of the options is a reasonable next step?",
+    "Add meal-time insulin to the current regimen.",
+    "Add basal insulin and discontinue metformin."
+   ]
+  },
+  {
+   "stem": "A 45-year-old patient is taking Levemir 10 units at night and recorded the following FBG readings. How should the patient adjust their basal insulin? | Day | FBG | |-------|-----------| | 1 | 150 mg/dL | | 2 | 144 mg/dL | | 3 | 156 mg/dL |",
+   "options": [
+    "Decrease the dose by 2 units.",
+    "Continue the same dose.",
+    "Increase the dose by 3 units.",
+    "Add 3 units of am insulin to current regimen."
+   ]
+  },
+  {
+   "stem": "A patient takes 40 units of basal insulin and has an average FBG of 110 mg/dL. The patient's postprandial glucose is over 200 mg/dL. Mealtime insulin will be prescribed. Which choice is most appropriate?",
+   "options": [
+    "Add 2 units of basal insulin with the largest meal of the day.",
+    "Add 2 units rapid-acting insulin with the largest meal of the day.",
+    "Add 4 units basal insulin with every meal.",
+    "Add 4 units rapid-acting insulin with the largest meal of the day."
+   ]
+  },
+  {
+   "stem": "Mrs. B, age 42, reports fatigue and weight gain. Her TSH level is elevated to 7 mIU/L (normal: 0.5-4.0 mIU/L). T4 level is normal. Based on these results, what is the diagnosis and best action by the NP?",
+   "options": [
+    "Hypothyroidism; initiate levothyroxine",
+    "Subclinical hypothyroidism; repeat the TSH in 6-12 months.",
+    "Subclinical hypothyroidism; initiate levothyroxine",
+    "Subclinical hypothyroidism; initiate Armour Thyroid QUESTION #13 Mrs. B, age 42, returns for follow-up in a year with these lab values. What should be done next?"
+   ]
+  },
+  {
+   "stem": "The following patients have primary hypothyroidism. What initial levothyroxine dose should be prescribed in each patient? | Patient | Calculated Dose | Starting Dose | |----------------------------|-------------------|-----------------| | 55-year-old with OA | 87 mcg | | | 72-year-old with HTN | 112 mcg | | | 28-year-old with asthma | 116 mcg | |",
+   "options": []
+  },
+  {
+   "stem": "A patient has taken 88 mcg of levothyroxine daily for the past 6 weeks. The patient's TSH has decreased from 28 mIU/L to 8 mIU/L and the patient feels much better. What should be done next?",
+   "options": [
+    "Continue current levothyroxine dose and recheck TSH in 6 months.",
+    "Order a free T4 level to inform decision-making.",
+    "Increase levothyroxine dose and recheck TSH in 4-6 weeks.",
+    "Prescribe combination T3/T4 therapy."
+   ]
+  },
+  {
+   "stem": "Rare condition presenting with fatigue, weight loss, hyperpigmentation, postural hypotension QUESTION #17 Condition caused by excess cortisol production by the adrenal gland tumor NOTES NOTES Which Endocrine Condition? QUESTION #18",
+   "options": []
+  },
+  {
+   "stem": "Presents with round (\"moon\") face, wide purple striae, easy bruising, history of long-term prednisone use Uncommon Endocrine Conditions | Disorder | Typical Presentation | Pathophysiology | Management | |-------------------------------------------|---------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|--------------------------------------------------| | Addison's disease (Adrenal Insufficiency) | Fatigue, vomiting, weight loss, skin, postural hypotension | Inadequate cortisol, aldosterone, androgens production | Corticosteroid, fludrocortisone supplements | | Cushing disease | Moon face, buffalo hump, central adiposity, striae | Excess cortisol production by adrenal tumor | Surgery to remove adrenal tumor, radiation, meds |",
+   "options": []
+  }
+ ],
+ "quality": {
+  "tables": 22,
+  "tips": 7,
+  "questions": 13,
+  "rows": 81
+ }
+}
